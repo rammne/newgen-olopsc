@@ -1,14 +1,32 @@
-### New Gen Monorepo
+# New Gen Monorepo
 
 This project is a Headless Hybrid Monorepo designed for the OLOPSC official website. It decouples content management from the presentation layer to ensure high performance, security, and scalability.
 
-# Tech Stack
-- ## Architecture: Monorepo (NPM Workspaces + TurboRepo)
+## Tech Stack
+- ### Architecture: Monorepo (NPM Workspaces + TurboRepo)
 
- - ## Frontend (Web): AstroJS (SSG) + React (Islands) + TailwindCSS
+ - ### Frontend (Web): AstroJS (SSG) + React (Islands) + TailwindCSS
 
-- ## Content (CMS): Sanity.io (Headless CMS)
+- ### Content (CMS): Sanity.io (Headless CMS)
 
-- ## Styling: Shadcn UI + TailwindCSS
+- ### Styling: Shadcn UI + TailwindCSS
 
-- ## Deployment: Dockerized Static Site (Nginx) via Coolify
+- ### Deployment: Dockerized Static Site (Nginx) via Coolify
+
+# Project Structure
+## We use a Monorepo strategy to manage both the Website and the CMS in a single repository
+
+```
+/olopsc-monorepo
+├── package.json          # Root "Headquarters" (Manages workspaces & scripts)
+├── turbo.json            # Build pipeline configuration
+├── apps/
+│   ├── web/              # 🚀 The Astro Frontend (Static Site)
+│   │   ├── src/pages     # File-based Routing (Maps 1:1 to URL)
+│   │   ├── src/lib       # Sanity Client & Data Fetching logic
+│   │   └── astro.config  # Astro Configuration
+│   │
+│   └── studio/           # 🧠 The Sanity CMS (Admin Dashboard)
+│       ├── schemaTypes   # Content Models (Courses, News, Teachers)
+│       └── sanity.config # CMS Configuration
+```
