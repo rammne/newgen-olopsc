@@ -1,3 +1,5 @@
+# SANITY SETUP NOT YET FINISHED. USE HARD CODED DATA FIRST FOR THE FRONTEND.
+
 # New Gen Monorepo
 
 This project is a Headless Hybrid Monorepo designed for the OLOPSC official website. It decouples content management from the presentation layer to ensure high performance, security, and scalability.
@@ -30,3 +32,8 @@ This project is a Headless Hybrid Monorepo designed for the OLOPSC official webs
 │       ├── schemaTypes   # Content Models (Courses, News, Teachers)
 │       └── sanity.config # CMS Configuration
 ```
+- ### Shared Linting & Tooling: We install tools like prettier and turbo once at the root.
+
+- ### Unified Dev Server: Running npm run dev starts both the Website (localhost:4321) and the CMS (localhost:3333) simultaneously.
+
+- ### Atomic Deploys: Changes to Content Models and Frontend Components are committed together, preventing sync issues.
