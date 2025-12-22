@@ -1,0 +1,21 @@
+---
+// apps/web/src/pages/college-department/[slug].astro
+import Layout from '../../layouts/Layout.astro';
+
+// 1. REQUIRED: Tell Astro what paths to generate
+export async function getStaticPaths() {
+  // meaningful-slug is just a placeholder so the page builds
+  return [
+    { params: { slug: 'bs-computer-science' } }, 
+    { params: { slug: 'bs-information-technology' } }
+  ];
+}
+
+// 2. Get the current slug
+const { slug } = Astro.params;
+---
+
+<Layout title={slug}>
+  <h1>Course: {slug}</h1>
+  <p>This is a placeholder page for the {slug} course.</p>
+</Layout>

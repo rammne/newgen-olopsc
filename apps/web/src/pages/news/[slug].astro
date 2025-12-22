@@ -1,0 +1,21 @@
+---
+// apps/web/src/pages/news/[slug].astro
+import Layout from '../../layouts/Layout.astro';
+
+// 1. REQUIRED: Tell Astro what paths to generate
+export async function getStaticPaths() {
+  // meaningful-slug is just a placeholder so the page builds
+  return [
+    { params: { slug: 'test-news1' } }, 
+    { params: { slug: 'test-news2' } }
+  ];
+}
+
+// 2. Get the current slug
+const { slug } = Astro.params;
+---
+
+<Layout title={slug}>
+  <h1>News: {slug}</h1>
+  <p>This is a placeholder page for the {slug} news.</p>
+</Layout>
