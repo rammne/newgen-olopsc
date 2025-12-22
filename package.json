@@ -1,21 +1,21 @@
 {
     "name": "newgen-olopsc",
-    "private": true, 
+    "private": true,
     "packageManager": "npm@10.8.2",
     "scripts": {
-      "build": "turbo run build",
-      "build:web": "turbo run build",
-      "dev": "turbo run dev",
-      "lint": "turbo run lint",
-      "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "build": "turbo run build",
+        "dev": "turbo run dev",
+        "lint": "turbo run lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\""
     },
-      "devDependencies": {
-        "turbo": "^2.0.0",
+    "devDependencies": {
+        "@types/node": "^20.0.0",
         "prettier": "^3.0.0",
-        "typescript": "^5.8",
-        "@types/node": "^20.0.0"
-      },
+        "turbo": "^2.7.1",
+        "typescript": "^5.8"
+    },
     "workspaces": [
-      "apps/*"
+        "apps/*",
+        "packages/*"
     ]
-  }
+}
