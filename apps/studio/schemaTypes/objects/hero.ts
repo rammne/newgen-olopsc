@@ -1,0 +1,111 @@
+import {defineField, defineType} from 'sanity'
+
+export const hero = defineType({
+  name: 'hero',
+  title: 'Hero Section',
+  type: 'object',
+  fields: [
+    defineField({
+      name: 'variant',
+      title: 'Hero Variant',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Full Width Image', value: 'fullWidth'},
+          {title: 'Split Content', value: 'split'},
+          {title: 'Centered', value: 'centered'},
+          {title: 'Video Background', value: 'video'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'fullWidth',
+    }),
+    defineField({
+      name: 'headline',
+      title: 'Headline',
+      type: 'string',
+      description: 'Main headline (H1)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'subheadline',
+      title: 'Subheadline',
+      type: 'text',
+      description: 'Supporting text below headline',
+      rows: 3,
+    }),
+    defineField({
+      name: 'backgroundImage',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      hidden: ({parent}) => parent?.variant === 'video',
+    }),
+    defineField({
+      name: 'backgroundVideo',
+      title: 'Background Video URL',
+      type: 'url',
+      description: 'URL to video file (MP4, WebM) or YouTube/Vimeo embed URL',
+      hidden: ({parent}) => parent?.variant !== 'video',
+    }),
+    defineField({
+      name: 'overlay',
+      title: 'Overlay',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'enabled',
+          title: 'Enable Overlay',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'opacity',
+          title: 'Overlay Opacity',
+          type: 'number',
+          description: '0-100 (0 = transparent, 100 = opaque)',
+          initialValue: 50,
+          validation: (Rule) => Rule.min(0).max(100),
+        }),
+        defineField({
+          name: 'color',
+          title: 'Overlay Color',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Black', value: 'black'},
+              {title: 'White', value: 'white'},
+              {title: 'Primary', value: 'primary'},
+            ],
+          },
+          initialValue: 'black',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'cta',
+      title: 'Call-to-Action',
+      type: 'cta',
+    }),
+    defineField({
+      name: 'secondaryCta',
+      title: 'Secondary CTA',
+      type: 'cta',
+    }),
+  ],
+  preview: {
+    select: {
+      headline: 'headline',
+      variant: 'variant',
+    },
+    prepare({headline, variant}) {
+      return {
+        title: headline || 'Hero Section',
+        subtitle: variant || 'fullWidth',
+      }
+    },
+  },
+})
+

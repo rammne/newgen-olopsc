@@ -1,0 +1,57 @@
+---
+interface Props {
+  name: string
+  size?: number | string
+  class?: string
+  strokeWidth?: number
+  color?: string
+}
+
+const {
+  name,
+  size = 24,
+  class: className = '',
+  strokeWidth = 2,
+  color,
+} = Astro.props
+
+// Convert kebab-case to PascalCase for icon names
+const iconName = name
+  .split('-')
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join('')
+
+// Dynamically import the icon from lucide-astro
+let IconComponent: any = null
+
+try {
+  // Try importing from lucide-astro
+  const iconModule = await import(`lucide-astro/dist/esm/icons/${iconName}.js`)
+  IconComponent = iconModule.default || iconModule[iconName]
+} catch (e) {
+  try {
+    // Fallback: try direct import
+    const iconModule = await import(`lucide-astro/${iconName}`)
+    IconComponent = iconModule.default || iconModule[iconName]
+  } catch (e2) {
+    console.warn(`Icon "${name}" (${iconName}) not found in lucide-astro`)
+  }
+}
+
+const style = color ? `color: ${color};` : ''
+const sizeValue = typeof size === 'number' ? `${size}px` : size
+---
+
+{IconComponent ? (
+  <IconComponent
+    size={sizeValue}
+    class={className}
+    stroke-width={strokeWidth}
+    style={style}
+  />
+) : (
+  <span class={className} style={`width: ${sizeValue}; height: ${sizeValue}; display: inline-block;`}>
+    {/* Fallback for missing icon */}
+  </span>
+)}
+
