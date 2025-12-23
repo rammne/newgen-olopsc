@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   {label: 'About OLOPSC', href: '/about'},
   {label: 'Admissions', href: '/admissions'},
   {label: 'Academics', href: '/academics'},
+  {label: 'Our SDG Commitments', href: '/sdg-commitments'},
 ]
 
 const MENU_ITEMS = [
@@ -41,7 +42,7 @@ export function Header() {
 
   return (
     <header className={`${baseClasses} ${backgroundClasses} ${heightClasses}`}>
-      <div className="mx-auto flex max-w-6xl items-center justify-evenly px-5 sm:px-[60px]">
+      <div className="mx-auto flex w-full items-center justify-evenly px-5 sm:px-[60px]">
         {/* Logo + wordmark */}
         <a href="/" className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-full bg-[var(--color-neutral)]/90 shadow-md" />
