@@ -168,6 +168,15 @@ Apply padding consistently across all sections (except Hero):
   - Accent: `--color-accent` (#ffa600)
   - Neutral: `--color-neutral` (#e4e4e4)
 
+### Color Distribution (60-30-10 Rule)
+- **MUST** follow the 60-30-10 color distribution rule for all designs:
+  - **60% Neutral** (`--color-neutral` / #e4e4e4): Use for backgrounds, large areas, and base elements
+  - **30% Primary** (`--color-primary` / #0a095f): Use for headings, key text, borders, and important UI elements
+  - **10% Accent/CTA** (`--color-accent` / #ffa600): Use sparingly for call-to-action buttons, highlights, and emphasis
+- This creates visual balance and guides user attention effectively.
+- Apply this rule at the section level and page level for consistency.
+- Neutral colors should dominate the visual space, primary color provides structure, and accent color draws attention to actions.
+
 ### School Website Context
 - Prioritize clarity and ease of navigation.
 - Make information easily accessible (academic programs, admissions, contact info).
@@ -301,6 +310,8 @@ export function AnimatedCard() {
 - [ ] Padding matches specifications (20px/40px mobile, 60px/100px desktop)
 - [ ] Typography uses predefined styles from global.css
 - [ ] Buttons use `.btn-primary` or `.btn-secondary`
+- [ ] Color distribution follows 60-30-10 rule (60% neutral, 30% primary, 10% accent)
+- [ ] Colors match global.css definitions exactly
 - [ ] Animations are smooth and purposeful
 - [ ] Icons are from Lucide
 - [ ] Design feels premium and trustworthy
