@@ -1,0 +1,71 @@
+---
+interface Props {
+  testimonials: {
+    title?: string
+    testimonials?: Array<{
+      quote?: string
+      author?: {
+        name?: string
+        role?: string
+        image?: {
+          asset?: {
+            url?: string
+          }
+          alt?: string
+        }
+        company?: string
+      }
+      rating?: number
+    }>
+  }
+}
+
+const {testimonials: testimonialsData} = Astro.props
+---
+
+{testimonialsData && testimonialsData.testimonials && testimonialsData.testimonials.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+    <div class="container mx-auto">
+      {testimonialsData.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+          {testimonialsData.title}
+        </h2>
+      )}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {testimonialsData.testimonials.map((testimonial) => (
+          <div class="bg-[var(--color-neutral)] p-6 rounded-lg">
+            {testimonial.rating && (
+              <div class="mb-4 text-[var(--color-accent)]">
+                {'★'.repeat(testimonial.rating)}
+              </div>
+            )}
+            <blockquote class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6 italic">
+              "{testimonial.quote}"
+            </blockquote>
+            <div class="flex items-center gap-4">
+              {testimonial.author?.image?.asset?.url && (
+                <img
+                  src={testimonial.author.image.asset.url}
+                  alt={testimonial.author.image.alt || testimonial.author.name || ''}
+                  class="w-12 h-12 rounded-full object-cover"
+                />
+              )}
+              <div>
+                <p class="font-semibold text-[var(--color-primary)]">
+                  {testimonial.author?.name}
+                </p>
+                {testimonial.author?.role && (
+                  <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">
+                    {testimonial.author.role}
+                    {testimonial.author.company && `, ${testimonial.author.company}`}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+

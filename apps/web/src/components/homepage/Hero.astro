@@ -1,0 +1,139 @@
+---
+import {resolveCtaLink} from '../../lib/utils/sanity'
+import {normalizeVideoEmbedUrl} from '../../lib/utility'
+import olopscLogo from '../../assets/olopsc-logo.jpg'
+
+interface Props {
+  hero: {
+    variant?: string
+    headline?: string
+    subheadline?: string
+    backgroundImage?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    backgroundVideoSource?: 'file' | 'url' | 'embed'
+    backgroundVideoFile?: {
+      asset?: {
+        url?: string
+      }
+    }
+    backgroundVideoUrl?: string
+    backgroundVideoEmbed?: string
+    overlay?: {
+      enabled?: boolean
+      opacity?: number
+      color?: string
+    }
+    cta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+    secondaryCta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+  }
+}
+
+const {hero} = Astro.props
+const imageUrl = hero.backgroundImage?.asset?.url || ''
+const overlayOpacity = hero.overlay?.enabled ? (hero.overlay.opacity || 50) / 100 : 0
+const overlayColor = hero.overlay?.color || 'black'
+const overlayClass = overlayColor === 'primary' ? 'bg-[var(--color-primary)]' : overlayColor === 'white' ? 'bg-white' : 'bg-black'
+
+// Resolve video source based on hero config
+const videoSourceType = hero.backgroundVideoSource || 'embed'
+const uploadedVideoUrl = hero.backgroundVideoFile?.asset?.url
+const directVideoUrl = hero.backgroundVideoUrl
+const rawEmbedUrl = hero.backgroundVideoEmbed
+const embedUrl = normalizeVideoEmbedUrl(rawEmbedUrl)
+
+function getVideoUrl() {
+  if (videoSourceType === 'file' && uploadedVideoUrl) return uploadedVideoUrl
+  if (videoSourceType === 'url' && directVideoUrl) return directVideoUrl
+  return null
+}
+
+const videoUrl = getVideoUrl()
+---
+
+<section class="h-screen relative flex items-center justify-center overflow-hidden">
+  {videoUrl ? (
+    <video
+      class="absolute inset-0 w-full h-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src={videoUrl} type="video/mp4" />
+    </video>
+  ) : embedUrl ? (
+    <iframe
+      src={embedUrl}
+      class="absolute inset-0 w-full h-full object-cover"
+      allow="autoplay; fullscreen; muted"
+      loading="lazy"
+      frameborder="0"
+    ></iframe>
+  ) : imageUrl ? (
+    <img
+      src={imageUrl}
+      alt={hero.backgroundImage?.alt || ''}
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+  ) : null}
+  
+  {overlayOpacity > 0 && (
+    <div
+      class={`absolute inset-0 ${overlayClass}`}
+      style={`opacity: ${overlayOpacity}`}
+    ></div>
+  )}
+
+  <div class="relative z-10 container mx-auto px-5 sm:px-[60px] text-center flex flex-col items-center justify-center gap-4">
+    <img
+      src={olopscLogo.src}
+      alt="Our Lady of Perpetual Succor College logo"
+      class="h-16 w-16 sm:h-20 sm:w-20 rounded-full border border-white/60 bg-white/90 p-1 shadow-lg hero-logo-pop"
+    />
+    <h1 class="text-hero-header-mobile sm:text-hero-header-desktop text-white mb-3 max-w-xl hero-fade-up hero-fade-up-delay-1">
+      {hero.headline || 'Welcome to Our School'}
+    </h1>
+    {hero.subheadline && (
+      <p class="text-main-mobile sm:text-main-desktop text-white mb-6 max-w-2xl mx-auto hero-fade-up hero-fade-up-delay-2">
+        {hero.subheadline}
+      </p>
+    )}
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-up hero-fade-up-delay-3">
+      {hero.cta && (
+        <a
+          href={resolveCtaLink(hero.cta)}
+          class={hero.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+          target={hero.cta.openInNewTab ? '_blank' : undefined}
+          rel={hero.cta.openInNewTab ? 'noopener noreferrer' : undefined}
+        >
+          {hero.cta.text}
+        </a>
+      )}
+      {hero.secondaryCta && (
+        <a
+          href={resolveCtaLink(hero.secondaryCta)}
+          class={hero.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}
+          target={hero.secondaryCta.openInNewTab ? '_blank' : undefined}
+          rel={hero.secondaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
+        >
+          {hero.secondaryCta.text}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+

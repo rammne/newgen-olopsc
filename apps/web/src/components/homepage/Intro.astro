@@ -1,0 +1,112 @@
+---
+interface Props {
+  intro: {
+    headline?: string
+    subheadline?: string
+    content?: any[]
+    image?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    video?: {
+      url?: string
+      provider?: string
+      embedId?: string
+    }
+  }
+}
+
+const {intro} = Astro.props
+---
+
+<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
+  <div class="container mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div>
+        {intro.headline && (
+          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-neutral)] mb-4">
+            {intro.headline}
+          </h2>
+        )}
+        {intro.subheadline && (
+          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-neutral)] mb-6">
+            {intro.subheadline}
+          </p>
+        )}
+        {intro.content && intro.content.length > 0 && (
+          <div class="prose prose-lg max-w-none">
+            {intro.content.map((block: any) => {
+              if (block._type === 'block') {
+                const style = block.style || 'normal'
+                const Tag = style === 'h1' ? 'h1' : style === 'h2' ? 'h2' : style === 'h3' ? 'h3' : style === 'h4' ? 'h4' : style === 'blockquote' ? 'blockquote' : 'p'
+                
+                // Build HTML content from children
+                let htmlContent = ''
+                block.children?.forEach((child: any) => {
+                  let text = child.text || ''
+                  
+                  // Apply marks
+                  if (child.marks && child.marks.length > 0) {
+                    child.marks.forEach((mark: any) => {
+                      if (typeof mark === 'string') {
+                        if (mark === 'strong') {
+                          text = `<strong>${text}</strong>`
+                        } else if (mark === 'em') {
+                          text = `<em>${text}</em>`
+                        } else if (mark === 'underline') {
+                          text = `<u>${text}</u>`
+                        }
+                      } else if (mark?._type === 'link') {
+                        const target = mark.openInNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''
+                        text = `<a href="${mark.href || '#'}" class="text-[var(--color-accent)] hover:underline"${target}>${text}</a>`
+                      }
+                    })
+                  }
+                  
+                  htmlContent += text
+                })
+                
+                return (
+                  <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-neutral)] mb-4" set:html={htmlContent} />
+                )
+              }
+              if (block._type === 'image' && block.asset) {
+                return (
+                  <img
+                    src={block.asset.url || ''}
+                    alt={block.alt || ''}
+                    class="w-full h-auto rounded-lg my-4"
+                  />
+                )
+              }
+              return null
+            })}
+          </div>
+        )}
+      </div>
+      <div>
+        {intro.video?.url ? (
+          <div class="aspect-video rounded-lg shadow-xl ring-1 ring-white/15 overflow-hidden">
+            <iframe
+              src={intro.video.url}
+              class="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        ) : intro.image?.asset?.url ? (
+          <div class="rounded-lg shadow-xl ring-1 ring-white/15 overflow-hidden">
+            <img
+              src={intro.image.asset.url}
+              alt={intro.image.alt || ''}
+              class="w-full h-auto"
+            />
+          </div>
+        ) : null}
+      </div>
+    </div>
+  </div>
+</section>
+

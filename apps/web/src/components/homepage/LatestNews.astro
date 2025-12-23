@@ -1,0 +1,97 @@
+---
+import {resolveCtaLink, getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+
+interface Props {
+  latestNews: {
+    title?: string
+    count?: number
+    cta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+  }
+  newsArticles: Array<{
+    _id?: string
+    title?: string
+    slug?: {
+      current?: string
+    }
+    publishedAt?: string
+    featuredImage?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    excerpt?: string
+    category?: string
+  }>
+}
+
+const {latestNews, newsArticles} = Astro.props
+---
+
+{latestNews && newsArticles && newsArticles.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+    <div class="container mx-auto">
+      {latestNews.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+          {latestNews.title}
+        </h2>
+      )}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {newsArticles.map((article) => (
+          <a
+            href={`/news/${article.slug?.current || ''}`}
+            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+          >
+            {article.featuredImage?.asset?.url && (
+              <div class="aspect-video overflow-hidden">
+                <img
+                  src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                  alt={article.featuredImage.alt || article.title || ''}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              {article.category && (
+                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-2 block">
+                  {article.category}
+                </span>
+              )}
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                {article.title}
+              </h3>
+              {article.excerpt && (
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
+                  {article.excerpt}
+                </p>
+              )}
+              {article.publishedAt && (
+                <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
+                  {formatDate(article.publishedAt)}
+                </p>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+      {latestNews.cta && (
+        <div class="text-center">
+          <a
+            href={resolveCtaLink(latestNews.cta)}
+            class={latestNews.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+            target={latestNews.cta.openInNewTab ? '_blank' : undefined}
+            rel={latestNews.cta.openInNewTab ? 'noopener noreferrer' : undefined}
+          >
+            {latestNews.cta.text}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+

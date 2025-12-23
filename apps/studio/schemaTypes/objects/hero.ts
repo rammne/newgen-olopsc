@@ -44,11 +44,43 @@ export const hero = defineType({
       hidden: ({parent}) => parent?.variant === 'video',
     }),
     defineField({
-      name: 'backgroundVideo',
+      name: 'backgroundVideoSource',
+      title: 'Background Video Source',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Uploaded File', value: 'file'},
+          {title: 'External URL (MP4/WebM)', value: 'url'},
+          {title: 'YouTube / Vimeo URL', value: 'embed'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'embed',
+      hidden: ({parent}) => parent?.variant !== 'video',
+    }),
+    defineField({
+      name: 'backgroundVideoFile',
+      title: 'Background Video File',
+      type: 'file',
+      description: 'Upload an MP4/WebM file to use as background video',
+      options: {
+        accept: 'video/mp4,video/webm',
+      },
+      hidden: ({parent}) => parent?.variant !== 'video' || parent?.backgroundVideoSource !== 'file',
+    }),
+    defineField({
+      name: 'backgroundVideoUrl',
       title: 'Background Video URL',
       type: 'url',
-      description: 'URL to video file (MP4, WebM) or YouTube/Vimeo embed URL',
-      hidden: ({parent}) => parent?.variant !== 'video',
+      description: 'Direct MP4/WebM URL',
+      hidden: ({parent}) => parent?.variant !== 'video' || parent?.backgroundVideoSource !== 'url',
+    }),
+    defineField({
+      name: 'backgroundVideoEmbed',
+      title: 'YouTube/Vimeo URL',
+      type: 'url',
+      description: 'YouTube or Vimeo URL for embedded background video',
+      hidden: ({parent}) => parent?.variant !== 'video' || parent?.backgroundVideoSource !== 'embed',
     }),
     defineField({
       name: 'overlay',

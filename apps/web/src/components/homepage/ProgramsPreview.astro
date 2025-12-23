@@ -1,0 +1,90 @@
+---
+import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+
+interface Props {
+  programsPreview: {
+    title?: string
+    subtitle?: string
+    programs?: Array<{
+      _id?: string
+      title?: string
+      slug?: {
+        current?: string
+      }
+      description?: string
+      featuredImage?: {
+        asset?: {
+          url?: string
+        }
+        alt?: string
+      }
+    }>
+    cta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+  }
+}
+
+const {programsPreview} = Astro.props
+---
+
+{programsPreview && programsPreview.programs && programsPreview.programs.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+    <div class="container mx-auto">
+      {programsPreview.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
+          {programsPreview.title}
+        </h2>
+      )}
+      {programsPreview.subtitle && (
+        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-2xl mx-auto">
+          {programsPreview.subtitle}
+        </p>
+      )}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {programsPreview.programs.map((program) => (
+          <a
+            href={`/program/${program.slug?.current || ''}`}
+            class="bg-[var(--color-neutral)] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+          >
+            {program.featuredImage?.asset?.url && (
+              <div class="aspect-video overflow-hidden">
+                <img
+                  src={getSanityImageUrl(program.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                  alt={program.featuredImage.alt || program.title || ''}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                {program.title}
+              </h3>
+              {program.description && (
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                  {program.description}
+                </p>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+      {programsPreview.cta && (
+        <div class="text-center">
+          <a
+            href={resolveCtaLink(programsPreview.cta)}
+            class={programsPreview.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+            target={programsPreview.cta.openInNewTab ? '_blank' : undefined}
+            rel={programsPreview.cta.openInNewTab ? 'noopener noreferrer' : undefined}
+          >
+            {programsPreview.cta.text}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+

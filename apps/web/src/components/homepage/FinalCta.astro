@@ -1,0 +1,81 @@
+---
+import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+
+interface Props {
+  finalCta: {
+    headline?: string
+    subheadline?: string
+    primaryCta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+    secondaryCta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+    backgroundImage?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+  }
+}
+
+const {finalCta} = Astro.props
+const bgImageUrl = finalCta?.backgroundImage?.asset?.url
+---
+
+{finalCta && (
+  <section class="min-h-[60vh] relative px-5 py-10 sm:px-[60px] sm:py-[100px] flex items-center justify-center overflow-hidden">
+    {bgImageUrl && (
+      <>
+        <img
+          src={bgImageUrl}
+          alt={finalCta.backgroundImage?.alt || ''}
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-[var(--color-primary)] opacity-80"></div>
+      </>
+    )}
+    <div class="relative z-10 container mx-auto text-center">
+      {finalCta.headline && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
+          {finalCta.headline}
+        </h2>
+      )}
+      {finalCta.subheadline && (
+        <p class="text-main-mobile sm:text-main-desktop text-white mb-8 max-w-2xl mx-auto">
+          {finalCta.subheadline}
+        </p>
+      )}
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        {finalCta.primaryCta && (
+          <a
+            href={resolveCtaLink(finalCta.primaryCta)}
+            class={finalCta.primaryCta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+            target={finalCta.primaryCta.openInNewTab ? '_blank' : undefined}
+            rel={finalCta.primaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
+          >
+            {finalCta.primaryCta.text}
+          </a>
+        )}
+        {finalCta.secondaryCta && (
+          <a
+            href={resolveCtaLink(finalCta.secondaryCta)}
+            class={finalCta.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}
+            target={finalCta.secondaryCta.openInNewTab ? '_blank' : undefined}
+            rel={finalCta.secondaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
+          >
+            {finalCta.secondaryCta.text}
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+

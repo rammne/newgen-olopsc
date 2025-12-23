@@ -1,0 +1,97 @@
+---
+import {resolveCtaLink, getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+
+interface Props {
+  upcomingEvents: {
+    title?: string
+    count?: number
+    cta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
+  }
+  events: Array<{
+    _id?: string
+    title?: string
+    slug?: {
+      current?: string
+    }
+    date?: string
+    featuredImage?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    excerpt?: string
+    location?: string
+  }>
+}
+
+const {upcomingEvents, events} = Astro.props
+---
+
+{upcomingEvents && events && events.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+    <div class="container mx-auto">
+      {upcomingEvents.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+          {upcomingEvents.title}
+        </h2>
+      )}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {events.map((event) => (
+          <a
+            href={`/event/${event.slug?.current || ''}`}
+            class="bg-[var(--color-neutral)] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+          >
+            {event.featuredImage?.asset?.url && (
+              <div class="aspect-video overflow-hidden">
+                <img
+                  src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                  alt={event.featuredImage.alt || event.title || ''}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              {event.date && (
+                <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                  {formatDate(event.date)}
+                </p>
+              )}
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                {event.title}
+              </h3>
+              {event.location && (
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                  📍 {event.location}
+                </p>
+              )}
+              {event.excerpt && (
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                  {event.excerpt}
+                </p>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+      {upcomingEvents.cta && (
+        <div class="text-center">
+          <a
+            href={resolveCtaLink(upcomingEvents.cta)}
+            class={upcomingEvents.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+            target={upcomingEvents.cta.openInNewTab ? '_blank' : undefined}
+            rel={upcomingEvents.cta.openInNewTab ? 'noopener noreferrer' : undefined}
+          >
+            {upcomingEvents.cta.text}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+

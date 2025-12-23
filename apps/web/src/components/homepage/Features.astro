@@ -1,0 +1,62 @@
+---
+interface Props {
+  features: Array<{
+    icon?: string
+    image?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    title?: string
+    description?: string
+    link?: {
+      url?: string
+      text?: string
+    }
+  }>
+}
+
+const {features} = Astro.props
+---
+
+{features && features.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            {feature.image?.asset?.url ? (
+              <img
+                src={feature.image.asset.url}
+                alt={feature.image.alt || ''}
+                class="w-full h-48 object-cover rounded-lg mb-4"
+              />
+            ) : feature.icon ? (
+              <div class="text-5xl mb-4 text-center">{feature.icon}</div>
+            ) : null}
+            {feature.title && (
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
+                {feature.title}
+              </h3>
+            )}
+            {feature.description && (
+              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
+                {feature.description}
+              </p>
+            )}
+            {feature.link?.url && (
+              <a
+                href={feature.link.url}
+                class="text-[var(--color-accent)] font-semibold hover:underline"
+              >
+                {feature.link.text || 'Learn More'} →
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+

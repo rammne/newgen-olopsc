@@ -1,0 +1,68 @@
+---
+import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+
+interface Props {
+  academicDepartments: {
+    title?: string
+    subtitle?: string
+    departments?: Array<{
+      _id?: string
+      title?: string
+      slug?: {
+        current?: string
+      }
+      hero?: {
+        backgroundImage?: {
+          asset?: {
+            url?: string
+          }
+          alt?: string
+        }
+      }
+    }>
+  }
+}
+
+const {academicDepartments} = Astro.props
+---
+
+{academicDepartments && academicDepartments.departments && academicDepartments.departments.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+    <div class="container mx-auto">
+      {academicDepartments.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
+          {academicDepartments.title}
+        </h2>
+      )}
+      {academicDepartments.subtitle && (
+        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-2xl mx-auto">
+          {academicDepartments.subtitle}
+        </p>
+      )}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {academicDepartments.departments.map((dept) => (
+          <a
+            href={`/college-department/${dept.slug?.current || ''}`}
+            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+          >
+            {dept.hero?.backgroundImage?.asset?.url && (
+              <div class="aspect-video overflow-hidden">
+                <img
+                  src={getSanityImageUrl(dept.hero.backgroundImage, {width: 400, height: 300, fit: 'crop'})}
+                  alt={dept.hero.backgroundImage.alt || dept.title || ''}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                {dept.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+

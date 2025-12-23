@@ -1,11 +1,72 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/homepage/Hero.astro'
+import Intro from '../components/homepage/Intro.astro'
+import Stats from '../components/homepage/Stats.astro'
+import Features from '../components/homepage/Features.astro'
+import Testimonials from '../components/homepage/Testimonials.astro'
+import AcademicDepartments from '../components/homepage/AcademicDepartments.astro'
+import ProgramsPreview from '../components/homepage/ProgramsPreview.astro'
+import LatestNews from '../components/homepage/LatestNews.astro'
+import UpcomingEvents from '../components/homepage/UpcomingEvents.astro'
+import FinalCta from '../components/homepage/FinalCta.astro'
+import {getHomePage, getLatestNews, getUpcomingEvents} from '../lib/sanity/queries'
+import '../styles/global.css'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Fetch homepage data
+const homePage = await getHomePage()
+
+// Fetch latest news if needed
+let newsArticles = []
+if (homePage?.latestNews?.count) {
+  newsArticles = await getLatestNews(homePage.latestNews.count)
+}
+
+// Fetch upcoming events if needed
+let events = []
+if (homePage?.upcomingEvents?.count) {
+  events = await getUpcomingEvents(homePage.upcomingEvents.count)
+}
+
+// Set page title from SEO or default
+const pageTitle = homePage?.seo?.title || homePage?.title || 'Home'
+const pageDescription = homePage?.seo?.description || 'Welcome to Our School'
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={pageTitle} description={pageDescription}>
+  {homePage?.hero && <Hero hero={homePage.hero} />}
+  
+  {homePage?.intro && <Intro intro={homePage.intro} />}
+  
+  {homePage?.keyStats && homePage.keyStats.length > 0 && (
+    <Stats stats={homePage.keyStats} />
+  )}
+  
+  {homePage?.features && homePage.features.length > 0 && (
+    <Features features={homePage.features} />
+  )}
+  
+  {homePage?.academicDepartments && (
+    <AcademicDepartments academicDepartments={homePage.academicDepartments} />
+  )}
+  
+  {homePage?.programsPreview && (
+    <ProgramsPreview programsPreview={homePage.programsPreview} />
+  )}
+  
+  {homePage?.testimonials && (
+    <Testimonials testimonials={homePage.testimonials} />
+  )}
+  
+  {homePage?.latestNews && newsArticles.length > 0 && (
+    <LatestNews latestNews={homePage.latestNews} newsArticles={newsArticles} />
+  )}
+  
+  {homePage?.upcomingEvents && events.length > 0 && (
+    <UpcomingEvents upcomingEvents={homePage.upcomingEvents} events={events} />
+  )}
+  
+  {homePage?.finalCta && (
+    <FinalCta finalCta={homePage.finalCta} />
+  )}
 </Layout>
