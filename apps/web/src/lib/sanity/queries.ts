@@ -115,6 +115,7 @@ export async function getHomePage() {
         slug {
           current
         },
+        departmentType,
         hero {
           backgroundImage {
             asset->{

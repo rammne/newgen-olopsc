@@ -178,7 +178,7 @@ export function Footer() {
         <div className="mx-auto w-full px-5 py-6 sm:px-[60px]">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-white/70 sm:text-sm">
-              © {currentYear} Our Lady of Perpetual Succor College. All rights reserved.
+              © {currentYear} Our Lady of Perpetual Succor College. All rights reserved. | Website by <a href="https://www.rammne.com/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:text-[var(--color-accent)]">Rammne.</a>
             </p>
             <div className="flex flex-wrap items-center gap-4 text-xs text-white/70 sm:text-sm">
               <a

@@ -24,23 +24,22 @@ export const homePage = defineType({
       name: 'intro',
       title: 'Introduction Section',
       type: 'object',
-      description: 'Hook visitors with your story (INTEREST)',
+      description: 'Hook visitors with your story (INTEREST) - Keep it visual and concise!',
       fields: [
         defineField({
           name: 'headline',
           title: 'Headline',
           type: 'string',
+          description: 'Short, impactful headline',
+          validation: (Rule) => Rule.max(100),
         }),
         defineField({
           name: 'subheadline',
           title: 'Subheadline',
           type: 'text',
           rows: 2,
-        }),
-        defineField({
-          name: 'content',
-          title: 'Content',
-          type: 'portableText',
+          description: 'Brief subheadline (1-2 sentences max)',
+          validation: (Rule) => Rule.max(200),
         }),
         defineField({
           name: 'image',
@@ -49,11 +48,13 @@ export const homePage = defineType({
           options: {
             hotspot: true,
           },
+          description: 'Primary visual element',
         }),
         defineField({
           name: 'video',
           title: 'Video',
           type: 'videoEmbed',
+          description: 'Optional video to showcase the school',
         }),
       ],
     }),
@@ -241,11 +242,18 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'storyBlocks',
+      title: 'Visual Story Blocks',
+      type: 'array',
+      of: [{type: 'storyBlock'}],
+      description: 'Visual storytelling blocks - Use images, videos, and short captions to tell your story. Keep text minimal!',
+    }),
+    defineField({
       name: 'sections',
-      title: 'Additional Content Sections',
+      title: 'Additional Content Sections (Legacy)',
       type: 'array',
       of: [{type: 'section'}],
-      description: 'Flexible sections for storytelling',
+      description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
     }),
     defineField({
       name: 'seo',

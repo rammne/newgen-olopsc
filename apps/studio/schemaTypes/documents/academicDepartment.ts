@@ -47,16 +47,22 @@ export const academicDepartment = defineType({
       name: 'intro',
       title: 'Introduction Section',
       type: 'object',
+      description: 'Keep it visual and concise!',
       fields: [
         defineField({
           name: 'headline',
           title: 'Headline',
           type: 'string',
+          description: 'Short, impactful headline',
+          validation: (Rule) => Rule.max(100),
         }),
         defineField({
           name: 'content',
-          title: 'Content',
-          type: 'portableText',
+          title: 'Content (Brief)',
+          type: 'text',
+          rows: 3,
+          description: 'Short introduction - 2-3 sentences max',
+          validation: (Rule) => Rule.max(300),
         }),
         defineField({
           name: 'image',
@@ -65,14 +71,23 @@ export const academicDepartment = defineType({
           options: {
             hotspot: true,
           },
+          description: 'Primary visual element',
+        }),
+        defineField({
+          name: 'video',
+          title: 'Video',
+          type: 'videoEmbed',
+          description: 'Optional video to showcase the department',
         }),
       ],
     }),
     defineField({
       name: 'overview',
-      title: 'Overview',
-      type: 'portableText',
-      description: 'Main content describing the department',
+      title: 'Overview (Brief)',
+      type: 'text',
+      rows: 3,
+      description: 'Short overview - 2-3 sentences max. Use Story Blocks below for visual storytelling.',
+      validation: (Rule) => Rule.max(300),
     }),
     defineField({
       name: 'keyFeatures',
@@ -93,8 +108,20 @@ export const academicDepartment = defineType({
         }),
         defineField({
           name: 'description',
-          title: 'Description',
-          type: 'portableText',
+          title: 'Description (Brief)',
+          type: 'text',
+          rows: 2,
+          description: 'Short description - 1-2 sentences',
+          validation: (Rule) => Rule.max(200),
+        }),
+        defineField({
+          name: 'image',
+          title: 'Curriculum Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          description: 'Visual representation of the curriculum',
         }),
         defineField({
           name: 'highlights',
@@ -170,14 +197,25 @@ export const academicDepartment = defineType({
         }),
         defineField({
           name: 'content',
-          title: 'Content',
-          type: 'portableText',
+          title: 'Content (Brief)',
+          type: 'text',
+          rows: 2,
+          description: 'Keep it concise - 1-2 sentences',
+          validation: (Rule) => Rule.max(200),
         }),
         defineField({
           name: 'requirements',
           title: 'Requirements',
           type: 'array',
           of: [{type: 'string'}],
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
         }),
         defineField({
           name: 'cta',
@@ -187,11 +225,18 @@ export const academicDepartment = defineType({
       ],
     }),
     defineField({
+      name: 'storyBlocks',
+      title: 'Visual Story Blocks',
+      type: 'array',
+      of: [{type: 'storyBlock'}],
+      description: 'Visual storytelling blocks - Use images, videos, and short captions to tell your department story. Keep text minimal!',
+    }),
+    defineField({
       name: 'sections',
-      title: 'Additional Content Sections',
+      title: 'Additional Content Sections (Legacy)',
       type: 'array',
       of: [{type: 'section'}],
-      description: 'Flexible content sections for storytelling',
+      description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
     }),
     defineField({
       name: 'seo',

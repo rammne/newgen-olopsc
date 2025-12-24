@@ -10,6 +10,7 @@ import ProgramsPreview from '../components/homepage/ProgramsPreview.astro'
 import LatestNews from '../components/homepage/LatestNews.astro'
 import UpcomingEvents from '../components/homepage/UpcomingEvents.astro'
 import FinalCta from '../components/homepage/FinalCta.astro'
+import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
 import {getHomePage, getLatestNews, getUpcomingEvents} from '../lib/sanity/queries'
 import '../styles/global.css'
 
@@ -36,37 +37,57 @@ const pageDescription = homePage?.seo?.description || 'Welcome to Our School'
 <Layout title={pageTitle} description={pageDescription}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
   
-  {homePage?.intro && <Intro intro={homePage.intro} />}
-  
-  {homePage?.keyStats && homePage.keyStats.length > 0 && (
-    <Stats stats={homePage.keyStats} />
+  {homePage?.intro && (
+    <ScrollRevealWrapper direction="fade" delay={0.1}>
+      <Intro intro={homePage.intro} />
+    </ScrollRevealWrapper>
   )}
   
-  {homePage?.features && homePage.features.length > 0 && (
-    <Features features={homePage.features} />
+  {homePage?.keyStats && homePage.keyStats.length > 0 && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <Stats stats={homePage.keyStats} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.academicDepartments && (
-    <AcademicDepartments academicDepartments={homePage.academicDepartments} />
+    <ScrollRevealWrapper direction="up" delay={0.2}>
+      <AcademicDepartments academicDepartments={homePage.academicDepartments} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.programsPreview && (
-    <ProgramsPreview programsPreview={homePage.programsPreview} />
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <ProgramsPreview programsPreview={homePage.programsPreview} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.testimonials && (
-    <Testimonials testimonials={homePage.testimonials} />
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <Testimonials testimonials={homePage.testimonials} />
+    </ScrollRevealWrapper>
+  )}
+  
+  {homePage?.features && homePage.features.length > 0 && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <Features features={homePage.features} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.latestNews && newsArticles.length > 0 && (
-    <LatestNews latestNews={homePage.latestNews} newsArticles={newsArticles} />
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <LatestNews latestNews={homePage.latestNews} newsArticles={newsArticles} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.upcomingEvents && events.length > 0 && (
-    <UpcomingEvents upcomingEvents={homePage.upcomingEvents} events={events} />
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <UpcomingEvents upcomingEvents={homePage.upcomingEvents} events={events} />
+    </ScrollRevealWrapper>
   )}
   
   {homePage?.finalCta && (
-    <FinalCta finalCta={homePage.finalCta} />
+    <ScrollRevealWrapper direction="fade" delay={0.1}>
+      <FinalCta finalCta={homePage.finalCta} />
+    </ScrollRevealWrapper>
   )}
 </Layout>

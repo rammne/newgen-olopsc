@@ -15,6 +15,7 @@ import {contactInfo} from './objects/contactInfo'
 import {formField} from './objects/formField'
 import {socialLink} from './objects/socialLink'
 import {portableText} from './objects/portableText'
+import {storyBlock} from './objects/storyBlock'
 
 // Documents
 import {academicDepartment} from './documents/academicDepartment'
@@ -49,6 +50,7 @@ export const schemaTypes = [
   formField,
   socialLink,
   portableText,
+  storyBlock,
   // Documents
   academicDepartment,
   collegeProgram,

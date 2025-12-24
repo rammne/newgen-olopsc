@@ -23,7 +23,7 @@
 
 @theme {
     --text-hero-header-desktop: 48px; /* hero header text, applicable for all hero variants in academic departments */
-    --text-hero-header-mobile: 40px;
+    --text-hero-header-mobile: 32px;
     --text-section-header-desktop: 48px; /* section header text */
     --text-section-header-mobile: 32px;
     --text-card-title-desktop: 24px; /* card title text */
@@ -187,6 +187,48 @@
 
     .hero-fade-up-delay-3 {
         animation-delay: 360ms;
+    }
+
+    /* Academic departments cinematic cards */
+    .acad-card {
+        opacity: 0;
+        transform: translateY(32px) scale(0.97);
+        filter: blur(10px);
+        animation: acadCardIn 900ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+
+    .acad-card:nth-child(1) {
+        animation-delay: 120ms;
+    }
+    .acad-card:nth-child(2) {
+        animation-delay: 200ms;
+    }
+    .acad-card:nth-child(3) {
+        animation-delay: 280ms;
+    }
+    .acad-card:nth-child(4) {
+        animation-delay: 360ms;
+    }
+    .acad-card:nth-child(5) {
+        animation-delay: 440ms;
+    }
+}
+
+@keyframes acadCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.94);
+        filter: blur(12px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-4px) scale(1.01);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 

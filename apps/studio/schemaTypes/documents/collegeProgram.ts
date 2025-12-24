@@ -52,10 +52,11 @@ export const collegeProgram = defineType({
     }),
     defineField({
       name: 'overview',
-      title: 'Program Overview',
-      type: 'portableText',
-      description: 'Main description of the program',
-      validation: (Rule) => Rule.required(),
+      title: 'Program Overview (Brief)',
+      type: 'text',
+      description: 'Short overview - 2-3 sentences max. Use Story Blocks below for visual storytelling.',
+      rows: 3,
+      validation: (Rule) => Rule.max(300),
     }),
     defineField({
       name: 'duration',
@@ -81,14 +82,26 @@ export const collegeProgram = defineType({
         }),
         defineField({
           name: 'description',
-          title: 'Description',
-          type: 'portableText',
+          title: 'Description (Brief)',
+          type: 'text',
+          rows: 2,
+          description: 'Keep it short - 1-2 sentences',
+          validation: (Rule) => Rule.max(200),
         }),
         defineField({
           name: 'careers',
           title: 'Career Paths',
           type: 'array',
           of: [{type: 'string'}],
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          description: 'Visual element for career opportunities',
         }),
       ],
     }),
@@ -99,8 +112,20 @@ export const collegeProgram = defineType({
       fields: [
         defineField({
           name: 'description',
-          title: 'Description',
-          type: 'portableText',
+          title: 'Description (Brief)',
+          type: 'text',
+          rows: 2,
+          description: 'Short description - 1-2 sentences',
+          validation: (Rule) => Rule.max(200),
+        }),
+        defineField({
+          name: 'image',
+          title: 'Curriculum Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          description: 'Visual representation of the curriculum',
         }),
         defineField({
           name: 'courses',
@@ -153,8 +178,19 @@ export const collegeProgram = defineType({
         }),
         defineField({
           name: 'additionalInfo',
-          title: 'Additional Information',
-          type: 'portableText',
+          title: 'Additional Information (Brief)',
+          type: 'text',
+          rows: 2,
+          description: 'Keep it concise',
+          validation: (Rule) => Rule.max(200),
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
         }),
       ],
     }),
@@ -182,10 +218,18 @@ export const collegeProgram = defineType({
       type: 'gallery',
     }),
     defineField({
+      name: 'storyBlocks',
+      title: 'Visual Story Blocks',
+      type: 'array',
+      of: [{type: 'storyBlock'}],
+      description: 'Visual storytelling blocks - Use images, videos, and short captions to showcase the program. Keep text minimal!',
+    }),
+    defineField({
       name: 'sections',
-      title: 'Additional Content Sections',
+      title: 'Additional Content Sections (Legacy)',
       type: 'array',
       of: [{type: 'section'}],
+      description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
     }),
     defineField({
       name: 'cta',

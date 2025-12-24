@@ -11,6 +11,7 @@ interface Props {
       slug?: {
         current?: string
       }
+      departmentType?: 'preschool' | 'gradeSchool' | 'juniorHigh' | 'seniorHigh' | 'college'
       hero?: {
         backgroundImage?: {
           asset?: {
@@ -24,6 +25,14 @@ interface Props {
 }
 
 const {academicDepartments} = Astro.props
+
+const departmentTaglines: Record<string, string> = {
+  preschool: 'Joyful beginnings and playful discovery.',
+  gradeSchool: 'Strong foundations in a warm community.',
+  juniorHigh: 'Guided growth through the critical years.',
+  seniorHigh: 'Focused pathways for future-ready students.',
+  college: 'Professional programs for a competitive world.',
+}
 ---
 
 {academicDepartments && academicDepartments.departments && academicDepartments.departments.length > 0 && (
@@ -35,29 +44,33 @@ const {academicDepartments} = Astro.props
         </h2>
       )}
       {academicDepartments.subtitle && (
-        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-2xl mx-auto">
+        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-10 max-w-3xl mx-auto">
           {academicDepartments.subtitle}
         </p>
       )}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
         {academicDepartments.departments.map((dept) => (
           <a
-            href={`/college-department/${dept.slug?.current || ''}`}
-            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+            href={`/academic-departments/${dept.slug?.current || ''}`}
+            class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group"
           >
             {dept.hero?.backgroundImage?.asset?.url && (
               <div class="aspect-video overflow-hidden">
                 <img
                   src={getSanityImageUrl(dept.hero.backgroundImage, {width: 400, height: 300, fit: 'crop'})}
                   alt={dept.hero.backgroundImage.alt || dept.title || ''}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
                 />
               </div>
             )}
-            <div class="p-6">
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+            <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3">
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
                 {dept.title}
               </h3>
+              <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xs">
+                {departmentTaglines[dept.departmentType || '']}
+              </p>
+              <span class="mt-2 h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
             </div>
           </a>
         ))}

@@ -1,0 +1,31 @@
+---
+import {ScrollRevealSection} from './ScrollRevealSection'
+
+interface Props {
+  class?: string
+  delay?: number
+  direction?: 'up' | 'down' | 'left' | 'right' | 'fade'
+  duration?: number
+  distance?: number
+}
+
+const {
+  class: className = '',
+  delay = 0,
+  direction = 'up',
+  duration = 0.8,
+  distance = 60,
+} = Astro.props
+---
+
+<ScrollRevealSection
+  client:visible
+  className={className}
+  delay={delay}
+  direction={direction}
+  duration={duration}
+  distance={distance}
+>
+  <slot />
+</ScrollRevealSection>
+

@@ -18,6 +18,10 @@ Reusable content blocks that can be used across multiple document types:
 - **`imageWithCaption`** - Images with captions and alt text
 - **`videoEmbed`** - Video embeds (YouTube, Vimeo, direct)
 - **`section`** - Flexible content sections for storytelling
+- **`storyBlock`** - Visual storytelling blocks for modern, image/video-heavy pages
+  - Supports images, videos, image grids, split layouts
+  - Designed for minimal text, maximum visual impact
+  - Perfect for Home Page, Academic Departments, and College Programs
 - **`facultyMember`** - Faculty/staff member profiles
 - **`timeline`** - Timeline/milestone entries
 - **`gallery`** - Image galleries with multiple layouts
@@ -31,12 +35,16 @@ Reusable content blocks that can be used across multiple document types:
 #### Academic Content
 - **`academicDepartment`** - Academic departments (Preschool, Grade School, JHS, SHS, College)
   - Shared structure across all departments
-  - Hero, intro, curriculum, programs, faculty, testimonials, stats
+  - Hero, brief intro, visual story blocks, curriculum, programs, faculty, testimonials, stats
+  - **Visual-first approach**: Uses Story Blocks for visual storytelling with minimal text
+  - Text fields limited to 200-300 characters to encourage concise content
   - SEO optimized
 
 - **`collegeProgram`** - Individual college programs
-  - Program details, curriculum, career opportunities
+  - Brief program overview, visual story blocks, curriculum, career opportunities
   - Admission requirements, faculty, testimonials
+  - **Visual-first approach**: Uses Story Blocks for visual storytelling with minimal text
+  - Text fields limited to 200-300 characters to encourage concise content
   - SEO optimized
 
 #### Content
@@ -54,9 +62,10 @@ Reusable content blocks that can be used across multiple document types:
 
 - **`homePage`** - Homepage
   - Story-driven structure following AIDA framework
-  - Hero, intro, stats, departments preview, programs preview
+  - Hero, brief intro, visual story blocks, stats, departments preview, programs preview
   - Testimonials, latest news, upcoming events
   - Final CTA section
+  - **Visual-first approach**: Uses Story Blocks for visual storytelling with minimal text
 
 - **`aboutPage`** - About page
   - Mission, vision, values
@@ -95,11 +104,25 @@ Reusable content blocks that can be used across multiple document types:
 
 ## Content Structure Philosophy
 
+### Visual-First Storytelling (Modern School Website Standard)
+The schema follows a **visual-first, story-driven approach** for key pages:
+- **Home Page**: Visual story blocks with images/videos, minimal text
+- **Academic Departments**: Visual storytelling showcasing departments through photos and videos
+- **College Programs**: Visual program showcases with brief descriptions
+- **Less Words, More Visuals**: Text fields are limited (200-300 chars) to encourage concise, impactful content
+- **Story Blocks**: Flexible visual components (image grids, videos, split layouts) for modern presentation
+
+### Text-Heavy Pages (Informational)
+Some pages remain text-heavy for detailed information:
+- **About Page**: Detailed mission, vision, history, values
+- **Admissions Page**: Comprehensive admission process and requirements
+- **Scholarship Page**: Detailed scholarship information and eligibility
+
 ### Story-Driven Content
 The schema follows a story-driven approach, especially for:
-- **Homepage**: Uses AIDA framework (Attention → Interest → Desire → Action)
+- **Homepage**: Uses AIDA framework (Attention → Interest → Desire → Action) with visual story blocks
 - **About Page**: Tells the school's story through mission, vision, history
-- **Academic Departments**: Each department tells its unique story
+- **Academic Departments**: Each department tells its unique story through visual blocks
 
 ### SEO Optimization
 Every page and document includes:
@@ -129,16 +152,21 @@ Every page and document includes:
 3. Fill in:
    - Title and slug
    - Department type (Preschool, Grade School, etc.)
-   - Hero section
-   - Introduction
-   - Overview content
+   - Hero section (visual-first)
+   - Brief introduction (2-3 sentences max)
+   - Brief overview (2-3 sentences max)
+   - **Visual Story Blocks** - Add multiple story blocks with images/videos
+     - Use image grids, videos, split layouts
+     - Keep captions short (2-3 sentences)
    - Key features
-   - Curriculum information
+   - Curriculum information (with image)
    - Programs/offerings
    - Faculty members
    - Testimonials
    - Statistics
    - SEO information
+
+**Tip**: Focus on visual story blocks rather than long text descriptions!
 
 ### Creating a News Article
 1. Navigate to **News & Events → News Articles**
@@ -158,8 +186,12 @@ Every page and document includes:
 1. Navigate to **Pages → Home Page**
 2. Edit the singleton document
 3. Configure:
-   - Hero section
-   - Introduction
+   - Hero section (visual-first)
+   - Brief introduction (keep it short!)
+   - **Visual Story Blocks** - Add multiple story blocks
+     - Mix images, videos, image grids
+     - Use split layouts for image + brief text
+     - Keep all text concise (headlines max 100 chars, captions max 300 chars)
    - Key statistics
    - Academic departments preview
    - Programs preview
@@ -167,8 +199,19 @@ Every page and document includes:
    - Latest news section
    - Final CTA
 
+**Tip**: Think Instagram/TikTok style - visual storytelling with minimal text!
+
 ## Best Practices
 
+### Visual-First Pages (Home, Academic Departments, College Programs)
+1. **Use Story Blocks liberally** - Build visual narratives with images and videos
+2. **Keep text minimal** - Headlines max 100 chars, captions max 300 chars
+3. **Mix visual content** - Combine single images, image grids, videos, split layouts
+4. **Tell a visual story** - Each story block should advance the narrative
+5. **Use high-quality images** - Visuals are the primary content
+6. **Add videos** - Showcase school life, facilities, student experiences
+
+### General Best Practices
 1. **Always fill SEO fields** - Every page should have SEO metadata
 2. **Use consistent hero patterns** - Maintain visual consistency
 3. **Add alt text to images** - Important for accessibility and SEO
