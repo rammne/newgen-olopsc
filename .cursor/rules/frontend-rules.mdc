@@ -302,7 +302,377 @@ export function AnimatedCard() {
 - Minimize JavaScript bundle size (prefer Astro over React when possible).
 - Use `client:visible` or `client:idle` for React components when full interactivity isn't immediately needed.
 
+## Lighthouse Optimization (90+ Score Required)
+
+**CRITICAL**: This is a public official website that must achieve 90+ scores in all Lighthouse categories (Performance, SEO, Accessibility, Best Practices). The site must be optimized for devices with poor internet connections.
+
+### Performance Optimization (Target: 90+)
+
+#### Core Web Vitals
+- **First Contentful Paint (FCP)**: Target < 1.8s
+  - Minimize render-blocking resources (CSS, JavaScript)
+  - Use inline critical CSS for above-the-fold content
+  - Defer non-critical CSS and JavaScript
+  - Preload critical resources with `<link rel="preload">`
+  - Use `font-display: swap` for web fonts to prevent invisible text
+
+- **Largest Contentful Paint (LCP)**: Target < 2.5s
+  - Optimize hero images: Use WebP/AVIF formats with proper sizing
+  - Use `fetchpriority="high"` for LCP images
+  - Preload LCP images: `<link rel="preload" as="image" href="..." fetchpriority="high">`
+  - Minimize server response times (use Astro's static generation)
+  - Remove render-blocking JavaScript and CSS
+  - Use responsive images with `srcset` and proper `sizes` attributes
+  - Ensure hero images are properly sized (not larger than needed)
+
+- **Speed Index**: Target < 3.4s
+  - Optimize above-the-fold content rendering
+  - Minimize main-thread blocking
+  - Use code splitting and lazy loading for below-the-fold content
+  - Reduce layout shifts (CLS)
+
+- **Cumulative Layout Shift (CLS)**: Target < 0.1
+  - Always specify width and height attributes on images and videos
+  - Reserve space for dynamic content (ads, embeds, iframes)
+  - Avoid inserting content above existing content (use transforms/animations carefully)
+  - Use `aspect-ratio` CSS property for responsive images
+  - Prefer CSS transforms over properties that trigger layout
+
+- **Time to Interactive (TTI)**: Target < 3.8s
+  - Minimize JavaScript execution time
+  - Reduce main-thread work
+  - Use `client:visible` or `client:idle` for React components
+  - Code split and lazy load non-critical JavaScript
+
+#### Image Optimization
+- **MUST** use Astro's `<Image />` component for all images
+- Convert images to modern formats (WebP, AVIF) with fallbacks
+- Use responsive images with `srcset` and `sizes`
+- Set explicit `width` and `height` to prevent layout shift
+- Use `loading="lazy"` for below-the-fold images
+- Use `fetchpriority="high"` only for LCP images
+- Optimize image dimensions (serve images at display size, not larger)
+- Use Sanity image CDN with proper transformations:
+  ```astro
+  <Image
+    src={sanityImageUrl}
+    alt={altText}
+    width={800}
+    height={600}
+    format="webp"
+    quality={85}
+    loading="lazy"
+  />
+  ```
+
+#### JavaScript Optimization
+- **MUST** prefer Astro components over React components (zero JavaScript by default)
+- Use React only when interactivity is absolutely required
+- For React components:
+  - Use `client:visible` for components below the fold
+  - Use `client:idle` for non-critical interactivity
+  - Use `client:load` sparingly (only for critical above-the-fold interactivity)
+  - Avoid `client:only` unless absolutely necessary
+- Code split large dependencies
+- Tree-shake unused code
+- Minimize third-party scripts (analytics, chat widgets, etc.)
+- Defer non-critical JavaScript
+- Use dynamic imports for heavy libraries
+
+#### CSS Optimization
+- Extract critical CSS for above-the-fold content
+- Inline critical CSS in `<head>`
+- Defer non-critical CSS (load asynchronously)
+- Remove unused CSS (use PurgeCSS/Tailwind's purge)
+- Minimize CSS file size
+- Avoid `@import` in CSS (increases render-blocking)
+
+#### Font Optimization
+- Use `font-display: swap` for all web fonts
+- Preload critical fonts: `<link rel="preload" as="font" type="font/woff2" crossorigin>`
+- Limit number of font weights/styles (2-3 max)
+- Use system fonts when possible for body text
+- Subset fonts to include only needed characters
+
+#### Resource Hints
+- Use `<link rel="preconnect">` for external domains (Sanity CDN, fonts)
+- Use `<link rel="dns-prefetch">` for third-party resources
+- Use `<link rel="preload">` for critical resources (LCP images, fonts)
+- Use `<link rel="prefetch">` for likely next-page resources
+
+#### Network Optimization (Poor Connection Support)
+- Minimize HTTP requests (combine CSS/JS when possible)
+- Enable compression (gzip/brotli) - ensure server supports
+- Use HTTP/2 or HTTP/3 when available
+- Implement service worker for caching (if needed)
+- Cache static assets with proper cache headers
+- Minimize payload size (compress, minify)
+- Use CDN for static assets (Sanity CDN for images)
+
+#### Astro-Specific Optimizations
+- Use static site generation (SSG) for all pages when possible
+- Leverage Astro's zero-JS islands architecture
+- Use `Astro.glob()` efficiently (avoid loading unnecessary data)
+- Optimize Sanity queries (fetch only needed fields)
+- Use `getStaticPaths()` with proper `fallback` strategy
+- Enable `output: 'static'` in `astro.config.mjs`
+
+### SEO Optimization (Target: 90+)
+
+#### Meta Tags
+- **MUST** include proper `<title>` tags (50-60 characters, unique per page)
+- **MUST** include `<meta name="description">` (150-160 characters, unique per page)
+- Include Open Graph tags for social sharing:
+  ```html
+  <meta property="og:title" content="...">
+  <meta property="og:description" content="...">
+  <meta property="og:image" content="...">
+  <meta property="og:type" content="website">
+  ```
+- Include Twitter Card tags
+- Include canonical URLs: `<link rel="canonical" href="...">`
+- Use proper `lang` attribute on `<html>` tag
+
+#### Structured Data (Schema.org)
+- **MUST** implement structured data for:
+  - Organization (school information)
+  - Breadcrumbs (for navigation)
+  - Articles (for news/blog posts)
+  - Events (for event pages)
+  - Educational organizations
+- Validate structured data with Google's Rich Results Test
+
+#### Semantic HTML
+- Use proper heading hierarchy (h1 → h2 → h3, no skipping)
+- Use semantic HTML5 elements (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>`)
+- Use `<nav>` for navigation menus
+- Use `<main>` for main content (only one per page)
+- Use proper list elements (`<ul>`, `<ol>`) for lists
+
+#### URL Structure
+- Use descriptive, keyword-rich URLs
+- Use hyphens for word separation: `/academic-departments/preschool`
+- Keep URLs short and readable
+- Use lowercase URLs
+- Implement proper 301 redirects for moved content
+
+#### Content Optimization
+- Use descriptive alt text for all images (include keywords naturally)
+- Write descriptive link text (avoid "click here", "read more")
+- Include relevant keywords naturally in content
+- Use proper heading tags for content hierarchy
+- Ensure content is crawlable (not hidden behind JavaScript)
+
+#### Technical SEO
+- Create and submit XML sitemap
+- Create and maintain `robots.txt`
+- Ensure mobile-friendly design (responsive)
+- Implement proper 404 error pages
+- Use HTTPS (required for modern SEO)
+- Ensure fast page load times (performance affects SEO)
+
+### Accessibility Optimization (Target: 90+)
+
+#### WCAG 2.1 Level AA Compliance
+- **Color Contrast**: Minimum 4.5:1 for normal text, 3:1 for large text
+  - Test all text/background combinations
+  - Use tools to verify contrast ratios
+  - Don't rely solely on color to convey information
+
+#### Keyboard Navigation
+- **MUST** ensure all interactive elements are keyboard accessible
+- Tab order should be logical and intuitive
+- Visible focus indicators on all focusable elements
+- Skip links for main content navigation
+- No keyboard traps
+
+#### Screen Reader Support
+- Use semantic HTML elements
+- Include proper ARIA labels where needed:
+  - `aria-label` for icon-only buttons
+  - `aria-labelledby` for form fields
+  - `aria-describedby` for additional descriptions
+  - `aria-expanded` for collapsible content
+  - `aria-current` for current page/step
+- Use `alt` text for all images (descriptive, not redundant)
+- Use `aria-hidden="true"` for decorative images
+- Ensure form labels are properly associated
+
+#### Focus Management
+- Visible focus indicators (minimum 2px outline)
+- Focus order follows visual order
+- Focus management for modals/dialogs (trap focus, return focus on close)
+- No focus indicators on mouse-only interactions (use `:focus-visible`)
+
+#### Form Accessibility
+- **MUST** associate labels with form inputs (`<label for="id">` or wrap input)
+- Provide error messages with `aria-describedby`
+- Use `aria-required="true"` for required fields
+- Use `aria-invalid="true"` for invalid fields
+- Provide clear, specific error messages
+
+#### Media Accessibility
+- Provide captions for videos
+- Provide transcripts for audio content
+- Ensure video/audio players are keyboard accessible
+- Use `preload="none"` for videos to improve performance
+
+#### Motion and Animation
+- **MUST** respect `prefers-reduced-motion`:
+  ```css
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  ```
+- Provide controls to pause/stop animations
+- Avoid flashing content (can trigger seizures)
+
+#### Language and Reading
+- Use proper `lang` attribute on `<html>` and language changes
+- Use clear, simple language
+- Provide text alternatives for complex content
+- Ensure text is readable (proper font size, line height)
+
+### Best Practices (Target: 90+)
+
+#### Security
+- Use HTTPS (required)
+- Avoid deprecated APIs
+- Use secure cookies when applicable
+- Implement Content Security Policy (CSP) headers
+- Avoid `document.write()`
+- Use `rel="noopener noreferrer"` for external links
+
+#### Modern Web Standards
+- Use modern HTML5 elements
+- Avoid deprecated HTML attributes
+- Use modern CSS (avoid vendor prefixes when not needed)
+- Use modern JavaScript (ES6+, avoid polyfills when possible)
+- Ensure proper DOCTYPE declaration
+
+#### Console Errors
+- **MUST** fix all console errors and warnings
+- No JavaScript errors in production
+- No network errors (404s, failed requests)
+- Proper error handling for async operations
+
+#### Image Best Practices
+- All images must have `alt` attributes
+- Use proper image formats (WebP, AVIF with fallbacks)
+- Properly sized images (not larger than display size)
+- Lazy load below-the-fold images
+
+#### Mobile Optimization
+- Viewport meta tag: `<meta name="viewport" content="width=device-width, initial-scale=1">`
+- Touch targets at least 44x44px
+- No horizontal scrolling
+- Proper mobile navigation
+- Fast tap response times
+
+### Performance Testing Requirements
+
+#### Before Deployment
+- **MUST** test with Google Lighthouse (Desktop and Mobile)
+- **MUST** achieve 90+ scores in all categories:
+  - Performance: 90+
+  - Accessibility: 90+
+  - Best Practices: 90+
+  - SEO: 90+
+- Test on slow 3G connection (Chrome DevTools throttling)
+- Test on actual mobile devices
+- Test Core Web Vitals in PageSpeed Insights
+- Verify no console errors
+- Test keyboard navigation
+- Test with screen reader (NVDA/JAWS/VoiceOver)
+
+#### Testing Tools
+- Google Lighthouse (Chrome DevTools)
+- PageSpeed Insights
+- WebPageTest
+- Chrome DevTools Performance tab
+- Chrome DevTools Accessibility panel
+- WAVE (Web Accessibility Evaluation Tool)
+- axe DevTools
+
+#### Performance Budgets
+- Total page weight: < 1MB (aim for < 500KB on mobile)
+- JavaScript: < 200KB (uncompressed)
+- CSS: < 50KB (uncompressed)
+- Images: Optimize to smallest reasonable size
+- Time to First Byte (TTFB): < 600ms
+- First Contentful Paint (FCP): < 1.8s
+- Largest Contentful Paint (LCP): < 2.5s
+- Cumulative Layout Shift (CLS): < 0.1
+
+### Code Implementation Examples
+
+#### Optimized Image Component
+```astro
+---
+import { Image } from 'astro:assets';
+import { urlFor } from '@/lib/sanity/utils';
+---
+
+<Image
+  src={urlFor(image).width(800).height(600).format('webp').quality(85).url()}
+  alt={image.alt || 'Descriptive alt text'}
+  width={800}
+  height={600}
+  loading="lazy"
+  fetchpriority={isLCP ? "high" : "auto"}
+  class="w-full h-auto"
+/>
+```
+
+#### Preload Critical Resources
+```astro
+---
+// In <head> section
+---
+<link rel="preconnect" href="https://cdn.sanity.io" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="preload" as="image" href={lcpImageUrl} fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter.woff2" crossorigin>
+```
+
+#### Accessible Button
+```astro
+<button
+  type="button"
+  class="btn-primary"
+  aria-label="Submit contact form"
+  aria-describedby="submit-help"
+>
+  Submit
+</button>
+<span id="submit-help" class="sr-only">Submit your contact information</span>
+```
+
+#### Reduced Motion Support
+```astro
+---
+// In component script
+---
+const prefersReducedMotion = typeof window !== 'undefined' 
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+  : false;
+---
+<motion.div
+  initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+  animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+  transition={prefersReducedMotion ? {} : { duration: 0.5 }}
+>
+  Content
+</motion.div>
+```
+
 ## Testing Checklist
+
+### Design & Layout
 - [ ] Mobile view (375px) looks correct
 - [ ] Desktop view (>375px) looks correct
 - [ ] Hero section is exactly 100vh
@@ -316,9 +686,89 @@ export function AnimatedCard() {
 - [ ] Icons are from Lucide
 - [ ] Design feels premium and trustworthy
 - [ ] Content is clear and engaging for parents/students
+
+### Sanity Schema Compliance
 - [ ] Field names match Sanity schema exactly
 - [ ] All required schema fields are handled
 - [ ] Optional schema fields have proper fallbacks
 - [ ] Portable text is rendered correctly
 - [ ] Images use Sanity CDN with proper transformations
 - [ ] References are resolved and handled properly
+
+### Performance (Lighthouse 90+ Required)
+- [ ] Google Lighthouse Performance score: 90+
+- [ ] First Contentful Paint (FCP): < 1.8s
+- [ ] Largest Contentful Paint (LCP): < 2.5s
+- [ ] Speed Index: < 3.4s
+- [ ] Cumulative Layout Shift (CLS): < 0.1
+- [ ] Time to Interactive (TTI): < 3.8s
+- [ ] All images optimized (WebP/AVIF, proper sizing, lazy loading)
+- [ ] Critical CSS inlined
+- [ ] Non-critical CSS deferred
+- [ ] JavaScript minimized and code-split
+- [ ] React components use appropriate hydration strategy (`client:visible`, `client:idle`)
+- [ ] Fonts use `font-display: swap` and are preloaded
+- [ ] Resource hints implemented (preconnect, dns-prefetch, preload)
+- [ ] Page weight < 1MB (aim for < 500KB on mobile)
+- [ ] Tested on slow 3G connection
+- [ ] No render-blocking resources
+- [ ] All images have explicit width/height to prevent CLS
+
+### SEO (Lighthouse 90+ Required)
+- [ ] Google Lighthouse SEO score: 90+
+- [ ] Unique, descriptive `<title>` tags (50-60 characters)
+- [ ] Unique `<meta name="description">` tags (150-160 characters)
+- [ ] Open Graph tags implemented
+- [ ] Twitter Card tags implemented
+- [ ] Canonical URLs set correctly
+- [ ] Proper `lang` attribute on `<html>`
+- [ ] Structured data (Schema.org) implemented and validated
+- [ ] Semantic HTML5 elements used correctly
+- [ ] Proper heading hierarchy (h1 → h2 → h3)
+- [ ] Descriptive alt text on all images
+- [ ] Descriptive link text (no "click here")
+- [ ] XML sitemap created and submitted
+- [ ] `robots.txt` configured correctly
+- [ ] Mobile-friendly (responsive design)
+- [ ] HTTPS enabled
+
+### Accessibility (Lighthouse 90+ Required)
+- [ ] Google Lighthouse Accessibility score: 90+
+- [ ] Color contrast meets WCAG AA (4.5:1 normal, 3:1 large text)
+- [ ] All interactive elements keyboard accessible
+- [ ] Visible focus indicators on all focusable elements
+- [ ] Logical tab order
+- [ ] Skip links implemented
+- [ ] Proper ARIA labels where needed
+- [ ] All images have descriptive alt text
+- [ ] Form labels properly associated
+- [ ] Error messages accessible (aria-describedby)
+- [ ] `prefers-reduced-motion` respected
+- [ ] Screen reader tested (NVDA/JAWS/VoiceOver)
+- [ ] No keyboard traps
+- [ ] Proper semantic HTML used
+- [ ] Language attributes set correctly
+
+### Best Practices (Lighthouse 90+ Required)
+- [ ] Google Lighthouse Best Practices score: 90+
+- [ ] HTTPS enabled
+- [ ] No deprecated APIs used
+- [ ] No console errors
+- [ ] No network errors (404s, failed requests)
+- [ ] Secure cookies (when applicable)
+- [ ] Content Security Policy (CSP) headers
+- [ ] No `document.write()`
+- [ ] External links use `rel="noopener noreferrer"`
+- [ ] Proper viewport meta tag
+- [ ] Touch targets at least 44x44px
+- [ ] No horizontal scrolling on mobile
+- [ ] Modern web standards used
+
+### Cross-Browser & Device Testing
+- [ ] Tested on Chrome (desktop and mobile)
+- [ ] Tested on Firefox
+- [ ] Tested on Safari (desktop and mobile)
+- [ ] Tested on Edge
+- [ ] Tested on actual mobile devices (iOS and Android)
+- [ ] Tested on tablets
+- [ ] Tested with slow internet connection (3G throttling)

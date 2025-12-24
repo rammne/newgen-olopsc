@@ -1,5 +1,6 @@
 ---
 import Header from '../components/layout/Header'
+import Footer from '../components/layout/Footer'
 
 interface Props {
   title?: string
@@ -18,18 +19,21 @@ const {title = 'Our School', description = 'Welcome to Our School'} = Astro.prop
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    
+    {/* Resource hints for performance */}
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+    
+    {/* Preload critical fonts - fonts are loaded via CSS @font-face */}
+    
+    {/* Remove Google Fonts - using local fonts instead */}
   </head>
   <body class="bg-[var(--color-neutral)] text-[var(--color-primary)]">
-    <Header client:load />
+    <Header client:idle />
     <main>
       <slot />
     </main>
+    <Footer client:idle />
   </body>
 </html>
 
