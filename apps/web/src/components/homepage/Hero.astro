@@ -2,6 +2,7 @@
 import {resolveCtaLink} from '../../lib/utils/sanity'
 import {normalizeVideoEmbedUrl} from '../../lib/utility'
 import olopscLogo from '../../assets/olopsc-logo.jpg'
+import {CircleArrowRight} from 'lucide-astro'
 
 interface Props {
   hero: {
@@ -102,7 +103,7 @@ const videoUrl = getVideoUrl()
     <img
       src={olopscLogo.src}
       alt="Our Lady of Perpetual Succor College logo"
-      class="h-16 w-16 sm:h-20 sm:w-20 rounded-full border border-white/60 bg-white/90 p-1 shadow-lg hero-logo-pop"
+      class="h-32 w-32 sm:h-40 sm:w-40 rounded-full border border-white/60 bg-white/90 p-1 shadow-lg hero-logo-pop"
     />
     <h1 class="text-hero-header-mobile sm:text-hero-header-desktop text-white mb-3 max-w-xl hero-fade-up hero-fade-up-delay-1">
       {hero.headline || 'Welcome to Our School'}
@@ -116,21 +117,33 @@ const videoUrl = getVideoUrl()
       {hero.cta && (
         <a
           href={resolveCtaLink(hero.cta)}
-          class={hero.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
+          class={`btn-hover-arrow ${hero.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}`}
           target={hero.cta.openInNewTab ? '_blank' : undefined}
           rel={hero.cta.openInNewTab ? 'noopener noreferrer' : undefined}
         >
-          {hero.cta.text}
+          <span class="btn-text">{hero.cta.text}</span>
+          <CircleArrowRight
+            size={20}
+            stroke-width={2.5}
+            class="btn-arrow-icon"
+            aria-hidden="true"
+          />
         </a>
       )}
       {hero.secondaryCta && (
         <a
           href={resolveCtaLink(hero.secondaryCta)}
-          class={hero.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}
+          class={`btn-hover-arrow ${hero.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}`}
           target={hero.secondaryCta.openInNewTab ? '_blank' : undefined}
           rel={hero.secondaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
         >
-          {hero.secondaryCta.text}
+          <span class="btn-text">{hero.secondaryCta.text}</span>
+          <CircleArrowRight
+            size={20}
+            stroke-width={2.5}
+            class="btn-arrow-icon"
+            aria-hidden="true"
+          />
         </a>
       )}
     </div>

@@ -1,5 +1,25 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@font-face {
+    font-family: 'Playfair Display Medium';
+    src: url('../assets/fonts/PlayfairDisplay-Medium.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Playfair Display Semibold';
+    src: url('../assets/fonts/PlayfairDisplay-Semibold.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat Semibold';
+    src: url('../assets/fonts/Montserrat-Semibold.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
 
 @theme {
     --text-hero-header-desktop: 64px; /* hero header text, applicable for all hero variants in academic departments */
@@ -21,32 +41,32 @@
     h1 {
         @apply text-hero-header-desktop;
         font-weight: 700;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Playfair Display Medium', serif;
     }
     h2 {
         @apply text-section-header-desktop;
         font-weight: 600;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Playfair Display Medium', serif;
     }
     h3 {
         @apply text-card-title-desktop;
         font-weight: 600;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Playfair Display Medium', serif;
     }
     p {
         @apply text-main-desktop;
         font-weight: 400;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Montserrat Semibold', sans-serif;
     }
     a {
-        @apply text-main-desktop;
+        @apply text-small-desktop;
         font-weight: 400;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Montserrat Semibold', sans-serif;
     }
     small {
         @apply text-small-desktop;
         font-weight: 400;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Montserrat Semibold', sans-serif;
     }
 }
 
@@ -74,6 +94,71 @@
         text-decoration: none;
         /* width: 100%; */
         min-width: 15rem;
+    }
+    
+    /* Button hover arrow animation */
+    .btn-hover-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-right: 2.5rem; /* Space for icon on the right */
+        overflow: hidden;
+    }
+    
+    .btn-text {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+    }
+    
+    .btn-arrow-icon {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%) translateX(8px);
+        color: black;
+        stroke: black;
+        fill: none;
+        opacity: 0;
+        transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: opacity, transform;
+        flex-shrink: 0;
+        pointer-events: none;
+    }
+    
+    .btn-hover-arrow:hover .btn-text,
+    .btn-hover-arrow:focus-visible .btn-text {
+        transform: translateX(-0.75rem);
+    }
+    
+    .btn-hover-arrow:hover .btn-arrow-icon,
+    .btn-hover-arrow:focus-visible .btn-arrow-icon {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    
+    .btn-hover-arrow:active .btn-arrow-icon {
+        transform: translateY(-50%) translateX(2px);
+    }
+    
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        .btn-text,
+        .btn-arrow-icon {
+            transition: none;
+        }
+        
+        .btn-hover-arrow:hover .btn-text,
+        .btn-hover-arrow:focus-visible .btn-text {
+            transform: none;
+        }
+        
+        .btn-hover-arrow:hover .btn-arrow-icon,
+        .btn-hover-arrow:focus-visible .btn-arrow-icon {
+            opacity: 1;
+            transform: translateY(-50%);
+        }
     }
 }
 
