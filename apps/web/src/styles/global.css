@@ -22,7 +22,7 @@
 }
 
 @theme {
-    --text-hero-header-desktop: 64px; /* hero header text, applicable for all hero variants in academic departments */
+    --text-hero-header-desktop: 48px; /* hero header text, applicable for all hero variants in academic departments */
     --text-hero-header-mobile: 40px;
     --text-section-header-desktop: 48px; /* section header text */
     --text-section-header-mobile: 32px;
