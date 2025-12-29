@@ -53,9 +53,21 @@ export const storyBlock = defineType({
       type: 'image',
       options: {
         hotspot: true,
+        accept: 'image/jpeg,image/png,image/webp',
       },
+      description: 'JPEG, PNG, or WebP only',
       hidden: ({parent}) => 
         !['image', 'split', 'fullImage', 'imageGrid'].includes(parent?.blockType || ''),
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (!value?.asset) return true
+          const assetRef = value.asset._ref || ''
+          const extension = assetRef.split('-').pop()?.split('.')[1]?.toLowerCase()
+          if (extension && !['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
+            return 'Image must be in JPEG, PNG, or WebP format'
+          }
+          return true
+        }),
     }),
     // Multiple images for grid
     defineField({
@@ -67,6 +79,7 @@ export const storyBlock = defineType({
           type: 'image',
           options: {
             hotspot: true,
+            accept: 'image/jpeg,image/png,image/webp',
           },
           fields: [
             defineField({
@@ -80,6 +93,16 @@ export const storyBlock = defineType({
               type: 'string',
             }),
           ],
+          validation: (Rule) =>
+            Rule.custom((value) => {
+              if (!value?.asset) return true
+              const assetRef = value.asset._ref || ''
+              const extension = assetRef.split('-').pop()?.split('.')[1]?.toLowerCase()
+              if (extension && !['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
+                return 'Image must be in JPEG, PNG, or WebP format'
+              }
+              return true
+            }),
         },
       ],
       hidden: ({parent}) => parent?.blockType !== 'imageGrid',

@@ -40,8 +40,20 @@ export const hero = defineType({
       type: 'image',
       options: {
         hotspot: true,
+        accept: 'image/jpeg,image/png,image/webp',
       },
+      description: 'JPEG, PNG, or WebP only',
       hidden: ({parent}) => parent?.variant === 'video',
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (!value?.asset) return true
+          const assetRef = value.asset._ref || ''
+          const extension = assetRef.split('-').pop()?.split('.')[1]?.toLowerCase()
+          if (extension && !['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
+            return 'Image must be in JPEG, PNG, or WebP format'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'backgroundVideoSource',

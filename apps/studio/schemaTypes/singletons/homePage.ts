@@ -47,14 +47,19 @@ export const homePage = defineType({
           type: 'image',
           options: {
             hotspot: true,
+            accept: 'image/jpeg,image/png,image/webp',
           },
-          description: 'Primary visual element',
-        }),
-        defineField({
-          name: 'video',
-          title: 'Video',
-          type: 'videoEmbed',
-          description: 'Optional video to showcase the school',
+          description: 'Primary visual element (JPEG, PNG, or WebP only)',
+          validation: (Rule) =>
+            Rule.custom((value) => {
+              if (!value?.asset) return true
+              const assetRef = value.asset._ref || ''
+              const extension = assetRef.split('-').pop()?.split('.')[1]?.toLowerCase()
+              if (extension && !['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
+                return 'Image must be in JPEG, PNG, or WebP format'
+              }
+              return true
+            }),
         }),
       ],
     }),
@@ -237,7 +242,19 @@ export const homePage = defineType({
           type: 'image',
           options: {
             hotspot: true,
+            accept: 'image/jpeg,image/png,image/webp',
           },
+          description: 'JPEG, PNG, or WebP only',
+          validation: (Rule) =>
+            Rule.custom((value) => {
+              if (!value?.asset) return true
+              const assetRef = value.asset._ref || ''
+              const extension = assetRef.split('-').pop()?.split('.')[1]?.toLowerCase()
+              if (extension && !['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
+                return 'Image must be in JPEG, PNG, or WebP format'
+              }
+              return true
+            }),
         }),
       ],
     }),
