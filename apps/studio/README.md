@@ -33,58 +33,76 @@ This guide helps content administrators understand what content fields need to b
    - Uses `hero` object type
 
 2. **Introduction Section** (INTEREST)
-   - Headline
-   - Subheadline
-   - Content (rich text)
-   - Featured Image
-   - Video (optional)
+   - Keep it visual and concise!
+   - Headline (max 100 characters) - Short, impactful headline
+   - Subheadline (max 200 characters) - Brief subheadline (1-2 sentences max)
+   - Featured Image (JPEG, PNG, or WebP only) - Primary visual element
+   - Note: Content (rich text) and Video fields have been removed for a more visual, concise approach
 
-3. **Key Statistics**
-   - Array of statistics (max 6)
-   - Showcase impressive numbers (CREDIBILITY)
+3. **Key Statistics** (CREDIBILITY)
+   - Background Image - Background image for the stats section
+   - Statistics (array, max 6) - Showcase impressive numbers
    - Uses `stats` object type
 
-4. **Academic Departments Preview** (DESIRE)
+4. **S-RICE Section**
+   - Section Title (default: "S-RICE")
+   - Subtitle
+   - S-RICE Items (exactly 5 items required):
+     - Letter (S, R, I, C, or E) - Single letter identifier
+     - Title (required) - Full title (e.g., "Spirituality", "Responsibility and Respect")
+     - Description
+     - Image (required) - Visual representation for each value
+
+5. **Academic Departments Preview** (DESIRE)
    - Section Title
    - Subtitle
    - Featured Departments (references to Academic Departments)
 
-5. **Programs Preview**
+6. **Programs Preview**
    - Section Title
    - Subtitle
    - Featured Programs (references to College Programs)
    - Call-to-Action button
 
-6. **Testimonials Section** (CREDIBILITY)
+7. **Testimonials Section** (CREDIBILITY)
    - Section Title
    - Testimonials (array of `testimonial` objects)
+   - Social proof from students/parents
 
-7. **Key Features/Highlights**
+8. **Key Features/Highlights**
    - Array of feature cards
+   - What makes your school special
    - Uses `feature` object type
 
-8. **Latest News Section**
+9. **Latest News Section**
    - Section Title
    - Number of Articles (1-6, default: 3)
    - View All News CTA button
 
-9. **Upcoming Events Section**
-   - Section Title
-   - Number of Events (1-6, default: 3)
-   - View All Events CTA button
+10. **Upcoming Events Section**
+    - Section Title
+    - Number of Events (1-6, default: 3)
+    - View All Events CTA button
 
-10. **Final Call-to-Action** (ACTION)
+11. **Final Call-to-Action** (ACTION)
     - Headline
     - Subheadline
     - Primary CTA button
     - Secondary CTA button
-    - Background Image
+    - Background Image (JPEG, PNG, or WebP only)
 
-11. **Additional Content Sections**
-    - Flexible sections for storytelling
+12. **Visual Story Blocks**
+    - Array of visual storytelling blocks
+    - Use images, videos, and short captions to tell your story
+    - Keep text minimal!
+    - Uses `storyBlock` object type
+
+13. **Additional Content Sections (Legacy)**
+    - Legacy text-heavy sections
+    - Consider using Story Blocks instead for visual storytelling
     - Uses `section` object type
 
-12. **SEO**
+14. **SEO**
     - SEO metadata (title, description, keywords, OG image)
     - Uses `seo` object type
 

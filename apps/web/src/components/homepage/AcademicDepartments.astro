@@ -1,81 +1,94 @@
 ---
-import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+import { resolveCtaLink, getSanityImageUrl } from "../../lib/utils/sanity";
 
 interface Props {
   academicDepartments: {
-    title?: string
-    subtitle?: string
+    title?: string;
+    subtitle?: string;
     departments?: Array<{
-      _id?: string
-      title?: string
+      _id?: string;
+      title?: string;
       slug?: {
-        current?: string
-      }
-      departmentType?: 'preschool' | 'gradeSchool' | 'juniorHigh' | 'seniorHigh' | 'college'
+        current?: string;
+      };
+      departmentType?:
+        | "preschool"
+        | "gradeSchool"
+        | "juniorHigh"
+        | "seniorHigh"
+        | "college";
       hero?: {
         backgroundImage?: {
           asset?: {
-            url?: string
-          }
-          alt?: string
-        }
-      }
-    }>
-  }
+            url?: string;
+          };
+          alt?: string;
+        };
+      };
+    }>;
+  };
 }
 
-const {academicDepartments} = Astro.props
+const { academicDepartments } = Astro.props;
 
 const departmentTaglines: Record<string, string> = {
-  preschool: 'Joyful beginnings and playful discovery.',
-  gradeSchool: 'Strong foundations in a warm community.',
-  juniorHigh: 'Guided growth through the critical years.',
-  seniorHigh: 'Focused pathways for future-ready students.',
-  college: 'Professional programs for a competitive world.',
-}
+  preschool:
+    "Embark on a journey of discovery and joy at OLOPSC Preschool, where young minds blossom through creative play and foundational learning",
+  gradeSchool: "Unlock a world of possibilities with OLOPSC Gradeschool, fostering a love for learning and the development of essential life skills in a nurturing environment.",
+  juniorHigh: "Transition into the critical years of growth and exploration with OLOPSC Junior High School, where academic excellence meets personal development.",
+  seniorHigh: "Prepare for the future with OLOPSC Senior High School, offering a diverse curriculum that empowers students to excel in their chosen paths.",
+  college: "Explore our diverse College Programs, designed to equip you with the knowledge and skills for success in today's dynamic and competitive world.",
+};
 ---
 
-{academicDepartments && academicDepartments.departments && academicDepartments.departments.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-    <div class="container mx-auto">
-      {academicDepartments.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
-          {academicDepartments.title}
-        </h2>
-      )}
-      {academicDepartments.subtitle && (
-        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-10 max-w-3xl mx-auto">
-          {academicDepartments.subtitle}
-        </p>
-      )}
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-        {academicDepartments.departments.map((dept) => (
-          <a
-            href={`/academic-departments/${dept.slug?.current || ''}`}
-            class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group"
-          >
-            {dept.hero?.backgroundImage?.asset?.url && (
-              <div class="aspect-video overflow-hidden">
-                <img
-                  src={getSanityImageUrl(dept.hero.backgroundImage, {width: 400, height: 300, fit: 'crop'})}
-                  alt={dept.hero.backgroundImage.alt || dept.title || ''}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-                />
-              </div>
-            )}
-            <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3">
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-                {dept.title}
-              </h3>
-              <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xs">
-                {departmentTaglines[dept.departmentType || '']}
-              </p>
-              <span class="mt-2 h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
+{
+  academicDepartments &&
+    academicDepartments.departments &&
+    academicDepartments.departments.length > 0 && (
+      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+        <div class="container mx-auto">
+          {academicDepartments.title && (
+            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
+              {academicDepartments.title}
+            </h2>
+          )}
+          {academicDepartments.subtitle && (
+            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-10 max-w-3xl mx-auto">
+              {academicDepartments.subtitle}
+            </p>
+          )}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            {academicDepartments.departments.map((dept) => (
+              <a
+                href={`/academic-departments/${dept.slug?.current || ""}`}
+                class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group"
+              >
+                {dept.hero?.backgroundImage?.asset?.url && (
+                  <div class="aspect-video overflow-hidden">
+                    <img
+                      src={getSanityImageUrl(dept.hero.backgroundImage, {
+                        width: 400,
+                        height: 300,
+                        fit: "crop",
+                      })}
+                      alt={dept.hero.backgroundImage.alt || dept.title || ""}
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+                    />
+                  </div>
+                )}
+                <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3">
+                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
+                    {dept.title}
+                  </h3>
+                  <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xs">
+                    {departmentTaglines[dept.departmentType || ""]}
+                  </p>
+                  <span class="mt-2 h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+}

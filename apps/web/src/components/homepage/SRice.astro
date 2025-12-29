@@ -23,15 +23,15 @@ const {sRice} = Astro.props
 ---
 
 {sRice && sRice.items && sRice.items.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-primary">
     <div class="container mx-auto">
       {sRice.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white text-center mb-4">
           {sRice.title}
         </h2>
       )}
       {sRice.subtitle && (
-        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-3xl mx-auto">
+        <p class="text-main-mobile sm:text-main-desktop text-white text-center mb-12 max-w-3xl mx-auto">
           {sRice.subtitle}
         </p>
       )}
@@ -45,21 +45,22 @@ const {sRice} = Astro.props
               data-srice-index={index}
             >
               <div class="flex items-start gap-4 p-6 rounded-xl transition-all duration-300 hover:bg-[var(--color-neutral)] lg:hover:bg-transparent">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-xl">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-accent)] text-primary flex items-center justify-center font-bold text-xl">
                   {item.letter}
                 </div>
                 <div class="flex-1">
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-white mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                     {item.title}
                   </h3>
                   {item.description && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/80">
+                    <p class="text-main-mobile sm:text-main-desktop text-white/80">
                       {item.description}
                     </p>
                   )}
                 </div>
               </div>
             </div>
+            <hr class="border-white/20" />
           ))}
         </div>
 
