@@ -1,0 +1,155 @@
+---
+import {getSanityImageUrl} from '../../lib/utils/sanity'
+
+interface Props {
+  sRice: {
+    title?: string
+    subtitle?: string
+    items?: Array<{
+      letter?: string
+      title?: string
+      description?: string
+      image?: {
+        asset?: {
+          url?: string
+        }
+        alt?: string
+      }
+    }>
+  }
+}
+
+const {sRice} = Astro.props
+---
+
+{sRice && sRice.items && sRice.items.length > 0 && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+    <div class="container mx-auto">
+      {sRice.title && (
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
+          {sRice.title}
+        </h2>
+      )}
+      {sRice.subtitle && (
+        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-3xl mx-auto">
+          {sRice.subtitle}
+        </p>
+      )}
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+        {/* Left Column - S-RICE Items */}
+        <div class="space-y-6 order-1 lg:order-1">
+          {sRice.items.map((item, index) => (
+            <div
+              class="srice-item group cursor-pointer lg:cursor-default"
+              data-srice-index={index}
+            >
+              <div class="flex items-start gap-4 p-6 rounded-xl transition-all duration-300 hover:bg-[var(--color-neutral)] lg:hover:bg-transparent">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-xl">
+                  {item.letter}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                    {item.title}
+                  </h3>
+                  {item.description && (
+                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/80">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column - Images */}
+        <div class="lg:sticky lg:top-24 order-2 lg:order-2">
+          <div class="relative aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--color-neutral)]">
+            {sRice.items.map((item, index) => (
+              <img
+                key={index}
+                src={getSanityImageUrl(item.image, {width: 600, height: 750, fit: 'crop'})}
+                alt={item.image?.alt || item.title || ''}
+                class={`srice-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                  index === 0 ? 'opacity-100' : 'opacity-0'
+                }`}
+                data-srice-index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  // Handle hover on desktop and click on mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.srice-item')
+    const images = document.querySelectorAll('.srice-image')
+    
+    if (items.length === 0 || images.length === 0) return
+
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        if (i === index) {
+          img.classList.remove('opacity-0')
+          img.classList.add('opacity-100')
+        } else {
+          img.classList.remove('opacity-100')
+          img.classList.add('opacity-0')
+        }
+      })
+    }
+
+    items.forEach((item) => {
+      const dataIndex = item.dataset.sriceIndex
+
+      if (isMobile) {
+        // Mobile: Click/tap to show image
+        item.addEventListener('click', () => {
+          if (dataIndex !== undefined) {
+            showImage(parseInt(dataIndex))
+          }
+        })
+      } else {
+        // Desktop: Hover to show image
+        item.addEventListener('mouseenter', () => {
+          if (dataIndex !== undefined) {
+            showImage(parseInt(dataIndex))
+          }
+        })
+      }
+    })
+
+    // Handle window resize
+    let resizeTimer
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        const newIsMobile = window.matchMedia('(max-width: 1023px)').matches
+        if (newIsMobile !== isMobile) {
+          // Reload behavior if switching between mobile/desktop
+          location.reload()
+        }
+      }, 250)
+    })
+  })
+</script>
+
+<style>
+  .srice-image {
+    transition: opacity 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .srice-image {
+      transition: none;
+    }
+  }
+</style>
+

@@ -1,36 +1,162 @@
 ---
+import {getSanityImageUrl} from '../../lib/utils/sanity'
+
 interface Props {
-  stats: Array<{
-    value?: string
-    label?: string
-    icon?: string
-    prefix?: string
-    suffix?: string
-  }>
+  keyStats: {
+    backgroundImage?: {
+      asset?: {
+        url?: string
+      }
+      alt?: string
+    }
+    stats?: Array<{
+      value?: string
+      label?: string
+      icon?: string
+      prefix?: string
+      suffix?: string
+    }>
+  }
 }
 
-const {stats} = Astro.props
+const {keyStats} = Astro.props
+const stats = keyStats?.stats || []
+const bgImageUrl = keyStats?.backgroundImage?.asset?.url
 ---
 
 {stats && stats.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
-    <div class="container mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {stats.map((stat) => (
-          <div class="text-center">
-            {stat.icon && (
-              <div class="text-4xl mb-4">{stat.icon}</div>
-            )}
-            <div class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] font-bold mb-2">
-              {stat.prefix}{stat.value}{stat.suffix}
+  <section class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] relative overflow-hidden">
+    {bgImageUrl && (
+      <>
+        <img
+          src={bgImageUrl}
+          alt={keyStats.backgroundImage?.alt || 'Stats background'}
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-[var(--color-primary)]/20"></div>
+      </>
+    )}
+    <div class="container mx-auto relative z-10">
+      <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+        {stats.map((stat, index) => {
+          // Extract numeric value from stat.value (remove +, %, etc.)
+          const numericValue = stat.value?.replace(/[^0-9.]/g, '') || '0'
+          const hasPlus = stat.value?.includes('+') || false
+          const hasPercent = stat.value?.includes('%') || false
+          
+          return (
+            <div
+              class="stat-card bg-[var(--color-primary)]/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 min-w-[140px] sm:min-w-[180px] text-center shadow-lg"
+              data-stat-index={index}
+              data-stat-value={numericValue}
+              data-stat-prefix={stat.prefix || ''}
+              data-stat-suffix={stat.suffix || (hasPlus ? '+' : '') + (hasPercent ? '%' : '')}
+            >
+              {stat.icon && (
+                <div class="text-4xl mb-4">{stat.icon}</div>
+              )}
+              <div class="text-section-header-mobile sm:text-section-header-desktop text-white font-bold mb-2">
+                <span class="stat-prefix">{stat.prefix || ''}</span>
+                <span class="stat-number">0</span>
+                <span class="stat-suffix">{stat.suffix || (hasPlus ? '+' : '') + (hasPercent ? '%' : '')}</span>
+              </div>
+              <p class="text-main-mobile sm:text-main-desktop text-white/90">
+                {stat.label}
+              </p>
             </div>
-            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-              {stat.label}
-            </p>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   </section>
 )}
 
+<script is:inline>
+  // Counter animation function
+  (function() {
+    function animateCounter(element, targetValue, duration) {
+      if (duration === undefined) duration = 2000
+      const startValue = 0
+      const startTime = performance.now()
+      const isDecimal = String(targetValue).includes('.')
+      const numTarget = parseFloat(String(targetValue))
+      
+      function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        
+        // Easing function (ease-out)
+        const easeOut = 1 - Math.pow(1 - progress, 3)
+        
+        const currentValue = startValue + (numTarget - startValue) * easeOut
+        
+        if (isDecimal) {
+          element.textContent = currentValue.toFixed(1)
+        } else {
+          element.textContent = Math.floor(currentValue).toString()
+        }
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter)
+        } else {
+          // Ensure final value is exact
+          if (isDecimal) {
+            element.textContent = parseFloat(String(targetValue)).toFixed(1)
+          } else {
+            element.textContent = Math.floor(numTarget).toString()
+          }
+        }
+      }
+      
+      requestAnimationFrame(updateCounter)
+    }
+
+    // Intersection Observer for scroll-triggered animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const statCards = document.querySelectorAll('.stat-card')
+      
+      if (statCards.length === 0) return
+
+      const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+      }
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            const card = entry.target
+            const statNumber = card.querySelector('.stat-number')
+            const targetValue = card.dataset.statValue || '0'
+            
+            if (statNumber && !card.classList.contains('animated')) {
+              card.classList.add('animated')
+              animateCounter(statNumber, targetValue, 2000)
+            }
+          }
+        })
+      }, observerOptions)
+
+      statCards.forEach(function(card) {
+        observer.observe(card)
+      })
+    })
+  })()
+</script>
+
+<style>
+  .stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card {
+      transition: none;
+    }
+  }
+</style>

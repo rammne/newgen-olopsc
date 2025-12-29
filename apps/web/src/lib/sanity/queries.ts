@@ -99,12 +99,35 @@ export async function getHomePage() {
         embedId
       }
     },
-    keyStats[] {
-      value,
-      label,
-      icon,
-      prefix,
-      suffix
+    keyStats {
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      stats[] {
+        value,
+        label,
+        icon,
+        prefix,
+        suffix
+      }
+    },
+    sRice {
+      title,
+      subtitle,
+      items[] {
+        letter,
+        title,
+        description,
+        image {
+          asset->{
+            url
+          },
+          alt
+        }
+      }
     },
     academicDepartments {
       title,

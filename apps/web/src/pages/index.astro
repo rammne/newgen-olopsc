@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import Hero from '../components/homepage/Hero.astro'
 import Intro from '../components/homepage/Intro.astro'
 import Stats from '../components/homepage/Stats.astro'
+import SRice from '../components/homepage/SRice.astro'
 import Features from '../components/homepage/Features.astro'
 import Testimonials from '../components/homepage/Testimonials.astro'
 import AcademicDepartments from '../components/homepage/AcademicDepartments.astro'
@@ -43,9 +44,15 @@ const pageDescription = homePage?.seo?.description || 'Welcome to Our School'
     </ScrollRevealWrapper>
   )}
   
-  {homePage?.keyStats && homePage.keyStats.length > 0 && (
+  {homePage?.keyStats && homePage.keyStats.stats && homePage.keyStats.stats.length > 0 && (
     <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Stats stats={homePage.keyStats} />
+      <Stats keyStats={homePage.keyStats} />
+    </ScrollRevealWrapper>
+  )}
+  
+  {homePage?.sRice && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <SRice sRice={homePage.sRice} />
     </ScrollRevealWrapper>
   )}
   

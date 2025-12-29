@@ -66,10 +66,101 @@ export const homePage = defineType({
     defineField({
       name: 'keyStats',
       title: 'Key Statistics',
-      type: 'array',
-      of: [{type: 'stats'}],
+      type: 'object',
       description: 'Showcase impressive numbers (CREDIBILITY)',
-      validation: (Rule) => Rule.max(6),
+      fields: [
+        defineField({
+          name: 'backgroundImage',
+          title: 'Background Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          description: 'Background image for the stats section',
+        }),
+        defineField({
+          name: 'stats',
+          title: 'Statistics',
+          type: 'array',
+          of: [{type: 'stats'}],
+          validation: (Rule) => Rule.max(6),
+        }),
+      ],
+    }),
+    defineField({
+      name: 'sRice',
+      title: 'S-RICE Section',
+      type: 'object',
+      description: 'Spirituality, Responsibility and Respect, Integrity, Caring Culture, and Excellence',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          initialValue: 'S-RICE',
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'text',
+          rows: 2,
+        }),
+        defineField({
+          name: 'items',
+          title: 'S-RICE Items',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'letter',
+                  title: 'Letter',
+                  type: 'string',
+                  description: 'The letter in S-RICE (S, R, I, C, or E)',
+                  validation: (Rule) => Rule.required().max(1),
+                }),
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'string',
+                  description: 'Full title (e.g., "Spirituality", "Responsibility and Respect")',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                  rows: 3,
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  letter: 'letter',
+                  title: 'title',
+                  media: 'image',
+                },
+                prepare({letter, title, media}) {
+                  return {
+                    title: `${letter}: ${title}`,
+                    media: media,
+                  }
+                },
+              },
+            },
+          ],
+          validation: (Rule) => Rule.min(5).max(5),
+        }),
+      ],
     }),
     defineField({
       name: 'academicDepartments',
