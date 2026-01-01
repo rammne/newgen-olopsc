@@ -10,13 +10,13 @@ import {getAcademicDepartmentByType} from '../lib/sanity/queries'
 import {getSanityImageUrl, resolveCtaLink} from '../lib/utils/sanity'
 import '../styles/global.css'
 
-const department = await getAcademicDepartmentByType('preschool')
+const department = await getAcademicDepartmentByType('college')
 
 if (!department) {
   return Astro.redirect('/404')
 }
 
-const pageTitle = department.seo?.title || department.title || 'Preschool Department'
+const pageTitle = department.seo?.title || department.title || 'College Department'
 const pageDescription = department.seo?.description || `Learn more about ${department.title} at OLOPSC`
 ---
 

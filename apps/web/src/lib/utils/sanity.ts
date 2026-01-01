@@ -76,7 +76,9 @@ export function resolveCtaLink(cta: {
       if (link.internal?.slug?.current) {
         const type = link.internal._type
         if (type === 'academicDepartment') {
-          return `/college-department/${link.internal.slug.current}`
+          // For academic departments, we need to fetch the department to get the departmentType
+          // For now, fallback to the slug-based URL - this will be handled by the component
+          return `/academic-departments/${link.internal.slug.current}`
         }
         if (type === 'collegeProgram') {
           return `/program/${link.internal.slug.current}`

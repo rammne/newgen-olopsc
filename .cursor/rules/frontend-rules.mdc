@@ -13,6 +13,71 @@ alwaysApply: true
 - **Framer Motion**: Use for animations and transitions. Import from `framer-motion` for React components.
 - **Sanity CMS**: Content management system. All content structure must follow Sanity schema types defined in `apps/studio/schemaTypes/`.
 
+## URL Routing & Page Structure (SEO Preservation)
+
+### Required Static Pages
+The following pages **MUST** be created as static `.astro` files in `apps/web/src/pages/` to preserve SEO from the original website:
+
+**Main Pages:**
+- `index.astro` → `/` (Homepage)
+- `about.astro` → `/about`
+- `admissions.astro` → `/admissions`
+- `scholarship-programs.astro` → `/scholarship-programs`
+- `contact.astro` → `/contact`
+- `jobs-section.astro` → `/jobs-section`
+
+**Academic Department Pages:**
+- `preschool.astro` → `/preschool`
+- `grade-school.astro` → `/grade-school`
+- `junior-high-school.astro` → `/junior-high-school`
+- `senior-high-school.astro` → `/senior-high-school`
+- `college-department.astro` → `/college-department`
+
+**College Program Pages:**
+- `college-programs.astro` → `/college-programs` (main listing page)
+- `computing-studies.astro` → `/computing-studies`
+- `hospitality-management.astro` → `/hospitality-management`
+- `tourism-management.astro` → `/tourism-management`
+- `business-administration-and-entrepreneurship.astro` → `/business-administration-and-entrepreneurship`
+- `education-and-liberal-arts.astro` → `/education-and-liberal-arts`
+- `entrepreneurship.astro` → `/entrepreneurship`
+
+### Routing Rules
+1. **Static Pages**: All URLs listed above must be static pages (`.astro` files), NOT dynamic routes
+2. **Dynamic Routes**: Only use dynamic routes (`[slug].astro`) for:
+   - News articles: `/news/[slug]`
+   - Events: `/event/[slug]`
+   - Additional content types that are NOT in the required list above
+3. **File Naming**: File names must match the URL path exactly (e.g., `grade-school.astro` for `/grade-school`)
+4. **Case Sensitivity**: URLs are case-sensitive - use lowercase with hyphens
+5. **No Redirects Needed**: Since we're using the exact same URLs, no redirects are needed for these pages
+
+### Implementation Example
+```astro
+---
+// apps/web/src/pages/preschool.astro
+import Layout from '../layouts/Layout.astro'
+import { getAcademicDepartmentBySlug } from '../lib/sanity/queries'
+
+// Fetch data from Sanity using the department slug
+const department = await getAcademicDepartmentBySlug('preschool')
+const pageTitle = department?.seo?.title || 'Preschool'
+---
+
+<Layout title={pageTitle}>
+  <!-- Page content -->
+</Layout>
+```
+
+### Adding New Pages
+When adding new pages that are NOT in the required list:
+- Consider SEO impact
+- Use descriptive, keyword-rich URLs
+- Use hyphens for word separation
+- Keep URLs short and readable
+- Use lowercase URLs
+- If the page might need dynamic content in the future, consider using a dynamic route pattern
+
 ## Sanity Schema Compliance
 
 ### Schema Structure Adherence
@@ -449,12 +514,47 @@ export function AnimatedCard() {
 - Use `<main>` for main content (only one per page)
 - Use proper list elements (`<ul>`, `<ol>`) for lists
 
-#### URL Structure
-- Use descriptive, keyword-rich URLs
-- Use hyphens for word separation: `/academic-departments/preschool`
+#### URL Structure (SEO Preservation)
+**CRITICAL**: The following URLs from the original website must be preserved for SEO purposes. All routing and page creation must follow this exact structure:
+
+**Main Navigation & Information Pages:**
+- `/` - Homepage
+- `/about` - About page
+- `/admissions` - Admissions page
+- `/scholarship-programs` - Scholarship programs page
+- `/contact` - Contact page
+- `/jobs-section` - Careers/Jobs page
+
+**Academic Department Pages:**
+- `/preschool` - Preschool department (static page, not dynamic slug)
+- `/grade-school` - Grade School department (static page, not dynamic slug)
+- `/junior-high-school` - Junior High School department (static page, not dynamic slug)
+- `/senior-high-school` - Senior High School department (static page, not dynamic slug)
+- `/college-department` - College department main page (static page, not dynamic slug)
+
+**College Program Pages:**
+- `/college-programs` - Main college programs listing page
+- `/computing-studies` - Computing Studies program (static page, not dynamic slug)
+- `/hospitality-management` - Hospitality Management program (static page, not dynamic slug)
+- `/tourism-management` - Tourism Management program (static page, not dynamic slug)
+- `/business-administration-and-entrepreneurship` - Business Administration and Entrepreneurship program (static page, not dynamic slug)
+- `/education-and-liberal-arts` - Education and Liberal Arts program (static page, not dynamic slug)
+- `/entrepreneurship` - Entrepreneurship program (static page, not dynamic slug)
+
+**URL Structure Rules:**
+- **MUST** create static pages (`.astro` files) for all URLs listed above, not dynamic routes
+- Use exact URL paths as specified (case-sensitive, hyphen-separated)
+- For academic departments: Use static pages like `preschool.astro`, `grade-school.astro`, etc. in `apps/web/src/pages/`
+- For college programs: Use static pages like `computing-studies.astro`, `hospitality-management.astro`, etc. in `apps/web/src/pages/`
+- Dynamic routes (with `[slug]`) should only be used for:
+  - News articles: `/news/[slug]`
+  - Events: `/event/[slug]`
+  - Additional academic departments or programs that are NOT in the list above
 - Keep URLs short and readable
 - Use lowercase URLs
+- Use hyphens for word separation
 - Implement proper 301 redirects for moved content
+- When adding new pages, consider SEO impact and maintain consistency with existing URL patterns
 
 #### Content Optimization
 - Use descriptive alt text for all images (include keywords naturally)

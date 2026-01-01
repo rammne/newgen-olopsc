@@ -1,5 +1,6 @@
 ---
-import {resolveCtaLink, getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import CtaButton from '../common/CtaButton.astro'
 
 interface Props {
   latestNews: {
@@ -81,14 +82,7 @@ const {latestNews, newsArticles} = Astro.props
       </div>
       {latestNews.cta && (
         <div class="text-center">
-          <a
-            href={resolveCtaLink(latestNews.cta)}
-            class={latestNews.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
-            target={latestNews.cta.openInNewTab ? '_blank' : undefined}
-            rel={latestNews.cta.openInNewTab ? 'noopener noreferrer' : undefined}
-          >
-            {latestNews.cta.text}
-          </a>
+          <CtaButton cta={latestNews.cta} />
         </div>
       )}
     </div>

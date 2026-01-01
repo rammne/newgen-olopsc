@@ -1,8 +1,7 @@
 ---
-import {resolveCtaLink} from '../../lib/utils/sanity'
 import {normalizeVideoEmbedUrl} from '../../lib/utility'
 import olopscLogo from '../../assets/olopsc-logo.jpg'
-import {CircleArrowRight} from 'lucide-astro'
+import CtaButton from '../common/CtaButton.astro'
 
 interface Props {
   hero: {
@@ -115,36 +114,10 @@ const videoUrl = getVideoUrl()
     )}
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-up hero-fade-up-delay-3">
       {hero.cta && (
-        <a
-          href={resolveCtaLink(hero.cta)}
-          class={`btn-hover-arrow ${hero.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}`}
-          target={hero.cta.openInNewTab ? '_blank' : undefined}
-          rel={hero.cta.openInNewTab ? 'noopener noreferrer' : undefined}
-        >
-          <span class="btn-text">{hero.cta.text}</span>
-          <CircleArrowRight
-            size={20}
-            stroke-width={2.5}
-            class="btn-arrow-icon"
-            aria-hidden="true"
-          />
-        </a>
+        <CtaButton cta={hero.cta} />
       )}
       {hero.secondaryCta && (
-        <a
-          href={resolveCtaLink(hero.secondaryCta)}
-          class={`btn-hover-arrow ${hero.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}`}
-          target={hero.secondaryCta.openInNewTab ? '_blank' : undefined}
-          rel={hero.secondaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
-        >
-          <span class="btn-text">{hero.secondaryCta.text}</span>
-          <CircleArrowRight
-            size={20}
-            stroke-width={2.5}
-            class="btn-arrow-icon"
-            aria-hidden="true"
-          />
-        </a>
+        <CtaButton cta={hero.secondaryCta} />
       )}
     </div>
   </div>

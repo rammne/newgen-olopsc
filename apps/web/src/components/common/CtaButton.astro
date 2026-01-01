@@ -1,0 +1,42 @@
+---
+import {resolveCtaLink} from '../../lib/utils/sanity'
+import {CircleArrowRight} from 'lucide-astro'
+
+interface Props {
+  cta: {
+    text?: string
+    link?: any
+    style?: string
+    openInNewTab?: boolean
+  }
+  variant?: 'primary' | 'secondary'
+  class?: string
+}
+
+const {cta, variant, class: className = ''} = Astro.props
+
+if (!cta) {
+  return null
+}
+
+const buttonStyle = variant || cta.style || 'primary'
+const isSecondary = buttonStyle === 'secondary'
+const buttonClass = `btn-hover-arrow ${isSecondary ? 'btn-secondary' : 'btn-primary'} ${className}`.trim()
+const href = resolveCtaLink(cta)
+---
+
+<a
+  href={href}
+  class={buttonClass}
+  target={cta.openInNewTab ? '_blank' : undefined}
+  rel={cta.openInNewTab ? 'noopener noreferrer' : undefined}
+>
+  <span class="btn-text">{cta.text}</span>
+  <CircleArrowRight
+    size={20}
+    stroke-width={2.5}
+    class="btn-arrow-icon"
+    aria-hidden="true"
+  />
+</a>
+

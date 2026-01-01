@@ -1,5 +1,5 @@
 ---
-import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+import CtaButton from '../common/CtaButton.astro'
 
 interface Props {
   finalCta: {
@@ -55,24 +55,10 @@ const bgImageUrl = finalCta?.backgroundImage?.asset?.url
       )}
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         {finalCta.primaryCta && (
-          <a
-            href={resolveCtaLink(finalCta.primaryCta)}
-            class={finalCta.primaryCta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
-            target={finalCta.primaryCta.openInNewTab ? '_blank' : undefined}
-            rel={finalCta.primaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
-          >
-            {finalCta.primaryCta.text}
-          </a>
+          <CtaButton cta={finalCta.primaryCta} />
         )}
         {finalCta.secondaryCta && (
-          <a
-            href={resolveCtaLink(finalCta.secondaryCta)}
-            class={finalCta.secondaryCta.style === 'primary' ? 'btn-primary' : 'btn-secondary'}
-            target={finalCta.secondaryCta.openInNewTab ? '_blank' : undefined}
-            rel={finalCta.secondaryCta.openInNewTab ? 'noopener noreferrer' : undefined}
-          >
-            {finalCta.secondaryCta.text}
-          </a>
+          <CtaButton cta={finalCta.secondaryCta} />
         )}
       </div>
     </div>

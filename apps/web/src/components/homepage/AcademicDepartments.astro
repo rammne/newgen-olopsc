@@ -1,5 +1,6 @@
 ---
 import { resolveCtaLink, getSanityImageUrl } from "../../lib/utils/sanity";
+import { getDepartmentUrl } from "../../lib/utils/departmentUrls";
 
 interface Props {
   academicDepartments: {
@@ -45,7 +46,7 @@ const departmentTaglines: Record<string, string> = {
   academicDepartments &&
     academicDepartments.departments &&
     academicDepartments.departments.length > 0 && (
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
         <div class="container mx-auto">
           {academicDepartments.title && (
             <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
@@ -57,10 +58,10 @@ const departmentTaglines: Record<string, string> = {
               {academicDepartments.subtitle}
             </p>
           )}
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div class="flex flex-wrap gap-4 justify-center items-center">
             {academicDepartments.departments.map((dept) => (
               <a
-                href={`/academic-departments/${dept.slug?.current || ""}`}
+                href={dept.departmentType ? getDepartmentUrl(dept.departmentType) : `/academic-departments/${dept.slug?.current || ""}`}
                 class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group"
               >
                 {dept.hero?.backgroundImage?.asset?.url && (

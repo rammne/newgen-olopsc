@@ -1,5 +1,6 @@
 ---
-import {resolveCtaLink, getSanityImageUrl} from '../../lib/utils/sanity'
+import {getSanityImageUrl} from '../../lib/utils/sanity'
+import CtaButton from '../common/CtaButton.astro'
 
 interface Props {
   programsPreview: {
@@ -74,14 +75,7 @@ const {programsPreview} = Astro.props
       </div>
       {programsPreview.cta && (
         <div class="text-center">
-          <a
-            href={resolveCtaLink(programsPreview.cta)}
-            class={programsPreview.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
-            target={programsPreview.cta.openInNewTab ? '_blank' : undefined}
-            rel={programsPreview.cta.openInNewTab ? 'noopener noreferrer' : undefined}
-          >
-            {programsPreview.cta.text}
-          </a>
+          <CtaButton cta={programsPreview.cta} />
         </div>
       )}
     </div>

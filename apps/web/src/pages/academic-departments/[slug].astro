@@ -1,22 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Hero from '../components/homepage/Hero.astro'
-import Intro from '../components/homepage/Intro.astro'
-import Features from '../components/homepage/Features.astro'
-import Stats from '../components/homepage/Stats.astro'
-import Testimonials from '../components/homepage/Testimonials.astro'
-import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
-import {getAcademicDepartmentByType} from '../lib/sanity/queries'
-import {getSanityImageUrl, resolveCtaLink} from '../lib/utils/sanity'
-import '../styles/global.css'
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../components/homepage/Hero.astro'
+import Intro from '../../components/homepage/Intro.astro'
+import Features from '../../components/homepage/Features.astro'
+import Stats from '../../components/homepage/Stats.astro'
+import Testimonials from '../../components/homepage/Testimonials.astro'
+import ScrollRevealWrapper from '../../components/common/ScrollRevealWrapper.astro'
+import {getAcademicDepartmentBySlug, getAllAcademicDepartmentSlugs} from '../../lib/sanity/queries'
+import {getSanityImageUrl, resolveCtaLink} from '../../lib/utils/sanity'
+import '../../styles/global.css'
 
-const department = await getAcademicDepartmentByType('preschool')
+export async function getStaticPaths() {
+  const departments = await getAllAcademicDepartmentSlugs()
+  return departments.map((dept) => ({
+    params: {slug: dept.slug},
+  }))
+}
+
+const {slug} = Astro.params
+const department = await getAcademicDepartmentBySlug(slug || '')
 
 if (!department) {
   return Astro.redirect('/404')
 }
 
-const pageTitle = department.seo?.title || department.title || 'Preschool Department'
+const pageTitle = department.seo?.title || department.title || 'Academic Department'
 const pageDescription = department.seo?.description || `Learn more about ${department.title} at OLOPSC`
 ---
 

@@ -1,5 +1,6 @@
 ---
-import {resolveCtaLink, getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import CtaButton from '../common/CtaButton.astro'
 
 interface Props {
   upcomingEvents: {
@@ -81,14 +82,7 @@ const {upcomingEvents, events} = Astro.props
       </div>
       {upcomingEvents.cta && (
         <div class="text-center">
-          <a
-            href={resolveCtaLink(upcomingEvents.cta)}
-            class={upcomingEvents.cta.style === 'secondary' ? 'btn-secondary' : 'btn-primary'}
-            target={upcomingEvents.cta.openInNewTab ? '_blank' : undefined}
-            rel={upcomingEvents.cta.openInNewTab ? 'noopener noreferrer' : undefined}
-          >
-            {upcomingEvents.cta.text}
-          </a>
+          <CtaButton cta={upcomingEvents.cta} />
         </div>
       )}
     </div>
