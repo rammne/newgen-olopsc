@@ -1,68 +1,73 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import {getAllNews} from '../../lib/sanity/queries'
+import {getAllEvents} from '../../lib/sanity/queries'
 import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
 import '../../styles/global.css'
 
-// Fetch all news articles
-const allNews = await getAllNews()
+// Fetch all events
+const allEvents = await getAllEvents()
 
-// Separate featured and non-featured news
-const featuredNews = allNews.filter(article => article.featured === true)
-const nonFeaturedNews = allNews.filter(article => !article.featured)
+// Separate featured and non-featured events
+const featuredEvents = allEvents.filter(event => event.featured === true)
+const nonFeaturedEvents = allEvents.filter(event => !event.featured)
 
-const pageTitle = 'News & Updates'
-const pageDescription = 'Stay updated with the latest news and announcements from OLOPSC'
+const pageTitle = 'Events'
+const pageDescription = 'View all upcoming events and activities at OLOPSC'
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <section class="min-h-screen px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
     <div class="container mx-auto">
       <h1 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-        News & Updates
+        Events
       </h1>
 
-      {/* Featured News Section */}
-      {featuredNews && featuredNews.length > 0 && (
+      {/* Featured Events Section */}
+      {featuredEvents && featuredEvents.length > 0 && (
         <div class="mb-16">
           <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            Featured News
+            Featured Events
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredNews.map((article) => (
+            {featuredEvents.map((event) => (
               <a
-                href={`/news/${article.slug?.current || ''}`}
+                href={`/events/${event.slug?.current || ''}`}
                 class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
               >
-                {article.featuredImage?.asset?.url && (
+                {event.featuredImage?.asset?.url && (
                   <div class="aspect-video overflow-hidden">
                     <img
-                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={article.featuredImage.alt || article.title || ''}
+                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                      alt={event.featuredImage.alt || event.title || ''}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
                 <div class="p-6">
                   <div class="flex items-center gap-3 mb-2">
-                    {article.category && (
+                    {event.category && (
                       <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {article.category}
+                        {event.category}
                       </span>
                     )}
                     <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
                   </div>
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {article.title}
+                    {event.title}
                   </h3>
-                  {article.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
-                      {article.excerpt}
+                  {event.startDate && (
+                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                      {formatDate(event.startDate)}
                     </p>
                   )}
-                  {article.publishedAt && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
-                      {formatDate(article.publishedAt)}
+                  {event.location && (
+                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                      📍 {event.location}
+                    </p>
+                  )}
+                  {event.excerpt && (
+                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                      {event.excerpt}
                     </p>
                   )}
                 </div>
@@ -72,44 +77,49 @@ const pageDescription = 'Stay updated with the latest news and announcements fro
         </div>
       )}
 
-      {/* Non-Featured News Section */}
-      {nonFeaturedNews && nonFeaturedNews.length > 0 && (
+      {/* Non-Featured Events Section */}
+      {nonFeaturedEvents && nonFeaturedEvents.length > 0 && (
         <div>
           <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            All News
+            All Events
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nonFeaturedNews.map((article) => (
+            {nonFeaturedEvents.map((event) => (
               <a
-                href={`/news/${article.slug?.current || ''}`}
+                href={`/events/${event.slug?.current || ''}`}
                 class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
               >
-                {article.featuredImage?.asset?.url && (
+                {event.featuredImage?.asset?.url && (
                   <div class="aspect-video overflow-hidden">
                     <img
-                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={article.featuredImage.alt || article.title || ''}
+                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                      alt={event.featuredImage.alt || event.title || ''}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
                 <div class="p-6">
-                  {article.category && (
+                  {event.category && (
                     <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-2 block">
-                      {article.category}
+                      {event.category}
                     </span>
                   )}
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {article.title}
+                    {event.title}
                   </h3>
-                  {article.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
-                      {article.excerpt}
+                  {event.startDate && (
+                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                      {formatDate(event.startDate)}
                     </p>
                   )}
-                  {article.publishedAt && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
-                      {formatDate(article.publishedAt)}
+                  {event.location && (
+                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                      📍 {event.location}
+                    </p>
+                  )}
+                  {event.excerpt && (
+                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                      {event.excerpt}
                     </p>
                   )}
                 </div>
@@ -119,11 +129,11 @@ const pageDescription = 'Stay updated with the latest news and announcements fro
         </div>
       )}
 
-      {/* No News Message */}
-      {allNews.length === 0 && (
+      {/* No Events Message */}
+      {allEvents.length === 0 && (
         <div class="text-center py-20">
           <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] opacity-70">
-            No news articles available at the moment.
+            No events available at the moment.
           </p>
         </div>
       )}

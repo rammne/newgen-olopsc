@@ -12,7 +12,7 @@ const NAV_ITEMS = [
 const MENU_ITEMS = [
   {label: 'News & Updates', href: '/news'},
   {label: 'Scholarship Programs', href: '/admissions#scholarships'},
-  {label: 'Events', href: '/event'},
+  {label: 'Events', href: '/events'},
   {label: 'Contact Us', href: '/contact'},
 ]
 

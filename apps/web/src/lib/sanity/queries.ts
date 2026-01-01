@@ -578,6 +578,110 @@ export async function getAllEvents() {
 }
 
 /**
+ * Get all event slugs for static generation
+ */
+export async function getAllEventSlugs() {
+  const query = `*[_type == "event"]{
+    "slug": slug.current
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get event by slug
+ */
+export async function getEventBySlug(slug: string) {
+  const query = `*[_type == "event" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug {
+      current
+    },
+    startDate,
+    endDate,
+    category,
+    featured,
+    location {
+      venue,
+      address,
+      isOnline,
+      onlineLink
+    },
+    featuredImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions
+        }
+      },
+      alt,
+      hotspot
+    },
+    excerpt,
+    description[] {
+      ...,
+      _type == "image" => {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        caption
+      },
+      _type == "videoEmbed" => {
+        url,
+        platform,
+        title
+      },
+      markDefs[]{
+        ...,
+        _type == "link" => {
+          href,
+          openInNewTab
+        }
+      }
+    },
+    registration {
+      required,
+      deadline,
+      link,
+      contact
+    },
+    gallery {
+      title,
+      images[] {
+        image {
+          asset->{
+            url
+          },
+          alt
+        },
+        caption
+      },
+      layout
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
+  }`
+
+  return await client.fetch(query, {slug})
+}
+
+/**
  * Get academic department by department type
  */
 export async function getAcademicDepartmentByType(departmentType: 'preschool' | 'gradeSchool' | 'juniorHigh' | 'seniorHigh' | 'college') {

@@ -1,0 +1,298 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import {getEventBySlug, getAllEventSlugs} from '../../lib/sanity/queries'
+import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import '../../styles/global.css'
+
+// Generate static paths for all events
+export async function getStaticPaths() {
+  const eventSlugs = await getAllEventSlugs()
+  return eventSlugs.map((item) => ({
+    params: {slug: item.slug},
+  }))
+}
+
+const {slug} = Astro.params
+const event = await getEventBySlug(slug || '')
+
+if (!event) {
+  return Astro.redirect('/404')
+}
+
+const pageTitle = event.seo?.title || event.title || 'Event'
+const pageDescription = event.seo?.description || event.excerpt || 'View event details from OLOPSC'
+
+// Format date and time
+const startDate = event.startDate ? new Date(event.startDate) : null
+const endDate = event.endDate ? new Date(event.endDate) : null
+const timeStr = startDate ? startDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''
+const endTimeStr = endDate ? endDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : ''
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <article class="bg-[var(--color-neutral)] min-h-screen">
+    {/* Hero Image */}
+    {event.featuredImage?.asset?.url && (
+      <div class="w-full h-[60vh] sm:h-[70vh] overflow-hidden">
+        <img
+          src={getSanityImageUrl(event.featuredImage, {width: 1920, height: 1080, fit: 'crop'})}
+          alt={event.featuredImage.alt || event.title || ''}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+
+    {/* Event Content */}
+    <div class="container mx-auto px-5 py-10 sm:px-[60px] sm:py-16">
+      <div class="max-w-4xl mx-auto">
+        {/* Header */}
+        <header class="mb-8">
+          {event.category && (
+            <span class="inline-block text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-4">
+              {event.category}
+            </span>
+          )}
+          <h1 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
+            {event.title}
+          </h1>
+          
+          {/* Event Details */}
+          <div class="space-y-3 mb-6">
+            {event.startDate && (
+              <div class="flex items-center gap-3 text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
+                <span class="text-2xl">📅</span>
+                <div>
+                  <p class="font-semibold">{formatDate(event.startDate)}{timeStr ? ` at ${timeStr}` : ''}</p>
+                  {endDate && (
+                    <p class="text-sm opacity-80">
+                      {startDate && startDate.toDateString() === endDate.toDateString() 
+                        ? `Until ${endTimeStr}`
+                        : `Until ${formatDate(event.endDate)}${endTimeStr ? ` at ${endTimeStr}` : ''}`
+                      }
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {event.location && (
+              <div class="flex items-start gap-3 text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
+                <span class="text-2xl">📍</span>
+                <div>
+                  <p class="font-semibold">{event.location.venue || 'Location TBA'}</p>
+                  {event.location.address && (
+                    <p class="text-sm opacity-80">{event.location.address}</p>
+                  )}
+                  {event.location.isOnline && event.location.onlineLink && (
+                    <a 
+                      href={event.location.onlineLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      class="text-[var(--color-accent)] hover:underline text-sm"
+                    >
+                      Join Online →
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Excerpt */}
+          {event.excerpt && (
+            <p class="text-xl sm:text-2xl text-[var(--color-primary)]/80 leading-relaxed mb-6">
+              {event.excerpt}
+            </p>
+          )}
+        </header>
+
+        {/* Registration Information */}
+        {event.registration && event.registration.required && (
+          <div class="bg-[var(--color-accent)]/10 border-l-4 border-[var(--color-accent)] p-6 rounded-lg mb-8">
+            <h3 class="text-2xl font-bold text-[var(--color-primary)] mb-4">Registration Required</h3>
+            {event.registration.deadline && (
+              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                <strong>Deadline:</strong> {formatDate(event.registration.deadline)}
+              </p>
+            )}
+            {event.registration.link && (
+              <a 
+                href={event.registration.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-block mt-4 px-6 py-3 bg-[var(--color-accent)] text-white font-semibold rounded-lg hover:bg-[var(--color-accent)]/90 transition-colors"
+              >
+                Register Now
+              </a>
+            )}
+            {event.registration.contact && (
+              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mt-4">
+                <strong>Contact:</strong> {event.registration.contact}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Main Content - Portable Text */}
+        {event.description && event.description.length > 0 && (
+          <div class="prose prose-lg max-w-none mb-12">
+            {event.description.map((block: any) => {
+              if (block._type === 'block') {
+                const style = block.style || 'normal'
+                const Tag = 
+                  style === 'h1' ? 'h1' : 
+                  style === 'h2' ? 'h2' : 
+                  style === 'h3' ? 'h3' : 
+                  style === 'h4' ? 'h4' : 
+                  style === 'blockquote' ? 'blockquote' : 
+                  'p'
+                
+                // Build HTML content from children
+                let htmlContent = ''
+                block.children?.forEach((child: any) => {
+                  let text = child.text || ''
+                  
+                  // Apply marks
+                  if (child.marks && child.marks.length > 0) {
+                    child.marks.forEach((mark: any) => {
+                      // String marks are decorators (strong, em, etc.)
+                      if (typeof mark === 'string') {
+                        if (mark === 'strong') {
+                          text = `<strong>${text}</strong>`
+                        } else if (mark === 'em') {
+                          text = `<em>${text}</em>`
+                        } else if (mark === 'underline') {
+                          text = `<u>${text}</u>`
+                        } else if (mark === 'strike') {
+                          text = `<s>${text}</s>`
+                        }
+                      } else if (mark?._type === 'link') {
+                        // Link annotation object
+                        const target = mark.openInNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''
+                        text = `<a href="${mark.href || '#'}" class="text-[var(--color-accent)] hover:underline"${target}>${text}</a>`
+                      } else {
+                        // Mark might be a key reference - look it up in markDefs
+                        const markDef = block.markDefs?.find((def: any) => def._key === mark)
+                        if (markDef?._type === 'link') {
+                          const target = markDef.openInNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''
+                          text = `<a href="${markDef.href || '#'}" class="text-[var(--color-accent)] hover:underline"${target}>${text}</a>`
+                        }
+                      }
+                    })
+                  }
+                  
+                  htmlContent += text
+                })
+                
+                const baseClasses = 'text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4'
+                const styleClasses = 
+                  style === 'h1' ? 'text-section-header-mobile sm:text-section-header-desktop mt-8 mb-4' :
+                  style === 'h2' ? 'text-3xl sm:text-4xl font-bold mt-6 mb-3' :
+                  style === 'h3' ? 'text-2xl sm:text-3xl font-bold mt-6 mb-3' :
+                  style === 'h4' ? 'text-xl sm:text-2xl font-semibold mt-4 mb-2' :
+                  style === 'blockquote' ? 'border-l-4 border-[var(--color-accent)] pl-4 italic my-4' :
+                  baseClasses
+                
+                return (
+                  <Tag class={styleClasses} set:html={htmlContent} />
+                )
+              }
+              
+              // Handle images in content
+              if (block._type === 'image' && block.asset) {
+                return (
+                  <figure class="my-8">
+                    <img
+                      src={getSanityImageUrl(block, {width: 1200, height: 800, fit: 'max'})}
+                      alt={block.alt || ''}
+                      class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                    {block.caption && (
+                      <figcaption class="text-center text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/70 mt-2">
+                        {block.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )
+              }
+
+              // Handle video embeds
+              if (block._type === 'videoEmbed' && block.url) {
+                let embedUrl = ''
+                if (block.platform === 'youtube') {
+                  // Extract YouTube video ID from URL
+                  const match = block.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/)
+                  const videoId = match ? match[1] : ''
+                  if (videoId) {
+                    embedUrl = `https://www.youtube.com/embed/${videoId}`
+                  }
+                } else if (block.platform === 'vimeo') {
+                  // Extract Vimeo video ID from URL
+                  const match = block.url.match(/(?:vimeo\.com\/)(\d+)/)
+                  const videoId = match ? match[1] : ''
+                  if (videoId) {
+                    embedUrl = `https://player.vimeo.com/video/${videoId}`
+                  }
+                }
+
+                return (
+                  <div class="my-8 aspect-video">
+                    {embedUrl ? (
+                      <iframe
+                        src={embedUrl}
+                        class="w-full h-full rounded-lg"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        title={block.title || 'Video embed'}
+                      ></iframe>
+                    ) : (
+                      <video
+                        src={block.url}
+                        controls
+                        class="w-full h-full rounded-lg"
+                      ></video>
+                    )}
+                  </div>
+                )
+              }
+              
+              return null
+            })}
+          </div>
+        )}
+
+        {/* Gallery */}
+        {event.gallery && event.gallery.images && event.gallery.images.length > 0 && (
+          <section class="mb-12">
+            {event.gallery.title && (
+              <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-6">
+                {event.gallery.title}
+              </h2>
+            )}
+            <div class={`grid gap-4 ${
+              event.gallery.layout === 'masonry' 
+                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+                : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
+              {event.gallery.images.map((item: any) => (
+                <figure class="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+                  <img
+                    src={getSanityImageUrl(item.image, {width: 600, height: 400, fit: 'crop'})}
+                    alt={item.image?.alt || item.caption || ''}
+                    class="w-full h-full object-cover"
+                  />
+                  {item.caption && (
+                    <figcaption class="p-3 text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center">
+                      {item.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  </article>
+</Layout>
+
