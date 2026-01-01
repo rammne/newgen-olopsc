@@ -28,10 +28,7 @@ export const news = defineType({
       options: {
         list: [
           {title: 'Announcements', value: 'announcements'},
-          {title: 'Events', value: 'events'},
           {title: 'Achievements', value: 'achievements'},
-          {title: 'News', value: 'news'},
-          {title: 'Updates', value: 'updates'},
         ],
       },
     }),
@@ -46,7 +43,7 @@ export const news = defineType({
       name: 'featured',
       title: 'Featured Article',
       type: 'boolean',
-      description: 'Show this article prominently',
+      description: 'Show this article on the home page (max 3 featured articles)',
       initialValue: false,
     }),
     defineField({

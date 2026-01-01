@@ -363,10 +363,10 @@ export async function getHomePage() {
 }
 
 /**
- * Get latest news articles
+ * Get featured news articles for home page (max 3)
  */
 export async function getLatestNews(count: number = 3) {
-  const query = `*[_type == "news"] | order(publishedAt desc) [0...${count}] {
+  const query = `*[_type == "news" && featured == true] | order(publishedAt desc) [0...${count}] {
     _id,
     title,
     slug {
@@ -387,16 +387,16 @@ export async function getLatestNews(count: number = 3) {
 }
 
 /**
- * Get upcoming events
+ * Get featured upcoming events for home page (max 3)
  */
 export async function getUpcomingEvents(count: number = 3) {
-  const query = `*[_type == "event" && date >= now()] | order(date asc) [0...${count}] {
+  const query = `*[_type == "event" && featured == true && startDate >= now()] | order(startDate asc) [0...${count}] {
     _id,
     title,
     slug {
       current
     },
-    date,
+    startDate,
     featuredImage {
       asset->{
         url
@@ -404,7 +404,174 @@ export async function getUpcomingEvents(count: number = 3) {
       alt
     },
     excerpt,
-    location
+    "location": location.venue
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get all news articles (for news listing page)
+ */
+export async function getAllNews() {
+  const query = `*[_type == "news"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    publishedAt,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    category,
+    featured
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get all news slugs for static generation
+ */
+export async function getAllNewsSlugs() {
+  const query = `*[_type == "news"]{
+    "slug": slug.current
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get news article by slug
+ */
+export async function getNewsBySlug(slug: string) {
+  const query = `*[_type == "news" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug {
+      current
+    },
+    publishedAt,
+    featuredImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions
+        }
+      },
+      alt,
+      hotspot
+    },
+    excerpt,
+    category,
+    featured,
+    content[] {
+      ...,
+      _type == "image" => {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        caption
+      },
+      _type == "videoEmbed" => {
+        url,
+        platform,
+        title
+      },
+      markDefs[]{
+        ...,
+        _type == "link" => {
+          href,
+          openInNewTab
+        }
+      }
+    },
+    author {
+      name,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    tags,
+    relatedArticles[]->{
+      _id,
+      title,
+      slug {
+        current
+      },
+      featuredImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      publishedAt
+    },
+    gallery {
+      title,
+      images[] {
+        image {
+          asset->{
+            url
+          },
+          alt
+        },
+        caption
+      },
+      layout
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
+  }`
+
+  return await client.fetch(query, {slug})
+}
+
+/**
+ * Get all events (for events listing page)
+ */
+export async function getAllEvents() {
+  const query = `*[_type == "event"] | order(startDate asc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    startDate,
+    endDate,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    "location": location.venue,
+    featured,
+    category
   }`
 
   return await client.fetch(query)

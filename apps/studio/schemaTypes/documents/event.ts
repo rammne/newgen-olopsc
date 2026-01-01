@@ -49,6 +49,13 @@ export const event = defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured Event',
+      type: 'boolean',
+      description: 'Show this event on the home page (max 3 featured events)',
+      initialValue: false,
+    }),
+    defineField({
       name: 'location',
       title: 'Location',
       type: 'object',
@@ -142,13 +149,14 @@ export const event = defineType({
       title: 'title',
       startDate: 'startDate',
       location: 'location.venue',
+      featured: 'featured',
       media: 'featuredImage',
     },
-    prepare({title, startDate, location, media}) {
+    prepare({title, startDate, location, featured, media}) {
       const date = startDate ? new Date(startDate).toLocaleDateString() : ''
       return {
         title: title || 'Event',
-        subtitle: `${date}${location ? ` • ${location}` : ''}`,
+        subtitle: `${date}${location ? ` • ${location}` : ''}${featured ? ' ⭐ Featured' : ''}`,
         media: media,
       }
     },

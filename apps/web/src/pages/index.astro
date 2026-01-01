@@ -18,16 +18,16 @@ import '../styles/global.css'
 // Fetch homepage data
 const homePage = await getHomePage()
 
-// Fetch latest news if needed
+// Fetch featured news (max 3) for home page
 let newsArticles = []
-if (homePage?.latestNews?.count) {
-  newsArticles = await getLatestNews(homePage.latestNews.count)
+if (homePage?.latestNews) {
+  newsArticles = await getLatestNews(3)
 }
 
-// Fetch upcoming events if needed
+// Fetch featured events (max 3) for home page
 let events = []
-if (homePage?.upcomingEvents?.count) {
-  events = await getUpcomingEvents(homePage.upcomingEvents.count)
+if (homePage?.upcomingEvents) {
+  events = await getUpcomingEvents(3)
 }
 
 // Set page title from SEO or default
