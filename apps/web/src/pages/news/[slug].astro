@@ -1,4 +1,5 @@
 ---
+// import type { Any } from '@sanity/client'
 import Layout from '../../layouts/Layout.astro'
 import {getNewsBySlug, getAllNewsSlugs} from '../../lib/sanity/queries'
 import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
@@ -7,7 +8,7 @@ import '../../styles/global.css'
 // Generate static paths for all news articles
 export async function getStaticPaths() {
   const newsSlugs = await getAllNewsSlugs()
-  return newsSlugs.map((item) => ({
+  return newsSlugs.map((item: any) => ({
     params: {slug: item.slug},
   }))
 }
@@ -57,6 +58,9 @@ const pageDescription = article.seo?.description || article.excerpt || 'Read the
                 {formatDate(article.publishedAt)}
               </time>
             )}
+            <span class="text-[var(--color-primary)]/80">
+              {article.academicDepartment?.title || 'General'}
+            </span>
             {article.author?.name && (
               <span class="flex items-center gap-2">
                 {article.author.image?.asset?.url && (

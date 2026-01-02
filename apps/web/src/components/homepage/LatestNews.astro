@@ -28,6 +28,9 @@ interface Props {
     }
     excerpt?: string
     category?: string
+    academicDepartment?: {
+      title?: string
+    }
   }>
 }
 
@@ -35,7 +38,7 @@ const {latestNews, newsArticles} = Astro.props
 ---
 
 {latestNews && newsArticles && newsArticles.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
     <div class="container mx-auto">
       {latestNews.title && (
         <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
@@ -58,11 +61,16 @@ const {latestNews, newsArticles} = Astro.props
               </div>
             )}
             <div class="p-6">
-              {article.category && (
-                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-2 block">
-                  {article.category}
+              <div class="flex items-center gap-3 mb-2 flex-wrap">
+                {article.category && (
+                  <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                    {article.category}
+                  </span>
+                )}
+                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                  {article.academicDepartment?.title || 'General'}
                 </span>
-              )}
+              </div>
               <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                 {article.title}
               </h3>

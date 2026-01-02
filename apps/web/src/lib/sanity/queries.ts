@@ -152,19 +152,16 @@ export async function getHomePage() {
     programsPreview {
       title,
       subtitle,
-      programs[]->{
-        _id,
-        title,
-        slug {
-          current
+      images[] {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
-        description,
-        featuredImage {
-          asset->{
-            url
-          },
-          alt
-        }
+        alt,
+        description
       },
       cta {
         text,
@@ -380,7 +377,10 @@ export async function getLatestNews(count: number = 3) {
       alt
     },
     excerpt,
-    category
+    category,
+    academicDepartment->{
+      title
+    }
   }`
 
   return await client.fetch(query)
@@ -404,7 +404,10 @@ export async function getUpcomingEvents(count: number = 3) {
       alt
     },
     excerpt,
-    "location": location.venue
+    "location": location.venue,
+    academicDepartment->{
+      title
+    }
   }`
 
   return await client.fetch(query)
@@ -429,7 +432,10 @@ export async function getAllNews() {
     },
     excerpt,
     category,
-    featured
+    featured,
+    academicDepartment->{
+      title
+    }
   }`
 
   return await client.fetch(query)
@@ -471,6 +477,9 @@ export async function getNewsBySlug(slug: string) {
     excerpt,
     category,
     featured,
+    academicDepartment->{
+      title
+    },
     content[] {
       ...,
       _type == "image" => {
@@ -571,7 +580,10 @@ export async function getAllEvents() {
     excerpt,
     "location": location.venue,
     featured,
-    category
+    category,
+    academicDepartment->{
+      title
+    }
   }`
 
   return await client.fetch(query)
@@ -602,6 +614,9 @@ export async function getEventBySlug(slug: string) {
     endDate,
     category,
     featured,
+    academicDepartment->{
+      title
+    },
     location {
       venue,
       address,

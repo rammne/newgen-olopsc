@@ -21,17 +21,17 @@ interface Props {
 const {intro} = Astro.props
 ---
 
-<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
+<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
   <div class="container mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
       <div>
         {intro.headline && (
-          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-neutral)] mb-4">
+          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
             {intro.headline}
           </h2>
         )}
         {intro.subheadline && (
-          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-neutral)] mb-6">
+          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
             {intro.subheadline}
           </p>
         )}
@@ -69,7 +69,7 @@ const {intro} = Astro.props
                 })
                 
                 return (
-                  <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-neutral)] mb-4" set:html={htmlContent} />
+                  <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4" set:html={htmlContent} />
                 )
               }
               if (block._type === 'image' && block.asset) {

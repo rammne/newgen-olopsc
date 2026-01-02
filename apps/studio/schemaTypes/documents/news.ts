@@ -33,6 +33,13 @@ export const news = defineType({
       },
     }),
     defineField({
+      name: 'academicDepartment',
+      title: 'Academic Department',
+      type: 'reference',
+      to: [{type: 'academicDepartment'}],
+      description: 'The academic department that posted this news article (optional)',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
@@ -123,13 +130,15 @@ export const news = defineType({
       title: 'title',
       publishedAt: 'publishedAt',
       featured: 'featured',
+      departmentTitle: 'academicDepartment.title',
       media: 'featuredImage',
     },
-    prepare({title, publishedAt, featured, media}) {
+    prepare({title, publishedAt, featured, departmentTitle, media}) {
       const date = publishedAt ? new Date(publishedAt).toLocaleDateString() : ''
+      const subtitle = `${date}${departmentTitle ? ` • ${departmentTitle}` : ''}${featured ? ' ⭐ Featured' : ''}`
       return {
         title: title || 'News Article',
-        subtitle: `${date}${featured ? ' ⭐ Featured' : ''}`,
+        subtitle: subtitle,
         media: media,
       }
     },

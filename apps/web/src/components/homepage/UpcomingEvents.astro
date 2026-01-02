@@ -28,6 +28,9 @@ interface Props {
     }
     excerpt?: string
     location?: string
+    academicDepartment?: {
+      title?: string
+    }
   }>
 }
 
@@ -35,7 +38,7 @@ const {upcomingEvents, events} = Astro.props
 ---
 
 {upcomingEvents && events && events.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
     <div class="container mx-auto">
       {upcomingEvents.title && (
         <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
@@ -58,6 +61,11 @@ const {upcomingEvents, events} = Astro.props
               </div>
             )}
             <div class="p-6">
+              <div class="flex items-center gap-3 mb-2 flex-wrap">
+                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                  {event.academicDepartment?.title || 'School-wide'}
+                </span>
+              </div>
               {event.startDate && (
                 <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
                   {formatDate(event.startDate)}

@@ -7,10 +7,6 @@ import '../../styles/global.css'
 // Fetch all news articles
 const allNews = await getAllNews()
 
-// Separate featured and non-featured news
-const featuredNews = allNews.filter(article => article.featured === true)
-const nonFeaturedNews = allNews.filter(article => !article.featured)
-
 const pageTitle = 'News & Updates'
 const pageDescription = 'Stay updated with the latest news and announcements from OLOPSC'
 ---
@@ -21,106 +17,55 @@ const pageDescription = 'Stay updated with the latest news and announcements fro
       <h1 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
         News & Updates
       </h1>
-
-      {/* Featured News Section */}
-      {featuredNews && featuredNews.length > 0 && (
-        <div class="mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            Featured News
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredNews.map((article) => (
-              <a
-                href={`/news/${article.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {article.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={article.featuredImage.alt || article.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2">
-                    {article.category && (
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {article.category}
-                      </span>
-                    )}
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
-                  </div>
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {article.title}
-                  </h3>
-                  {article.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
-                      {article.excerpt}
-                    </p>
-                  )}
-                  {article.publishedAt && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
-                      {formatDate(article.publishedAt)}
-                    </p>
-                  )}
+      
+      {allNews && allNews.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allNews.map((article: any) => (
+            <a
+              href={`/news/${article.slug?.current || ''}`}
+              class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+            >
+              {article.featuredImage?.asset?.url && (
+                <div class="aspect-video overflow-hidden">
+                  <img
+                    src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                    alt={article.featuredImage.alt || article.title || ''}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Non-Featured News Section */}
-      {nonFeaturedNews && nonFeaturedNews.length > 0 && (
-        <div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            All News
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nonFeaturedNews.map((article) => (
-              <a
-                href={`/news/${article.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {article.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={article.featuredImage.alt || article.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
                   {article.category && (
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-2 block">
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
                       {article.category}
                     </span>
                   )}
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {article.title}
-                  </h3>
-                  {article.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
-                      {article.excerpt}
-                    </p>
+                  {article.featured && (
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐</span>
                   )}
-                  {article.publishedAt && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
-                      {formatDate(article.publishedAt)}
-                    </p>
-                  )}
+                  <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                    {article.academicDepartment?.title || 'General'}
+                  </span>
                 </div>
-              </a>
-            ))}
-          </div>
+                <h2 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                  {article.title}
+                </h2>
+                {article.excerpt && (
+                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
+                    {article.excerpt}
+                  </p>
+                )}
+                {article.publishedAt && (
+                  <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
+                    {formatDate(article.publishedAt)}
+                  </p>
+                )}
+              </div>
+            </a>
+          ))}
         </div>
-      )}
-
-      {/* No News Message */}
-      {allNews.length === 0 && (
+      ) : (
         <div class="text-center py-20">
           <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] opacity-70">
             No news articles available at the moment.

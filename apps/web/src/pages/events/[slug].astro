@@ -58,6 +58,10 @@ const endTimeStr = endDate ? endDate.toLocaleTimeString('en-US', { hour: 'numeri
           
           {/* Event Details */}
           <div class="space-y-3 mb-6">
+            <div class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/80 mb-2">
+              <span class="font-semibold">Department: </span>
+              <span>{event.academicDepartment?.title || 'School-wide'}</span>
+            </div>
             {event.startDate && (
               <div class="flex items-center gap-3 text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
                 <span class="text-2xl">📅</span>

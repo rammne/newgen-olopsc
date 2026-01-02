@@ -38,6 +38,13 @@ export const event = defineType({
       },
     }),
     defineField({
+      name: 'academicDepartment',
+      title: 'Academic Department',
+      type: 'reference',
+      to: [{type: 'academicDepartment'}],
+      description: 'The academic department that posted this event (optional)',
+    }),
+    defineField({
       name: 'startDate',
       title: 'Start Date & Time',
       type: 'datetime',
@@ -150,13 +157,15 @@ export const event = defineType({
       startDate: 'startDate',
       location: 'location.venue',
       featured: 'featured',
+      departmentTitle: 'academicDepartment.title',
       media: 'featuredImage',
     },
-    prepare({title, startDate, location, featured, media}) {
+    prepare({title, startDate, location, featured, departmentTitle, media}) {
       const date = startDate ? new Date(startDate).toLocaleDateString() : ''
+      const subtitle = `${date}${location ? ` • ${location}` : ''}${departmentTitle ? ` • ${departmentTitle}` : ''}${featured ? ' ⭐ Featured' : ''}`
       return {
         title: title || 'Event',
-        subtitle: `${date}${location ? ` • ${location}` : ''}${featured ? ' ⭐ Featured' : ''}`,
+        subtitle: subtitle,
         media: media,
       }
     },

@@ -209,15 +209,34 @@ export const homePage = defineType({
           rows: 2,
         }),
         defineField({
-          name: 'programs',
-          title: 'Featured Programs',
+          name: 'images',
+          title: 'Images',
           type: 'array',
+          description: 'Upload exactly 6 images to display in a grid layout',
           of: [
             {
-              type: 'reference',
-              to: [{type: 'collegeProgram'}],
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                  description: 'Describe the image for accessibility',
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                  rows: 3,
+                  description: 'Description to display in the preview modal',
+                }),
+              ],
             },
           ],
+          validation: (Rule) => Rule.length(6).error('Please upload exactly 6 images'),
         }),
         defineField({
           name: 'cta',

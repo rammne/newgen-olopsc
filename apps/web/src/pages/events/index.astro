@@ -44,13 +44,16 @@ const pageDescription = 'View all upcoming events and activities at OLOPSC'
                   </div>
                 )}
                 <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2">
+                  <div class="flex items-center gap-3 mb-2 flex-wrap">
                     {event.category && (
                       <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
                         {event.category}
                       </span>
                     )}
                     <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                      {event.academicDepartment?.title || 'School-wide'}
+                    </span>
                   </div>
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                     {event.title}
@@ -99,11 +102,16 @@ const pageDescription = 'View all upcoming events and activities at OLOPSC'
                   </div>
                 )}
                 <div class="p-6">
-                  {event.category && (
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase mb-2 block">
-                      {event.category}
+                  <div class="flex items-center gap-3 mb-2 flex-wrap">
+                    {event.category && (
+                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                        {event.category}
+                      </span>
+                    )}
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                      {event.academicDepartment?.title || 'School-wide'}
                     </span>
-                  )}
+                  </div>
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                     {event.title}
                   </h3>
