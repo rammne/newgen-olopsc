@@ -38,10 +38,10 @@ const {latestNews, newsArticles} = Astro.props
 ---
 
 {latestNews && newsArticles && newsArticles.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10 border-t border-[var(--color-neutral)]/30">
     <div class="container mx-auto">
       {latestNews.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-primary text-center mb-12">
           {latestNews.title}
         </h2>
       )}

@@ -6,19 +6,29 @@ interface Props {
   programsPreview: {
     title?: string
     subtitle?: string
-    images?: Array<{
-      asset?: {
-        _id?: string
-        url?: string
-        metadata?: {
-          dimensions?: {
-            width?: number
-            height?: number
+    programs?: Array<{
+      _id?: string
+      title?: string
+      shortTitle?: string
+      slug?: {
+        current?: string
+      }
+      hero?: {
+        backgroundImage?: {
+          asset?: {
+            _id?: string
+            url?: string
+            metadata?: {
+              dimensions?: {
+                width?: number
+                height?: number
+              }
+            }
           }
+          alt?: string
         }
       }
-      alt?: string
-      description?: string
+      overview?: string
     }>
     cta?: {
       text?: string
@@ -32,8 +42,8 @@ interface Props {
 const {programsPreview} = Astro.props
 ---
 
-{programsPreview && programsPreview.images && programsPreview.images.length === 6 && (
-  <section class="min-h-[60vh] py-10 sm:py-16 bg-[var(--color-neutral)]/40 flex items-center overflow-hidden border-t border-[var(--color-neutral)]/30">
+{programsPreview && programsPreview.programs && programsPreview.programs.length > 0 && (
+  <section class="min-h-[60vh] py-10 sm:py-16 bg-[var(--color-neutral)] flex items-center overflow-hidden border-t border-[var(--color-neutral)]/30">
     <div class="container mx-auto w-full flex flex-col justify-center">
       {(programsPreview.title || programsPreview.subtitle) && (
         <div class="px-5 sm:px-[60px] mb-6 sm:mb-8">
@@ -49,32 +59,38 @@ const {programsPreview} = Astro.props
           )}
         </div>
       )}
-      <div class="grid grid-cols-2 md:grid-cols-3 w-full programs-grid max-w-5xl mx-auto px-5 sm:px-0 gap-4 sm:gap-6">
-        {programsPreview.images.map((image, index) => (
-          <div
-            class="program-image-wrapper overflow-hidden cursor-pointer relative group"
-            data-index={index}
+      <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0">
+        {programsPreview.programs.map((program, index) => (
+          <a
+            href={`/${program.slug?.current || ''}`}
+            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group"
           >
-            {image.asset?.url && (
-              <>
+            {program.hero?.backgroundImage?.asset?.url && (
+              <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
                 <img
-                  src={getSanityImageUrl(image, {width: 800, height: 800, fit: 'crop'})}
-                  alt={image.alt || `Program preview image ${index + 1}`}
-                  class="w-full h-full object-cover program-image"
-                  data-src={getSanityImageUrl(image, {width: 800, height: 800, fit: 'max'})}
-                  data-description={image.description || ''}
-                  data-alt={image.alt || `Program preview image ${index + 1}`}
+                  src={getSanityImageUrl(program.hero.backgroundImage, {width: 600, height: 400, fit: 'crop'})}
+                  alt={program.hero.backgroundImage.alt || program.title || ''}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
                 />
-                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                  <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
-                    </svg>
-                  </div>
-                </div>
-              </>
+              </div>
             )}
-          </div>
+            <div class="p-6 sm:p-7 flex flex-col gap-3">
+              {program.shortTitle && (
+                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                  {program.shortTitle}
+                </span>
+              )}
+              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
+                {program.title}
+              </h3>
+              {program.overview && (
+                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-2">
+                  {program.overview}
+                </p>
+              )}
+              <span class="mt-2 h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
+            </div>
+          </a>
         ))}
       </div>
       {programsPreview.cta && (
@@ -86,75 +102,50 @@ const {programsPreview} = Astro.props
   </section>
 )}
 
-<!-- Modal -->
-<div id="program-modal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4">
-  <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col">
-    <button
-      id="modal-close"
-      class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
-      aria-label="Close modal"
-    >
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
-    <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
-      <div class="aspect-video overflow-hidden bg-gray-100">
-        <img
-          id="modal-image"
-          src=""
-          alt=""
-          class="w-full h-full object-contain"
-        />
-      </div>
-      <div class="p-6 sm:p-8">
-        <p id="modal-description" class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]"></p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <style>
   .programs-grid {
-    grid-template-rows: repeat(2, minmax(160px, 200px));
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  @media (min-width: 768px) {
+  /* Tablet: 2-column grid */
+  @media (min-width: 640px) {
     .programs-grid {
-      grid-template-rows: repeat(2, minmax(180px, 220px));
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
     }
   }
 
-  .program-image-wrapper {
+  /* Desktop: 3-column grid (3x2 layout for 6 items) */
+  @media (min-width: 1024px) {
+    .programs-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .program-card {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
-  .program-image-wrapper:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-4px);
-  }
-
-  .program-image-wrapper:nth-child(1) {
+  .program-card:nth-child(1) {
     animation-delay: 0.1s;
   }
-  .program-image-wrapper:nth-child(2) {
+  .program-card:nth-child(2) {
     animation-delay: 0.2s;
   }
-  .program-image-wrapper:nth-child(3) {
+  .program-card:nth-child(3) {
     animation-delay: 0.3s;
   }
-  .program-image-wrapper:nth-child(4) {
+  .program-card:nth-child(4) {
     animation-delay: 0.4s;
   }
-  .program-image-wrapper:nth-child(5) {
+  .program-card:nth-child(5) {
     animation-delay: 0.5s;
   }
-  .program-image-wrapper:nth-child(6) {
+  .program-card:nth-child(6) {
     animation-delay: 0.6s;
   }
 
@@ -168,87 +159,4 @@ const {programsPreview} = Astro.props
       transform: translateY(0);
     }
   }
-
-  .program-image {
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .program-image-wrapper:hover .program-image {
-    transform: scale(1.05);
-  }
-
-
-  #program-modal {
-    animation: fadeIn 0.3s ease-out;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  #program-modal.hidden {
-    display: none;
-  }
-
-  #program-modal:not(.hidden) {
-    display: flex;
-  }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('program-modal')
-    const modalImage = document.getElementById('modal-image')
-    const modalDescription = document.getElementById('modal-description')
-    const modalClose = document.getElementById('modal-close')
-    const imageWrappers = document.querySelectorAll('.program-image-wrapper')
-    const images = document.querySelectorAll('.program-image')
-
-    function openModal(index: number) {
-      const image = images[index] as HTMLImageElement
-      if (!image) return
-
-      const fullImageSrc = image.dataset.src || image.src
-      const description = image.dataset.description || ''
-      const alt = image.dataset.alt || ''
-
-      modalImage!.setAttribute('src', fullImageSrc)
-      modalImage!.setAttribute('alt', alt)
-      modalDescription!.textContent = description
-      modal!.classList.remove('hidden')
-      document.body.style.overflow = 'hidden'
-    }
-
-    function closeModal() {
-      modal!.classList.add('hidden')
-      document.body.style.overflow = ''
-    }
-
-    // Open modal on image click
-    imageWrappers.forEach((wrapper, index) => {
-      wrapper.addEventListener('click', () => openModal(index))
-    })
-
-    // Close modal
-    modalClose!.addEventListener('click', closeModal)
-
-    // Close modal on backdrop click
-    modal!.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModal()
-      }
-    })
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal!.classList.contains('hidden')) {
-        closeModal()
-      }
-    })
-  })
-</script>

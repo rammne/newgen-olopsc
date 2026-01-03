@@ -6,7 +6,11 @@ import Features from '../components/homepage/Features.astro'
 import Stats from '../components/homepage/Stats.astro'
 import Testimonials from '../components/homepage/Testimonials.astro'
 import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
-import {getAcademicDepartmentByType} from '../lib/sanity/queries'
+import StoryBlocks from '../components/departments/StoryBlocks.astro'
+import HighlightsBento from '../components/departments/HighlightsBento.astro'
+import DepartmentEvents from '../components/departments/DepartmentEvents.astro'
+import TrackClusters from '../components/departments/TrackClusters.astro'
+import {getAcademicDepartmentByType, getEventsByDepartmentType} from '../lib/sanity/queries'
 import {getSanityImageUrl, resolveCtaLink} from '../lib/utils/sanity'
 import '../styles/global.css'
 
@@ -15,6 +19,9 @@ const department = await getAcademicDepartmentByType('seniorHigh')
 if (!department) {
   return Astro.redirect('/404')
 }
+
+// Fetch events for this department
+const departmentEvents = department.departmentType ? await getEventsByDepartmentType(department.departmentType) : []
 
 const pageTitle = department.seo?.title || department.title || 'Senior High School Department'
 const pageDescription = department.seo?.description || `Learn more about ${department.title} at OLOPSC`
@@ -44,6 +51,32 @@ const pageDescription = department.seo?.description || `Learn more about ${depar
   {department.keyFeatures && department.keyFeatures.length > 0 && (
     <ScrollRevealWrapper direction="up" delay={0.1}>
       <Features features={department.keyFeatures} />
+    </ScrollRevealWrapper>
+  )}
+
+  {/* Story Blocks - Visual Storytelling */}
+  {department.storyBlocks && department.storyBlocks.length > 0 && (
+    <StoryBlocks storyBlocks={department.storyBlocks} />
+  )}
+
+  {/* Highlights Bento Grid */}
+  {department.highlights && department.highlights.images && department.highlights.images.length === 6 && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <HighlightsBento highlights={department.highlights} />
+    </ScrollRevealWrapper>
+  )}
+
+  {/* Track Clusters (Senior High School specific) */}
+  {department.trackClusters && department.trackClusters.clusters && department.trackClusters.clusters.length > 0 && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <TrackClusters trackClusters={department.trackClusters} />
+    </ScrollRevealWrapper>
+  )}
+
+  {/* Department Events */}
+  {departmentEvents && departmentEvents.length > 0 && (
+    <ScrollRevealWrapper direction="up" delay={0.1}>
+      <DepartmentEvents events={departmentEvents} title="Senior High School Events" />
     </ScrollRevealWrapper>
   )}
   
@@ -85,41 +118,6 @@ const pageDescription = department.seo?.description || `Learn more about ${depar
                 />
               </div>
             )}
-          </div>
-        </div>
-      </section>
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.programs && department.programs.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
-        <div class="container mx-auto">
-          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-            Programs & Offerings
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {department.programs.map((program: any) => (
-              <div class="bg-[var(--color-neutral)] p-6 rounded-xl">
-                <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
-                  {program.title}
-                </h3>
-                {program.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
-                    {program.description}
-                  </p>
-                )}
-                {program.link?.slug?.current && (
-                  <a
-                    href={`/program/${program.link.slug.current}`}
-                    class="text-[var(--color-accent)] font-semibold hover:underline inline-flex items-center gap-2"
-                  >
-                    Learn More
-                    <span>→</span>
-                  </a>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </section>

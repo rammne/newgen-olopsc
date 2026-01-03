@@ -97,6 +97,27 @@ export async function getHomePage() {
         url,
         provider,
         embedId
+      },
+      cta {
+        text,
+        link {
+          type,
+          internal->{
+            _type,
+            slug {
+              current
+            }
+          },
+          external,
+          anchor,
+          file {
+            asset->{
+              url
+            }
+          }
+        },
+        style,
+        openInNewTab
       }
     },
     keyStats {
@@ -152,16 +173,26 @@ export async function getHomePage() {
     programsPreview {
       title,
       subtitle,
-      images[] {
-        asset->{
-          _id,
-          url,
-          metadata {
-            dimensions
+      programs[]->{
+        _id,
+        title,
+        shortTitle,
+        slug {
+          current
+        },
+        hero {
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
           }
         },
-        alt,
-        description
+        overview
       },
       cta {
         text,
@@ -824,6 +855,51 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
       },
       highlights
     },
+    highlights {
+      title,
+      images[] {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    collegePrograms {
+      title,
+      programs[]->{
+        _id,
+        title,
+        shortTitle,
+        slug {
+          current
+        },
+        hero {
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
+          }
+        },
+        overview
+      }
+    },
+    trackClusters {
+      title,
+      clusters[] {
+        name,
+        description,
+        tracks
+      }
+    },
     programs[] {
       title,
       description,
@@ -1003,6 +1079,66 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
 }
 
 /**
+ * Get events filtered by academic department (by department type)
+ */
+export async function getEventsByDepartmentType(departmentType: string) {
+  const query = `*[_type == "event" && academicDepartment->departmentType == $departmentType] | order(startDate asc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    startDate,
+    endDate,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    "location": location.venue,
+    featured,
+    category,
+    academicDepartment->{
+      _id,
+      title
+    }
+  }`
+
+  return await client.fetch(query, {departmentType})
+}
+
+/**
+ * Get all college programs
+ */
+export async function getAllCollegePrograms() {
+  const query = `*[_type == "collegeProgram"] | order(title asc) {
+    _id,
+    title,
+    shortTitle,
+    slug {
+      current
+    },
+    hero {
+      backgroundImage {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    overview
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
  * Get academic department by slug (for backward compatibility)
  */
 export async function getAcademicDepartmentBySlug(slug: string) {
@@ -1129,6 +1265,51 @@ export async function getAcademicDepartmentBySlug(slug: string) {
         alt
       },
       highlights
+    },
+    highlights {
+      title,
+      images[] {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    collegePrograms {
+      title,
+      programs[]->{
+        _id,
+        title,
+        shortTitle,
+        slug {
+          current
+        },
+        hero {
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
+          }
+        },
+        overview
+      }
+    },
+    trackClusters {
+      title,
+      clusters[] {
+        name,
+        description,
+        tracks
+      }
     },
     programs[] {
       title,

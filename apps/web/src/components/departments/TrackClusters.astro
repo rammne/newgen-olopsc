@@ -1,0 +1,53 @@
+---
+interface Props {
+  trackClusters: {
+    title?: string
+    clusters?: Array<{
+      name?: string
+      description?: string
+      tracks?: string[]
+    }>
+  }
+}
+
+const {trackClusters} = Astro.props
+
+if (!trackClusters || !trackClusters.clusters || trackClusters.clusters.length === 0) {
+  return null
+}
+---
+
+<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
+  <div class="container mx-auto">
+    {trackClusters.title && (
+      <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+        {trackClusters.title}
+      </h2>
+    )}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {trackClusters.clusters.map((cluster) => (
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
+            {cluster.name}
+          </h3>
+          {cluster.description && (
+            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/80 mb-4">
+              {cluster.description}
+            </p>
+          )}
+          {cluster.tracks && cluster.tracks.length > 0 && (
+            <ul class="list-disc list-inside space-y-1">
+              {cluster.tracks.map((track) => (
+                <li class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
+                  {track}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+

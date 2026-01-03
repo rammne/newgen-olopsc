@@ -1,4 +1,6 @@
 ---
+import CtaButton from '../common/CtaButton.astro'
+
 interface Props {
   intro: {
     headline?: string
@@ -15,13 +17,19 @@ interface Props {
       provider?: string
       embedId?: string
     }
+    cta?: {
+      text?: string
+      link?: any
+      style?: string
+      openInNewTab?: boolean
+    }
   }
 }
 
 const {intro} = Astro.props
 ---
 
-<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
+<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
   <div class="container mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
       <div>
@@ -83,6 +91,11 @@ const {intro} = Astro.props
               }
               return null
             })}
+          </div>
+        )}
+        {intro.cta && (
+          <div class="mt-6">
+            <CtaButton cta={intro.cta} />
           </div>
         )}
       </div>

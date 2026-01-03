@@ -61,6 +61,11 @@ export const homePage = defineType({
               return true
             }),
         }),
+        defineField({
+          name: 'cta',
+          title: 'Call-to-Action Button',
+          type: 'cta',
+        }),
       ],
     }),
     defineField({
@@ -209,34 +214,17 @@ export const homePage = defineType({
           rows: 2,
         }),
         defineField({
-          name: 'images',
-          title: 'Images',
+          name: 'programs',
+          title: 'College Programs',
           type: 'array',
-          description: 'Upload exactly 6 images to display in a grid layout',
+          description: 'Select up to 6 college programs to display in a bento grid layout',
           of: [
             {
-              type: 'image',
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                defineField({
-                  name: 'alt',
-                  title: 'Alt Text',
-                  type: 'string',
-                  description: 'Describe the image for accessibility',
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-                  rows: 3,
-                  description: 'Description to display in the preview modal',
-                }),
-              ],
+              type: 'reference',
+              to: [{type: 'collegeProgram'}],
             },
           ],
-          validation: (Rule) => Rule.length(6).error('Please upload exactly 6 images'),
+          validation: (Rule) => Rule.max(6).error('Please select up to 6 programs'),
         }),
         defineField({
           name: 'cta',

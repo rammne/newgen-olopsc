@@ -97,6 +97,40 @@ export const academicDepartment = defineType({
       description: 'What makes this department special',
     }),
     defineField({
+      name: 'highlights',
+      title: 'Highlights Photo Collage',
+      type: 'object',
+      description: 'Bento-style photo collage showcasing department highlights (exactly 6 images)',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'images',
+          title: 'Images',
+          type: 'array',
+          of: [
+            {
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                }),
+              ],
+            },
+          ],
+          validation: (Rule) => Rule.length(6).error('Please add exactly 6 images for the highlights collage'),
+        }),
+      ],
+    }),
+    defineField({
       name: 'curriculum',
       title: 'Curriculum Section',
       type: 'object',

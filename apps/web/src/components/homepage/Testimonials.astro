@@ -24,13 +24,13 @@ const {testimonials: testimonialsData} = Astro.props
 ---
 
 {testimonialsData && testimonialsData.testimonials && testimonialsData.testimonials.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-primary/10 border-t border-[var(--color-neutral)]/30">
     <div class="container mx-auto">
-      {testimonialsData.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-          {testimonialsData.title}
-        </h2>
-      )}
+          {testimonialsData.title && (
+            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-primary text-center mb-12">
+              {testimonialsData.title}
+            </h2>
+          )}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonialsData.testimonials.map((testimonial) => (
           <div class="bg-[var(--color-neutral)] p-6 rounded-lg">

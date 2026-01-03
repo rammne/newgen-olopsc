@@ -34,7 +34,7 @@
     --text-small-mobile: 12px;
     --color-primary: #0a095f; /* primary brand color */
     --color-accent: #edc054; /* accent color */
-    --color-neutral: #e4e4e4; /* neutral color */
+    --color-neutral: #F4F6F8; /* neutral color */
 }
 
 @layer base {
