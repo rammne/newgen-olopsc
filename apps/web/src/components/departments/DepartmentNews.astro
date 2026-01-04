@@ -1,15 +1,15 @@
 ---
-import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import {formatDate, getSanityImageUrl} from '../../lib/utils/sanity'
+import ScrollRevealWrapper from '../common/ScrollRevealWrapper.astro'
 
 interface Props {
-  events: Array<{
+  news: Array<{
     _id?: string
     title?: string
     slug?: {
       current?: string
     }
-    startDate?: string
-    endDate?: string
+    publishedAt?: string
     featuredImage?: {
       asset?: {
         url?: string
@@ -17,7 +17,6 @@ interface Props {
       alt?: string
     }
     excerpt?: string
-    location?: string
     category?: string
     featured?: boolean
     academicDepartment?: {
@@ -27,65 +26,65 @@ interface Props {
   title?: string
 }
 
-const {events, title = 'Department Events'} = Astro.props
+const {news, title = 'Department News'} = Astro.props
 
-const featuredEvents = events.filter(e => e.featured).slice(0, 3)
-const nonFeaturedEvents = events.filter(e => !e.featured)
+const featuredNews = news.filter(n => n.featured).slice(0, 3)
+const nonFeaturedNews = news.filter(n => !n.featured)
 ---
 
-{(featuredEvents.length > 0 || nonFeaturedEvents.length > 0) && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto max-w-full">
+{(featuredNews.length > 0 || nonFeaturedNews.length > 0) && (
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
+    <div class="container mx-auto w-full">
       <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
         {title}
       </h2>
 
-      {/* Featured Events */}
-      {featuredEvents.length > 0 && (
+      {/* Featured News */}
+      {featuredNews.length > 0 && (
         <div class="mb-12">
           <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)] mb-6">
-            Featured Events
+            Featured News
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredEvents.map((event) => (
+            {featuredNews.map((article) => (
               <a
-                href={`/events/${event.slug?.current || ''}`}
+                href={`/news/${article.slug?.current || ''}`}
                 class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
               >
-                {event.featuredImage?.asset?.url && (
+                {article.featuredImage?.asset?.url && (
                   <div class="aspect-video overflow-hidden">
                     <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
+                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                      alt={article.featuredImage.alt || article.title || ''}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
                 <div class="p-6">
                   <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
+                    {article.category && (
                       <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+                        {article.category}
                       </span>
                     )}
                     <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
                   </div>
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
+                    {article.title}
                   </h3>
-                  {event.startDate && (
+                  {article.publishedAt && (
                     <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
+                      {formatDate(article.publishedAt)}
                     </p>
                   )}
-                  {event.location && (
+                  {article.academicDepartment?.title && (
                     <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
+                      📍 {article.academicDepartment.title}
                     </p>
                   )}
-                  {event.excerpt && (
+                  {article.excerpt && (
                     <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
+                      {article.excerpt}
                     </p>
                   )}
                 </div>
@@ -95,51 +94,51 @@ const nonFeaturedEvents = events.filter(e => !e.featured)
         </div>
       )}
 
-      {/* Non-Featured Events */}
-      {nonFeaturedEvents.length > 0 && (
+      {/* Non-Featured News */}
+      {nonFeaturedNews.length > 0 && (
         <div>
           <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)] mb-6">
-            All Events
+            All News
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nonFeaturedEvents.map((event) => (
+            {nonFeaturedNews.map((article) => (
               <a
-                href={`/events/${event.slug?.current || ''}`}
+                href={`/news/${article.slug?.current || ''}`}
                 class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
               >
-                {event.featuredImage?.asset?.url && (
+                {article.featuredImage?.asset?.url && (
                   <div class="aspect-video overflow-hidden">
                     <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
+                      src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
+                      alt={article.featuredImage.alt || article.title || ''}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
                 <div class="p-6">
                   <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
+                    {article.category && (
                       <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+                        {article.category}
                       </span>
                     )}
                   </div>
                   <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
+                    {article.title}
                   </h3>
-                  {event.startDate && (
+                  {article.publishedAt && (
                     <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
+                      {formatDate(article.publishedAt)}
                     </p>
                   )}
-                  {event.location && (
+                  {article.academicDepartment?.title && (
                     <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
+                      📍 {article.academicDepartment.title}
                     </p>
                   )}
-                  {event.excerpt && (
+                  {article.excerpt && (
                     <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
+                      {article.excerpt}
                     </p>
                   )}
                 </div>
@@ -151,5 +150,4 @@ const nonFeaturedEvents = events.filter(e => !e.featured)
     </div>
   </section>
 )}
-
 

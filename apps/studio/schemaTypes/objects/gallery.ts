@@ -2,8 +2,9 @@ import {defineField, defineType} from 'sanity'
 
 export const gallery = defineType({
   name: 'gallery',
-  title: 'Image Gallery',
+  title: 'Photo Gallery',
   type: 'object',
+  description: 'Bento-style photo gallery (exactly 6 images)',
   fields: [
     defineField({
       name: 'title',
@@ -22,32 +23,19 @@ export const gallery = defineType({
           },
           fields: [
             defineField({
-              name: 'caption',
-              title: 'Caption',
+              name: 'alt',
+              title: 'Alt Text',
               type: 'string',
             }),
             defineField({
-              name: 'alt',
-              title: 'Alt Text',
+              name: 'caption',
+              title: 'Caption',
               type: 'string',
             }),
           ],
         },
       ],
-      validation: (Rule) => Rule.min(1),
-    }),
-    defineField({
-      name: 'layout',
-      title: 'Layout',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'Grid', value: 'grid'},
-          {title: 'Masonry', value: 'masonry'},
-          {title: 'Carousel', value: 'carousel'},
-        ],
-      },
-      initialValue: 'grid',
+      validation: (Rule) => Rule.length(6).error('Please add exactly 6 images for the bento gallery'),
     }),
   ],
   preview: {
@@ -58,7 +46,7 @@ export const gallery = defineType({
     prepare({title, images}) {
       const imageCount = images?.length || 0
       return {
-        title: title || 'Image Gallery',
+        title: title || 'Photo Gallery',
         subtitle: `${imageCount} image${imageCount !== 1 ? 's' : ''}`,
       }
     },

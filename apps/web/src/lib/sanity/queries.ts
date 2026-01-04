@@ -564,15 +564,16 @@ export async function getNewsBySlug(slug: string) {
     gallery {
       title,
       images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
+        alt,
         caption
-      },
-      layout
+      }
     },
     seo {
       title,
@@ -701,15 +702,16 @@ export async function getEventBySlug(slug: string) {
     gallery {
       title,
       images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
+        alt,
         caption
-      },
-      layout
+      }
     },
     seo {
       title,
@@ -914,14 +916,25 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
     faculty[] {
       name,
       role,
-      image {
+      department,
+      photo {
         asset->{
-          url
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
         alt
       },
       bio,
-      qualifications
+      qualifications,
+      email,
+      socialLinks[] {
+        platform,
+        url,
+        label
+      }
     },
     testimonials[] {
       quote,
@@ -948,15 +961,16 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
     gallery {
       title,
       images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
+        alt,
         caption
-      },
-      layout
+      }
     },
     admissionInfo {
       title,
@@ -1100,6 +1114,35 @@ export async function getEventsByDepartmentType(departmentType: string) {
     "location": location.venue,
     featured,
     category,
+    academicDepartment->{
+      _id,
+      title
+    }
+  }`
+
+  return await client.fetch(query, {departmentType})
+}
+
+/**
+ * Get news filtered by academic department (by department type)
+ */
+export async function getNewsByDepartmentType(departmentType: string) {
+  const query = `*[_type == "news" && academicDepartment->departmentType == $departmentType] | order(publishedAt desc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    publishedAt,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    category,
+    featured,
     academicDepartment->{
       _id,
       title
@@ -1325,14 +1368,25 @@ export async function getAcademicDepartmentBySlug(slug: string) {
     faculty[] {
       name,
       role,
-      image {
+      department,
+      photo {
         asset->{
-          url
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
         alt
       },
       bio,
-      qualifications
+      qualifications,
+      email,
+      socialLinks[] {
+        platform,
+        url,
+        label
+      }
     },
     testimonials[] {
       quote,
@@ -1359,15 +1413,16 @@ export async function getAcademicDepartmentBySlug(slug: string) {
     gallery {
       title,
       images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
         },
+        alt,
         caption
-      },
-      layout
+      }
     },
     admissionInfo {
       title,

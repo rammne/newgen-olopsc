@@ -5,7 +5,7 @@ interface Props {
   intro: {
     headline?: string
     subheadline?: string
-    content?: any[]
+    content?: any[] | string
     image?: {
       asset?: {
         url?: string
@@ -30,7 +30,7 @@ const {intro} = Astro.props
 ---
 
 <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-  <div class="container mx-auto">
+  <div class="container mx-auto max-w-full">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
       <div>
         {intro.headline && (
@@ -43,54 +43,62 @@ const {intro} = Astro.props
             {intro.subheadline}
           </p>
         )}
-        {intro.content && intro.content.length > 0 && (
+        {intro.content && (
           <div class="prose prose-lg max-w-none">
-            {intro.content.map((block: any) => {
-              if (block._type === 'block') {
-                const style = block.style || 'normal'
-                const Tag = style === 'h1' ? 'h1' : style === 'h2' ? 'h2' : style === 'h3' ? 'h3' : style === 'h4' ? 'h4' : style === 'blockquote' ? 'blockquote' : 'p'
-                
-                // Build HTML content from children
-                let htmlContent = ''
-                block.children?.forEach((child: any) => {
-                  let text = child.text || ''
+            {Array.isArray(intro.content) ? (
+              // Homepage: content is portableText array
+              intro.content.map((block: any) => {
+                if (block._type === 'block') {
+                  const style = block.style || 'normal'
+                  const Tag = style === 'h1' ? 'h1' : style === 'h2' ? 'h2' : style === 'h3' ? 'h3' : style === 'h4' ? 'h4' : style === 'blockquote' ? 'blockquote' : 'p'
                   
-                  // Apply marks
-                  if (child.marks && child.marks.length > 0) {
-                    child.marks.forEach((mark: any) => {
-                      if (typeof mark === 'string') {
-                        if (mark === 'strong') {
-                          text = `<strong>${text}</strong>`
-                        } else if (mark === 'em') {
-                          text = `<em>${text}</em>`
-                        } else if (mark === 'underline') {
-                          text = `<u>${text}</u>`
+                  // Build HTML content from children
+                  let htmlContent = ''
+                  block.children?.forEach((child: any) => {
+                    let text = child.text || ''
+                    
+                    // Apply marks
+                    if (child.marks && child.marks.length > 0) {
+                      child.marks.forEach((mark: any) => {
+                        if (typeof mark === 'string') {
+                          if (mark === 'strong') {
+                            text = `<strong>${text}</strong>`
+                          } else if (mark === 'em') {
+                            text = `<em>${text}</em>`
+                          } else if (mark === 'underline') {
+                            text = `<u>${text}</u>`
+                          }
+                        } else if (mark?._type === 'link') {
+                          const target = mark.openInNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''
+                          text = `<a href="${mark.href || '#'}" class="text-[var(--color-accent)] hover:underline"${target}>${text}</a>`
                         }
-                      } else if (mark?._type === 'link') {
-                        const target = mark.openInNewTab ? ' target="_blank" rel="noopener noreferrer"' : ''
-                        text = `<a href="${mark.href || '#'}" class="text-[var(--color-accent)] hover:underline"${target}>${text}</a>`
-                      }
-                    })
-                  }
+                      })
+                    }
+                    
+                    htmlContent += text
+                  })
                   
-                  htmlContent += text
-                })
-                
-                return (
-                  <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4" set:html={htmlContent} />
-                )
-              }
-              if (block._type === 'image' && block.asset) {
-                return (
-                  <img
-                    src={block.asset.url || ''}
-                    alt={block.alt || ''}
-                    class="w-full h-auto rounded-lg my-4"
-                  />
-                )
-              }
-              return null
-            })}
+                  return (
+                    <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4" set:html={htmlContent} />
+                  )
+                }
+                if (block._type === 'image' && block.asset) {
+                  return (
+                    <img
+                      src={block.asset.url || ''}
+                      alt={block.alt || ''}
+                      class="w-full h-auto rounded-lg my-4"
+                    />
+                  )
+                }
+                return null
+              })
+            ) : (
+              // Department pages: content is a simple string
+              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
+                {intro.content}
+              </p>
+            )}
           </div>
         )}
         {intro.cta && (
