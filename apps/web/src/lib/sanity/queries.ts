@@ -192,7 +192,19 @@ export async function getHomePage() {
             alt
           }
         },
-        overview
+        overview {
+          content,
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
+          }
+        }
       },
       cta {
         text,
@@ -891,7 +903,19 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
             alt
           }
         },
-        overview
+        overview {
+          content,
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
+          }
+        }
       }
     },
     trackClusters {
@@ -957,20 +981,6 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
       icon,
       prefix,
       suffix
-    },
-    gallery {
-      title,
-      images[] {
-        asset->{
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt,
-        caption
-      }
     },
     admissionInfo {
       title,
@@ -1343,7 +1353,19 @@ export async function getAcademicDepartmentBySlug(slug: string) {
             alt
           }
         },
-        overview
+        overview {
+          content,
+          backgroundImage {
+            asset->{
+              _id,
+              url,
+              metadata {
+                dimensions
+              }
+            },
+            alt
+          }
+        }
       }
     },
     trackClusters {
@@ -1409,20 +1431,6 @@ export async function getAcademicDepartmentBySlug(slug: string) {
       icon,
       prefix,
       suffix
-    },
-    gallery {
-      title,
-      images[] {
-        asset->{
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt,
-        caption
-      }
     },
     admissionInfo {
       title,

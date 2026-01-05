@@ -73,21 +73,32 @@ export const academicDepartment = defineType({
           },
           description: 'Primary visual element',
         }),
-        defineField({
-          name: 'video',
-          title: 'Video',
-          type: 'videoEmbed',
-          description: 'Optional video to showcase the department',
-        }),
       ],
     }),
     defineField({
       name: 'overview',
-      title: 'Overview (Brief)',
-      type: 'text',
-      rows: 3,
-      description: 'Short overview - 2-3 sentences max. Use Story Blocks below for visual storytelling.',
-      validation: (Rule) => Rule.max(300),
+      title: 'Overview Section',
+      type: 'object',
+      description: 'Overview content with optional background image',
+      fields: [
+        defineField({
+          name: 'content',
+          title: 'Content (Brief)',
+          type: 'text',
+          rows: 3,
+          description: 'Short overview - 2-3 sentences max. Use Story Blocks below for visual storytelling.',
+          validation: (Rule) => Rule.max(300),
+        }),
+        defineField({
+          name: 'backgroundImage',
+          title: 'Background Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          description: 'Optional background image for the overview section',
+        }),
+      ],
     }),
     defineField({
       name: 'keyFeatures',
@@ -213,11 +224,6 @@ export const academicDepartment = defineType({
       type: 'array',
       of: [{type: 'stats'}],
       description: 'Key statistics about this department',
-    }),
-    defineField({
-      name: 'gallery',
-      title: 'Photo Gallery',
-      type: 'gallery',
     }),
     defineField({
       name: 'admissionInfo',

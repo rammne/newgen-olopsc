@@ -9,7 +9,6 @@ import ScrollRevealWrapper from '../../components/common/ScrollRevealWrapper.ast
 import CtaButton from '../../components/common/CtaButton.astro'
 import DepartmentEvents from '../../components/departments/DepartmentEvents.astro'
 import DepartmentNews from '../../components/departments/DepartmentNews.astro'
-import GalleryBento from '../../components/departments/GalleryBento.astro'
 import FacultyCard from '../../components/departments/FacultyCard.astro'
 import {getAcademicDepartmentBySlug, getAllAcademicDepartmentSlugs, getEventsByDepartmentType, getNewsByDepartmentType, getAllCollegePrograms} from '../../lib/sanity/queries'
 import {getSanityImageUrl} from '../../lib/utils/sanity'
@@ -17,7 +16,7 @@ import '../../styles/global.css'
 
 export async function getStaticPaths() {
   const departments = await getAllAcademicDepartmentSlugs()
-  return departments.map((dept) => ({
+  return departments.map((dept: {slug: string}) => ({
     params: {slug: dept.slug},
   }))
 }
@@ -28,6 +27,15 @@ const department = await getAcademicDepartmentBySlug(slug || '')
 if (!department) {
   return Astro.redirect('/404')
 }
+
+// Fetch events for this department
+const departmentEvents = department.departmentType ? await getEventsByDepartmentType(department.departmentType) : []
+
+// Fetch news for this department
+const departmentNews = department.departmentType ? await getNewsByDepartmentType(department.departmentType) : []
+
+// Fetch all college programs (only if department is college)
+const collegePrograms = department.departmentType === 'college' ? await getAllCollegePrograms() : []
 
 const pageTitle = department.seo?.title || department.title || 'Academic Department'
 const pageDescription = department.seo?.description || `Learn more about ${department.title} at OLOPSC`
@@ -42,12 +50,18 @@ const pageDescription = department.seo?.description || `Learn more about ${depar
     </ScrollRevealWrapper>
   )}
   
-  {department.overview && (
+  {department.overview && department.overview.content && (
     <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
-        <div class="container mx-auto max-w-4xl">
-          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center leading-relaxed">
-            {department.overview}
+      <section 
+        class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
+        style={department.overview.backgroundImage?.asset?.url ? `background-image: url('${getSanityImageUrl(department.overview.backgroundImage, {width: 1920, height: 1080, fit: 'crop'})}'); background-size: cover; background-position: center; background-repeat: no-repeat;` : ''}
+      >
+        {department.overview.backgroundImage?.asset?.url && (
+          <div class="absolute inset-0 bg-black/40"></div>
+        )}
+        <div class="container mx-auto max-w-4xl relative z-10">
+          <p class={`text-main-mobile sm:text-main-desktop text-center leading-relaxed ${department.overview.backgroundImage?.asset?.url ? 'text-white' : 'text-[var(--color-primary)]'}`}>
+            {department.overview.content}
           </p>
         </div>
       </section>
@@ -180,10 +194,6 @@ const pageDescription = department.seo?.description || `Learn more about ${depar
         </div>
       </section>
     </ScrollRevealWrapper>
-  )}
-  
-  {department.gallery && department.gallery.images && department.gallery.images.length === 6 && (
-    <GalleryBento gallery={department.gallery} />
   )}
   
   {department.admissionInfo && (
