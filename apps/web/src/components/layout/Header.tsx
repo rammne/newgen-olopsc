@@ -17,13 +17,17 @@ const MENU_ITEMS = [
 ]
 
 export function Header() {
+  
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY || window.pageYOffset
-      setScrolled(offset > 40)
+      const offset =
+        window.scrollY ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop
+      setScrolled(offset > 20)
     }
 
     handleScroll()

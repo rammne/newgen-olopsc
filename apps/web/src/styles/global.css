@@ -38,25 +38,41 @@
 }
 
 @layer base {
+    html {
+        @apply scroll-smooth;
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+        overflow-wrap: break-word; /* Prevents long words from breaking layout */
+    }
+
     h1 {
         @apply text-hero-header-desktop;
         font-weight: 700;
         font-family: 'Playfair Display Medium', serif;
+        overflow-wrap: break-word;
     }
     h2 {
         @apply text-section-header-desktop;
         font-weight: 600;
         font-family: 'Playfair Display Medium', serif;
+        overflow-wrap: break-word;
     }
     h3 {
         @apply text-card-title-desktop;
         font-weight: 600;
         font-family: 'Playfair Display Medium', serif;
+        overflow-wrap: break-word;
     }
     p {
         @apply text-main-desktop;
         font-weight: 400;
         font-family: 'Montserrat Semibold', sans-serif;
+        overflow-wrap: break-word;
     }
     a {
         @apply text-small-desktop;
