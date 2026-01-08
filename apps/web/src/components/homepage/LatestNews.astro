@@ -45,7 +45,48 @@ const {latestNews, newsArticles} = Astro.props
           {latestNews.title}
         </h2>
       )}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      {/* Mobile View: Compact List */}
+      <div class="flex flex-col gap-4 mb-8 md:hidden">
+        {newsArticles.map((article) => (
+          <a
+            href={`/news/${article.slug?.current || ''}`}
+            class="bg-white rounded-lg overflow-hidden shadow-sm flex items-center p-3 gap-4"
+          >
+            {article.featuredImage?.asset?.url && (
+              <div class="w-24 h-24 flex-shrink-0 rounded-md overflow-hidden bg-[var(--color-neutral)]">
+                <img
+                  src={getSanityImageUrl(article.featuredImage, {width: 200, height: 200, fit: 'crop'})}
+                  alt={article.featuredImage.alt || article.title || ''}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            )}
+            <div class="flex-1 min-w-0">
+               <div class="flex items-center gap-2 mb-1">
+                {article.category && (
+                  <span class="text-[10px] text-[var(--color-accent)] font-bold uppercase tracking-wider">
+                    {article.category}
+                  </span>
+                )}
+                {article.publishedAt && (
+                  <span class="text-[10px] text-[var(--color-primary)]/60">
+                    {formatDate(article.publishedAt)}
+                  </span>
+                )}
+              </div>
+              <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight line-clamp-2 mb-1">
+                {article.title}
+              </h3>
+              <p class="text-small-mobile text-[var(--color-primary)]/70 line-clamp-1">
+                 {article.academicDepartment?.title || 'General'}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* Desktop View: Grid */}
+      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {newsArticles.map((article) => (
           <a
             href={`/news/${article.slug?.current || ''}`}

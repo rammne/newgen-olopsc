@@ -59,11 +59,11 @@ const {programsPreview} = Astro.props
           )}
         </div>
       )}
-      <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0">
+      <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0 flex overflow-x-auto snap-x snap-mandatory pb-4 gap-4 no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:pb-0">
         {programsPreview.programs.map((program, index) => (
           <a
             href={`/${program.slug?.current || ''}`}
-            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group"
+            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none"
           >
             {program.hero?.backgroundImage?.asset?.url && (
               <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
@@ -93,6 +93,14 @@ const {programsPreview} = Astro.props
           </a>
         ))}
       </div>
+      
+      {/* Mobile Scroll Progress Indicator */}
+      <div class="flex justify-center mt-4 sm:hidden">
+        <span class="programs-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
+          1 / {programsPreview.programs.length}
+        </span>
+      </div>
+
       {programsPreview.cta && (
         <div class="text-center px-5 sm:px-[60px] mt-6 sm:mt-8">
           <CtaButton cta={programsPreview.cta} />
@@ -102,28 +110,35 @@ const {programsPreview} = Astro.props
   </section>
 )}
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.programs-grid');
+    const cards = document.querySelectorAll('.program-card');
+    const counter = document.querySelector('.programs-counter');
+
+    if (container && cards.length > 0 && counter) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Find index of intersecting card
+            const index = Array.from(cards).indexOf(entry.target as Element);
+            if (index !== -1) {
+              counter.textContent = `${index + 1} / ${cards.length}`;
+            }
+          }
+        });
+      }, {
+        root: container,
+        threshold: 0.6 // Card must be 60% visible to trigger
+      });
+
+      cards.forEach(card => observer.observe(card));
+    }
+  });
+</script>
+
 <style>
-  .programs-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
 
-  /* Tablet: 2-column grid */
-  @media (min-width: 640px) {
-    .programs-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  /* Desktop: 3-column grid (3x2 layout for 6 items) */
-  @media (min-width: 1024px) {
-    .programs-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-  }
 
   .program-card {
     animation: fadeInUp 0.6s ease-out forwards;

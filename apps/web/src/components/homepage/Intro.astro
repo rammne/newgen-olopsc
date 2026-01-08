@@ -29,17 +29,31 @@ interface Props {
 const {intro} = Astro.props
 ---
 
-<section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-  <div class="container mx-auto max-w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <div>
+<section class="relative min-h-[85vh] px-5 py-10 sm:px-[60px] sm:py-[100px] flex flex-col justify-end overflow-hidden bg-neutral border-t border-[var(--color-neutral)]/30">
+  
+  {/* Background Image & Gradient */}
+  {intro.image?.asset?.url && !intro.video?.url && (
+    <div class="absolute inset-0 z-0">
+      <img
+        src={intro.image.asset.url}
+        alt={intro.image.alt || ''}
+        class="w-full h-full object-cover"
+      />
+      {/* Gradient Overlay for Text Readability */}
+      <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/40 to-transparent opacity-90 sm:opacity-80"></div>
+    </div>
+  )}
+
+  <div class="container mx-auto max-w-full relative z-10">
+    <div class={`grid grid-cols-1 ${intro.video?.url ? 'lg:grid-cols-2' : ''} gap-8 items-end`}>
+      <div class="max-w-4xl text-shadow-sm">
         {intro.headline && (
-          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
+          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-6">
             {intro.headline}
           </h2>
         )}
         {intro.subheadline && (
-          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
+          <p class="text-main-mobile sm:text-main-desktop text-white/95 mb-8 max-w-2xl">
             {intro.subheadline}
           </p>
         )}
@@ -79,36 +93,32 @@ const {intro} = Astro.props
                   })
                   
                   return (
-                    <Tag class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4" set:html={htmlContent} />
+                    <Tag class="text-main-mobile sm:text-main-desktop text-white/90 mb-4" set:html={htmlContent} />
                   )
                 }
                 if (block._type === 'image' && block.asset) {
-                  return (
-                    <img
-                      src={block.asset.url || ''}
-                      alt={block.alt || ''}
-                      class="w-full h-auto rounded-lg my-4"
-                    />
-                  )
+                  return null // Hide inline images in immersive mode
                 }
                 return null
               })
             ) : (
               // Department pages: content is a simple string
-              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
+              <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-4 text-justify">
                 {intro.content}
               </p>
             )}
           </div>
         )}
         {intro.cta && (
-          <div class="mt-6">
+          <div class="mt-8">
             <CtaButton cta={intro.cta} />
           </div>
         )}
       </div>
-      <div>
-        {intro.video?.url ? (
+      
+      {/* Video Column (Only shown if video exists) */}
+      {intro.video?.url && (
+        <div class="block">
           <div class="aspect-video rounded-lg shadow-xl ring-1 ring-white/15 overflow-hidden">
             <iframe
               src={intro.video.url}
@@ -117,16 +127,8 @@ const {intro} = Astro.props
               allowfullscreen
             ></iframe>
           </div>
-        ) : intro.image?.asset?.url ? (
-          <div class="rounded-lg shadow-xl ring-1 ring-white/15 overflow-hidden">
-            <img
-              src={intro.image.asset.url}
-              alt={intro.image.alt || ''}
-              class="w-full h-auto"
-            />
-          </div>
-        ) : null}
-      </div>
+        </div>
+      )}
     </div>
   </div>
 </section>

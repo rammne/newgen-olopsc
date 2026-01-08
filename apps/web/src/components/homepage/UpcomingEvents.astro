@@ -45,7 +45,48 @@ const {upcomingEvents, events} = Astro.props
           {upcomingEvents.title}
         </h2>
       )}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      {/* Mobile View: Compact List */}
+      <div class="flex flex-col gap-4 mb-8 md:hidden">
+        {events.map((event) => (
+          <a
+            href={`/events/${event.slug?.current || ''}`}
+            class="bg-white rounded-lg overflow-hidden shadow-sm flex items-start p-3 gap-4"
+          >
+            {/* Date Box or Thumbnail */}
+            <div class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden bg-white shadow-sm flex flex-col items-center justify-center text-center">
+              {event.startDate ? (
+                <>
+                  <span class="text-xs text-[var(--color-primary)] font-bold uppercase block">
+                    {new Date(event.startDate).toLocaleString('default', { month: 'short' })}
+                  </span>
+                  <span class="text-xl text-[var(--color-accent)] font-bold block leading-none">
+                    {new Date(event.startDate).getDate()}
+                  </span>
+                </>
+              ) : (
+                <span class="text-2xl">📅</span>
+              )}
+            </div>
+
+            <div class="flex-1 min-w-0 py-1">
+              <span class="text-[10px] text-[var(--color-primary)]/70 uppercase tracking-wide block mb-1">
+                {event.academicDepartment?.title || 'School-wide'}
+              </span>
+              <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight line-clamp-2 mb-1">
+                {event.title}
+              </h3>
+              {event.location && (
+                <p class="text-small-mobile text-[var(--color-primary)]/80 truncate">
+                  📍 {event.location}
+                </p>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* Desktop View: Grid */}
+      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {events.map((event) => (
           <a
             href={`/events/${event.slug?.current || ''}`}

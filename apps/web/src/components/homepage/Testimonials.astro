@@ -31,7 +31,51 @@ const {testimonials: testimonialsData} = Astro.props
               {testimonialsData.title}
             </h2>
           )}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Mobile View: Compact List */}
+      <div class="flex flex-col gap-4 mb-8 md:hidden">
+        {testimonialsData.testimonials.map((testimonial) => (
+          <div class="bg-[var(--color-neutral)] p-4 rounded-lg shadow-sm flex items-start gap-4">
+            <div class="flex-shrink-0">
+               {testimonial.author?.image?.asset?.url ? (
+                <img
+                  src={testimonial.author.image.asset.url}
+                  alt={testimonial.author.image.alt || testimonial.author.name || ''}
+                  class="w-12 h-12 rounded-full object-cover border border-[var(--color-primary)]/10"
+                />
+              ) : (
+                <div class="w-12 h-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-xl">
+                  👤
+                </div>
+              )}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start mb-1">
+                <div>
+                   <p class="font-bold text-[var(--color-primary)] text-main-mobile leading-tight">
+                    {testimonial.author?.name}
+                  </p>
+                  {testimonial.author?.role && (
+                    <p class="text-small-mobile text-[var(--color-primary)]/70 leading-tight">
+                      {testimonial.author.role}
+                    </p>
+                  )}
+                </div>
+                {testimonial.rating && (
+                  <div class="text-[var(--color-accent)] text-xs tracking-tighter shrink-0 ml-2">
+                    {'★'.repeat(testimonial.rating)}
+                  </div>
+                )}
+              </div>
+              <blockquote class="text-small-mobile text-[var(--color-primary)]/80 italic line-clamp-3 relative">
+                "{testimonial.quote}"
+              </blockquote>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop View: Grid */}
+      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonialsData.testimonials.map((testimonial) => (
           <div class="bg-[var(--color-neutral)] p-6 rounded-lg">
             {testimonial.rating && (

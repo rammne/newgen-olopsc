@@ -58,11 +58,11 @@ const departmentTaglines: Record<string, string> = {
               {academicDepartments.subtitle}
             </p>
           )}
-          <div class="flex flex-wrap gap-4 justify-center items-center">
+          <div class="departments-scroll-container flex flex-nowrap overflow-x-auto snap-x snap-mandatory pb-4 sm:flex-wrap sm:justify-center sm:items-center gap-4 no-scrollbar">
             {academicDepartments.departments.map((dept) => (
               <a
                 href={dept.departmentType ? getDepartmentUrl(dept.departmentType) : `/${dept.slug?.current || ""}`}
-                class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group"
+                class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none"
               >
                 {dept.hero?.backgroundImage?.asset?.url && (
                   <div class="aspect-video overflow-hidden">
@@ -89,7 +89,41 @@ const departmentTaglines: Record<string, string> = {
               </a>
             ))}
           </div>
+          
+          {/* Mobile Scroll Progress Indicator */}
+          <div class="flex justify-center mt-4 sm:hidden">
+            <span class="departments-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
+              1 / {academicDepartments.departments.length}
+            </span>
+          </div>
         </div>
       </section>
     )
 }
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.departments-scroll-container');
+    const cards = document.querySelectorAll('.acad-card');
+    const counter = document.querySelector('.departments-counter');
+
+    if (container && cards.length > 0 && counter) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Find index of intersecting card
+            const index = Array.from(cards).indexOf(entry.target as Element);
+            if (index !== -1) {
+              counter.textContent = `${index + 1} / ${cards.length}`;
+            }
+          }
+        });
+      }, {
+        root: container,
+        threshold: 0.6
+      });
+
+      cards.forEach(card => observer.observe(card));
+    }
+  });
+</script>
