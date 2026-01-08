@@ -36,40 +36,93 @@ const {sRice} = Astro.props
         </p>
       )}
       
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+      {/* Mobile View - Horizontal Tab Layout */}
+      <div class="block lg:hidden">
+        {/* Tab Triggers */}
+        <div class="flex justify-between items-center mb-8 px-2 max-w-sm mx-auto">
+          {sRice.items.map((item, index) => (
+            <button
+              class="mobile-tab-trigger w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 relative"
+              data-index={index}
+              aria-label={`View ${item.title}`}
+            >
+              {/* Active Background (Animated) */}
+              <div class="absolute inset-0 rounded-full bg-[var(--color-accent)] opacity-0 scale-75 transition-all duration-300 trigger-bg -z-10"></div>
+              {/* Letter */}
+              <span class="trigger-text text-[var(--color-primary)]">{item.letter}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Contents */}
+        <div class="relative min-h-[400px]">
+          {sRice.items.map((item, index) => (
+            <div 
+              class={`mobile-tab-content transition-all duration-500 absolute inset-0 w-full ${index === 0 ? 'opacity-100 pointer-events-auto translate-x-0' : 'opacity-0 pointer-events-none translate-x-4'}`}
+              data-index={index}
+            >
+              <div class="flex flex-col h-full">
+                <div class="text-center mb-6">
+                  <h3 class="text-2xl font-bold text-[var(--color-primary)] mb-3">
+                    {item.title}
+                  </h3>
+                  {item.description && (
+                    <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xl mx-auto">
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+                
+                {item.image && (
+                  <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-lg mt-auto">
+                    <img
+                      src={getSanityImageUrl(item.image, {width: 600, height: 600, fit: 'crop'})}
+                      alt={item.image.alt || item.title || ''}
+                      class="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div class="absolute inset-0 bg-[var(--color-primary)]/10"></div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop View - Existing Grid Layout */}
+      <div class="hidden lg:grid grid-cols-2 gap-8 lg:gap-16 items-start">
         {/* Left Column - S-RICE Items */}
         <div class="space-y-6 order-1 lg:order-1">
           {sRice.items.map((item, index) => (
             <div
-              class="srice-item group cursor-pointer lg:cursor-default"
+              class="srice-item group cursor-default"
               data-srice-index={index}
             >
-              <div class="flex items-start gap-4 p-6 rounded-xl transition-all duration-300 hover:bg-[var(--color-neutral)]/60 lg:hover:bg-[var(--color-neutral)]/30">
+              <div class="flex items-start gap-4 p-6 rounded-xl transition-all duration-300 hover:bg-[var(--color-neutral)]/30">
                 <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-accent)] text-[var(--color-primary)] flex items-center justify-center font-bold text-xl">
                   {item.letter}
                 </div>
                 <div class="flex-1">
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                  <h3 class="text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                     {item.title}
                   </h3>
                   {item.description && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]/80">
+                    <p class="text-main-desktop text-[var(--color-primary)]/80">
                       {item.description}
                     </p>
                   )}
                 </div>
               </div>
             </div>
-            <hr class="border-primary" />
+            <hr class="border-primary last:hidden" />
           ))}
         </div>
 
         {/* Right Column - Images */}
         <div class="lg:sticky lg:top-24 order-2 lg:order-2">
-          <div class="relative aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--color-neutral)]">
+          <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--color-neutral)]">
             {sRice.items.map((item, index) => (
               <img
-                key={index}
                 src={getSanityImageUrl(item.image, {width: 600, height: 750, fit: 'crop'})}
                 alt={item.image?.alt || item.title || ''}
                 class={`srice-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
@@ -86,60 +139,75 @@ const {sRice} = Astro.props
 )}
 
 <script>
-  // Handle hover on desktop and click on mobile
   document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll('.srice-item')
-    const images = document.querySelectorAll('.srice-image')
+    // Mobile Tab Functionality
+    const mobileTriggers = document.querySelectorAll('.mobile-tab-trigger');
+    const mobileContents = document.querySelectorAll('.mobile-tab-content');
     
-    if (items.length === 0 || images.length === 0) return
-
-    const isMobile = window.matchMedia('(max-width: 1023px)').matches
-
-    function showImage(index) {
-      images.forEach((img, i) => {
+    function activateMobileTab(index) {
+      // Update Triggers
+      mobileTriggers.forEach((btn, i) => {
+        const bg = btn.querySelector('.trigger-bg');
         if (i === index) {
-          img.classList.remove('opacity-0')
-          img.classList.add('opacity-100')
+          bg?.classList.remove('opacity-0', 'scale-75', '-z-10');
+          bg?.classList.add('opacity-100', 'scale-100', 'z-0');
+          btn.querySelector('.trigger-text')?.classList.add('relative', 'z-10');
         } else {
-          img.classList.remove('opacity-100')
-          img.classList.add('opacity-0')
+          bg?.classList.add('opacity-0', 'scale-75');
+          bg?.classList.remove('opacity-100', 'scale-100');
         }
-      })
+      });
+
+      // Update Contents
+      mobileContents.forEach((content, i) => {
+        if (i === index) {
+          content.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-4');
+          content.classList.add('opacity-100', 'pointer-events-auto', 'translate-x-0');
+        } else {
+          content.classList.add('opacity-0', 'pointer-events-none', 'translate-x-4');
+          content.classList.remove('opacity-100', 'pointer-events-auto', 'translate-x-0');
+        }
+      });
     }
 
-    items.forEach((item) => {
-      const dataIndex = item.dataset.sriceIndex
+    if (mobileTriggers.length > 0) {
+      // Initialize first tab
+      activateMobileTab(0);
 
-      if (isMobile) {
-        // Mobile: Click/tap to show image
-        item.addEventListener('click', () => {
-          if (dataIndex !== undefined) {
-            showImage(parseInt(dataIndex))
+      // Add click listeners
+      mobileTriggers.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const index = parseInt(btn.dataset.index || '0');
+          activateMobileTab(index);
+        });
+      });
+    }
+
+    // Desktop Hover Functionality
+    const desktopItems = document.querySelectorAll('.srice-item');
+    const desktopImages = document.querySelectorAll('.srice-image');
+    
+    if (desktopItems.length > 0 && desktopImages.length > 0) {
+      function showDesktopImage(index) {
+        desktopImages.forEach((img, i) => {
+          if (i === index) {
+            img.classList.remove('opacity-0');
+            img.classList.add('opacity-100');
+          } else {
+            img.classList.remove('opacity-100');
+            img.classList.add('opacity-0');
           }
-        })
-      } else {
-        // Desktop: Hover to show image
-        item.addEventListener('mouseenter', () => {
-          if (dataIndex !== undefined) {
-            showImage(parseInt(dataIndex))
-          }
-        })
+        });
       }
-    })
 
-    // Handle window resize
-    let resizeTimer
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(() => {
-        const newIsMobile = window.matchMedia('(max-width: 1023px)').matches
-        if (newIsMobile !== isMobile) {
-          // Reload behavior if switching between mobile/desktop
-          location.reload()
-        }
-      }, 250)
-    })
-  })
+      desktopItems.forEach((item) => {
+        item.addEventListener('mouseenter', () => {
+          const index = parseInt(item.dataset.sriceIndex || '0');
+          showDesktopImage(index);
+        });
+      });
+    }
+  });
 </script>
 
 <style>

@@ -37,7 +37,7 @@ const bgImageUrl = keyStats?.backgroundImage?.asset?.url
       </>
     )}
     <div class="container mx-auto relative z-10">
-      <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+      <div class="grid grid-cols-2 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6">
         {stats.map((stat, index) => {
           // Extract numeric value from stat.value (remove +, %, etc.)
           const numericValue = stat.value?.replace(/[^0-9.]/g, '') || '0'
