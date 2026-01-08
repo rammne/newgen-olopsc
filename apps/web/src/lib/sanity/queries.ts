@@ -433,7 +433,9 @@ export async function getLatestNews(count: number = 3) {
  * Get featured upcoming events for home page (max 3)
  */
 export async function getUpcomingEvents(count: number = 3) {
-  const query = `*[_type == "event" && featured == true && startDate >= now()] | order(startDate asc) [0...${count}] {
+  // Show events starting from yesterday (so 'today's' events don't disappear immediately)
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+  const query = `*[_type == "event" && featured == true && startDate >= '${oneDayAgo}'] | order(startDate asc) [0...${count}] {
     _id,
     title,
     slug {
