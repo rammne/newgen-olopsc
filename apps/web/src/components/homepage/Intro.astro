@@ -38,6 +38,8 @@ const {intro} = Astro.props
         src={intro.image.asset.url}
         alt={intro.image.alt || ''}
         class="w-full h-full object-cover"
+        fetchpriority="high"
+        loading="eager"
       />
       {/* Gradient Overlay for Text Readability */}
       <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/40 to-transparent opacity-90 sm:opacity-80"></div>

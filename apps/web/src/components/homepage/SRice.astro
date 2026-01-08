@@ -129,6 +129,8 @@ const {sRice} = Astro.props
                   index === 0 ? 'opacity-100' : 'opacity-0'
                 }`}
                 data-srice-index={index}
+                loading="lazy"
+                decoding="async"
               />
             ))}
           </div>

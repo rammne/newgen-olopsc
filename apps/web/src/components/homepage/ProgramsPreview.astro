@@ -71,10 +71,12 @@ const {programsPreview} = Astro.props
                   src={getSanityImageUrl(program.hero.backgroundImage, {width: 600, height: 400, fit: 'crop'})}
                   alt={program.hero.backgroundImage.alt || program.title || ''}
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             )}
-            <div class="p-6 sm:p-7 flex flex-col gap-3">
+            <div class="p-6 sm:p-7 flex flex-col gap-3 flex-grow">
               {program.shortTitle && (
                 <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
                   {program.shortTitle}
@@ -84,11 +86,13 @@ const {programsPreview} = Astro.props
                 {program.title}
               </h3>
               {program.overview && (
-                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-2">
+                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-2 flex-grow">
                   {program.overview}
                 </p>
               )}
-              <span class="mt-2 h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
+              <div class="mt-auto pt-2">
+                <span class="block h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
+              </div>
             </div>
           </a>
         ))}
