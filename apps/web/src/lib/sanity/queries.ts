@@ -1,4 +1,170 @@
-import {client} from './client'
+import { client } from './client'
+
+/**
+ * Get about page data
+ */
+export async function getAboutPage() {
+  const query = `*[_type == "aboutPage"][0]{
+    _id,
+    title,
+    hero {
+      variant,
+      headline,
+      subheadline,
+      backgroundImage {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        hotspot
+      },
+      overlay {
+        enabled,
+        opacity,
+        color
+      }
+    },
+    identity {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    mission {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    vision {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    values {
+      title,
+      values[] {
+        title,
+        description,
+        icon
+      }
+    },
+    history {
+      title,
+      content,
+      timeline[] {
+        year,
+        title,
+        description,
+        image {
+          asset->{
+            url
+          },
+          alt
+        }
+      },
+      gallery {
+        title,
+        images[] {
+          asset->{
+            url
+          },
+          alt,
+          caption
+        }
+      }
+    },
+    strategicAgenda {
+      title,
+      description,
+      agendaItems
+    },
+    leadership {
+      title,
+      members[] {
+        name,
+        role,
+        bio,
+        image {
+          asset->{
+            url
+          },
+          alt
+        },
+        socialLinks[] {
+          platform,
+          url
+        }
+      }
+    },
+    stats[] {
+      value,
+      label,
+      icon,
+      prefix,
+      suffix
+    },
+    accreditations {
+      title,
+      accreditations[] {
+        name,
+        description,
+        logo {
+          asset->{
+            url
+          },
+          alt
+        }
+      }
+    },
+    cta {
+      text,
+      link {
+        type,
+        internal->{
+          _type,
+          slug {
+            current
+          }
+        },
+        external,
+        anchor
+      },
+      style,
+      openInNewTab
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
+  }`
+
+  return await client.fetch(query)
+}
 
 /**
  * Get homepage data with all sections
@@ -602,7 +768,7 @@ export async function getNewsBySlug(slug: string) {
     }
   }`
 
-  return await client.fetch(query, {slug})
+  return await client.fetch(query, { slug })
 }
 
 /**
@@ -740,7 +906,7 @@ export async function getEventBySlug(slug: string) {
     }
   }`
 
-  return await client.fetch(query, {slug})
+  return await client.fetch(query, { slug })
 }
 
 /**
@@ -1101,7 +1267,7 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
     }
   }`
 
-  return await client.fetch(query, {departmentType})
+  return await client.fetch(query, { departmentType })
 }
 
 /**
@@ -1132,7 +1298,7 @@ export async function getEventsByDepartmentType(departmentType: string) {
     }
   }`
 
-  return await client.fetch(query, {departmentType})
+  return await client.fetch(query, { departmentType })
 }
 
 /**
@@ -1161,7 +1327,7 @@ export async function getNewsByDepartmentType(departmentType: string) {
     }
   }`
 
-  return await client.fetch(query, {departmentType})
+  return await client.fetch(query, { departmentType })
 }
 
 /**
@@ -1551,7 +1717,7 @@ export async function getAcademicDepartmentBySlug(slug: string) {
     }
   }`
 
-  return await client.fetch(query, {slug})
+  return await client.fetch(query, { slug })
 }
 
 /**

@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const aboutPage = defineType({
   name: 'aboutPage',
@@ -18,6 +18,54 @@ export const aboutPage = defineType({
       title: 'Hero Section',
       type: 'hero',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'identity',
+      title: 'School Identity (Who We Are)',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'content',
+          title: 'Content',
+          type: 'portableText',
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'strategicAgenda',
+      title: 'Strategic Agenda (10-Point)',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+        }),
+        defineField({
+          name: 'agendaItems',
+          title: 'Agenda Items',
+          type: 'array',
+          of: [{ type: 'string' }],
+        }),
+      ],
     }),
     defineField({
       name: 'mission',
@@ -129,7 +177,7 @@ export const aboutPage = defineType({
           name: 'timeline',
           title: 'Timeline/Milestones',
           type: 'array',
-          of: [{type: 'timeline'}],
+          of: [{ type: 'timeline' }],
         }),
         defineField({
           name: 'gallery',
@@ -152,7 +200,7 @@ export const aboutPage = defineType({
           name: 'members',
           title: 'Leadership Members',
           type: 'array',
-          of: [{type: 'facultyMember'}],
+          of: [{ type: 'facultyMember' }],
         }),
       ],
     }),
@@ -160,14 +208,14 @@ export const aboutPage = defineType({
       name: 'stats',
       title: 'Key Statistics',
       type: 'array',
-      of: [{type: 'stats'}],
+      of: [{ type: 'stats' }],
       description: 'Showcase school achievements and numbers',
     }),
     defineField({
       name: 'testimonials',
       title: 'Testimonials',
       type: 'array',
-      of: [{type: 'testimonial'}],
+      of: [{ type: 'testimonial' }],
     }),
     defineField({
       name: 'accreditations',
@@ -217,7 +265,7 @@ export const aboutPage = defineType({
       name: 'sections',
       title: 'Additional Content Sections',
       type: 'array',
-      of: [{type: 'section'}],
+      of: [{ type: 'section' }],
     }),
     defineField({
       name: 'cta',

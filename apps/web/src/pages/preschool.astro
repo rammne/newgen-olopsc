@@ -1,214 +1,279 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Hero from '../components/homepage/Hero.astro'
-import Intro from '../components/homepage/Intro.astro'
-import Features from '../components/homepage/Features.astro'
-import Stats from '../components/homepage/Stats.astro'
-import Testimonials from '../components/homepage/Testimonials.astro'
-import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
-import CtaButton from '../components/common/CtaButton.astro'
-import StoryBlocks from '../components/departments/StoryBlocks.astro'
-import HighlightsBento from '../components/departments/HighlightsBento.astro'
-import DepartmentEvents from '../components/departments/DepartmentEvents.astro'
-import DepartmentNews from '../components/departments/DepartmentNews.astro'
-import FacultyCard from '../components/departments/FacultyCard.astro'
-import {getAcademicDepartmentByType, getEventsByDepartmentType, getNewsByDepartmentType} from '../lib/sanity/queries'
-import {getSanityImageUrl} from '../lib/utils/sanity'
-import '../styles/global.css'
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import Intro from "../components/homepage/Intro.astro";
+import Features from "../components/homepage/Features.astro";
+import Stats from "../components/homepage/Stats.astro";
+import Testimonials from "../components/homepage/Testimonials.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import CtaButton from "../components/common/CtaButton.astro";
+import StoryBlocks from "../components/departments/StoryBlocks.astro";
+import HighlightsBento from "../components/departments/HighlightsBento.astro";
+import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
+import DepartmentNews from "../components/departments/DepartmentNews.astro";
+import FacultyCard from "../components/departments/FacultyCard.astro";
+import {
+  getAcademicDepartmentByType,
+  getEventsByDepartmentType,
+  getNewsByDepartmentType,
+} from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
+import "../styles/global.css";
 
-const department = await getAcademicDepartmentByType('preschool')
+const department = await getAcademicDepartmentByType("preschool");
 
 if (!department) {
-  return Astro.redirect('/404')
+  return Astro.redirect("/404");
 }
 
 // Fetch events for this department
-const departmentEvents = department.departmentType ? await getEventsByDepartmentType(department.departmentType) : []
+const departmentEvents = department.departmentType
+  ? await getEventsByDepartmentType(department.departmentType)
+  : [];
 
 // Fetch news for this department
-const departmentNews = department.departmentType ? await getNewsByDepartmentType(department.departmentType) : []
+const departmentNews = department.departmentType
+  ? await getNewsByDepartmentType(department.departmentType)
+  : [];
 
-const pageTitle = department.seo?.title || department.title || 'Preschool Department'
-const pageDescription = department.seo?.description || `Learn more about ${department.title} at OLOPSC`
+const pageTitle =
+  department.seo?.title || department.title || "Preschool Department";
+const pageDescription =
+  department.seo?.description ||
+  `Learn more about ${department.title} at OLOPSC`;
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   {department.hero && <Hero hero={department.hero} />}
-  
-  {department.intro && (
-    <ScrollRevealWrapper direction="fade" delay={0.1}>
-      <Intro intro={department.intro} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.overview && department.overview.content && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section 
-        class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-        style={department.overview.backgroundImage?.asset?.url ? `background-image: url('${getSanityImageUrl(department.overview.backgroundImage, {width: 1920, height: 1080, fit: 'crop'})}'); background-size: cover; background-position: center; background-repeat: no-repeat;` : ''}
-      >
-        {department.overview.backgroundImage?.asset?.url && (
-          <div class="absolute inset-0 bg-black/40"></div>
-        )}
-        <div class="container mx-auto max-w-4xl relative z-10">
-          <p class={`text-main-mobile sm:text-main-desktop text-center leading-relaxed ${department.overview.backgroundImage?.asset?.url ? 'text-white' : 'text-[var(--color-primary)]'}`}>
-            {department.overview.content}
-          </p>
-        </div>
-      </section>
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.keyFeatures && department.keyFeatures.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Features features={department.keyFeatures} />
-    </ScrollRevealWrapper>
-  )}
+
+  {
+    department.intro && (
+      <ScrollRevealWrapper direction="fade" delay={0.1}>
+        <Intro intro={department.intro} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.overview && department.overview.content && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <section
+          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
+          style={
+            department.overview.backgroundImage?.asset?.url
+              ? `background-image: url('${getSanityImageUrl(department.overview.backgroundImage, { width: 1920, height: 1080, fit: "crop" })}'); background-size: cover; background-position: center; background-repeat: no-repeat;`
+              : ""
+          }
+        >
+          {department.overview.backgroundImage?.asset?.url && (
+            <div class="absolute inset-0 bg-black/40" />
+          )}
+          <div class="container mx-auto max-w-4xl relative z-10">
+            <p
+              class={`text-main-mobile sm:text-main-desktop text-center leading-relaxed ${department.overview.backgroundImage?.asset?.url ? "text-white" : "text-[var(--color-primary)]"}`}
+            >
+              {department.overview.content}
+            </p>
+          </div>
+        </section>
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.keyFeatures && department.keyFeatures.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Features features={department.keyFeatures} />
+      </ScrollRevealWrapper>
+    )
+  }
 
   {/* Story Blocks - Visual Storytelling */}
-  {department.storyBlocks && department.storyBlocks.length > 0 && (
-    <StoryBlocks storyBlocks={department.storyBlocks} />
-  )}
+  {
+    department.storyBlocks && department.storyBlocks.length > 0 && (
+      <StoryBlocks storyBlocks={department.storyBlocks} />
+    )
+  }
 
   {/* Highlights Bento Grid */}
-  {department.highlights && department.highlights.images && department.highlights.images.length === 6 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <HighlightsBento highlights={department.highlights} />
-    </ScrollRevealWrapper>
-  )}
+  {
+    department.highlights &&
+      department.highlights.images &&
+      department.highlights.images.length === 6 && (
+        <ScrollRevealWrapper direction="up" delay={0.1}>
+          <HighlightsBento highlights={department.highlights} />
+        </ScrollRevealWrapper>
+      )
+  }
 
   {/* Department News */}
-  {departmentNews && departmentNews.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <DepartmentNews news={departmentNews} title="Preschool News" />
-    </ScrollRevealWrapper>
-  )}
+  {
+    departmentNews && departmentNews.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <DepartmentNews news={departmentNews} title="Preschool News" />
+      </ScrollRevealWrapper>
+    )
+  }
 
   {/* Department Events */}
-  {departmentEvents && departmentEvents.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <DepartmentEvents events={departmentEvents} title="Preschool Events" />
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.curriculum && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-        <div class="container mx-auto max-w-full">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {department.curriculum.title && (
-                <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                  {department.curriculum.title}
-                </h2>
-              )}
-              {department.curriculum.description && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                  {department.curriculum.description}
-                </p>
-              )}
-              {department.curriculum.highlights && department.curriculum.highlights.length > 0 && (
-                <ul class="space-y-3">
-                  {department.curriculum.highlights.map((highlight: string) => (
-                    <li class="flex items-start gap-3">
-                      <span class="text-[var(--color-accent)] mt-1">✓</span>
-                      <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                        {highlight}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            {department.curriculum.image?.asset?.url && (
-              <div class="rounded-2xl overflow-hidden shadow-xl">
-                <img
-                  src={getSanityImageUrl(department.curriculum.image, {width: 800, height: 600, fit: 'crop'})}
-                  alt={department.curriculum.image.alt || 'Curriculum'}
-                  class="w-full h-auto object-cover"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.stats && department.stats.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Stats keyStats={{stats: department.stats}} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.testimonials && department.testimonials.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Testimonials testimonials={{testimonials: department.testimonials}} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.faculty && department.faculty.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-        <div class="container mx-auto max-w-full">
-          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-            Featured Faculty
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {department.faculty.map((member: any, index: number) => (
-              <FacultyCard member={member} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </ScrollRevealWrapper>
-  )}
-  
-  {department.admissionInfo && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-        <div class="container mx-auto max-w-full">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="text-white">
-              {department.admissionInfo.title && (
-                <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                  {department.admissionInfo.title}
-                </h2>
-              )}
-              {department.admissionInfo.content && (
-                <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                  {department.admissionInfo.content}
-                </p>
-              )}
-              {department.admissionInfo.requirements && department.admissionInfo.requirements.length > 0 && (
-                <ul class="space-y-3 mb-8">
-                  {department.admissionInfo.requirements.map((req: string) => (
-                    <li class="flex items-start gap-3">
-                      <span class="text-[var(--color-accent)] mt-1">✓</span>
-                      <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                        {req}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {department.admissionInfo.cta && (
-                <CtaButton cta={department.admissionInfo.cta} />
-              )}
-            </div>
-            {department.admissionInfo.image?.asset?.url && (
-              <div class="rounded-2xl overflow-hidden shadow-xl">
-                <img
-                  src={getSanityImageUrl(department.admissionInfo.image, {width: 800, height: 600, fit: 'crop'})}
-                  alt={department.admissionInfo.image.alt || 'Admission Information'}
-                  class="w-full h-auto object-cover"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-    </ScrollRevealWrapper>
-  )}
-</Layout>
+  {
+    departmentEvents && departmentEvents.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <DepartmentEvents events={departmentEvents} title="Preschool Events" />
+      </ScrollRevealWrapper>
+    )
+  }
 
+  {
+    department.curriculum && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+          <div class="container mx-auto max-w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                {department.curriculum.title && (
+                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
+                    {department.curriculum.title}
+                  </h2>
+                )}
+                {department.curriculum.description && (
+                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
+                    {department.curriculum.description}
+                  </p>
+                )}
+                {department.curriculum.highlights &&
+                  department.curriculum.highlights.length > 0 && (
+                    <ul class="space-y-3">
+                      {department.curriculum.highlights.map(
+                        (highlight: string) => (
+                          <li class="flex items-start gap-3">
+                            <span class="text-[var(--color-accent)] mt-1">
+                              ✓
+                            </span>
+                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
+                              {highlight}
+                            </span>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  )}
+              </div>
+              {department.curriculum.image?.asset?.url && (
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                  <img
+                    src={getSanityImageUrl(department.curriculum.image, {
+                      width: 800,
+                      height: 600,
+                      fit: "crop",
+                    })}
+                    alt={department.curriculum.image.alt || "Curriculum"}
+                    class="w-full h-auto object-cover"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.stats && department.stats.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Stats keyStats={{ stats: department.stats }} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.testimonials && department.testimonials.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Testimonials
+          testimonials={{ testimonials: department.testimonials }}
+        />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.faculty && department.faculty.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+          <div class="container mx-auto max-w-full">
+            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+              Featured Faculty
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {department.faculty.map((member: any, index: number) => (
+                <FacultyCard member={member} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    department.admissionInfo && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
+          <div class="container mx-auto max-w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div class="text-white">
+                {department.admissionInfo.title && (
+                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
+                    {department.admissionInfo.title}
+                  </h2>
+                )}
+                {department.admissionInfo.content && (
+                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
+                    {department.admissionInfo.content}
+                  </p>
+                )}
+                {department.admissionInfo.requirements &&
+                  department.admissionInfo.requirements.length > 0 && (
+                    <ul class="space-y-3 mb-8">
+                      {department.admissionInfo.requirements.map(
+                        (req: string) => (
+                          <li class="flex items-start gap-3">
+                            <span class="text-[var(--color-accent)] mt-1">
+                              ✓
+                            </span>
+                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
+                              {req}
+                            </span>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  )}
+                {department.admissionInfo.cta && (
+                  <CtaButton cta={department.admissionInfo.cta} />
+                )}
+              </div>
+              {department.admissionInfo.image?.asset?.url && (
+                <div class="rounded-2xl overflow-hidden shadow-xl">
+                  <img
+                    src={getSanityImageUrl(department.admissionInfo.image, {
+                      width: 800,
+                      height: 600,
+                      fit: "crop",
+                    })}
+                    alt={
+                      department.admissionInfo.image.alt ||
+                      "Admission Information"
+                    }
+                    class="w-full h-auto object-cover"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      </ScrollRevealWrapper>
+    )
+  }
+</Layout>

@@ -1,155 +1,170 @@
 ---
-import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
+import { getSanityImageUrl, formatDate } from "../../lib/utils/sanity";
+import CtaButton from "../common/CtaButton.astro";
+
+function getDateParts(dateString?: string) {
+  if (!dateString) return { month: "", day: "" };
+  const date = new Date(dateString);
+  return {
+    month: date.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
+    day: date.getDate(),
+  };
+}
 
 interface Props {
   events: Array<{
-    _id?: string
-    title?: string
+    _id?: string;
+    title?: string;
     slug?: {
-      current?: string
-    }
-    startDate?: string
-    endDate?: string
+      current?: string;
+    };
+    startDate?: string;
+    endDate?: string;
     featuredImage?: {
       asset?: {
-        url?: string
-      }
-      alt?: string
-    }
-    excerpt?: string
-    location?: string
-    category?: string
-    featured?: boolean
+        url?: string;
+      };
+      alt?: string;
+    };
+    excerpt?: string;
+    location?: string;
+    category?: string;
+    featured?: boolean;
     academicDepartment?: {
-      title?: string
-    }
-  }>
-  title?: string
+      title?: string;
+    };
+  }>;
+  title?: string;
 }
 
-const {events, title = 'Department Events'} = Astro.props
+const { events, title = "Department Events" } = Astro.props;
 
-const featuredEvents = events.filter(e => e.featured).slice(0, 3)
-const nonFeaturedEvents = events.filter(e => !e.featured)
+const featuredEvents = events.filter((e) => e.featured).slice(0, 3);
 ---
 
-{(featuredEvents.length > 0 || nonFeaturedEvents.length > 0) && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto max-w-full">
-      <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-        {title}
-      </h2>
+{
+  featuredEvents.length > 0 && (
+    <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/40 border-t border-[var(--color-neutral)]/30">
+      <div class="container mx-auto max-w-full">
+        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+          {title}
+        </h2>
 
-      {/* Featured Events */}
-      {featuredEvents.length > 0 && (
-        <div class="mb-12">
-          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)] mb-6">
-            Featured Events
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredEvents.map((event) => (
-              <a
-                href={`/events/${event.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {event.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+        {/* Featured Events */}
+        {featuredEvents.length > 0 && (
+          <div class="mb-12">
+            <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)] mb-6">
+              Featured Events
+            </h3>
+            {/* Mobile View: Compact List */}
+            <div class="flex flex-col gap-4 md:hidden">
+              {featuredEvents.map((event) => {
+                const { month, day } = getDateParts(event.startDate);
+                return (
+                  <a
+                    href={`/events/${event.slug?.current || ""}`}
+                    class="bg-white rounded-lg p-4 shadow-sm flex items-start gap-4 border border-[var(--color-neutral)]/50"
+                  >
+                    {/* Date Box */}
+                    <div class="flex-shrink-0 w-16 h-16 rounded-lg border border-[var(--color-neutral)] flex flex-col items-center justify-center bg-white text-center">
+                      <span class="text-xs font-bold text-[var(--color-primary)] uppercase tracking-wider">
+                        {month}
                       </span>
-                    )}
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
-                  </div>
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
-                  </h3>
-                  {event.startDate && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
-                    </p>
-                  )}
-                  {event.location && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
-                    </p>
-                  )}
-                  {event.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
-                    </p>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Non-Featured Events */}
-      {nonFeaturedEvents.length > 0 && (
-        <div>
-          <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)] mb-6">
-            All Events
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nonFeaturedEvents.map((event) => (
-              <a
-                href={`/events/${event.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {event.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+                      <span class="text-xl font-bold text-[var(--color-accent)] leading-none mt-0.5">
+                        {day}
                       </span>
+                    </div>
+
+                    {/* Content */}
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2 mb-1">
+                        {event.academicDepartment?.title && (
+                          <span class="text-[10px] text-[var(--color-primary)]/70 uppercase tracking-widest font-medium">
+                            {event.academicDepartment.title}
+                          </span>
+                        )}
+                      </div>
+                      <h3 class="text-main-mobile text-[var(--color-primary)] font-serif font-bold leading-tight mb-2">
+                        {event.title}
+                      </h3>
+                      {event.startDate && (
+                        <p class="text-[13px] text-[var(--color-primary)]/80 font-medium opacity-80">
+                          {formatDate(event.startDate)}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+
+            <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredEvents.map((event) => (
+                <a
+                  href={`/events/${event.slug?.current || ""}`}
+                  class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+                >
+                  {event.featuredImage?.asset?.url && (
+                    <div class="aspect-video overflow-hidden">
+                      <img
+                        src={getSanityImageUrl(event.featuredImage, {
+                          width: 400,
+                          height: 300,
+                          fit: "crop",
+                        })}
+                        alt={event.featuredImage.alt || event.title || ""}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-2 flex-wrap">
+                      {event.category && (
+                        <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                          {event.category}
+                        </span>
+                      )}
+                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">
+                        ⭐ Featured
+                      </span>
+                    </div>
+                    <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                      {event.title}
+                    </h3>
+                    {event.startDate && (
+                      <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                        {formatDate(event.startDate)}
+                      </p>
+                    )}
+                    {event.location && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                        📍 {event.location}
+                      </p>
+                    )}
+                    {event.excerpt && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                        {event.excerpt}
+                      </p>
                     )}
                   </div>
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
-                  </h3>
-                  {event.startDate && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
-                    </p>
-                  )}
-                  {event.location && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
-                    </p>
-                  )}
-                  {event.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
-                    </p>
-                  )}
-                </div>
-              </a>
-            ))}
+                </a>
+              ))}
+            </div>
           </div>
+        )}
+        <div class="text-center mt-12 flex justify-center">
+          <CtaButton
+            cta={{
+              text: "View All Events",
+              link: {
+                type: "external",
+                external: "/events",
+              },
+              style: "secondary",
+            }}
+          />
         </div>
-      )}
-    </div>
-  </section>
-)}
-
-
+      </div>
+    </section>
+  )
+}
