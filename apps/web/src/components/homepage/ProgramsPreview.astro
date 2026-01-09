@@ -63,7 +63,7 @@ const {programsPreview} = Astro.props
         {programsPreview.programs.map((program, index) => (
           <a
             href={`/${program.slug?.current || ''}`}
-            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full flex flex-col"
+            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
           >
             {program.hero?.backgroundImage?.asset?.url && (
               <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
@@ -76,7 +76,7 @@ const {programsPreview} = Astro.props
                 />
               </div>
             )}
-            <div class="p-6 sm:p-7 flex flex-col gap-3 flex-grow">
+            <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3 flex-grow">
               {program.shortTitle && (
                 <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
                   {program.shortTitle}
@@ -86,11 +86,11 @@ const {programsPreview} = Astro.props
                 {program.title}
               </h3>
               {program.overview && (
-                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-2 flex-grow">
+                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-3">
                   {program.overview}
                 </p>
               )}
-              <div class="mt-auto pt-2">
+              <div class="mt-auto pt-2 w-full flex justify-center">
                 <span class="block h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
               </div>
             </div>

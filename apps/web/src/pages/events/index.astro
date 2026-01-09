@@ -1,151 +1,170 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import {getAllEvents} from '../../lib/sanity/queries'
-import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
-import '../../styles/global.css'
+import Layout from "../../layouts/Layout.astro";
+import { getAllEvents } from "../../lib/sanity/queries";
+import { getSanityImageUrl, formatDate } from "../../lib/utils/sanity";
+import "../../styles/global.css";
 
 // Fetch all events
-const allEvents = await getAllEvents()
+const allEvents = await getAllEvents();
 
 // Separate featured and non-featured events
-const featuredEvents = allEvents.filter(event => event.featured === true)
-const nonFeaturedEvents = allEvents.filter(event => !event.featured)
+const featuredEvents = allEvents.filter((event) => event.featured === true);
+const nonFeaturedEvents = allEvents.filter((event) => !event.featured);
 
-const pageTitle = 'Events'
-const pageDescription = 'View all upcoming events and activities at OLOPSC'
+const pageTitle = "Events";
+const pageDescription = "View all upcoming events and activities at OLOPSC";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <section class="min-h-screen px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+  <section
+    class="min-h-screen px-5 pt-32 pb-10 sm:px-[60px] sm:pt-[150px] sm:pb-[100px] bg-[var(--color-neutral)]"
+  >
     <div class="container mx-auto">
-      <h1 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+      <h1
+        class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12"
+      >
         Events
       </h1>
 
       {/* Featured Events Section */}
-      {featuredEvents && featuredEvents.length > 0 && (
-        <div class="mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            Featured Events
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredEvents.map((event) => (
-              <a
-                href={`/events/${event.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {event.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+      {
+        featuredEvents && featuredEvents.length > 0 && (
+          <div class="mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
+              Featured Events
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredEvents.map((event) => (
+                <a
+                  href={`/events/${event.slug?.current || ""}`}
+                  class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+                >
+                  {event.featuredImage?.asset?.url && (
+                    <div class="aspect-video overflow-hidden">
+                      <img
+                        src={getSanityImageUrl(event.featuredImage, {
+                          width: 400,
+                          height: 300,
+                          fit: "crop",
+                        })}
+                        alt={event.featuredImage.alt || event.title || ""}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-2 flex-wrap">
+                      {event.category && (
+                        <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                          {event.category}
+                        </span>
+                      )}
+                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">
+                        ⭐ Featured
                       </span>
+                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                        {event.academicDepartment?.title || "School-wide"}
+                      </span>
+                    </div>
+                    <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                      {event.title}
+                    </h3>
+                    {event.startDate && (
+                      <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                        {formatDate(event.startDate)}
+                      </p>
                     )}
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">⭐ Featured</span>
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                      {event.academicDepartment?.title || 'School-wide'}
-                    </span>
+                    {event.location && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                        📍 {event.location}
+                      </p>
+                    )}
+                    {event.excerpt && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                        {event.excerpt}
+                      </p>
+                    )}
                   </div>
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
-                  </h3>
-                  {event.startDate && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
-                    </p>
-                  )}
-                  {event.location && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
-                    </p>
-                  )}
-                  {event.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
-                    </p>
-                  )}
-                </div>
-              </a>
-            ))}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       {/* Non-Featured Events Section */}
-      {nonFeaturedEvents && nonFeaturedEvents.length > 0 && (
-        <div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-            All Events
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nonFeaturedEvents.map((event) => (
-              <a
-                href={`/events/${event.slug?.current || ''}`}
-                class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-              >
-                {event.featuredImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                      alt={event.featuredImage.alt || event.title || ''}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
-                <div class="p-6">
-                  <div class="flex items-center gap-3 mb-2 flex-wrap">
-                    {event.category && (
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                        {event.category}
+      {
+        nonFeaturedEvents && nonFeaturedEvents.length > 0 && (
+          <div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
+              All Events
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {nonFeaturedEvents.map((event) => (
+                <a
+                  href={`/events/${event.slug?.current || ""}`}
+                  class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+                >
+                  {event.featuredImage?.asset?.url && (
+                    <div class="aspect-video overflow-hidden">
+                      <img
+                        src={getSanityImageUrl(event.featuredImage, {
+                          width: 400,
+                          height: 300,
+                          fit: "crop",
+                        })}
+                        alt={event.featuredImage.alt || event.title || ""}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div class="p-6">
+                    <div class="flex items-center gap-3 mb-2 flex-wrap">
+                      {event.category && (
+                        <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                          {event.category}
+                        </span>
+                      )}
+                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                        {event.academicDepartment?.title || "School-wide"}
                       </span>
+                    </div>
+                    <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                      {event.title}
+                    </h3>
+                    {event.startDate && (
+                      <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
+                        {formatDate(event.startDate)}
+                      </p>
                     )}
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                      {event.academicDepartment?.title || 'School-wide'}
-                    </span>
+                    {event.location && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
+                        📍 {event.location}
+                      </p>
+                    )}
+                    {event.excerpt && (
+                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
+                        {event.excerpt}
+                      </p>
+                    )}
                   </div>
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {event.title}
-                  </h3>
-                  {event.startDate && (
-                    <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                      {formatDate(event.startDate)}
-                    </p>
-                  )}
-                  {event.location && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                      📍 {event.location}
-                    </p>
-                  )}
-                  {event.excerpt && (
-                    <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                      {event.excerpt}
-                    </p>
-                  )}
-                </div>
-              </a>
-            ))}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       {/* No Events Message */}
-      {allEvents.length === 0 && (
-        <div class="text-center py-20">
-          <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] opacity-70">
-            No events available at the moment.
-          </p>
-        </div>
-      )}
+      {
+        allEvents.length === 0 && (
+          <div class="text-center py-20">
+            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] opacity-70">
+              No events available at the moment.
+            </p>
+          </div>
+        )
+      }
     </div>
   </section>
 </Layout>
-
