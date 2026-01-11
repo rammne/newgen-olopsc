@@ -1,0 +1,143 @@
+---
+import { CheckCircle2 } from "lucide-astro";
+
+interface Props {
+    data: {
+        title?: string;
+        description?: string;
+        steps?: Array<{
+            stepNumber: number;
+            title: string;
+            description?: string;
+        }>;
+        requirements?: {
+            title?: string;
+            list?: string[];
+            note?: string;
+        };
+    };
+    variant?: "primary" | "neutral";
+}
+
+const { data, variant = "primary" } = Astro.props;
+
+if (!data) return null;
+
+const bgClass =
+    variant === "primary"
+        ? "bg-[var(--color-primary)]/10"
+        : "bg-[var(--color-neutral)]/30";
+const stepsBg = variant === "primary" ? "bg-white" : "bg-white";
+---
+
+<section
+    class={`min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] ${bgClass}`}
+>
+    <div class="container mx-auto">
+        <div class="text-center max-w-4xl mx-auto mb-16">
+            <h2
+                class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6"
+            >
+                {data.title}
+            </h2>
+            {
+                data.description && (
+                    <p class="text-main-mobile sm:text-main-desktop text-gray-700 leading-relaxed">
+                        {data.description}
+                    </p>
+                )
+            }
+            <div
+                class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full mt-6"
+            >
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+            {/* Steps Column */}
+            <div>
+                <h3
+                    class="text-2xl font-bold text-[var(--color-primary)] mb-8 flex items-center gap-3"
+                >
+                    <span
+                        class="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-white text-sm"
+                        >1</span
+                    >
+                    Admission Steps
+                </h3>
+                <div class="space-y-6 relative">
+                    {/* Vertical connector line */}
+                    <div
+                        class="absolute left-[1.25rem] top-4 bottom-4 w-0.5 bg-gray-200 -z-10 hidden sm:block"
+                    >
+                    </div>
+
+                    {
+                        data.steps &&
+                            data.steps.map((step) => (
+                                <div class="flex gap-4 sm:gap-6">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[var(--color-accent)] text-[var(--color-primary)] font-bold flex items-center justify-center shadow-sm border-2 border-white z-10">
+                                        {step.stepNumber}
+                                    </div>
+                                    <div
+                                        class={`${stepsBg} p-6 rounded-xl shadow-sm flex-grow border border-gray-100/50`}
+                                    >
+                                        <h4 class="font-bold text-lg text-[var(--color-primary)] mb-2">
+                                            {step.title}
+                                        </h4>
+                                        {step.description && (
+                                            <p class="text-sm text-gray-600">
+                                                {step.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))
+                    }
+                </div>
+            </div>
+
+            {/* Requirements Column */}
+            <div>
+                <h3
+                    class="text-2xl font-bold text-[var(--color-primary)] mb-8 flex items-center gap-3"
+                >
+                    <span
+                        class="flex items-center justify-center w-8 h-8 rounded-full bg-[var(--color-primary)] text-white text-sm"
+                        >2</span
+                    >
+                    {data.requirements?.title || "Requirements"}
+                </h3>
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[var(--color-primary)]"
+                >
+                    {
+                        data.requirements?.list && (
+                            <ul class="space-y-4">
+                                {data.requirements.list.map((req) => (
+                                    <li class="flex items-start gap-3">
+                                        <CheckCircle2
+                                            size={20}
+                                            class="text-[var(--color-accent)] mt-1 flex-shrink-0"
+                                        />
+                                        <span class="text-gray-700 leading-relaxed">
+                                            {req}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )
+                    }
+
+                    {
+                        data.requirements?.note && (
+                            <div class="mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500 italic">
+                                {data.requirements.note}
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

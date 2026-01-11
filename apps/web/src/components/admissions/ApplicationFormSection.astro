@@ -1,0 +1,73 @@
+---
+import { PortableText } from "astro-portabletext";
+import { FileText, Send } from "lucide-astro";
+
+interface Props {
+    applicationForm: {
+        title?: string;
+        description?: any;
+        submitButtonText?: string;
+        successMessage?: string;
+        formFields?: any[];
+    };
+}
+
+const { applicationForm } = Astro.props;
+
+if (!applicationForm) return null;
+---
+
+<section
+    id="apply"
+    class="min-h-[50vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/30"
+>
+    <div class="container mx-auto max-w-4xl text-center">
+        <div
+            class="inline-flex items-center justify-center p-4 bg-white rounded-full shadow-md mb-6 text-[var(--color-primary)]"
+        >
+            <FileText size={40} />
+        </div>
+
+        <h2
+            class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6"
+        >
+            {applicationForm.title || "Start Your Application"}
+        </h2>
+
+        {
+            applicationForm.description && (
+                <div class="prose prose-lg mx-auto text-gray-700 mb-10">
+                    <PortableText value={applicationForm.description} />
+                </div>
+            )
+        }
+
+        <div
+            class="bg-white p-8 sm:p-12 rounded-2xl shadow-lg border-2 border-[var(--color-primary)]/10"
+        >
+            <div class="text-center py-8">
+                <p class="text-gray-500 italic mb-6">
+                    Application form integration placeholder. <br />
+                    (This would typically serve a React form component or an embedded
+                    3rd party form)
+                </p>
+                <button class="btn-primary inline-flex items-center gap-2">
+                    <span
+                        >{
+                            applicationForm.submitButtonText ||
+                                "Submit Application"
+                        }</span
+                    >
+                    <Send size={18} />
+                </button>
+            </div>
+
+            {
+                /* 
+                NOTE: Ideally, you would mount a client-side React component here for the form handling.
+                Example: <ApplicationForm client:load fields={applicationForm.formFields} />
+             */
+            }
+        </div>
+    </div>
+</section>

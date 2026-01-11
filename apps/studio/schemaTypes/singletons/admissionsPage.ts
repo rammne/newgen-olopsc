@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const admissionsPage = defineType({
   name: 'admissionsPage',
@@ -37,18 +37,25 @@ export const admissionsPage = defineType({
       ],
     }),
     defineField({
-      name: 'admissionProcess',
-      title: 'Admission Process',
+      name: 'basicEducation',
+      title: 'Basic Education (Preschool - Senior High)',
       type: 'object',
       fields: [
         defineField({
           name: 'title',
           title: 'Section Title',
           type: 'string',
+          initialValue: 'Basic Education',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 3,
         }),
         defineField({
           name: 'steps',
-          title: 'Process Steps',
+          title: 'Admission Steps',
           type: 'array',
           of: [
             {
@@ -72,258 +79,110 @@ export const admissionsPage = defineType({
                   type: 'text',
                   rows: 3,
                 }),
-                defineField({
-                  name: 'icon',
-                  title: 'Icon',
-                  type: 'string',
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'requirements',
-      title: 'General Requirements',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'content',
-          title: 'Content',
-          type: 'portableText',
-        }),
-        defineField({
-          name: 'requirementsList',
-          title: 'Requirements List',
-          type: 'array',
-          of: [{type: 'string'}],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'departmentRequirements',
-      title: 'Department-Specific Requirements',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'departments',
-          title: 'Departments',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'department',
-                  title: 'Department',
-                  type: 'reference',
-                  to: [{type: 'academicDepartment'}],
-                }),
-                defineField({
-                  name: 'requirements',
-                  title: 'Requirements',
-                  type: 'array',
-                  of: [{type: 'string'}],
-                }),
-                defineField({
-                  name: 'additionalInfo',
-                  title: 'Additional Information',
-                  type: 'portableText',
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'importantDates',
-      title: 'Important Dates & Deadlines',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'dates',
-          title: 'Important Dates',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Event Label',
-                  type: 'string',
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'date',
-                  title: 'Date',
-                  type: 'date',
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-                  rows: 2,
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'tuitionFees',
-      title: 'Tuition & Fees',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'content',
-          title: 'Content',
-          type: 'portableText',
-        }),
-        defineField({
-          name: 'feeStructure',
-          title: 'Fee Structure',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'category',
-                  title: 'Category',
-                  type: 'string',
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'amount',
-                  title: 'Amount',
-                  type: 'string',
-                  description: 'e.g., "₱50,000", "Contact for details"',
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-                  rows: 2,
-                }),
               ],
             },
           ],
         }),
         defineField({
-          name: 'cta',
-          title: 'CTA',
-          type: 'cta',
-          description: 'Link to scholarship programs or contact',
+          name: 'requirements',
+          title: 'Requirements',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Requirements Title',
+              type: 'string',
+              initialValue: 'Requirements',
+            }),
+            defineField({
+              name: 'list',
+              title: 'List of Requirements',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+            defineField({
+              name: 'note',
+              title: 'Note/Footer',
+              type: 'text',
+              rows: 2
+            })
+          ],
         }),
       ],
     }),
     defineField({
-      name: 'applicationForm',
-      title: 'Application Form',
+      name: 'higherEducation',
+      title: 'Higher Education (College)',
       type: 'object',
       fields: [
         defineField({
           name: 'title',
           title: 'Section Title',
           type: 'string',
+          initialValue: 'Higher Education',
         }),
         defineField({
           name: 'description',
           title: 'Description',
-          type: 'portableText',
-        }),
-        defineField({
-          name: 'formFields',
-          title: 'Form Fields',
-          type: 'array',
-          of: [{type: 'formField'}],
-        }),
-        defineField({
-          name: 'submitButtonText',
-          title: 'Submit Button Text',
-          type: 'string',
-          initialValue: 'Submit Application',
-        }),
-        defineField({
-          name: 'successMessage',
-          title: 'Success Message',
           type: 'text',
-          rows: 2,
-        }),
-      ],
-    }),
-    defineField({
-      name: 'faq',
-      title: 'Frequently Asked Questions',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
+          rows: 3,
         }),
         defineField({
-          name: 'questions',
-          title: 'Questions',
+          name: 'steps',
+          title: 'Admission Steps',
           type: 'array',
           of: [
             {
               type: 'object',
               fields: [
                 defineField({
-                  name: 'question',
-                  title: 'Question',
+                  name: 'stepNumber',
+                  title: 'Step Number',
+                  type: 'number',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'title',
+                  title: 'Step Title',
                   type: 'string',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
-                  name: 'answer',
-                  title: 'Answer',
-                  type: 'portableText',
-                  validation: (Rule) => Rule.required(),
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                  rows: 3,
                 }),
               ],
             },
           ],
         }),
+        defineField({
+          name: 'requirements',
+          title: 'Requirements',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Requirements Title',
+              type: 'string',
+              initialValue: 'Requirements',
+            }),
+            defineField({
+              name: 'list',
+              title: 'List of Requirements',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+            defineField({
+              name: 'note',
+              title: 'Note/Footer',
+              type: 'text',
+              rows: 2
+            })
+          ],
+        }),
       ],
-    }),
-    defineField({
-      name: 'testimonials',
-      title: 'Testimonials',
-      type: 'array',
-      of: [{type: 'testimonial'}],
-      description: 'Testimonials from current students or parents',
-    }),
-    defineField({
-      name: 'contactInfo',
-      title: 'Admissions Contact Information',
-      type: 'contactInfo',
     }),
     defineField({
       name: 'cta',

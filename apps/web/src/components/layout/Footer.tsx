@@ -14,16 +14,6 @@ const FOOTER_SECTIONS = [
     ],
   },
   {
-    title: 'Academics',
-    links: [
-      {label: 'Preschool', href: '/preschool'},
-      {label: 'Grade School', href: '/grade-school'},
-      {label: 'Junior High School', href: '/junior-high-school'},
-      {label: 'Senior High School', href: '/senior-high-school'},
-      {label: 'College Programs', href: '/college-department'},
-    ],
-  },
-  {
     title: 'Admissions',
     links: [
       {label: 'Admissions Process', href: '/admissions'},

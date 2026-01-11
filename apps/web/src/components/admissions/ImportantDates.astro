@@ -1,0 +1,73 @@
+---
+import { Calendar, Clock } from "lucide-astro";
+
+interface Props {
+    importantDates: {
+        title?: string;
+        dates?: Array<{
+            label?: string;
+            date?: string;
+            description?: string;
+        }>;
+    };
+}
+
+const { importantDates } = Astro.props;
+
+if (!importantDates) return null;
+---
+
+<section
+    id="dates"
+    class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/30"
+>
+    <div class="container mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2
+                class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-4"
+            >
+                {importantDates.title || "Important Dates & Deadlines"}
+            </h2>
+            <div class="w-16 h-1 bg-[var(--color-accent)] mx-auto rounded-full">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+                importantDates.dates &&
+                    importantDates.dates.map((dateItem) => (
+                        <div class="bg-white rounded-xl p-6 shadow-sm border-t-4 border-[var(--color-primary)] flex flex-col hover:shadow-md transition-shadow">
+                            <div class="flex items-center gap-3 text-[var(--color-primary)] mb-4">
+                                <Calendar size={24} />
+                                <span class="font-bold text-lg">
+                                    {new Date(dateItem.date).toLocaleDateString(
+                                        "en-US",
+                                        {
+                                            month: "long",
+                                            day: "numeric",
+                                            year: "numeric",
+                                        },
+                                    )}
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                {dateItem.label}
+                            </h3>
+
+                            <p class="text-gray-600 text-sm flex-grow">
+                                {dateItem.description}
+                            </p>
+
+                            {/* Optional 'upcoming' badge logic could be added here */}
+                            {new Date(dateItem.date) > new Date() && (
+                                <div class="mt-4 inline-flex items-center gap-1.5 text-xs text-[var(--color-accent)] font-bold bg-[var(--color-accent)]/10 px-2 py-1 rounded w-fit">
+                                    <Clock size={12} /> UPCOMING
+                                </div>
+                            )}
+                        </div>
+                    ))
+            }
+        </div>
+    </div>
+</section>

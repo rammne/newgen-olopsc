@@ -1,0 +1,112 @@
+---
+import { PortableText } from "astro-portabletext";
+import CtaButton from "../common/CtaButton.astro";
+
+interface Props {
+    tuitionFees: {
+        title?: string;
+        content?: any;
+        feeStructure?: Array<{
+            category?: string;
+            amount?: string;
+            description?: string;
+        }>;
+        cta?: {
+            text?: string;
+            link?: any;
+            style?: string;
+        };
+    };
+}
+
+const { tuitionFees } = Astro.props;
+
+if (!tuitionFees) return null;
+---
+
+<section
+    id="tuition"
+    class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10"
+>
+    <div class="container mx-auto">
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
+            <div class="lg:w-1/3">
+                <h2
+                    class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6"
+                >
+                    {tuitionFees.title || "Tuition & Fees"}
+                </h2>
+                {
+                    tuitionFees.content && (
+                        <div class="prose prose-lg text-gray-700 mb-8">
+                            <PortableText value={tuitionFees.content} />
+                        </div>
+                    )
+                }
+
+                {
+                    tuitionFees.cta && (
+                        <div class="mt-8">
+                            <CtaButton cta={tuitionFees.cta} />
+                        </div>
+                    )
+                }
+            </div>
+
+            <div class="lg:w-2/3 w-full">
+                <div
+                    class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100"
+                >
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr
+                                    class="bg-[var(--color-primary)] text-white"
+                                >
+                                    <th
+                                        class="p-4 sm:p-6 font-bold text-sm sm:text-base tracking-wide uppercase"
+                                        >Category / Level</th
+                                    >
+                                    <th
+                                        class="p-4 sm:p-6 font-bold text-sm sm:text-base tracking-wide uppercase"
+                                        >Estimated Amount</th
+                                    >
+                                    <th
+                                        class="p-4 sm:p-6 font-bold text-sm sm:text-base tracking-wide uppercase hidden sm:table-cell"
+                                        >Notes</th
+                                    >
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                {
+                                    tuitionFees.feeStructure &&
+                                        tuitionFees.feeStructure.map(
+                                            (fee, index) => (
+                                                <tr
+                                                    class={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? "bg-white" : "bg-gray-50/50"}`}
+                                                >
+                                                    <td class="p-4 sm:p-6 font-bold text-[var(--color-primary)]">
+                                                        {fee.category}
+                                                        {/* Mobile-only description view */}
+                                                        <div class="sm:hidden text-xs text-gray-500 font-normal mt-1">
+                                                            {fee.description}
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-4 sm:p-6 font-mono font-medium text-[var(--color-accent)] text-lg">
+                                                        {fee.amount}
+                                                    </td>
+                                                    <td class="p-4 sm:p-6 text-sm text-gray-600 hidden sm:table-cell">
+                                                        {fee.description}
+                                                    </td>
+                                                </tr>
+                                            ),
+                                        )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

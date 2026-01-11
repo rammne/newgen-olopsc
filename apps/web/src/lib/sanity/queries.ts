@@ -167,6 +167,112 @@ export async function getAboutPage() {
 }
 
 /**
+ * Get admissions page data
+ */
+export async function getAdmissionsPage() {
+  const query = `*[_type == "admissionsPage"][0]{
+    _id,
+    title,
+    hero {
+      variant,
+      headline,
+      subheadline,
+      backgroundImage {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        hotspot
+      },
+      overlay {
+        enabled,
+        opacity,
+        color
+      },
+      cta {
+        text,
+        link {
+          type,
+          internal->{
+            _type,
+            slug {
+              current
+            }
+          },
+          external,
+          anchor
+        },
+        style
+      }
+    },
+    intro {
+      headline,
+      content
+    },
+    basicEducation {
+      title,
+      description,
+      steps[] {
+        stepNumber,
+        title,
+        description
+      },
+      requirements {
+        title,
+        list,
+        note
+      }
+    },
+    higherEducation {
+      title,
+      description,
+      steps[] {
+        stepNumber,
+        title,
+        description
+      },
+      requirements {
+        title,
+        list,
+        note
+      }
+    },
+    cta {
+      text,
+      link {
+        type,
+        internal->{
+          _type,
+          slug {
+            current
+          }
+        },
+        external,
+        anchor
+      },
+      style
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
  * Get homepage data with all sections
  */
 export async function getHomePage() {

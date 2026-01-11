@@ -1,0 +1,72 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import FinalCta from "../components/homepage/FinalCta.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import AdmissionsIntro from "../components/admissions/AdmissionsIntro.astro";
+import EducationLevelSection from "../components/admissions/EducationLevelSection.astro";
+import { getAdmissionsPage } from "../lib/sanity/queries";
+import "../styles/global.css";
+
+// Fetch admissions page data
+const admissionsPage = await getAdmissionsPage();
+
+// Set page title from SEO or default
+const pageTitle =
+    admissionsPage?.seo?.title || admissionsPage?.title || "Admissions";
+const pageDescription =
+    admissionsPage?.seo?.description ||
+    "Join OLOPSC. Learn about our admissions process, requirements, and scholarships.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    {admissionsPage?.hero && <Hero hero={admissionsPage.hero} />}
+
+    {/* Section 1: Introduction */}
+    {
+        admissionsPage?.intro && (
+            <ScrollRevealWrapper direction="fade" delay={0.1}>
+                <AdmissionsIntro intro={admissionsPage.intro} />
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Section 2: Basic Education */}
+    {
+        admissionsPage?.basicEducation && (
+            <ScrollRevealWrapper direction="up" delay={0.1}>
+                <EducationLevelSection
+                    data={admissionsPage.basicEducation}
+                    variant="primary"
+                />
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Section 3: Higher Education */}
+    {
+        admissionsPage?.higherEducation && (
+            <ScrollRevealWrapper direction="up" delay={0.1}>
+                <EducationLevelSection
+                    data={admissionsPage.higherEducation}
+                    variant="neutral"
+                />
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {
+        admissionsPage?.cta && (
+            <ScrollRevealWrapper direction="fade" delay={0.1}>
+                <FinalCta
+                    finalCta={{
+                        headline: "Ready to Join Us?",
+                        subheadline: "Start your journey with OLOPSC today.",
+                        primaryCta: admissionsPage.cta,
+                        backgroundImage: admissionsPage.hero?.backgroundImage,
+                    }}
+                />
+            </ScrollRevealWrapper>
+        )
+    }
+</Layout>

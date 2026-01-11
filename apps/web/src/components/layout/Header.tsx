@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 const NAV_ITEMS = [
   { label: 'About OLOPSC', href: '/about' },
   { label: 'Admissions', href: '/admissions' },
-  { label: 'Academics', href: '/academics' },
   { label: 'Our SDG Commitments', href: '/sdg-commitments' },
 ]
 

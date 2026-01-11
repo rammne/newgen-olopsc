@@ -1,0 +1,78 @@
+---
+import { PortableText } from "astro-portabletext";
+import { Plus, Minus } from "lucide-astro";
+
+interface Props {
+    faq: {
+        title?: string;
+        questions?: Array<{
+            question?: string;
+            answer?: any;
+        }>;
+    };
+}
+
+const { faq } = Astro.props;
+
+if (!faq) return null;
+---
+
+<section
+    class="min-h-[50vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10"
+>
+    <div class="container mx-auto max-w-4xl">
+        <h2
+            class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-12 text-center"
+        >
+            {faq.title || "Frequently Asked Questions"}
+        </h2>
+
+        <div class="space-y-4">
+            {
+                faq.questions &&
+                    faq.questions.map((item, index) => (
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden faq-item cursor-pointer transition-all duration-300">
+                            <button
+                                class="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+                                aria-expanded="false"
+                                onclick={`
+                        const answer = this.nextElementSibling;
+                        const iconPlus = this.querySelector('.icon-plus');
+                        const iconMinus = this.querySelector('.icon-minus');
+                        
+                        if (answer.style.maxHeight) {
+                            answer.style.maxHeight = null;
+                            this.setAttribute('aria-expanded', 'false');
+                            iconPlus.classList.remove('hidden');
+                            iconMinus.classList.add('hidden');
+                        } else {
+                            // Cose other open items logic (optional, keeping standard behavior)
+                            answer.style.maxHeight = answer.scrollHeight + "px";
+                            this.setAttribute('aria-expanded', 'true');
+                            iconPlus.classList.add('hidden');
+                            iconMinus.classList.remove('hidden');
+                        }
+                    `}
+                            >
+                                <span class="font-bold text-[var(--color-primary)] text-lg pr-4">
+                                    {item.question}
+                                </span>
+                                <div class="text-[var(--color-accent)] flex-shrink-0">
+                                    <Plus size={24} class="icon-plus" />
+                                    <Minus
+                                        size={24}
+                                        class="icon-minus hidden"
+                                    />
+                                </div>
+                            </button>
+                            <div class="max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+                                <div class="p-6 pt-0 text-gray-600 prose prose-sm max-w-none">
+                                    <PortableText value={item.answer} />
+                                </div>
+                            </div>
+                        </div>
+                    ))
+            }
+        </div>
+    </div>
+</section>
