@@ -1,0 +1,115 @@
+---
+import { Facebook, Twitter, Linkedin, Mail } from "lucide-astro";
+
+interface Props {
+    leadership: {
+        title?: string;
+        members?: Array<{
+            name?: string;
+            role?: string;
+            bio?: string;
+            image?: {
+                asset?: {
+                    url?: string;
+                };
+                alt?: string;
+            };
+            socialLinks?: Array<{
+                platform?: string;
+                url?: string;
+            }>;
+        }>;
+    };
+}
+
+const { leadership } = Astro.props;
+
+if (!leadership) return null;
+---
+
+<section
+    class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/20"
+>
+    <div class="container mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2
+                class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-4"
+            >
+                {leadership.title || "School Administration"}
+            </h2>
+            <div class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full">
+            </div>
+        </div>
+
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        >
+            {
+                leadership.members &&
+                    leadership.members.map((member) => (
+                        <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                            <div class="relative overflow-hidden aspect-[3/4]">
+                                {member.image?.asset?.url ? (
+                                    <img
+                                        src={member.image.asset.url}
+                                        alt={member.image.alt || member.name}
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                ) : (
+                                    <div class="w-full h-full bg-[var(--color-neutral)] flex items-center justify-center text-gray-400">
+                                        <span class="text-4xl text-[var(--color-primary)] opacity-20 font-bold">
+                                            ?
+                                        </span>
+                                    </div>
+                                )}
+
+                                {/* Social Overlay */}
+                                <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                                    <div class="flex gap-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                                        {member.socialLinks?.map((link) => {
+                                            const iconProps = {
+                                                size: 20,
+                                                class: "text-white hover:text-[var(--color-accent)] transition-colors",
+                                            };
+                                            let Icon = Mail;
+                                            if (link.platform === "facebook")
+                                                Icon = Facebook;
+                                            if (link.platform === "twitter")
+                                                Icon = Twitter;
+                                            if (link.platform === "linkedin")
+                                                Icon = Linkedin;
+
+                                            return (
+                                                <a
+                                                    href={link.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    class="p-2 bg-white/10 rounded-full hover:bg-white/20 backdrop-blur-sm transition-colors"
+                                                >
+                                                    <Icon {...iconProps} />
+                                                </a>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-6 text-center">
+                                <h3 class="text-xl font-bold text-[var(--color-primary)] mb-1">
+                                    {member.name}
+                                </h3>
+                                <p class="text-sm font-medium text-[var(--color-accent)] uppercase tracking-wider mb-3">
+                                    {member.role}
+                                </p>
+                                {member.bio && (
+                                    <p class="text-sm text-gray-600 line-clamp-3">
+                                        {member.bio}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))
+            }
+        </div>
+    </div>
+</section>

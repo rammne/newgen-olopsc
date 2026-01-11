@@ -1,0 +1,107 @@
+---
+import * as LucideIcons from "lucide-astro";
+
+interface Props {
+    mission?: {
+        title?: string;
+        content?: string;
+        image?: any;
+    };
+    vision?: {
+        title?: string;
+        content?: string;
+        image?: any;
+    };
+    values?: {
+        title?: string;
+        values?: Array<{
+            title?: string;
+            description?: string;
+            icon?: string;
+        }>;
+    };
+}
+
+const { mission, vision, values } = Astro.props;
+---
+
+<section class="min-h-[60vh] py-10 sm:py-[100px] bg-[var(--color-neutral)]/30">
+    <div class="container mx-auto px-5 sm:px-[60px]">
+        {/* Mission & Vision */}
+        <div class="grid md:grid-cols-2 gap-8 mb-20">
+            {
+                mission && (
+                    <div class="bg-white p-8 sm:p-12 rounded-xl shadow-sm border-l-4 border-[var(--color-primary)] hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-[var(--color-primary)]/10 p-3 rounded-full text-[var(--color-primary)]">
+                                <LucideIcons.Target size={32} />
+                            </div>
+                            <h2 class="text-card-title-mobile sm:text-card-title-desktop font-serif text-[var(--color-primary)]">
+                                {mission.title || "Our Mission"}
+                            </h2>
+                        </div>
+                        <p class="text-main-mobile sm:text-main-desktop text-gray-700 leading-relaxed">
+                            {mission.content}
+                        </p>
+                    </div>
+                )
+            }
+
+            {
+                vision && (
+                    <div class="bg-white p-8 sm:p-12 rounded-xl shadow-sm border-l-4 border-[var(--color-accent)] hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-[var(--color-accent)]/10 p-3 rounded-full text-[var(--color-accent)]">
+                                <LucideIcons.Eye size={32} />
+                            </div>
+                            <h2 class="text-card-title-mobile sm:text-card-title-desktop font-serif text-[var(--color-primary)]">
+                                {vision.title || "Our Vision"}
+                            </h2>
+                        </div>
+                        <p class="text-main-mobile sm:text-main-desktop text-gray-700 leading-relaxed">
+                            {vision.content}
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+
+        {/* Values */}
+        {
+            values && values.values && (
+                <div>
+                    <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] text-center mb-12">
+                        {values.title || "Core Values"}
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {values.values.map((value) => {
+                            const IconComponent =
+                                value.icon &&
+                                LucideIcons[
+                                    value.icon as keyof typeof LucideIcons
+                                ]
+                                    ? LucideIcons[
+                                          value.icon as keyof typeof LucideIcons
+                                      ]
+                                    : LucideIcons.Award;
+
+                            return (
+                                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                                    <div class="text-[var(--color-primary)] mb-4">
+                                        <IconComponent size={32} />
+                                    </div>
+                                    <h3 class="text-card-title-mobile sm:text-xl font-bold text-[var(--color-primary)] mb-3">
+                                        {value.title}
+                                    </h3>
+                                    <p class="text-small-mobile sm:text-small-desktop text-gray-600">
+                                        {value.description}
+                                    </p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )
+        }
+    </div>
+</section>

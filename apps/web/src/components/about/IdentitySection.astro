@@ -1,0 +1,59 @@
+---
+import { PortableText } from "astro-portabletext";
+
+interface Props {
+    identity: {
+        title?: string;
+        content?: any[];
+        image?: {
+            asset?: {
+                url?: string;
+            };
+            alt?: string;
+        };
+    };
+}
+
+const { identity } = Astro.props;
+
+if (!identity) return null;
+---
+
+<section
+    class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] flex items-center"
+>
+    <div class="container mx-auto">
+        <div class="flex flex-col md:flex-row gap-10 md:gap-20 items-center">
+            <div class="w-full md:w-1/2 md:order-2">
+                {
+                    identity.image?.asset?.url && (
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-[var(--color-primary)]/10 rounded-xl transform rotate-3 transition-transform duration-300 group-hover:rotate-6" />
+                            <img
+                                src={identity.image.asset.url}
+                                alt={identity.image.alt || "Who We Are"}
+                                class="relative rounded-xl shadow-xl w-full object-cover aspect-[4/3] transform transition-transform duration-300 group-hover:scale-[1.01]"
+                            />
+                        </div>
+                    )
+                }
+            </div>
+            <div class="w-full md:w-1/2 md:order-1">
+                <h2
+                    class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6"
+                >
+                    {identity.title || "Who We Are"}
+                </h2>
+                <div
+                    class="prose prose-lg text-main-mobile sm:text-main-desktop text-gray-700"
+                >
+                    {
+                        identity.content && (
+                            <PortableText value={identity.content} />
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
