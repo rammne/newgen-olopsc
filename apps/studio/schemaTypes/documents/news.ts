@@ -40,6 +40,13 @@ export const news = defineType({
       description: 'The academic department that posted this news article (optional)',
     }),
     defineField({
+      name: 'relatedSDGs',
+      title: 'Related SDGs',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'sdg'}]}],
+      description: 'Select the Sustainable Development Goals related to this article',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',

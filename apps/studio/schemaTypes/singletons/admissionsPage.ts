@@ -95,17 +95,57 @@ export const admissionsPage = defineType({
               initialValue: 'Requirements',
             }),
             defineField({
+              name: 'requirementList',
+              title: 'Requirement Groups (By Level)',
+              type: 'array',
+              description: 'Add requirements grouped by academic level (e.g. Preschool, Grade School)',
+              of: [
+                {
+                  type: 'object',
+                  name: 'group',
+                  fields: [
+                    defineField({
+                      name: 'level',
+                      title: 'Academic Level / Group Title',
+                      type: 'string',
+                      initialValue: 'General',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'items',
+                      title: 'Requirements',
+                      type: 'array',
+                      of: [{ type: 'string' }],
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: 'level',
+                      items: 'items',
+                    },
+                    prepare({ title, items }) {
+                      return {
+                        title: title,
+                        subtitle: `${items ? items.length : 0} requirements`,
+                      }
+                    },
+                  },
+                },
+              ],
+            }),
+            defineField({
               name: 'list',
-              title: 'List of Requirements',
+              title: 'List of Requirements (Legacy/General)',
               type: 'array',
               of: [{ type: 'string' }],
+              hidden: ({ parent }) => !!parent?.requirementList?.length, 
             }),
             defineField({
               name: 'note',
               title: 'Note/Footer',
               type: 'text',
-              rows: 2
-            })
+              rows: 2,
+            }),
           ],
         }),
       ],
@@ -169,17 +209,57 @@ export const admissionsPage = defineType({
               initialValue: 'Requirements',
             }),
             defineField({
+              name: 'requirementList',
+              title: 'Requirement Groups (By Level)',
+              type: 'array',
+              description: 'Add requirements grouped by academic level',
+              of: [
+                {
+                  type: 'object',
+                  name: 'group',
+                  fields: [
+                    defineField({
+                      name: 'level',
+                      title: 'Academic Level / Group Title',
+                      type: 'string',
+                      initialValue: 'General',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'items',
+                      title: 'Requirements',
+                      type: 'array',
+                      of: [{ type: 'string' }],
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: 'level',
+                      items: 'items',
+                    },
+                    prepare({ title, items }) {
+                      return {
+                        title: title,
+                        subtitle: `${items ? items.length : 0} requirements`,
+                      }
+                    },
+                  },
+                },
+              ],
+            }),
+            defineField({
               name: 'list',
-              title: 'List of Requirements',
+              title: 'List of Requirements (Legacy/General)',
               type: 'array',
               of: [{ type: 'string' }],
+              hidden: ({ parent }) => !!parent?.requirementList?.length,
             }),
             defineField({
               name: 'note',
               title: 'Note/Footer',
               type: 'text',
-              rows: 2
-            })
+              rows: 2,
+            }),
           ],
         }),
       ],

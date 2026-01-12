@@ -22,6 +22,7 @@ import { academicDepartment } from './documents/academicDepartment'
 import { collegeProgram } from './documents/collegeProgram'
 import { news } from './documents/news'
 import { event } from './documents/event'
+import { sdg } from './documents/sdg'
 
 // Singletons
 import { homePage } from './singletons/homePage'
@@ -31,6 +32,7 @@ import { contactPage } from './singletons/contactPage'
 import { jobsPage } from './singletons/jobsPage'
 import { settings } from './singletons/settings'
 import { aboutPage } from './singletons/aboutPage'
+import { sdgPage } from './singletons/sdgPage'
 
 export const schemaTypes = [
   // Objects
@@ -56,6 +58,7 @@ export const schemaTypes = [
   collegeProgram,
   news,
   event,
+  sdg,
   // Singletons
   homePage,
   aboutPage,
@@ -64,4 +67,5 @@ export const schemaTypes = [
   contactPage,
   jobsPage,
   settings,
+  sdgPage,
 ]

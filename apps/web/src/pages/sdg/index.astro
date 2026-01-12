@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/homepage/Hero.astro";
+import SdgCard from "../../components/sdg/SdgCard.astro";
+import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import { getSdgPage, getAllSdgs } from "../../lib/sanity/queries";
+import "../../styles/global.css";
+
+// Fetch Page Data
+const sdgPage = await getSdgPage();
+const activeSdgs = await getAllSdgs();
+
+// Create map of active SDGs for O(1) lookup
+const sdgMap = new Map(activeSdgs.map((sdg: any) => [sdg.number, sdg]));
+
+// Array of 1-17 for grid generation
+const sdgGrid = Array.from({ length: 17 }, (_, i) => i + 1);
+
+const pageTitle =
+    sdgPage?.seo?.title || sdgPage?.title || "Our SDG Commitments";
+const pageDescription =
+    sdgPage?.seo?.description ||
+    "Explore our commitment to the UN Sustainable Development Goals.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    {sdgPage?.hero && <Hero hero={sdgPage.hero} />}
+
+    <section
+        class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"
+    >
+        <div class="container mx-auto">
+            {/* Intro Section */}
+            {
+                sdgPage?.intro && (
+                    <div class="text-center max-w-4xl mx-auto mb-16">
+                        {sdgPage.intro.headline && (
+                            <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6">
+                                {sdgPage.intro.headline}
+                            </h2>
+                        )}
+                        <div class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full mb-8" />
+                        {/* Note: Content rendering would go here if we had a portable text component ready, 
+                        assuming standard text for now or just headlines */}
+                    </div>
+                )
+            }
+
+            {/* SDG Grid */}
+            <div
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8"
+            >
+                {
+                    sdgGrid.map((num, index) => (
+                        <ScrollRevealWrapper
+                            direction="up"
+                            delay={index * 0.05}
+                        >
+                            <SdgCard number={num} sdg={sdgMap.get(num)} />
+                        </ScrollRevealWrapper>
+                    ))
+                }
+            </div>
+
+            <div class="mt-16 text-center">
+                <p class="text-gray-500 italic max-w-2xl mx-auto">
+                    The colored tiles represent the Sustainable Development
+                    Goals that we are actively integrating into our curriculum
+                    and community outreach programs.
+                </p>
+            </div>
+        </div>
+    </section>
+</Layout>

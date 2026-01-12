@@ -1,0 +1,169 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+    getSdgBySlug,
+    getAllSdgSlugs,
+    getNewsBySdg,
+} from "../../lib/sanity/queries";
+import { PortableText } from "astro-portabletext";
+import { ArrowLeft, Calendar, FileText } from "lucide-astro";
+import "../../styles/global.css";
+
+export async function getStaticPaths() {
+    const slugs = await getAllSdgSlugs();
+    return slugs.map((item: any) => ({
+        params: { slug: item.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+const sdg = await getSdgBySlug(slug as string);
+
+if (!sdg) {
+    return Astro.redirect("/404");
+}
+
+const relatedNews = await getNewsBySdg(sdg._id);
+---
+
+<Layout
+    title={`${sdg.number}. ${sdg.title} - SDG Commitments`}
+    description={sdg.description}
+>
+    {/* Custom Hero using SDG Color */}
+    <section
+        class="relative pt-32 pb-20 px-5 sm:px-[60px] text-white min-h-[50vh] flex items-center"
+        style={`background-color: ${sdg.color}`}
+    >
+        <div
+            class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+        >
+            <div>
+                <a
+                    href="/sdg"
+                    class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors text-sm font-medium"
+                >
+                    <ArrowLeft size={16} /> Back to All Goals
+                </a>
+                <div class="flex items-baseline gap-4 mb-4">
+                    <span
+                        class="text-6xl md:text-8xl font-serif font-bold opacity-30"
+                        >{sdg.number}</span
+                    >
+                    <h1
+                        class="text-4xl md:text-6xl font-serif font-bold leading-tight"
+                    >
+                        {sdg.title}
+                    </h1>
+                </div>
+                <p
+                    class="text-lg md:text-xl text-white/90 leading-relaxed max-w-xl"
+                >
+                    {sdg.description}
+                </p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                <div
+                    class="bg-white p-4 rounded-xl shadow-2xl rotate-3 transform hover:rotate-0 transition-all duration-500"
+                >
+                    <img
+                        src={sdg.image.asset.url}
+                        alt={sdg.title}
+                        class="w-64 md:w-80 h-auto"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"
+    >
+        <div class="container mx-auto">
+            {/* Main Content */}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24">
+                <div class="lg:col-span-2">
+                    <h2
+                        class="text-3xl font-serif text-[var(--color-primary)] mb-8"
+                    >
+                        Our Commitment
+                    </h2>
+                    <div
+                        class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-[var(--color-primary)] prose-p:text-gray-700"
+                    >
+                        {
+                            sdg.content ? (
+                                <PortableText value={sdg.content} />
+                            ) : (
+                                <p class="text-gray-500 italic">
+                                    Detailed information about our initiatives
+                                    for this goal is coming soon.
+                                </p>
+                            )
+                        }
+                    </div>
+                </div>
+
+                {/* Sidebar / Related News */}
+                <div class="lg:col-span-1">
+                    <div
+                        class="bg-gray-50 p-8 rounded-2xl border border-gray-100 sticky top-24"
+                    >
+                        <h3
+                            class="text-xl font-bold text-[var(--color-primary)] mb-6 flex items-center gap-2"
+                        >
+                            <FileText
+                                size={20}
+                                class="text-[var(--color-accent)]"
+                            /> Related Updates
+                        </h3>
+
+                        {
+                            relatedNews && relatedNews.length > 0 ? (
+                                <div class="space-y-6">
+                                    {relatedNews.map((news: any) => (
+                                        <a
+                                            href={`/news/${news.slug.current}`}
+                                            class="block group"
+                                        >
+                                            <div class="flex gap-4">
+                                                <div class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
+                                                    {news.featuredImage && (
+                                                        <img
+                                                            src={
+                                                                news
+                                                                    .featuredImage
+                                                                    .asset.url
+                                                            }
+                                                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                                            alt={news.title}
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-bold text-gray-800 leading-snug group-hover:text-[var(--color-primary)] transition-colors line-clamp-2 mb-2">
+                                                        {news.title}
+                                                    </h4>
+                                                    <span class="text-xs text-gray-500 flex items-center gap-1">
+                                                        <Calendar size={12} />
+                                                        {new Date(
+                                                            news.publishedAt,
+                                                        ).toLocaleDateString()}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div class="text-center py-8 text-gray-500">
+                                    <p>No updates tagged for this goal yet.</p>
+                                </div>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

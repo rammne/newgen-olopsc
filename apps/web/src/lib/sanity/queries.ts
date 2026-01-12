@@ -224,6 +224,10 @@ export async function getAdmissionsPage() {
       requirements {
         title,
         list,
+        requirementList[] {
+          level,
+          items
+        },
         note
       }
     },
@@ -238,6 +242,10 @@ export async function getAdmissionsPage() {
       requirements {
         title,
         list,
+        requirementList[] {
+          level,
+          items
+        },
         note
       }
     },
@@ -1835,5 +1843,115 @@ export async function getAllAcademicDepartmentSlugs() {
   }`
 
   return await client.fetch(query)
+}
+
+/**
+ * Get SDG Page data
+ */
+export async function getSdgPage() {
+  const query = `*[_type == "sdgPage"][0]{
+    title,
+    hero {
+      variant,
+      headline,
+      subheadline,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      overlay
+    },
+    intro {
+      headline,
+      content
+    },
+    seo
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get all active SDGs
+ */
+export async function getAllSdgs() {
+  const query = `*[_type == "sdg"] | order(number asc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    number,
+    image {
+      asset->{
+        url
+      },
+      alt
+    },
+    color,
+    description
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get SDG by slug
+ */
+export async function getSdgBySlug(slug: string) {
+  const query = `*[_type == "sdg" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug {
+      current
+    },
+    number,
+    image {
+      asset->{
+        url
+      },
+      alt
+    },
+    color,
+    description,
+    content
+  }`
+  return await client.fetch(query, { slug })
+}
+
+/**
+ * Get all SDG slugs for static generation
+ */
+export async function getAllSdgSlugs() {
+  const query = `*[_type == "sdg"]{
+    "slug": slug.current
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get news articles related to a specific SDG
+ */
+export async function getNewsBySdg(sdgId: string) {
+  const query = `*[_type == "news" && references($sdgId)] | order(publishedAt desc) {
+    _id,
+    title,
+    slug {
+      current
+    },
+    publishedAt,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    category,
+    academicDepartment->{
+      title
+    }
+  }`
+  return await client.fetch(query, { sdgId })
 }
 

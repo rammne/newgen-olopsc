@@ -13,6 +13,10 @@ interface Props {
         requirements?: {
             title?: string;
             list?: string[];
+            requirementList?: Array<{
+                level: string;
+                items: string[];
+            }>;
             note?: string;
         };
     };
@@ -112,20 +116,49 @@ const stepsBg = variant === "primary" ? "bg-white" : "bg-white";
                     class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-[var(--color-primary)]"
                 >
                     {
-                        data.requirements?.list && (
-                            <ul class="space-y-4">
-                                {data.requirements.list.map((req) => (
-                                    <li class="flex items-start gap-3">
-                                        <CheckCircle2
-                                            size={20}
-                                            class="text-[var(--color-accent)] mt-1 flex-shrink-0"
-                                        />
-                                        <span class="text-gray-700 leading-relaxed">
-                                            {req}
-                                        </span>
-                                    </li>
-                                ))}
-                            </ul>
+                        data.requirements?.requirementList &&
+                        data.requirements.requirementList.length > 0 ? (
+                            <div class="space-y-8">
+                                {data.requirements.requirementList.map(
+                                    (group) => (
+                                        <div>
+                                            <h4 class="font-bold text-lg text-[var(--color-primary)] mb-4 border-b border-gray-100 pb-2">
+                                                {group.level}
+                                            </h4>
+                                            <ul class="space-y-4">
+                                                {group.items &&
+                                                    group.items.map((req) => (
+                                                        <li class="flex items-start gap-3">
+                                                            <CheckCircle2
+                                                                size={20}
+                                                                class="text-[var(--color-accent)] mt-1 flex-shrink-0"
+                                                            />
+                                                            <span class="text-gray-700 leading-relaxed">
+                                                                {req}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                            </ul>
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+                        ) : (
+                            data.requirements?.list && (
+                                <ul class="space-y-4">
+                                    {data.requirements.list.map((req) => (
+                                        <li class="flex items-start gap-3">
+                                            <CheckCircle2
+                                                size={20}
+                                                class="text-[var(--color-accent)] mt-1 flex-shrink-0"
+                                            />
+                                            <span class="text-gray-700 leading-relaxed">
+                                                {req}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )
                         )
                     }
 
