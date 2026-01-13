@@ -34,6 +34,12 @@ import { settings } from './singletons/settings'
 import { aboutPage } from './singletons/aboutPage'
 import { sdgPage } from './singletons/sdgPage'
 
+// College Programs (Fixed Singletons)
+import { tourismManagement } from './college/tourismManagement'
+import { hospitalityManagement } from './college/hospitalityManagement'
+import { businessAdmin } from './college/businessAdmin'
+import { educationLiberalArts } from './college/educationLiberalArts'
+
 export const schemaTypes = [
   // Objects
   seo,
@@ -68,4 +74,9 @@ export const schemaTypes = [
   jobsPage,
   settings,
   sdgPage,
+  // College Programs
+  tourismManagement,
+  hospitalityManagement,
+  businessAdmin,
+  educationLiberalArts,
 ]

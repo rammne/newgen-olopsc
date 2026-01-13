@@ -1474,6 +1474,90 @@ export async function getAllCollegePrograms() {
 }
 
 /**
+ * Get Computing Studies Page Data
+ */
+export async function getComputingStudiesPage() {
+  const query = `*[_type == "computingStudies"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get Tourism Management Page Data
+ */
+export async function getTourismManagementPage() {
+  const query = `*[_type == "tourismManagement"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get Hospitality Management Page Data
+ */
+export async function getHospitalityManagementPage() {
+  const query = `*[_type == "hospitalityManagement"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get Business Administration & Entrepreneurship Page Data
+ */
+export async function getBusinessAdminPage() {
+  const query = `*[_type == "businessAdmin"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
  * Get academic department by slug (for backward compatibility)
  */
 export async function getAcademicDepartmentBySlug(slug: string) {

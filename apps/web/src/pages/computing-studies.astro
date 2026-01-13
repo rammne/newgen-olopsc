@@ -1,0 +1,8 @@
+---
+import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
+import { getComputingStudiesPage } from "../lib/sanity/queries";
+
+const department = await getComputingStudiesPage();
+---
+
+<DepartmentTemplate department={department} />

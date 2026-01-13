@@ -1,0 +1,352 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../homepage/Hero.astro";
+import FinalCta from "../homepage/FinalCta.astro";
+import ScrollRevealWrapper from "../common/ScrollRevealWrapper.astro";
+import { PortableText } from "astro-portabletext";
+
+interface Props {
+    department: any;
+}
+
+const { department } = Astro.props;
+
+if (!department) throw new Error("Department data missing");
+
+const pageTitle = department.seo?.title || department.title;
+const pageDescription =
+    department.seo?.description || `Welcome to ${department.title}`;
+
+const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    {department.hero && <Hero hero={department.hero} />}
+
+    {/* Intro Section */}
+    <ScrollRevealWrapper direction="fade">
+        <section
+            class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"
+        >
+            <div
+                class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+            >
+                <div>
+                    <h2
+                        class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mb-6"
+                    >
+                        {department.intro?.headline || department.title}
+                    </h2>
+                    <div class="prose prose-lg text-neutral-600">
+                        {
+                            typeof department.intro?.content === "string" ? (
+                                <p>{department.intro.content}</p>
+                            ) : (
+                                department.intro?.content && (
+                                    <PortableText
+                                        value={department.intro.content}
+                                    />
+                                )
+                            )
+                        }
+                    </div>
+                </div>
+                {
+                    department.intro?.image && (
+                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-video lg:aspect-square">
+                            <img
+                                src={department.intro.image.asset.url}
+                                alt={department.title}
+                                class="object-cover w-full h-full"
+                            />
+                        </div>
+                    )
+                }
+            </div>
+        </section>
+    </ScrollRevealWrapper>
+
+    {/* Quick Info (Degree/Duration) - For Singletons */}
+    {
+        department.degree && (
+            <ScrollRevealWrapper direction="up">
+                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-neutral-light">
+                    <div class="container mx-auto">
+                        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm p-8 border border-neutral-200">
+                            <h3 class="text-card-title-mobile sm:text-card-title-desktop font-serif text-primary mb-6 flex items-center gap-3">
+                                <span class="text-accent">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="lucide lucide-graduation-cap"
+                                    >
+                                        <>
+                                            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                                        </>
+                                    </svg>
+                                </span>
+                                At a Glance
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">
+                                        Degrees / Programs
+                                    </p>
+                                    <p class="text-xl md:text-2xl text-gray-900 font-medium leading-relaxed">
+                                        {department.degree}
+                                    </p>
+                                </div>
+                                {department.duration && (
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">
+                                            Duration
+                                        </p>
+                                        <p class="text-xl md:text-2xl text-gray-900 font-medium">
+                                            {department.duration}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Programs List Section */}
+    {
+        hasItems(department.programs) && (
+            <ScrollRevealWrapper direction="up">
+                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-neutral-light">
+                    <div class="container mx-auto">
+                        <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mb-12 text-center">
+                            Our Programs
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {department.programs.map((programItem: any) => {
+                                // Handle both direct objects (singletons) and references (legacy academic)
+                                const program = programItem.link || programItem;
+                                const image =
+                                    program.image?.asset?.url ||
+                                    program.hero?.backgroundImage?.asset?.url;
+
+                                return (
+                                    <div class="group block bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-neutral-200 overflow-hidden">
+                                        {image && (
+                                            <div class="h-48 overflow-hidden">
+                                                <img
+                                                    src={image}
+                                                    alt={program.title}
+                                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                                />
+                                            </div>
+                                        )}
+                                        <div class="p-6">
+                                            <h3 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                                                {program.title}
+                                            </h3>
+                                            {program.shortTitle && (
+                                                <span class="inline-block bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full mb-4">
+                                                    {program.shortTitle}
+                                                </span>
+                                            )}
+                                            <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                                                {program.description ||
+                                                    "Learn more about this program."}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </section>
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Curriculum Section */}
+    {
+        department.curriculum && hasItems(department.curriculum.courses) && (
+            <ScrollRevealWrapper direction="up">
+                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-white">
+                    <div class="container mx-auto">
+                        <h2 class="text-3xl font-serif text-primary mb-8 text-center">
+                            Curriculum Highlights
+                        </h2>
+                        {department.curriculum.description && (
+                            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                                {department.curriculum.description}
+                            </p>
+                        )}
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {department.curriculum.courses.map(
+                                (yearLevel: any) => (
+                                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
+                                        <h4 class="font-serif text-primary text-xl mb-4 border-b pb-2 border-accent">
+                                            {yearLevel.year}
+                                        </h4>
+                                        <ul class="space-y-2">
+                                            {Array.isArray(yearLevel.courses) &&
+                                                yearLevel.courses.map(
+                                                    (course: string) => (
+                                                        <li class="flex items-start gap-2 text-sm text-gray-700">
+                                                            <span class="text-accent mt-1">
+                                                                •
+                                                            </span>{" "}
+                                                            {course}
+                                                        </li>
+                                                    ),
+                                                )}
+                                        </ul>
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                    </div>
+                </section>
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Key Features & Careers */}
+    {
+        (hasItems(department.keyFeatures) ||
+            department.careerOpportunities) && (
+            <ScrollRevealWrapper direction="up">
+                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-primary text-white">
+                    <div class="container mx-auto">
+                        <div class="grid lg:grid-cols-2 gap-16">
+                            {/* Features */}
+                            {hasItems(department.keyFeatures) && (
+                                <div>
+                                    <h3 class="text-2xl font-serif text-accent mb-6">
+                                        Why Choose Us?
+                                    </h3>
+                                    <div class="space-y-6">
+                                        {department.keyFeatures.map(
+                                            (feature: any) => (
+                                                <div class="flex gap-4">
+                                                    <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-accent">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                        >
+                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="font-bold text-lg mb-1">
+                                                            {feature.item ||
+                                                                feature.title}
+                                                        </h4>
+                                                        <p class="text-white/80">
+                                                            {
+                                                                feature.description
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Careers */}
+                            {department.careerOpportunities && (
+                                <div>
+                                    <h3 class="text-2xl font-serif text-accent mb-6">
+                                        {department.careerOpportunities.title ||
+                                            "Career Paths"}
+                                    </h3>
+                                    <p class="text-white/80 mb-6">
+                                        {
+                                            department.careerOpportunities
+                                                .description
+                                        }
+                                    </p>
+
+                                    {hasItems(
+                                        department.careerOpportunities.careers,
+                                    ) && (
+                                        <div class="flex flex-wrap gap-2">
+                                            {department.careerOpportunities.careers.map(
+                                                (career: string) => (
+                                                    <span class="bg-white/10 px-4 py-2 rounded-full text-sm font-medium border border-white/20">
+                                                        {career}
+                                                    </span>
+                                                ),
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {department.careerOpportunities.image?.asset
+                                        ?.url && (
+                                        <div class="mt-8 rounded-xl overflow-hidden border border-white/20">
+                                            <img
+                                                src={
+                                                    department
+                                                        .careerOpportunities
+                                                        .image.asset.url
+                                                }
+                                                alt="Careers"
+                                                class="w-full h-48 object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {/* Gallery */}
+    {
+        department.gallery && hasItems(department.gallery.images) && (
+            <section class="max-w-7xl mx-auto px-5 py-16">
+                <h2 class="text-3xl font-serif text-primary text-center mb-10">
+                    Our Facilities & Life
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {department.gallery.images.map((img: any, i: number) => (
+                        <div
+                            class={`rounded-lg overflow-hidden ${i % 3 === 0 ? "col-span-2 row-span-2" : ""}`}
+                        >
+                            {img.asset?.url && (
+                                <img
+                                    src={img.asset.url}
+                                    alt={img.caption || "Gallery"}
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-500"
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </section>
+        )
+    }
+
+    <FinalCta />
+</Layout>

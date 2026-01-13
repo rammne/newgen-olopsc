@@ -1,4 +1,4 @@
-import {StructureBuilder, StructureResolverContext} from 'sanity/structure'
+import { StructureBuilder, StructureResolverContext } from 'sanity/structure'
 
 export const structure = (S: StructureBuilder, context: StructureResolverContext) => {
   return S.list()
@@ -44,15 +44,27 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                   S.documentTypeList('academicDepartment')
                     .title('Academic Departments')
                     .filter('_type == "academicDepartment"')
-                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                    .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 ),
               S.listItem()
                 .title('College Programs')
                 .child(
-                  S.documentTypeList('collegeProgram')
+                  S.list()
                     .title('College Programs')
-                    .filter('_type == "collegeProgram"')
-                    .defaultOrdering([{field: 'title', direction: 'asc'}])
+                    .items([
+                      S.listItem()
+                        .title('Tourism Management')
+                        .child(S.document().schemaType('tourismManagement').documentId('tourismManagement')),
+                      S.listItem()
+                        .title('Hospitality Management')
+                        .child(S.document().schemaType('hospitalityManagement').documentId('hospitalityManagement')),
+                      S.listItem()
+                        .title('Business Administration & Entrepreneurship')
+                        .child(S.document().schemaType('businessAdmin').documentId('businessAdmin')),
+                      S.listItem()
+                        .title('Education & Liberal Arts')
+                        .child(S.document().schemaType('educationLiberalArts').documentId('educationLiberalArts')),
+                    ])
                 ),
             ])
         ),
@@ -69,7 +81,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                   S.documentTypeList('news')
                     .title('News Articles')
                     .filter('_type == "news"')
-                    .defaultOrdering([{field: 'publishedAt', direction: 'desc'}])
+                    .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
                 ),
               S.listItem()
                 .title('Events')
@@ -77,7 +89,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                   S.documentTypeList('event')
                     .title('Events')
                     .filter('_type == "event"')
-                    .defaultOrdering([{field: 'startDate', direction: 'asc'}])
+                    .defaultOrdering([{ field: 'startDate', direction: 'asc' }])
                 ),
             ])
         ),
@@ -100,6 +112,11 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'collegeProgram',
             'news',
             'event',
+            // College Singletons
+            'tourismManagement',
+            'hospitalityManagement',
+            'businessAdmin',
+            'educationLiberalArts',
           ].includes(listItem.getId() || '')
       ),
     ])
