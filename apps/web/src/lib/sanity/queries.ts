@@ -249,6 +249,30 @@ export async function getAdmissionsPage() {
         note
       }
     },
+    paymentOptions {
+      title,
+      description,
+      methods[] {
+        name,
+        details,
+        icon {
+          asset->{
+            url
+          }
+        }
+      },
+      bankDetails[] {
+        bankName,
+        accountName,
+        accountNumber,
+        branch,
+        logo {
+          asset->{
+            url
+          }
+        }
+      }
+    },
     cta {
       text,
       link {
@@ -1473,6 +1497,44 @@ export async function getAllCollegePrograms() {
   return await client.fetch(query)
 }
 
+/**
+ * Get Contact Page Data
+ */
+export async function getContactPage() {
+  const query = `*[_type == "contactPage"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    contactInfo,
+    departments[] {
+       department,
+       contact
+    },
+    contactForm {
+       title,
+       description,
+       formFields,
+       submitButtonText,
+       successMessage
+    },
+    socialMedia {
+       title,
+       links[] { platform, url }
+    },
+    map {
+       title,
+       embedUrl,
+       image { asset->{ url } }
+    },
+    officeHours {
+       title,
+       hours[] { day, hours, closed }
+    },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
 /**
  * Get Computing Studies Page Data
  */

@@ -5,6 +5,7 @@ import FinalCta from "../components/homepage/FinalCta.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import AdmissionsIntro from "../components/admissions/AdmissionsIntro.astro";
 import EducationLevelSection from "../components/admissions/EducationLevelSection.astro";
+import PaymentOptions from "../components/admissions/PaymentOptions.astro";
 import { getAdmissionsPage } from "../lib/sanity/queries";
 import "../styles/global.css";
 
@@ -51,6 +52,14 @@ const pageDescription =
                     data={admissionsPage.higherEducation}
                     variant="neutral"
                 />
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {
+        admissionsPage?.paymentOptions && (
+            <ScrollRevealWrapper direction="up" delay={0.1}>
+                <PaymentOptions data={admissionsPage.paymentOptions} />
             </ScrollRevealWrapper>
         )
     }

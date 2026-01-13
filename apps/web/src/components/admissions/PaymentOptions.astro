@@ -1,0 +1,128 @@
+---
+import { PortableText } from "astro-portabletext";
+
+interface Props {
+  data: {
+    title?: string;
+    description?: string;
+    methods?: Array<{
+      name: string;
+      details?: any;
+      icon?: any;
+    }>;
+    bankDetails?: Array<{
+      bankName: string;
+      accountName: string;
+      accountNumber: string;
+      branch?: string;
+      logo?: any;
+    }>;
+  };
+}
+
+const { data } = Astro.props;
+
+if (!data) return null;
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-5 sm:px-[60px]">
+    {/* Section Header */}
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mb-6">
+        {data.title || "Payment Options"}
+      </h2>
+      {data.description && (
+        <p class="text-lg text-neutral-600 leading-relaxed">
+          {data.description}
+        </p>
+      )}
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      {/* Payment Methods */}
+      {data.methods && data.methods.length > 0 && (
+        <div class="space-y-8">
+          <h3 class="text-2xl font-serif text-primary border-l-4 border-accent pl-4">
+            Payment Channels
+          </h3>
+          <div class="grid gap-6">
+            {data.methods.map((method) => (
+              <div class="bg-neutral-light p-6 rounded-xl border border-neutral-200">
+                <div class="flex items-start gap-4">
+                  {method.icon && method.icon.asset && (
+                    <div class="w-12 h-12 flex-shrink-0 bg-white rounded-full p-2 shadow-sm">
+                      <img 
+                        src={method.icon.asset.url} 
+                        alt={method.name} 
+                        class="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <h4 class="text-xl font-bold text-primary mb-2">{method.name}</h4>
+                    {method.details && (
+                      <div class="prose prose-sm text-neutral-600">
+                        <PortableText value={method.details} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Bank Details */}
+      {data.bankDetails && data.bankDetails.length > 0 && (
+        <div class="space-y-8">
+          <h3 class="text-2xl font-serif text-primary border-l-4 border-accent pl-4">
+            Bank Transfer Details
+          </h3>
+          <div class="grid gap-6">
+            {data.bankDetails.map((bank) => (
+              <div class="bg-primary text-white p-6 rounded-xl shadow-lg relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                </div>
+                
+                <div class="relative z-10 flex items-center gap-4 mb-6">
+                   {bank.logo && bank.logo.asset && (
+                      <div class="w-12 h-12 bg-white rounded-lg p-1">
+                        <img 
+                          src={bank.logo.asset.url} 
+                          alt={bank.bankName} 
+                          class="w-full h-full object-contain"
+                        />
+                      </div>
+                   )}
+                   <h4 class="text-xl font-bold text-accent">{bank.bankName}</h4>
+                </div>
+
+                <div class="space-y-3 relative z-10">
+                  <div>
+                    <label class="text-xs uppercase tracking-widest text-white/60">Account Name</label>
+                    <p class="font-medium text-lg">{bank.accountName}</p>
+                  </div>
+                  <div>
+                    <label class="text-xs uppercase tracking-widest text-white/60">Account Number</label>
+                    <p class="font-mono text-xl font-bold tracking-wider text-white bg-white/10 inline-block px-3 py-1 rounded">
+                      {bank.accountNumber}
+                    </p>
+                  </div>
+                  {bank.branch && (
+                    <div>
+                      <label class="text-xs uppercase tracking-widest text-white/60">Branch</label>
+                      <p class="text-sm">{bank.branch}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

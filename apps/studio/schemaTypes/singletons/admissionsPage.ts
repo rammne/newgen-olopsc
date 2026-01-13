@@ -138,7 +138,7 @@ export const admissionsPage = defineType({
               title: 'List of Requirements (Legacy/General)',
               type: 'array',
               of: [{ type: 'string' }],
-              hidden: ({ parent }) => !!parent?.requirementList?.length, 
+              hidden: ({ parent }) => !!parent?.requirementList?.length,
             }),
             defineField({
               name: 'note',
@@ -263,6 +263,47 @@ export const admissionsPage = defineType({
           ],
         }),
       ],
+    }),
+    defineField({
+      name: 'paymentOptions',
+      title: 'Payment Options',
+      type: 'object',
+      fields: [
+        defineField({ name: 'title', title: 'Section Title', type: 'string', initialValue: 'Payment Options' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+        defineField({
+          name: 'methods',
+          title: 'Payment Methods',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'name', title: 'Method Name', type: 'string' }),
+                defineField({ name: 'details', title: 'Details/Instructions', type: 'portableText' }),
+                defineField({ name: 'icon', title: 'Icon', type: 'image' })
+              ]
+            }
+          ]
+        }),
+        defineField({
+          name: 'bankDetails',
+          title: 'Bank Details',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'bankName', title: 'Bank Name', type: 'string' }),
+                defineField({ name: 'accountName', title: 'Account Name', type: 'string' }),
+                defineField({ name: 'accountNumber', title: 'Account Number', type: 'string' }),
+                defineField({ name: 'branch', title: 'Branch (Optional)', type: 'string' }),
+                defineField({ name: 'logo', title: 'Bank Logo', type: 'image' })
+              ]
+            }
+          ]
+        })
+      ]
     }),
     defineField({
       name: 'cta',
