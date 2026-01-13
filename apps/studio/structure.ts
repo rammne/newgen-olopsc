@@ -64,6 +64,9 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                       S.listItem()
                         .title('Education & Liberal Arts')
                         .child(S.document().schemaType('educationLiberalArts').documentId('educationLiberalArts')),
+                      S.listItem()
+                        .title('Computing Studies')
+                        .child(S.document().schemaType('computingStudies').documentId('computingStudies')),
                     ])
                 ),
             ])
@@ -117,6 +120,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'hospitalityManagement',
             'businessAdmin',
             'educationLiberalArts',
+            'computingStudies',
           ].includes(listItem.getId() || '')
       ),
     ])

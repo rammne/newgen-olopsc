@@ -39,6 +39,7 @@ import { tourismManagement } from './college/tourismManagement'
 import { hospitalityManagement } from './college/hospitalityManagement'
 import { businessAdmin } from './college/businessAdmin'
 import { educationLiberalArts } from './college/educationLiberalArts'
+import { computingStudies } from './college/computingStudies'
 
 export const schemaTypes = [
   // Objects
@@ -79,4 +80,5 @@ export const schemaTypes = [
   hospitalityManagement,
   businessAdmin,
   educationLiberalArts,
+  computingStudies,
 ]
