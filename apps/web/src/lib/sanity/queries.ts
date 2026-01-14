@@ -2101,6 +2101,7 @@ export async function getNewsBySdg(sdgId: string) {
   return await client.fetch(query, { sdgId })
 }
 
+
 /**
  * Get Education and Liberal Arts Page Data
  */
@@ -2118,6 +2119,116 @@ export async function getEducationLiberalArtsPage() {
     keyFeatures[] { ..., image { asset->{ url } } },
     gallery { images[] { asset->{ url }, caption } },
     seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
+ * Get Scholarship Page Data
+ */
+export async function getScholarshipPage() {
+  const query = `*[_type == "scholarshipPage"][0]{
+    _id,
+    title,
+    hero {
+      variant,
+      headline,
+      subheadline,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt,
+        hotspot
+      },
+      overlay {
+        enabled,
+        opacity,
+        color
+      }
+    },
+    intro {
+      headline,
+      content
+    },
+    scholarshipPrograms[] {
+      name,
+      type,
+      description,
+      coverage {
+        percentage,
+        amount,
+        details
+      },
+      eligibility {
+        requirements,
+        gpa,
+        income
+      },
+      applicationProcess,
+      deadline,
+      documents,
+      contact {
+        name,
+        email,
+        phone
+      },
+      image {
+        asset->{
+          url
+        },
+        alt,
+        hotspot
+      }
+    },
+    applicationForm,
+    faq,
+    testimonials[] {
+      quote,
+      author {
+        name,
+        role,
+        image {
+          asset->{
+            url
+          },
+          alt
+        },
+        company
+      },
+      rating
+    },
+    stats[] {
+        value,
+        label
+    },
+    cta {
+      text,
+      link {
+        type,
+        internal->{
+          _type,
+          slug {
+            current
+          }
+        },
+        external,
+        anchor
+      },
+      style,
+      openInNewTab
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
   }`
   return await client.fetch(query)
 }

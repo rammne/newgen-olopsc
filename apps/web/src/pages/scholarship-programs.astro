@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import ScholarshipCard from "../components/scholarship/ScholarshipCard.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import { getScholarshipPage } from "../lib/sanity/queries";
+import { PortableText } from "astro-portabletext";
+
+const pageData = await getScholarshipPage();
+
+const pageTitle =
+    pageData?.seo?.title || pageData?.title || "Scholarship Programs";
+const pageDescription =
+    pageData?.seo?.description ||
+    "Explore our scholarship programs and financial aid opportunities.";
+
+// Default Hero fallback if not set in Sanity
+const heroData = pageData?.hero || {
+    headline: "Scholarship Programs",
+    subheadline:
+        "Empowering students through financial support and academic excellence.",
+    variant: "default",
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    <!-- Hero Section -->
+    <Hero hero={heroData} />
+
+    <!-- Introduction Section -->
+    {
+        pageData?.intro && (
+            <ScrollRevealWrapper direction="up" delay={0.1}>
+                <section class="min-h-[40vh] px-5 py-16 sm:px-[60px] sm:py-[100px] bg-white">
+                    <div class="container mx-auto max-w-4xl text-center">
+                        {pageData.intro.headline && (
+                            <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6">
+                                {pageData.intro.headline}
+                            </h2>
+                        )}
+                        {pageData.intro.content && (
+                            <div class="prose prose-lg mx-auto text-main-mobile sm:text-main-desktop text-gray-600">
+                                <PortableText value={pageData.intro.content} />
+                            </div>
+                        )}
+                    </div>
+                </section>
+            </ScrollRevealWrapper>
+        )
+    }
+
+    <!-- Scholarship Programs Section -->
+    <section
+        class="min-h-[60vh] px-5 py-16 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]/20"
+    >
+        <div class="container mx-auto">
+            <ScrollRevealWrapper direction="up" delay={0.2}>
+                <div class="text-center mb-16">
+                    <h2
+                        class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-4"
+                    >
+                        Available Scholarships
+                    </h2>
+                    <p
+                        class="text-main-mobile sm:text-main-desktop text-gray-600 max-w-2xl mx-auto"
+                    >
+                        Discover the opportunities waiting for you. We offer
+                        various scholarship programs to support your academic
+                        journey.
+                    </p>
+                </div>
+            </ScrollRevealWrapper>
+
+            {
+                pageData?.scholarshipPrograms &&
+                pageData.scholarshipPrograms.length > 0 ? (
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                        {pageData.scholarshipPrograms.map(
+                            (program: any, index: number) => (
+                                <ScrollRevealWrapper
+                                    direction="up"
+                                    delay={0.1 * (index + 1)}
+                                >
+                                    <ScholarshipCard program={program} />
+                                </ScrollRevealWrapper>
+                            ),
+                        )}
+                    </div>
+                ) : (
+                    <div class="text-center py-20 text-gray-500">
+                        <p>
+                            No scholarship programs are currently available.
+                            Please check back later.
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+    </section>
+
+    {
+        /* Optional: Add FAQ or CTA if requested later, keeping it clean for now */
+    }
+</Layout>

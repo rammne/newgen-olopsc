@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 const NAV_ITEMS = [
   { label: 'About OLOPSC', href: '/about' },
   { label: 'Admissions', href: '/admissions' },
-  { label: 'Our SDG Commitments', href: '/sdg-commitments' },
+  { label: 'Our SDG Commitments', href: '/sdg' },
 ]
 
 const MENU_ITEMS = [
   { label: 'News & Updates', href: '/news' },
-  { label: 'Scholarship Programs', href: '/admissions#scholarships' },
+  { label: 'Scholarship Programs', href: '/scholarship-programs' },
   { label: 'Events', href: '/events' },
   { label: 'Contact Us', href: '/contact' },
 ]
