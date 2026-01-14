@@ -2,7 +2,20 @@
 import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
 import { getBusinessAdminPage } from "../lib/sanity/queries";
 
-const department = await getBusinessAdminPage();
+const departmentData = await getBusinessAdminPage();
+
+const department = departmentData || {
+    title: "College of Business Administration & Entrepreneurship",
+    degree: "Bachelor of Science in Business Administration, Bachelor of Science in Entrepreneurship",
+    hero: {
+        headline: "College of Business Administration & Entrepreneurship",
+        variant: "image",
+    },
+    intro: {
+        headline: "Welcome",
+        content: "Content is being updated.",
+    },
+};
 ---
 
 <DepartmentTemplate department={department} />

@@ -2,7 +2,20 @@
 import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
 import { getComputingStudiesPage } from "../lib/sanity/queries";
 
-const department = await getComputingStudiesPage();
+const departmentData = await getComputingStudiesPage();
+
+const department = departmentData || {
+    title: "College of Computer Studies",
+    degree: "Bachelor of Science in Computer Science, Bachelor of Science in Information Technology",
+    hero: {
+        headline: "College of Computer Studies",
+        variant: "image",
+    },
+    intro: {
+        headline: "Welcome",
+        content: "Content is being updated.",
+    },
+};
 ---
 
 <DepartmentTemplate department={department} />

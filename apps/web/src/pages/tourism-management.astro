@@ -2,7 +2,20 @@
 import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
 import { getTourismManagementPage } from "../lib/sanity/queries";
 
-const department = await getTourismManagementPage();
+const departmentData = await getTourismManagementPage();
+
+const department = departmentData || {
+    title: "College of Tourism Management",
+    degree: "Bachelor of Science in Tourism Management",
+    hero: {
+        headline: "College of Tourism Management",
+        variant: "image",
+    },
+    intro: {
+        headline: "Welcome",
+        content: "Content is being updated.",
+    },
+};
 ---
 
 <DepartmentTemplate department={department} />

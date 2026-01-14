@@ -2101,3 +2101,24 @@ export async function getNewsBySdg(sdgId: string) {
   return await client.fetch(query, { sdgId })
 }
 
+/**
+ * Get Education and Liberal Arts Page Data
+ */
+export async function getEducationLiberalArtsPage() {
+  const query = `*[_type == "educationLiberalArts"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+

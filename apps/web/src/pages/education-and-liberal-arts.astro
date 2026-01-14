@@ -2,7 +2,20 @@
 import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
 import { getEducationLiberalArtsPage } from "../lib/sanity/queries";
 
-const department = await getEducationLiberalArtsPage();
+const departmentData = await getEducationLiberalArtsPage();
+
+const department = departmentData || {
+  title: "College of Education & Liberal Arts",
+  degree: "Bachelor of Early Childhood Education, Bachelor of Special Needs Education, Bachelor of Arts in Communication",
+  hero: {
+    headline: "College of Education & Liberal Arts",
+    variant: "image"
+  },
+  intro: {
+    headline: "Welcome",
+    content: "Content is being updated."
+  }
+};
 ---
 
 <DepartmentTemplate department={department} />
