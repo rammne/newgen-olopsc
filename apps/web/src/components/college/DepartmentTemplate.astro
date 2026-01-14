@@ -21,9 +21,10 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
+    <!-- Hero Section -->
     {department.hero && <Hero hero={department.hero} />}
 
-    {/* Intro Section */}
+    <!-- Intro Section -->
     <ScrollRevealWrapper direction="fade">
         <section
             class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"
@@ -40,7 +41,9 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                     <div class="prose prose-lg text-neutral-600">
                         {
                             typeof department.intro?.content === "string" ? (
-                                <p>{department.intro.content}</p>
+                                <p class="text-main-mobile sm:text-main-desktop leading-relaxed">
+                                    {department.intro.content}
+                                </p>
                             ) : (
                                 department.intro?.content && (
                                     <PortableText
@@ -53,11 +56,11 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                 </div>
                 {
                     department.intro?.image && (
-                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-video lg:aspect-square">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-video lg:aspect-square hero-fade-up">
                             <img
                                 src={department.intro.image.asset.url}
                                 alt={department.title}
-                                class="object-cover w-full h-full"
+                                class="object-cover w-full h-full transform hover:scale-105 transition-transform duration-700"
                             />
                         </div>
                     )
@@ -66,14 +69,14 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         </section>
     </ScrollRevealWrapper>
 
-    {/* Quick Info (Degree/Duration) - For Singletons */}
+    <!-- Quick Info (At a Glance) -->
     {
         department.degree && (
             <ScrollRevealWrapper direction="up">
-                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-neutral-light">
+                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-primary text-white">
                     <div class="container mx-auto">
-                        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm p-8 border border-neutral-200">
-                            <h3 class="text-card-title-mobile sm:text-card-title-desktop font-serif text-primary mb-6 flex items-center gap-3">
+                        <div class="max-w-5xl mx-auto border border-white/20 bg-white/5 backdrop-blur-sm rounded-xl p-8 sm:p-12 shadow-2xl">
+                            <h3 class="text-card-title-mobile sm:text-card-title-desktop font-serif text-accent mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
                                 <span class="text-accent">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -93,23 +96,23 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                         </>
                                     </svg>
                                 </span>
-                                At a Glance
+                                Program Overview
                             </h3>
-                            <div class="grid md:grid-cols-2 gap-8">
+                            <div class="grid md:grid-cols-2 gap-10">
                                 <div>
-                                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">
-                                        Degrees / Programs
+                                    <p class="text-xs font-bold text-accent uppercase tracking-widest mb-2">
+                                        Degrees Offered
                                     </p>
-                                    <p class="text-xl md:text-2xl text-gray-900 font-medium leading-relaxed">
+                                    <p class="text-xl sm:text-2xl font-medium leading-relaxed font-serif">
                                         {department.degree}
                                     </p>
                                 </div>
                                 {department.duration && (
                                     <div>
-                                        <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">
+                                        <p class="text-xs font-bold text-accent uppercase tracking-widest mb-2">
                                             Duration
                                         </p>
-                                        <p class="text-xl md:text-2xl text-gray-900 font-medium">
+                                        <p class="text-xl sm:text-2xl font-medium font-serif">
                                             {department.duration}
                                         </p>
                                     </div>
@@ -122,51 +125,81 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         )
     }
 
-    {/* Programs List Section */}
+    <!-- Programs List Section -->
     {
         hasItems(department.programs) && (
             <ScrollRevealWrapper direction="up">
-                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-neutral-light">
+                <section class="px-5 py-20 sm:px-[60px] sm:py-24 bg-neutral-light">
                     <div class="container mx-auto">
-                        <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mb-12 text-center">
-                            Our Programs
-                        </h2>
+                        <div class="text-center mb-16">
+                            <span class="text-accent font-bold tracking-widest uppercase text-sm">
+                                Academic Offerings
+                            </span>
+                            <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mt-2">
+                                Our Programs
+                            </h2>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {department.programs.map((programItem: any) => {
-                                // Handle both direct objects (singletons) and references (legacy academic)
-                                const program = programItem.link || programItem;
-                                const image =
-                                    program.image?.asset?.url ||
-                                    program.hero?.backgroundImage?.asset?.url;
-
-                                return (
-                                    <div class="group block bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 border border-neutral-200 overflow-hidden">
-                                        {image && (
-                                            <div class="h-48 overflow-hidden">
-                                                <img
-                                                    src={image}
-                                                    alt={program.title}
-                                                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                                />
-                                            </div>
-                                        )}
-                                        <div class="p-6">
-                                            <h3 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-                                                {program.title}
-                                            </h3>
-                                            {program.shortTitle && (
-                                                <span class="inline-block bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full mb-4">
-                                                    {program.shortTitle}
-                                                </span>
+                            {department.programs.map(
+                                (programItem: any, i: number) => {
+                                    const program =
+                                        programItem.link || programItem;
+                                    const image =
+                                        program.image?.asset?.url ||
+                                        program.hero?.backgroundImage?.asset
+                                            ?.url;
+                                    return (
+                                        <div class="acad-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-neutral-200/60 h-full flex flex-col">
+                                            {image && (
+                                                <div class="h-56 overflow-hidden relative">
+                                                    <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                                                    <img
+                                                        src={image}
+                                                        alt={program.title}
+                                                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                    />
+                                                </div>
                                             )}
-                                            <p class="text-gray-600 text-sm line-clamp-3 mb-4">
-                                                {program.description ||
-                                                    "Learn more about this program."}
-                                            </p>
+                                            <div class="p-8 flex-1 flex flex-col">
+                                                <h3 class="text-2xl font-serif font-bold text-primary mb-3 group-hover:text-accent transition-colors">
+                                                    {program.title}
+                                                </h3>
+                                                {program.shortTitle && (
+                                                    <div class="mb-4">
+                                                        <span class="inline-block bg-primary/5 text-primary text-xs font-bold px-3 py-1 rounded border border-primary/10">
+                                                            {program.shortTitle}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                <p class="text-gray-600 mb-6 line-clamp-3 text-sm leading-relaxed flex-1">
+                                                    {program.description ||
+                                                        "Authorized and recognized by the Commission on Higher Education (CHED)."}
+                                                </p>
+                                                <div class="mt-auto pt-4 border-t border-gray-100">
+                                                    <span class="text-primary font-bold text-sm group-hover:text-accent transition-colors flex items-center gap-2">
+                                                        Learn More{" "}
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="16"
+                                                            height="16"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="lucide lucide-arrow-right"
+                                                        >
+                                                            <path d="M5 12h14" />
+                                                            <path d="m12 5 7 7-7 7" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                },
+                            )}
                         </div>
                     </div>
                 </section>
@@ -174,37 +207,61 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         )
     }
 
-    {/* Curriculum Section */}
+    <!-- Curriculum Section -->
     {
         department.curriculum && hasItems(department.curriculum.courses) && (
             <ScrollRevealWrapper direction="up">
-                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-white">
-                    <div class="container mx-auto">
-                        <h2 class="text-3xl font-serif text-primary mb-8 text-center">
-                            Curriculum Highlights
-                        </h2>
-                        {department.curriculum.description && (
-                            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-                                {department.curriculum.description}
-                            </p>
-                        )}
+                <section class="px-5 py-20 sm:px-[60px] sm:py-24 bg-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+                    <div class="container mx-auto relative z-10">
+                        <div class="max-w-3xl mx-auto text-center mb-16">
+                            <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mb-6">
+                                Curriculum Highlights
+                            </h2>
+                            {department.curriculum.description && (
+                                <p class="text-lg text-gray-600 leading-relaxed">
+                                    {department.curriculum.description}
+                                </p>
+                            )}
+                        </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {department.curriculum.courses.map(
                                 (yearLevel: any) => (
-                                    <div class="bg-slate-50 p-6 rounded-lg border border-slate-100">
-                                        <h4 class="font-serif text-primary text-xl mb-4 border-b pb-2 border-accent">
+                                    <div class="bg-neutral/30 p-8 rounded-xl border border-neutral-200 hover:border-accent/50 transition-colors duration-300">
+                                        <h4 class="font-serif text-primary text-xl font-bold mb-6 flex items-center gap-2">
+                                            <span class="w-2 h-8 bg-accent rounded-full" />
                                             {yearLevel.year}
                                         </h4>
-                                        <ul class="space-y-2">
+                                        <ul class="space-y-4">
                                             {Array.isArray(yearLevel.courses) &&
                                                 yearLevel.courses.map(
                                                     (course: string) => (
-                                                        <li class="flex items-start gap-2 text-sm text-gray-700">
-                                                            <span class="text-accent mt-1">
-                                                                •
-                                                            </span>{" "}
-                                                            {course}
+                                                        <li class="flex items-start gap-3 text-sm text-gray-700 group">
+                                                            <span class="text-accent mt-0.5 group-hover:translate-x-1 transition-transform">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16"
+                                                                    height="16"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    stroke-width="2"
+                                                                    stroke-linecap="round"
+                                                                    stroke-linejoin="round"
+                                                                    class="lucide lucide-check-circle-2"
+                                                                >
+                                                                    <circle
+                                                                        cx="12"
+                                                                        cy="12"
+                                                                        r="10"
+                                                                    />
+                                                                    <path d="m9 12 2 2 4-4" />
+                                                                </svg>
+                                                            </span>
+                                                            <span class="font-medium">
+                                                                {course}
+                                                            </span>
                                                         </li>
                                                     ),
                                                 )}
@@ -219,46 +276,47 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         )
     }
 
-    {/* Key Features & Careers */}
+    <!-- Key Features & Careers (Combined Premium Section) -->
     {
         (hasItems(department.keyFeatures) ||
             department.careerOpportunities) && (
             <ScrollRevealWrapper direction="up">
-                <section class="px-5 py-16 sm:px-[60px] sm:py-20 bg-primary text-white">
-                    <div class="container mx-auto">
-                        <div class="grid lg:grid-cols-2 gap-16">
+                <section class="px-5 py-20 sm:px-[60px] sm:py-24 bg-primary text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10" />
+                    <div class="container mx-auto relative z-10">
+                        <div class="grid lg:grid-cols-2 gap-20">
                             {/* Features */}
                             {hasItems(department.keyFeatures) && (
                                 <div>
-                                    <h3 class="text-2xl font-serif text-accent mb-6">
-                                        Why Choose Us?
+                                    <h3 class="text-3xl font-serif text-white mb-10 border-l-4 border-accent pl-6">
+                                        Why Choose This Program?
                                     </h3>
-                                    <div class="space-y-6">
+                                    <div class="space-y-8">
                                         {department.keyFeatures.map(
                                             (feature: any) => (
-                                                <div class="flex gap-4">
-                                                    <div class="flex-shrink-0 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-accent">
+                                                <div class="flex gap-6 group">
+                                                    <div class="flex-shrink-0 w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-accent border border-white/10 group-hover:bg-accent group-hover:text-primary transition-all duration-300 shadow-lg">
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
-                                                            width="24"
-                                                            height="24"
+                                                            width="28"
+                                                            height="28"
                                                             viewBox="0 0 24 24"
                                                             fill="none"
                                                             stroke="currentColor"
                                                             stroke-width="2"
                                                             stroke-linecap="round"
                                                             stroke-linejoin="round"
+                                                            class="lucide lucide-star"
                                                         >
-                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                                            <polyline points="22 4 12 14.01 9 11.01" />
+                                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                                                         </svg>
                                                     </div>
                                                     <div>
-                                                        <h4 class="font-bold text-lg mb-1">
+                                                        <h4 class="font-bold text-xl mb-2 text-white group-hover:text-accent transition-colors">
                                                             {feature.item ||
                                                                 feature.title}
                                                         </h4>
-                                                        <p class="text-white/80">
+                                                        <p class="text-white/70 leading-relaxed text-sm">
                                                             {
                                                                 feature.description
                                                             }
@@ -273,12 +331,34 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
                             {/* Careers */}
                             {department.careerOpportunities && (
-                                <div>
-                                    <h3 class="text-2xl font-serif text-accent mb-6">
+                                <div class="bg-white/5 rounded-2xl p-8 sm:p-10 border border-white/10 backdrop-blur-sm">
+                                    <h3 class="text-2xl font-serif text-accent mb-6 flex items-center gap-3">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="28"
+                                            height="28"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            class="lucide lucide-briefcase"
+                                        >
+                                            <rect
+                                                width="20"
+                                                height="14"
+                                                x="2"
+                                                y="7"
+                                                rx="2"
+                                                ry="2"
+                                            />
+                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                        </svg>
                                         {department.careerOpportunities.title ||
                                             "Career Paths"}
                                     </h3>
-                                    <p class="text-white/80 mb-6">
+                                    <p class="text-white/80 mb-8 leading-relaxed">
                                         {
                                             department.careerOpportunities
                                                 .description
@@ -288,10 +368,10 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                     {hasItems(
                                         department.careerOpportunities.careers,
                                     ) && (
-                                        <div class="flex flex-wrap gap-2">
+                                        <div class="flex flex-wrap gap-3">
                                             {department.careerOpportunities.careers.map(
                                                 (career: string) => (
-                                                    <span class="bg-white/10 px-4 py-2 rounded-full text-sm font-medium border border-white/20">
+                                                    <span class="bg-white/10 hover:bg-white/20 px-4 py-2.5 rounded-lg text-sm font-medium border border-white/10 transition-colors cursor-default">
                                                         {career}
                                                     </span>
                                                 ),
@@ -301,7 +381,7 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
                                     {department.careerOpportunities.image?.asset
                                         ?.url && (
-                                        <div class="mt-8 rounded-xl overflow-hidden border border-white/20">
+                                        <div class="mt-10 rounded-xl overflow-hidden shadow-2xl border border-white/20 group">
                                             <img
                                                 src={
                                                     department
@@ -309,7 +389,7 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                                         .image.asset.url
                                                 }
                                                 alt="Careers"
-                                                class="w-full h-48 object-cover"
+                                                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700"
                                             />
                                         </div>
                                     )}
@@ -322,23 +402,29 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         )
     }
 
-    {/* Gallery */}
+    <!-- Gallery Section -->
     {
         department.gallery && hasItems(department.gallery.images) && (
-            <section class="max-w-7xl mx-auto px-5 py-16">
-                <h2 class="text-3xl font-serif text-primary text-center mb-10">
-                    Our Facilities & Life
-                </h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <section class="max-w-7xl mx-auto px-5 py-20 sm:py-24">
+                <div class="text-center mb-16">
+                    <span class="text-accent font-bold tracking-widest uppercase text-sm">
+                        Campus Life
+                    </span>
+                    <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-primary mt-2">
+                        Our Facilities
+                    </h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
                     {department.gallery.images.map((img: any, i: number) => (
                         <div
-                            class={`rounded-lg overflow-hidden ${i % 3 === 0 ? "col-span-2 row-span-2" : ""}`}
+                            class={`rounded-2xl overflow-hidden shadow-md group relative ${i % 3 === 0 ? "col-span-2 row-span-2" : ""}`}
                         >
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
                             {img.asset?.url && (
                                 <img
                                     src={img.asset.url}
                                     alt={img.caption || "Gallery"}
-                                    class="w-full h-full object-cover hover:scale-105 transition duration-500"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                                 />
                             )}
                         </div>
@@ -348,5 +434,32 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
         )
     }
 
-    <FinalCta />
+    <!-- Final CTA (Default fallback if missing) -->
+    <FinalCta
+        finalCta={department.finalCta || {
+            headline: "Ready to Start Your Journey?",
+            subheadline:
+                "Join the OLOPSC community and build your future with us.",
+            primaryCta: {
+                text: "Apply Now",
+                link: {
+                    type: "internal",
+                    internal: {
+                        _type: "page",
+                        slug: { current: "admissions" },
+                    },
+                },
+                style: "primary",
+            },
+            secondaryCta: {
+                text: "Contact Us",
+                link: {
+                    type: "internal",
+                    internal: { _type: "page", slug: { current: "contact" } },
+                },
+                style: "secondary",
+            },
+            backgroundImage: department.hero?.backgroundImage,
+        }}
+    />
 </Layout>

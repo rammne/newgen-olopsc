@@ -83,8 +83,8 @@ export function resolveCtaLink(cta: {
         if (type === 'collegeProgram') {
           return `/${link.internal.slug.current}`
         }
-        if (type === 'news') {
-          return `/news/${link.internal.slug.current}`
+        if (type === 'page') {
+          return `/${link.internal.slug.current}`
         }
       }
       return '#'

@@ -51,8 +51,8 @@ export function Header() {
   const baseClasses =
     'fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]'
 
-  const backgroundClasses = scrolled
-    ? 'bg-[var(--color-primary)]/95 shadow-lg backdrop-blur-md'
+  const backgroundClasses = scrolled || menuOpen
+    ? 'bg-[var(--color-primary)] shadow-lg backdrop-blur-md'
     : 'bg-gradient-to-b from-black/60 via-black/30 to-transparent backdrop-blur-[2px]'
 
   const heightClasses = scrolled ? 'py-3' : 'py-5'
@@ -62,7 +62,11 @@ export function Header() {
       <div className="mx-auto flex w-full items-center justify-evenly px-5 sm:px-[60px]">
         {/* Logo + wordmark */}
         <a href="/" className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-[var(--color-neutral)]/90 shadow-md" />
+          <img
+            src="/olopsc-logo.jpg"
+            alt="OLOPSC Logo"
+            className="h-10 w-10 rounded-full object-cover shadow-md"
+          />
           <div className="flex flex-col leading-tight">
             <span className="text-sm font-bold tracking-wide text-white sm:text-base">
               OLOPSC COLLEGE
@@ -130,7 +134,7 @@ export function Header() {
         className={`transition-[max-height,opacity] duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}
       >
-        <nav className="mx-auto flex max-w-6xl flex-col gap-3 bg-[var(--color-primary)]/95 px-5 pb-5 pt-3 text-xs font-semibold uppercase tracking-[0.12em] text-white sm:rounded-b-xl sm:px-[60px]">
+        <nav className="mx-auto flex max-w-6xl flex-col gap-3 bg-[var(--color-primary)] px-5 pb-5 pt-3 text-xs font-semibold uppercase tracking-[0.12em] text-white sm:rounded-b-xl sm:px-[60px]">
           {[...NAV_ITEMS, ...MENU_ITEMS].map((item) => (
             <a
               key={item.label}
