@@ -45,7 +45,7 @@ const displayPrograms = programs.slice(0, 6);
         <div class="programs-grid max-w-6xl mx-auto flex overflow-x-auto snap-x snap-mandatory pb-4 gap-4 no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:pb-0">
           {displayPrograms.map((program) => (
             <a
-              href={`/program/${program.slug?.current || ""}`}
+              href={`/${program.slug?.current || ""}`}
               class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
             >
               {program.hero?.backgroundImage?.asset?.url && (
