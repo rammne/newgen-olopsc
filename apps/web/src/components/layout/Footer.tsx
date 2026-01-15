@@ -4,33 +4,32 @@ import {motion} from 'framer-motion'
 // Footer link sections
 const FOOTER_SECTIONS = [
   {
-    title: 'About',
+    title: 'Academics',
     links: [
+      {label: 'Preschool', href: '/preschool'},
+      {label: 'Grade School', href: '/grade-school'},
+      {label: 'Junior High School', href: '/junior-high-school'},
+      {label: 'Senior High School', href: '/senior-high-school'},
+      {label: 'College', href: '/college-department'},
+      {label: 'Scholarship Programs', href: '/scholarship-programs'},
+    ],
+  },
+  {
+    title: 'Quick Links',
+    links: [
+      {label: 'Home', href: '/'},
       {label: 'About OLOPSC', href: '/about'},
-      {label: 'Mission & Vision', href: '/about#mission'},
-      {label: 'History', href: '/about#history'},
-      {label: 'Leadership', href: '/about#leadership'},
-      {label: 'Accreditations', href: '/about#accreditations'},
-    ],
-  },
-  {
-    title: 'Admissions',
-    links: [
-      {label: 'Admissions Process', href: '/admissions'},
-      {label: 'Requirements', href: '/admissions#requirements'},
-      {label: 'Scholarship Programs', href: '/admissions#scholarships'},
-      {label: 'Tuition & Fees', href: '/admissions#tuition'},
-      {label: 'Important Dates', href: '/admissions#dates'},
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      {label: 'News & Updates', href: '/news'},
-      {label: 'Events', href: '/event'},
+      {label: 'Admissions', href: '/admissions'},
+      {label: 'Alumni Section', href: '/alumni'},
       {label: 'Contact Us', href: '/contact'},
-      {label: 'Careers', href: '/jobs'},
-      {label: 'SDG Commitments', href: '/sdg-commitments'},
+    ],
+  },
+  {
+    title: 'Community',
+    links: [
+      {label: 'Events', href: '/events'},
+      {label: 'News & Updates', href: '/news'},
+      {label: 'Our SDG Commitments', href: '/sdg'},
     ],
   },
 ]
@@ -48,7 +47,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[var(--color-primary)] text-white">
+    <footer className="bg-[var(--color-primary)] text-white relative z-50 overflow-hidden">
       {/* Main footer content */}
       <div className="mx-auto w-full px-5 py-12 sm:px-[60px] sm:py-16">
         <div className="mx-auto max-w-7xl">
@@ -75,6 +74,9 @@ export function Footer() {
               <p className="mb-6 text-sm leading-relaxed text-white/80 sm:text-base">
                 Our Lady of Perpetual Succor College - Empowering students through quality
                 education and values formation since 1978.
+              </p>
+              <p className="mb-8 font-serif text-lg italic text-[var(--color-accent)]">
+                "With Mary Lift Jesus"
               </p>
               
               {/* Contact information */}
@@ -164,7 +166,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10 bg-[var(--color-primary)]/95">
+      <div className="border-t border-white/10 bg-[var(--color-primary)]">
         <div className="mx-auto w-full px-5 py-6 sm:px-[60px]">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-white/70 sm:text-sm">
