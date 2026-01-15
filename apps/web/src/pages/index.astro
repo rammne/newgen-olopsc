@@ -1,100 +1,143 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Hero from '../components/homepage/Hero.astro'
-import Intro from '../components/homepage/Intro.astro'
-import Stats from '../components/homepage/Stats.astro'
-import SRice from '../components/homepage/SRice.astro'
-import Features from '../components/homepage/Features.astro'
-import Testimonials from '../components/homepage/Testimonials.astro'
-import AcademicDepartments from '../components/homepage/AcademicDepartments.astro'
-import ProgramsPreview from '../components/homepage/ProgramsPreview.astro'
-import LatestNews from '../components/homepage/LatestNews.astro'
-import UpcomingEvents from '../components/homepage/UpcomingEvents.astro'
-import FinalCta from '../components/homepage/FinalCta.astro'
-import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
-import {getHomePage, getLatestNews, getUpcomingEvents} from '../lib/sanity/queries'
-import '../styles/global.css'
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import Intro from "../components/homepage/Intro.astro";
+import Stats from "../components/homepage/Stats.astro";
+import PresidentMessage from "../components/homepage/PresidentMessage.astro";
+import SRice from "../components/homepage/SRice.astro";
+import Features from "../components/homepage/Features.astro";
+import Testimonials from "../components/homepage/Testimonials.astro";
+import AcademicDepartments from "../components/homepage/AcademicDepartments.astro";
+import ProgramsPreview from "../components/homepage/ProgramsPreview.astro";
+import LatestNews from "../components/homepage/LatestNews.astro";
+import UpcomingEvents from "../components/homepage/UpcomingEvents.astro";
+import FinalCta from "../components/homepage/FinalCta.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import {
+  getHomePage,
+  getLatestNews,
+  getUpcomingEvents,
+} from "../lib/sanity/queries";
+import "../styles/global.css";
 
 // Fetch homepage data
-const homePage = await getHomePage()
+const homePage = await getHomePage();
 
 // Fetch featured news (max 3) for home page
-let newsArticles = []
+let newsArticles = [];
 if (homePage?.latestNews) {
-  newsArticles = await getLatestNews(3)
+  newsArticles = await getLatestNews(3);
 }
 
 // Fetch featured events (max 3) for home page
-let events = []
+let events = [];
 if (homePage?.upcomingEvents) {
-  events = await getUpcomingEvents(3)
+  events = await getUpcomingEvents(3);
 }
 
 // Set page title from SEO or default
-const pageTitle = homePage?.seo?.title || homePage?.title || 'Home'
-const pageDescription = homePage?.seo?.description || 'Welcome to Our School'
+const pageTitle = homePage?.seo?.title || homePage?.title || "Home";
+const pageDescription = homePage?.seo?.description || "Welcome to Our School";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
-  
-  {homePage?.intro && (
-    <ScrollRevealWrapper direction="fade" delay={0.1}>
-      <Intro intro={homePage.intro} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.keyStats && homePage.keyStats.stats && homePage.keyStats.stats.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Stats keyStats={homePage.keyStats} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.sRice && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <SRice sRice={homePage.sRice} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.academicDepartments && (
-    <ScrollRevealWrapper direction="up" delay={0.2}>
-      <AcademicDepartments academicDepartments={homePage.academicDepartments} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.programsPreview && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <ProgramsPreview programsPreview={homePage.programsPreview} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.testimonials && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Testimonials testimonials={homePage.testimonials} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.features && homePage.features.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <Features features={homePage.features} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.latestNews && newsArticles.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <LatestNews latestNews={homePage.latestNews} newsArticles={newsArticles} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.upcomingEvents && events.length > 0 && (
-    <ScrollRevealWrapper direction="up" delay={0.1}>
-      <UpcomingEvents upcomingEvents={homePage.upcomingEvents} events={events} />
-    </ScrollRevealWrapper>
-  )}
-  
-  {homePage?.finalCta && (
-    <ScrollRevealWrapper direction="fade" delay={0.1}>
-      <FinalCta finalCta={homePage.finalCta} />
-    </ScrollRevealWrapper>
-  )}
+
+  {
+    homePage?.intro && (
+      <ScrollRevealWrapper direction="fade" delay={0.1}>
+        <Intro intro={homePage.intro} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.keyStats &&
+      homePage.keyStats.stats &&
+      homePage.keyStats.stats.length > 0 && (
+        <ScrollRevealWrapper direction="up" delay={0.1}>
+          <Stats keyStats={homePage.keyStats} />
+        </ScrollRevealWrapper>
+      )
+  }
+
+  {
+    homePage?.presidentMessage && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <PresidentMessage presidentMessage={homePage.presidentMessage} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.sRice && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <SRice sRice={homePage.sRice} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.academicDepartments && (
+      <ScrollRevealWrapper direction="up" delay={0.2}>
+        <AcademicDepartments
+          academicDepartments={homePage.academicDepartments}
+        />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.programsPreview && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <ProgramsPreview programsPreview={homePage.programsPreview} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.testimonials && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Testimonials testimonials={homePage.testimonials} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.features && homePage.features.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Features features={homePage.features} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.latestNews && newsArticles.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <LatestNews
+          latestNews={homePage.latestNews}
+          newsArticles={newsArticles}
+        />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.upcomingEvents && events.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <UpcomingEvents
+          upcomingEvents={homePage.upcomingEvents}
+          events={events}
+        />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
+    homePage?.finalCta && (
+      <ScrollRevealWrapper direction="fade" delay={0.1}>
+        <FinalCta finalCta={homePage.finalCta} />
+      </ScrollRevealWrapper>
+    )
+  }
 </Layout>

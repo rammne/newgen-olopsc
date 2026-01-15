@@ -45,6 +45,19 @@ export const event = defineType({
       description: 'The academic department that posted this event (optional)',
     }),
     defineField({
+      name: 'relatedSDGs',
+      title: 'Related SDGs',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{type: 'sdg'}],
+        options: {
+          filter: 'isActive == true',
+        }
+      }],
+      description: 'Select the Sustainable Development Goals related to this event',
+    }),
+    defineField({
       name: 'startDate',
       title: 'Start Date & Time',
       type: 'datetime',

@@ -43,7 +43,13 @@ export const news = defineType({
       name: 'relatedSDGs',
       title: 'Related SDGs',
       type: 'array',
-      of: [{type: 'reference', to: [{type: 'sdg'}]}],
+      of: [{
+        type: 'reference',
+        to: [{type: 'sdg'}],
+        options: {
+          filter: 'isActive == true',
+        }
+      }],
       description: 'Select the Sustainable Development Goals related to this article',
     }),
     defineField({

@@ -63,19 +63,4 @@ const pageDescription =
             </ScrollRevealWrapper>
         )
     }
-
-    {
-        admissionsPage?.cta && (
-            <ScrollRevealWrapper direction="fade" delay={0.1}>
-                <FinalCta
-                    finalCta={{
-                        headline: "Ready to Join Us?",
-                        subheadline: "Start your journey with OLOPSC today.",
-                        primaryCta: admissionsPage.cta,
-                        backgroundImage: admissionsPage.hero?.backgroundImage,
-                    }}
-                />
-            </ScrollRevealWrapper>
-        )
-    }
 </Layout>

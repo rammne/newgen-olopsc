@@ -1,0 +1,62 @@
+---
+import ScrollRevealWrapper from "../common/ScrollRevealWrapper.astro";
+
+interface Props {
+    agenda: {
+        title?: string;
+        description?: string;
+        agendaItems?: string[];
+    };
+}
+
+const { agenda } = Astro.props;
+
+if (!agenda || !agenda.agendaItems || agenda.agendaItems.length === 0)
+    return null;
+
+const { title = "10-Point Agenda", description, agendaItems } = agenda;
+---
+
+<section
+    class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral-light relative overflow-hidden"
+>
+    <div class="container mx-auto max-w-7xl relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <ScrollRevealWrapper direction="up">
+                <h2 class="text-3xl sm:text-4xl font-serif text-primary mb-6">
+                    {title}
+                </h2>
+                {
+                    description && (
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            {description}
+                        </p>
+                    )
+                }
+            </ScrollRevealWrapper>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {
+                agendaItems.map((item, index) => (
+                    <ScrollRevealWrapper direction="up" delay={index * 0.1}>
+                        <div class="group h-full bg-white p-6 rounded-xl border border-neutral-200 shadow-sm hover:shadow-xl hover:border-accent hover:-translate-y-1 transition duration-300 flex flex-col items-center text-center relative overflow-hidden">
+                            {/* Decorative Background Number */}
+                            <div class="absolute -right-4 -bottom-6 text-9xl font-bold text-neutral-100 group-hover:text-primary/5 transition-colors duration-300 select-none pointer-events-none">
+                                {(index + 1).toString().padStart(2, "0")}
+                            </div>
+
+                            {/* Visible Content */}
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm mb-4 shrink-0 group-hover:scale-110 transition-transform duration-300 relative z-10">
+                                {index + 1}
+                            </div>
+                            <p class="text-gray-800 font-medium leading-relaxed relative z-10 group-hover:text-primary transition-colors">
+                                {item}
+                            </p>
+                        </div>
+                    </ScrollRevealWrapper>
+                ))
+            }
+        </div>
+    </div>
+</section>

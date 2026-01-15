@@ -93,6 +93,53 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'presidentMessage',
+      title: "President's Message",
+      type: 'object',
+      description: 'A dedicated section for the President\'s message',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          initialValue: "President's Message",
+        }),
+        defineField({
+          name: 'quote',
+          title: 'Quote',
+          type: 'text',
+          rows: 3,
+          description: 'Short highlight quote from the president',
+        }),
+        defineField({
+          name: 'message',
+          title: 'Message',
+          type: 'portableText',
+          description: 'The main message content',
+        }),
+        defineField({
+          name: 'presidentName',
+          title: 'President Name',
+          type: 'string',
+          initialValue: 'Armida Salvador Samaniego, PhD',
+        }),
+        defineField({
+          name: 'presidentRole',
+          title: 'President Role/Title',
+          type: 'string',
+          initialValue: 'President',
+        }),
+        defineField({
+          name: 'presidentImage',
+          title: 'President Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }),
+      ],
+    }),
+    defineField({
       name: 'sRice',
       title: 'S-RICE Section',
       type: 'object',

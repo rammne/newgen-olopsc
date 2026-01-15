@@ -6,6 +6,7 @@ import FinalCta from "../components/homepage/FinalCta.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import IdentitySection from "../components/about/IdentitySection.astro";
 import MissionVisionValues from "../components/about/MissionVisionValues.astro";
+import TenPointAgenda from "../components/about/TenPointAgenda.astro";
 import HistorySection from "../components/about/HistorySection.astro";
 import LeadershipSection from "../components/about/LeadershipSection.astro";
 import AccreditationsSection from "../components/about/AccreditationsSection.astro";
@@ -41,6 +42,14 @@ const pageDescription =
                     vision={aboutPage?.vision}
                     values={aboutPage?.values}
                 />
+            </ScrollRevealWrapper>
+        )
+    }
+
+    {
+        aboutPage?.strategicAgenda && (
+            <ScrollRevealWrapper direction="up" delay={0.1}>
+                <TenPointAgenda agenda={aboutPage.strategicAgenda} />
             </ScrollRevealWrapper>
         )
     }

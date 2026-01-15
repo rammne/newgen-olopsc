@@ -19,29 +19,8 @@ export const contactPage = defineType({
       type: 'hero',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'intro',
-      title: 'Introduction',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'headline',
-          title: 'Headline',
-          type: 'string',
-        }),
-        defineField({
-          name: 'content',
-          title: 'Content',
-          type: 'portableText',
-        }),
-      ],
-    }),
-    defineField({
-      name: 'contactInfo',
-      title: 'Main Contact Information',
-      type: 'contactInfo',
-      validation: (Rule) => Rule.required(),
-    }),
+
+
     defineField({
       name: 'departments',
       title: 'Department Contacts',
@@ -65,41 +44,7 @@ export const contactPage = defineType({
         },
       ],
     }),
-    defineField({
-      name: 'contactForm',
-      title: 'Contact Form',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Form Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'description',
-          title: 'Description',
-          type: 'portableText',
-        }),
-        defineField({
-          name: 'formFields',
-          title: 'Form Fields',
-          type: 'array',
-          of: [{type: 'formField'}],
-        }),
-        defineField({
-          name: 'submitButtonText',
-          title: 'Submit Button Text',
-          type: 'string',
-          initialValue: 'Send Message',
-        }),
-        defineField({
-          name: 'successMessage',
-          title: 'Success Message',
-          type: 'text',
-          rows: 2,
-        }),
-      ],
-    }),
+
     defineField({
       name: 'socialMedia',
       title: 'Social Media Links',

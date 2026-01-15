@@ -12,6 +12,13 @@ export const sdg = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'isActive',
+      title: 'Active Status',
+      type: 'boolean',
+      description: 'Toggle to activate/deactivate this goal. Inactive goals are hidden from the website and cannot be selected for news/events.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

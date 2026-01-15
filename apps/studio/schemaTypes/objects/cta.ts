@@ -9,7 +9,6 @@ export const cta = defineType({
       name: 'text',
       title: 'Button Text',
       type: 'string',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'link',
@@ -62,7 +61,6 @@ export const cta = defineType({
           hidden: ({parent}) => parent?.type !== 'file',
         }),
       ],
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'style',

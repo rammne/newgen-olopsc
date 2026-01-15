@@ -184,7 +184,7 @@ export const aboutPage = defineType({
     }),
     defineField({
       name: 'strategicAgenda',
-      title: 'Strategic Agenda',
+      title: '10-Point Agenda',
       type: 'object',
       group: 'content',
       fields: [

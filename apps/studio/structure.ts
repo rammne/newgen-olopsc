@@ -96,6 +96,26 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                 ),
             ])
         ),
+      // SDGs
+      S.listItem()
+        .title('SDGs / Advocacy')
+        .child(
+          S.list()
+            .title('SDGs / Advocacy')
+            .items([
+              S.listItem()
+                .title('Sustainable Development Goals')
+                .child(
+                  S.documentTypeList('sdg')
+                    .title('Sustainable Development Goals')
+                    .filter('_type == "sdg"')
+                    .defaultOrdering([{ field: 'number', direction: 'asc' }])
+                ),
+              S.listItem()
+                .title('SDG Page Settings')
+                .child(S.document().schemaType('sdgPage').documentId('sdgPage')),
+            ])
+        ),
       // Settings
       S.listItem()
         .title('Settings')
@@ -115,6 +135,8 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'collegeProgram',
             'news',
             'event',
+            'sdg',
+            'sdgPage',
             // College Singletons
             'tourismManagement',
             'hospitalityManagement',

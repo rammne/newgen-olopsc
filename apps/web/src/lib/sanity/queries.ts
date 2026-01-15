@@ -439,6 +439,23 @@ export async function getHomePage() {
         suffix
       }
     },
+    presidentMessage {
+      title,
+      quote,
+      message,
+      presidentName,
+      presidentRole,
+      presidentImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        hotspot
+      }
+    },
     sRice {
       title,
       subtitle,
@@ -1505,19 +1522,13 @@ export async function getContactPage() {
     _id,
     title,
     hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    contactInfo,
+
+
     departments[] {
        department,
        contact
     },
-    contactForm {
-       title,
-       description,
-       formFields,
-       submitButtonText,
-       successMessage
-    },
+
     socialMedia {
        title,
        links[] { platform, url }
@@ -2022,7 +2033,7 @@ export async function getSdgPage() {
  * Get all active SDGs
  */
 export async function getAllSdgs() {
-  const query = `*[_type == "sdg"] | order(number asc) {
+  const query = `*[_type == "sdg" && isActive == true] | order(number asc) {
     _id,
     title,
     slug {
