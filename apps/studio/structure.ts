@@ -29,6 +29,9 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
               S.listItem()
                 .title('Jobs/Careers Page')
                 .child(S.document().schemaType('jobsPage').documentId('jobsPage')),
+              S.listItem()
+                .title('Alumni Page')
+                .child(S.document().schemaType('alumniPage').documentId('alumniPage')),
             ])
         ),
       // Academic Content
@@ -131,6 +134,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'contactPage',
             'jobsPage',
             'settings',
+            'alumniPage',
             'academicDepartment',
             'collegeProgram',
             'news',

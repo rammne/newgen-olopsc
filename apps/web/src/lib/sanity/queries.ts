@@ -2244,3 +2244,235 @@ export async function getScholarshipPage() {
   return await client.fetch(query)
 }
 
+/**
+ * Get alumni page data
+ */
+export async function getAlumniPage() {
+  const query = `*[_type == "alumniPage"][0]{
+    _id,
+    title,
+    hero {
+      variant,
+      headline,
+      subheadline,
+      backgroundImage {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        hotspot
+      },
+      overlay {
+        enabled,
+        opacity,
+        color
+      }
+    },
+    intro {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt,
+        hotspot
+      }
+    },
+    mission {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    vision {
+      title,
+      content,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    officers {
+      title,
+      members[] {
+        name,
+        role,
+        bio,
+        image {
+          asset->{
+            url
+          },
+          alt,
+          hotspot
+        },
+        socialLinks[] {
+          platform,
+          url
+        }
+      }
+    },
+    featuredAlumni[] {
+      quote,
+      author {
+        name,
+        role,
+        image {
+          asset->{
+            url
+          },
+          alt
+        },
+        company
+      },
+      rating
+    },
+    gallery {
+        title,
+        images[] {
+          asset->{
+             _id,
+            url,
+             metadata {
+              dimensions
+            }
+          },
+          alt,
+          caption
+        }
+    },
+    news {
+      title,
+      count,
+      cta {
+        text,
+        link {
+          type,
+          internal->{
+            _type,
+            slug {
+              current
+            }
+          },
+          external,
+          anchor
+        },
+        style
+      }
+    },
+    events {
+      title,
+      count,
+      cta {
+        text,
+        link {
+          type,
+          internal->{
+            _type,
+            slug {
+              current
+            }
+          },
+          external,
+          anchor
+        },
+        style
+      }
+    },
+    cta {
+      text,
+      link {
+        type,
+        internal->{
+          _type,
+          slug {
+            current
+          }
+        },
+        external,
+        anchor
+      },
+      style,
+      openInNewTab
+    },
+    seo {
+      title,
+      description,
+      keywords,
+      image {
+        asset->{
+          url
+        }
+      },
+      canonicalUrl
+    }
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get featured news articles for alumni (tagged with "Alumni")
+ */
+export async function getAlumniNews(count: number = 3) {
+  const query = `*[_type == "news" && "Alumni" in tags] | order(publishedAt desc) [0...${count}] {
+    _id,
+    title,
+    slug {
+      current
+    },
+    publishedAt,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    category,
+    academicDepartment->{
+      title
+    }
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get upcoming events for alumni (keyword match)
+ */
+export async function getAlumniEvents(count: number = 3) {
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+  const query = `*[_type == "event" && startDate >= '${oneDayAgo}' && (title match "Alumni" || description match "Alumni" || title match "Homecoming")] | order(startDate asc) [0...${count}] {
+    _id,
+    title,
+    slug {
+      current
+    },
+    startDate,
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    excerpt,
+    "location": location.venue,
+    academicDepartment->{
+      title
+    }
+  }`
+
+  return await client.fetch(query)
+}
+

@@ -12,6 +12,7 @@ const MENU_ITEMS = [
   { label: 'News & Updates', href: '/news' },
   { label: 'Scholarship Programs', href: '/scholarship-programs' },
   { label: 'Events', href: '/events' },
+  { label: 'Alumni', href: '/alumni-section' },
   { label: 'Contact Us', href: '/contact' },
 ]
 

@@ -33,6 +33,7 @@ import { jobsPage } from './singletons/jobsPage'
 import { settings } from './singletons/settings'
 import { aboutPage } from './singletons/aboutPage'
 import { sdgPage } from './singletons/sdgPage'
+import { alumniPage } from './singletons/alumniPage'
 
 // College Programs (Fixed Singletons)
 import { tourismManagement } from './college/tourismManagement'
@@ -75,6 +76,7 @@ export const schemaTypes = [
   jobsPage,
   settings,
   sdgPage,
+  alumniPage,
   // College Programs
   tourismManagement,
   hospitalityManagement,
