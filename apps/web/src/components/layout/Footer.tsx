@@ -1,46 +1,46 @@
-import {Facebook, Instagram, Twitter, Youtube, Linkedin, Mail, Phone, MapPin} from 'lucide-react'
-import {motion} from 'framer-motion'
+import { Facebook, Instagram, Twitter, Youtube, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 // Footer link sections
 const FOOTER_SECTIONS = [
   {
     title: 'Academics',
     links: [
-      {label: 'Preschool', href: '/preschool'},
-      {label: 'Grade School', href: '/grade-school'},
-      {label: 'Junior High School', href: '/junior-high-school'},
-      {label: 'Senior High School', href: '/senior-high-school'},
-      {label: 'College', href: '/college-department'},
-      {label: 'Scholarship Programs', href: '/scholarship-programs'},
+      { label: 'Preschool', href: '/preschool' },
+      { label: 'Grade School', href: '/grade-school' },
+      { label: 'Junior High School', href: '/junior-high-school' },
+      { label: 'Senior High School', href: '/senior-high-school' },
+      { label: 'College', href: '/college-department' },
+      { label: 'Scholarship Programs', href: '/scholarship-programs' },
     ],
   },
   {
     title: 'Quick Links',
     links: [
-      {label: 'Home', href: '/'},
-      {label: 'About OLOPSC', href: '/about'},
-      {label: 'Admissions', href: '/admissions'},
-      {label: 'Alumni Section', href: '/alumni'},
-      {label: 'Contact Us', href: '/contact'},
+      { label: 'Home', href: '/' },
+      { label: 'About OLOPSC', href: '/about' },
+      { label: 'Admissions', href: '/admissions' },
+      { label: 'Alumni Section', href: '/alumni' },
+      { label: 'Contact Us', href: '/contact' },
     ],
   },
   {
     title: 'Community',
     links: [
-      {label: 'Events', href: '/events'},
-      {label: 'News & Updates', href: '/news'},
-      {label: 'Our SDG Commitments', href: '/sdg'},
+      { label: 'Events', href: '/events' },
+      { label: 'News & Updates', href: '/news' },
+      { label: 'Our SDG Commitments', href: '/sdg' },
     ],
   },
 ]
 
 // Social media links (can be fetched from Sanity later)
 const SOCIAL_LINKS = [
-  {platform: 'Facebook', icon: Facebook, href: '#'},
-  {platform: 'Instagram', icon: Instagram, href: '#'},
-  {platform: 'Twitter', icon: Twitter, href: '#'},
-  {platform: 'YouTube', icon: Youtube, href: '#'},
-  {platform: 'LinkedIn', icon: Linkedin, href: '#'},
+  { platform: 'Facebook', icon: Facebook, href: '#' },
+  { platform: 'Instagram', icon: Instagram, href: '#' },
+  { platform: 'Twitter', icon: Twitter, href: '#' },
+  { platform: 'YouTube', icon: Youtube, href: '#' },
+  { platform: 'LinkedIn', icon: Linkedin, href: '#' },
 ]
 
 export function Footer() {
@@ -75,10 +75,10 @@ export function Footer() {
                 Our Lady of Perpetual Succor College - Empowering students through quality
                 education and values formation since 1978.
               </p>
-              <p className="mb-8 font-serif text-lg italic text-[var(--color-accent)]">
+              {/* <p className="mb-8 font-serif text-lg italic text-[var(--color-accent)]">
                 "With Mary Lift Jesus"
-              </p>
-              
+              </p> */}
+
               {/* Contact information */}
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3">
@@ -123,8 +123,8 @@ export function Footer() {
                         rel="noopener noreferrer"
                         aria-label={`Visit our ${social.platform} page`}
                         className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-all hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)]"
-                        whileHover={{scale: 1.1}}
-                        whileTap={{scale: 0.95}}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <Icon size={18} className="text-white" />
                       </motion.a>
@@ -138,10 +138,10 @@ export function Footer() {
             {FOOTER_SECTIONS.map((section, index) => (
               <motion.div
                 key={section.title}
-                initial={{opacity: 0, y: 20}}
-                whileInView={{opacity: 1, y: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.5, delay: index * 0.1}}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="sm:col-span-1"
               >
                 <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
@@ -172,7 +172,7 @@ export function Footer() {
             <p className="text-xs text-white/70 sm:text-sm">
               © {currentYear} Our Lady of Perpetual Succor College. All rights reserved. | Website by <a href="https://www.rammne.com/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:text-[var(--color-accent)]">Rammne.</a>
             </p>
-            <div className="flex flex-wrap items-center gap-4 text-xs text-white/70 sm:text-sm">
+            {/* <div className="flex flex-wrap items-center gap-4 text-xs text-white/70 sm:text-sm">
               <a
                 href="/privacy-policy"
                 className="transition-colors hover:text-[var(--color-accent)]"
@@ -193,7 +193,10 @@ export function Footer() {
               >
                 Accessibility
               </a>
-            </div>
+            </div> */}
+            <p className="mb-8 font-serif text-lg italic text-[var(--color-accent)]">
+              "With Mary Lift Jesus".
+            </p>
           </div>
         </div>
       </div>
