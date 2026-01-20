@@ -99,37 +99,6 @@ export const aboutPage = defineType({
       ],
     }),
     defineField({
-      name: 'values',
-      title: 'Core Values',
-      type: 'object',
-      group: 'content',
-      icon: Award,
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-          initialValue: 'Core Values',
-        }),
-        defineField({
-          name: 'values',
-          title: 'Values List',
-          type: 'array',
-          of: [
-            defineField({
-              name: 'value',
-              type: 'object',
-              fields: [
-                defineField({ name: 'title', type: 'string' }),
-                defineField({ name: 'description', type: 'text', rows: 3 }),
-                defineField({ name: 'icon', type: 'string', description: 'Lucide icon name' }),
-              ],
-            }),
-          ],
-        }),
-      ],
-    }),
-    defineField({
       name: 'history',
       title: 'History',
       type: 'object',
@@ -242,13 +211,6 @@ export const aboutPage = defineType({
           ],
         }),
       ],
-    }),
-    defineField({
-      name: 'stats',
-      title: 'Key Statistics',
-      type: 'array',
-      group: 'content',
-      of: [{ type: 'stats' }],
     }),
     defineField({
       name: 'accreditations',

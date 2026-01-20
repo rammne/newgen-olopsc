@@ -88,7 +88,7 @@ export function Header() {
         {/* Logo + wordmark */}
         <a href="/" className="flex items-center gap-3 relative z-50">
           <img
-            src="/olopsc-logo.jpg"
+            src="/olopsc-logo-outline.webp"
             alt="OLOPSC Logo"
             className="h-10 w-10 rounded-full object-cover shadow-md"
           />

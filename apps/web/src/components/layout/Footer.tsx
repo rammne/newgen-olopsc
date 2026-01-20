@@ -57,8 +57,8 @@ export function Footer() {
               <a href="/" className="mb-4 inline-block">
                 <div className="flex items-center gap-3">
                   <img
-                    src="/olopsc-logo.jpg"
-                    alt="OLOPSC College Logo"
+                    src="/olopsc-logo-outline.webp"
+                    alt="OLOPSC Logo"
                     className="h-16 w-16 rounded-full object-cover shadow-lg"
                   />
                   <div className="flex flex-col leading-tight">

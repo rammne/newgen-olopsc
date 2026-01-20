@@ -1,125 +1,141 @@
 ---
-import {normalizeVideoEmbedUrl} from '../../lib/utility'
-import olopscLogo from '../../assets/olopsc-logo.jpg'
-import CtaButton from '../common/CtaButton.astro'
+import { normalizeVideoEmbedUrl } from "../../lib/utility";
+import olopscLogo from "../../assets/olopsc-logo.webp";
+import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
   hero: {
-    variant?: string
-    headline?: string
-    subheadline?: string
+    variant?: string;
+    headline?: string;
+    subheadline?: string;
     backgroundImage?: {
       asset?: {
-        url?: string
-      }
-      alt?: string
-    }
-    backgroundVideoSource?: 'file' | 'url' | 'embed'
+        url?: string;
+      };
+      alt?: string;
+    };
+    backgroundVideoSource?: "file" | "url" | "embed";
     backgroundVideoFile?: {
       asset?: {
-        url?: string
-      }
-    }
-    backgroundVideoUrl?: string
-    backgroundVideoEmbed?: string
+        url?: string;
+      };
+    };
+    backgroundVideoUrl?: string;
+    backgroundVideoEmbed?: string;
     overlay?: {
-      enabled?: boolean
-      opacity?: number
-      color?: string
-    }
+      enabled?: boolean;
+      opacity?: number;
+      color?: string;
+    };
     cta?: {
-      text?: string
-      link?: any
-      style?: string
-      openInNewTab?: boolean
-    }
+      text?: string;
+      link?: any;
+      style?: string;
+      openInNewTab?: boolean;
+    };
     secondaryCta?: {
-      text?: string
-      link?: any
-      style?: string
-      openInNewTab?: boolean
-    }
-  }
+      text?: string;
+      link?: any;
+      style?: string;
+      openInNewTab?: boolean;
+    };
+  };
 }
 
-const {hero} = Astro.props
-const imageUrl = hero.backgroundImage?.asset?.url || ''
-const overlayOpacity = hero.overlay?.enabled ? (hero.overlay.opacity || 50) / 100 : 0
-const overlayColor = hero.overlay?.color || 'black'
-const overlayClass = overlayColor === 'primary' ? 'bg-[var(--color-primary)]' : overlayColor === 'white' ? 'bg-white' : 'bg-black'
+const { hero } = Astro.props;
+const imageUrl = hero.backgroundImage?.asset?.url || "";
+const overlayOpacity = hero.overlay?.enabled
+  ? (hero.overlay.opacity || 50) / 100
+  : 0;
+const overlayColor = hero.overlay?.color || "black";
+const overlayClass =
+  overlayColor === "primary"
+    ? "bg-[var(--color-primary)]"
+    : overlayColor === "white"
+      ? "bg-white"
+      : "bg-black";
 
 // Resolve video source based on hero config
-const videoSourceType = hero.backgroundVideoSource || 'embed'
-const uploadedVideoUrl = hero.backgroundVideoFile?.asset?.url
-const directVideoUrl = hero.backgroundVideoUrl
-const rawEmbedUrl = hero.backgroundVideoEmbed
-const embedUrl = normalizeVideoEmbedUrl(rawEmbedUrl)
+const videoSourceType = hero.backgroundVideoSource || "embed";
+const uploadedVideoUrl = hero.backgroundVideoFile?.asset?.url;
+const directVideoUrl = hero.backgroundVideoUrl;
+const rawEmbedUrl = hero.backgroundVideoEmbed;
+const embedUrl = normalizeVideoEmbedUrl(rawEmbedUrl);
 
 function getVideoUrl() {
-  if (videoSourceType === 'file' && uploadedVideoUrl) return uploadedVideoUrl
-  if (videoSourceType === 'url' && directVideoUrl) return directVideoUrl
-  return null
+  if (videoSourceType === "file" && uploadedVideoUrl) return uploadedVideoUrl;
+  if (videoSourceType === "url" && directVideoUrl) return directVideoUrl;
+  return null;
 }
 
-const videoUrl = getVideoUrl()
+const videoUrl = getVideoUrl();
 ---
 
-<section class="h-screen relative flex items-center justify-center overflow-hidden">
-  {videoUrl ? (
-    <video
-      class="absolute inset-0 w-full h-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-    >
-      <source src={videoUrl} type="video/mp4" />
-    </video>
-  ) : embedUrl ? (
-    <iframe
-      src={embedUrl}
-      class="absolute inset-0 w-full h-full object-cover"
-      allow="autoplay; fullscreen; muted"
-      loading="lazy"
-      frameborder="0"
-    ></iframe>
-  ) : imageUrl ? (
-    <img
-      src={imageUrl}
-      alt={hero.backgroundImage?.alt || ''}
-      class="absolute inset-0 w-full h-full object-cover"
-    />
-  ) : null}
-  
-  {overlayOpacity > 0 && (
-    <div
-      class={`absolute inset-0 ${overlayClass}`}
-      style={`opacity: ${overlayOpacity}`}
-    ></div>
-  )}
+<section
+  class="h-screen relative flex items-center justify-center overflow-hidden"
+>
+  {
+    videoUrl ? (
+      <video
+        class="absolute inset-0 w-full h-full object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
+    ) : embedUrl ? (
+      <iframe
+        src={embedUrl}
+        class="absolute inset-0 w-full h-full object-cover"
+        allow="autoplay; fullscreen; muted"
+        loading="lazy"
+        frameborder="0"
+      />
+    ) : imageUrl ? (
+      <img
+        src={imageUrl}
+        alt={hero.backgroundImage?.alt || ""}
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+    ) : null
+  }
 
-  <div class="relative z-10 container mx-auto px-5 sm:px-[60px] text-center flex flex-col items-center justify-center gap-4">
+  {
+    overlayOpacity > 0 && (
+      <div
+        class={`absolute inset-0 ${overlayClass}`}
+        style={`opacity: ${overlayOpacity}`}
+      />
+    )
+  }
+
+  <div
+    class="relative z-10 container mx-auto px-5 sm:px-[60px] text-center flex flex-col items-center justify-center gap-4"
+  >
     <img
-      src={olopscLogo.src}
+      src="/olopsc-logo.webp"
       alt="OLOPSC Logo"
-      class="h-32 w-32 sm:h-40 sm:w-40 rounded-full border border-white/60 bg-white/90 p-1 shadow-lg hero-logo-pop"
+      class="h-40 w-40 p-1 shadow-lg hero-logo-pop"
     />
-    <h1 class="text-hero-header-mobile sm:text-hero-header-desktop text-white mb-3 max-w-2xl hero-fade-up hero-fade-up-delay-1">
-      {hero.headline || 'Welcome to Our School'}
+    <h1
+      class="text-hero-header-mobile sm:text-hero-header-desktop text-white mb-3 max-w-2xl hero-fade-up hero-fade-up-delay-1"
+    >
+      {hero.headline || "Welcome to Our School"}
     </h1>
-    {hero.subheadline && (
-      <p class="text-main-mobile sm:text-main-desktop text-white mb-6 max-w-2xl mx-auto hero-fade-up hero-fade-up-delay-2">
-        {hero.subheadline}
-      </p>
-    )}
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-up hero-fade-up-delay-3">
-      {hero.cta && (
-        <CtaButton cta={hero.cta} />
-      )}
-      {hero.secondaryCta && (
-        <CtaButton cta={hero.secondaryCta} />
-      )}
+    {
+      hero.subheadline && (
+        <p class="text-main-mobile sm:text-main-desktop text-white mb-6 max-w-2xl mx-auto hero-fade-up hero-fade-up-delay-2">
+          {hero.subheadline}
+        </p>
+      )
+    }
+    <div
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-up hero-fade-up-delay-3"
+    >
+      {hero.cta && <CtaButton cta={hero.cta} />}
+      {hero.secondaryCta && <CtaButton cta={hero.secondaryCta} />}
     </div>
   </div>
 </section>
-

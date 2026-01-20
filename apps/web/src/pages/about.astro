@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/homepage/Hero.astro";
-import Stats from "../components/homepage/Stats.astro";
 import FinalCta from "../components/homepage/FinalCta.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import IdentitySection from "../components/about/IdentitySection.astro";
@@ -35,12 +34,11 @@ const pageDescription =
     }
 
     {
-        (aboutPage?.mission || aboutPage?.vision || aboutPage?.values) && (
+        (aboutPage?.mission || aboutPage?.vision) && (
             <ScrollRevealWrapper direction="up" delay={0.1}>
                 <MissionVisionValues
                     mission={aboutPage?.mission}
                     vision={aboutPage?.vision}
-                    values={aboutPage?.values}
                 />
             </ScrollRevealWrapper>
         )
@@ -58,19 +56,6 @@ const pageDescription =
         aboutPage?.history && (
             <ScrollRevealWrapper direction="up" delay={0.1}>
                 <HistorySection history={aboutPage.history} />
-            </ScrollRevealWrapper>
-        )
-    }
-
-    {
-        aboutPage?.stats && aboutPage.stats.length > 0 && (
-            <ScrollRevealWrapper direction="up" delay={0.1}>
-                <Stats
-                    keyStats={{
-                        stats: aboutPage.stats,
-                        backgroundImage: aboutPage.hero?.backgroundImage,
-                    }}
-                />
             </ScrollRevealWrapper>
         )
     }

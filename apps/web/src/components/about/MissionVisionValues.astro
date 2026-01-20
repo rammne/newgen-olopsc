@@ -12,17 +12,9 @@ interface Props {
         content?: string;
         image?: any;
     };
-    values?: {
-        title?: string;
-        values?: Array<{
-            title?: string;
-            description?: string;
-            icon?: string;
-        }>;
-    };
 }
 
-const { mission, vision, values } = Astro.props;
+const { mission, vision } = Astro.props;
 ---
 
 <section class="min-h-[60vh] py-10 sm:py-[100px] bg-[var(--color-primary)]/10">
@@ -65,43 +57,5 @@ const { mission, vision, values } = Astro.props;
                 )
             }
         </div>
-
-        {/* Values */}
-        {
-            values && values.values && (
-                <div>
-                    <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] text-center mb-12">
-                        {values.title || "Core Values"}
-                    </h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {values.values.map((value) => {
-                            const IconComponent =
-                                value.icon &&
-                                LucideIcons[
-                                    value.icon as keyof typeof LucideIcons
-                                ]
-                                    ? LucideIcons[
-                                          value.icon as keyof typeof LucideIcons
-                                      ]
-                                    : LucideIcons.Award;
-
-                            return (
-                                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
-                                    <div class="text-[var(--color-primary)] mb-4">
-                                        <IconComponent size={32} />
-                                    </div>
-                                    <h3 class="text-card-title-mobile sm:text-xl font-bold text-[var(--color-primary)] mb-3">
-                                        {value.title}
-                                    </h3>
-                                    <p class="text-small-mobile sm:text-small-desktop text-gray-600">
-                                        {value.description}
-                                    </p>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            )
-        }
     </div>
 </section>
