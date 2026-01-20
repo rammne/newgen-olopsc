@@ -95,6 +95,19 @@ const pageDescription =
     )
   }
 
+  {
+    department.testimonials && department.testimonials.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Testimonials
+          testimonials={{
+            testimonials: department.testimonials,
+            title: "Parent's Testimonials",
+          }}
+        />
+      </ScrollRevealWrapper>
+    )
+  }
+
   {/* Highlights Bento Grid */}
   {
     department.highlights &&
@@ -183,16 +196,6 @@ const pageDescription =
     department.stats && department.stats.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{ testimonials: department.testimonials }}
-        />
       </ScrollRevealWrapper>
     )
   }

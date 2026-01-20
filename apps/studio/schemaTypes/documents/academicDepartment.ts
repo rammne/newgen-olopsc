@@ -214,7 +214,8 @@ export const academicDepartment = defineType({
     }),
     defineField({
       name: 'testimonials',
-      title: 'Testimonials',
+      title: 'Testimonials (Parents/Students)',
+      description: 'Add testimonials from parents, students, or alumni here.',
       type: 'array',
       of: [{type: 'testimonial'}],
     }),

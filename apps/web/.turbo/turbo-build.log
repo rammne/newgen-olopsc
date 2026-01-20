@@ -2,100 +2,101 @@
 > web@0.0.1 build
 > astro build
 
-[33m[1m23:53:17[22m [WARN] [router][39m The route "/college-department" is defined in both "src/pages/college-department/index.astro" and "src/pages/college-department.astro". A static route cannot be defined more than once.
-[33m[1m23:53:17[22m [WARN] [router][39m A collision will result in an hard error in following versions of Astro.
-[2m23:53:17[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
-[2m23:53:17[22m [34m[content][39m Syncing content
-[2m23:53:17[22m [34m[content][39m Synced content
-[2m23:53:17[22m [34m[types][39m Generated [2m328ms[22m
-[2m23:53:17[22m [34m[build][39m output: [34m"static"[39m
-[2m23:53:17[22m [34m[build][39m mode: [34m"static"[39m
-[2m23:53:17[22m [34m[build][39m directory: [34mC:\Users\Administrator\rammne\newgen-olopsc\apps\web\dist\[39m
-[2m23:53:17[22m [34m[build][39m Collecting build info...
-[2m23:53:17[22m [34m[build][39m [32m✓ Completed in 362ms.[39m
-[2m23:53:17[22m [34m[build][39m Building static entrypoints...
-[33m[1m23:53:23[22m [WARN] [vite][39m 
+[33m[1m10:42:33[22m [WARN] [router][39m The route "/college-department" is defined in both "src/pages/college-department/index.astro" and "src/pages/college-department.astro". A static route cannot be defined more than once.
+[33m[1m10:42:33[22m [WARN] [router][39m A collision will result in an hard error in following versions of Astro.
+[2m10:42:33[22m [34m[content][39m Syncing content
+[2m10:42:33[22m [34m[content][39m Synced content
+[2m10:42:33[22m [34m[types][39m Generated [2m80ms[22m
+[2m10:42:33[22m [34m[build][39m output: [34m"static"[39m
+[2m10:42:33[22m [34m[build][39m mode: [34m"static"[39m
+[2m10:42:33[22m [34m[build][39m directory: [34mC:\Users\Admin\rammne\newgen-olopsc\apps\web\dist\[39m
+[2m10:42:33[22m [34m[build][39m Collecting build info...
+[2m10:42:33[22m [34m[build][39m [32m✓ Completed in 123ms.[39m
+[2m10:42:33[22m [34m[build][39m Building static entrypoints...
+[33m[1m10:42:39[22m [WARN] [vite][39m 
 /patterns/grid.svg referenced in /patterns/grid.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m23:53:23[22m [WARN] [vite][39m 
+[33m[1m10:42:39[22m [WARN] [vite][39m 
 ../assets/fonts/PlayfairDisplay-Medium.woff referenced in ../assets/fonts/PlayfairDisplay-Medium.woff didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m23:53:23[22m [WARN] [vite][39m 
+[33m[1m10:42:39[22m [WARN] [vite][39m 
 ../assets/fonts/PlayfairDisplay-Semibold.woff referenced in ../assets/fonts/PlayfairDisplay-Semibold.woff didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m23:53:23[22m [WARN] [vite][39m 
+[33m[1m10:42:39[22m [WARN] [vite][39m 
 ../assets/fonts/Montserrat-Semibold.woff referenced in ../assets/fonts/Montserrat-Semibold.woff didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m23:53:27[22m [WARN] [vite][39m [33m"isRemoteAllowed", "matchHostname", "matchPathname", "matchPort" and "matchProtocol" are imported from external module "@astrojs/internal-helpers/remote" but never used in "../../node_modules/astro/dist/assets/utils/remotePattern.js".[39m
-[2m23:53:27[22m [34m[vite][39m [32m✓ built in 10.10s[39m
-[2m23:53:27[22m [34m[build][39m [32m✓ Completed in 10.19s.[39m
+[33m[1m10:42:43[22m [WARN] [vite][39m [33m"isRemoteAllowed", "matchHostname", "matchPathname", "matchPort" and "matchProtocol" are imported from external module "@astrojs/internal-helpers/remote" but never used in "../../node_modules/astro/dist/assets/utils/remotePattern.js".[39m
+[2m10:42:44[22m [34m[vite][39m [32m✓ built in 10.43s[39m
+[2m10:42:44[22m [34m[build][39m [32m✓ Completed in 10.50s.[39m
 
 [42m[30m building client (vite) [39m[49m
-[2m23:53:27[22m [34m[vite][39m transforming...
-[2m23:53:30[22m [34m[vite][39m [32m✓[39m 2052 modules transformed.
-[2m23:53:30[22m [34m[vite][39m rendering chunks...
-[2m23:53:31[22m [34m[vite][39m computing gzip size...
-[2m23:53:31[22m [34m[vite][39m [2mdist/[22m[36m_astro/Header.CHdymUZH.js  [39m[1m[2m  7.11 kB[22m[1m[22m[2m │ gzip:  3.01 kB[22m
-[2m23:53:31[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.WFquGv8Z.js   [39m[1m[2m  7.85 kB[22m[1m[22m[2m │ gzip:  3.05 kB[22m
-[2m23:53:31[22m [34m[vite][39m [2mdist/[22m[36m_astro/Footer.Ck3BiIdr.js  [39m[1m[2m  8.52 kB[22m[1m[22m[2m │ gzip:  2.70 kB[22m
-[2m23:53:31[22m [34m[vite][39m [2mdist/[22m[36m_astro/proxy.g-Elq9nw.js   [39m[1m[2m113.98 kB[22m[1m[22m[2m │ gzip: 37.56 kB[22m
-[2m23:53:31[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.9unXo8s5.js  [39m[1m[2m186.62 kB[22m[1m[22m[2m │ gzip: 58.54 kB[22m
-[2m23:53:31[22m [34m[vite][39m [32m✓ built in 3.26s[39m
+[2m10:42:44[22m [34m[vite][39m transforming...
+[2m10:42:49[22m [34m[vite][39m [32m✓[39m 2052 modules transformed.
+[2m10:42:49[22m [34m[vite][39m rendering chunks...
+[2m10:42:50[22m [34m[vite][39m computing gzip size...
+[2m10:42:50[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.WFquGv8Z.js   [39m[1m[2m  7.85 kB[22m[1m[22m[2m │ gzip:  3.05 kB[22m
+[2m10:42:50[22m [34m[vite][39m [2mdist/[22m[36m_astro/Footer.DZ7ZcTB_.js  [39m[1m[2m  7.93 kB[22m[1m[22m[2m │ gzip:  2.61 kB[22m
+[2m10:42:50[22m [34m[vite][39m [2mdist/[22m[36m_astro/Header.Dzw0S380.js  [39m[1m[2m  8.53 kB[22m[1m[22m[2m │ gzip:  3.37 kB[22m
+[2m10:42:50[22m [34m[vite][39m [2mdist/[22m[36m_astro/proxy.g-Elq9nw.js   [39m[1m[2m113.98 kB[22m[1m[22m[2m │ gzip: 37.56 kB[22m
+[2m10:42:50[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.9unXo8s5.js  [39m[1m[2m186.62 kB[22m[1m[22m[2m │ gzip: 58.54 kB[22m
+[2m10:42:50[22m [34m[vite][39m [32m✓ built in 5.92s[39m
 
 [42m[30m generating static routes [39m[49m
-[2m23:53:31[22m [32m▶[39m src/pages/about.astro
-[2m23:53:31[22m   [34m└─[39m [2m/about/index.html[22m [2m(+347ms)[22m 
-[2m23:53:32[22m [32m▶[39m src/pages/academic-departments/[slug].astro
-[2m23:53:32[22m   [34m├─[39m [2m/academic-departments/gradeschool/index.html[22m [31m(+618ms)[39m 
-[2m23:53:33[22m   [34m├─[39m [2m/academic-departments/preschool/index.html[22m [2m(+298ms)[22m 
-[2m23:53:33[22m   [34m├─[39m [2m/academic-departments/senior-high-school/index.html[22m [2m(+309ms)[22m 
-[2m23:53:33[22m   [34m├─[39m [2m/academic-departments/junior-high-school/index.html[22m [2m(+461ms)[22m 
-[2m23:53:34[22m   [34m└─[39m [2m/academic-departments/college-department/index.html[22m [2m(+406ms)[22m 
-[2m23:53:34[22m [32m▶[39m src/pages/admissions.astro
-[2m23:53:34[22m   [34m└─[39m [2m/admissions/index.html[22m [2m(+104ms)[22m 
-[2m23:53:34[22m [32m▶[39m src/pages/business-administration-and-entrepreneurship.astro
-[2m23:53:34[22m   [34m└─[39m [2m/business-administration-and-entrepreneurship/index.html[22m [2m(+100ms)[22m 
-[2m23:53:34[22m [32m▶[39m src/pages/college-department/[slug].astro
-[2m23:53:34[22m   [34m├─[39m [2m/college-department/bs-computer-science/index.html[22m [2m(+6ms)[22m 
-[2m23:53:34[22m   [34m└─[39m [2m/college-department/bs-information-technology/index.html[22m [2m(+5ms)[22m 
-[2m23:53:34[22m [32m▶[39m src/pages/college-department/index.astro
-[2m23:53:34[22m   [34m└─[39m [2m/college-department/index.html[22m [2m(+2ms)[22m 
-[2m23:53:34[22m [32m▶[39m src/pages/college-department.astro
-[2m23:53:34[22m   [34m└─[39m [2m/college-department/index.html[22m [2m(+407ms)[22m 
-[2m23:53:35[22m [32m▶[39m src/pages/computing-studies.astro
-[2m23:53:35[22m   [34m└─[39m [2m/computing-studies/index.html[22m [2m(+102ms)[22m 
-[2m23:53:35[22m [32m▶[39m src/pages/contact.astro
-[2m23:53:35[22m   [34m└─[39m [2m/contact/index.html[22m [2m(+103ms)[22m 
-[2m23:53:35[22m [32m▶[39m src/pages/education-and-liberal-arts.astro
-[2m23:53:35[22m   [34m└─[39m [2m/education-and-liberal-arts/index.html[22m [2m(+108ms)[22m 
-[2m23:53:35[22m [32m▶[39m src/pages/events/[slug].astro
-[2m23:53:35[22m   [34m└─[39m [2m/events/fit-2025-2026-2nd-sem/index.html[22m [2m(+105ms)[22m 
-[2m23:53:35[22m [32m▶[39m src/pages/events/index.astro
-[2m23:53:35[22m   [34m└─[39m [2m/events/index.html[22m [2m(+257ms)[22m 
-[2m23:53:36[22m [32m▶[39m src/pages/grade-school.astro
-[2m23:53:36[22m   [34m└─[39m [2m/grade-school/index.html[22m [2m(+113ms)[22m 
-[2m23:53:36[22m [32m▶[39m src/pages/hospitality-management.astro
-[2m23:53:36[22m   [34m└─[39m [2m/hospitality-management/index.html[22m [2m(+252ms)[22m 
-[2m23:53:36[22m [32m▶[39m src/pages/junior-high-school.astro
-[2m23:53:36[22m   [34m└─[39m [2m/junior-high-school/index.html[22m [2m(+367ms)[22m 
-[2m23:53:36[22m [32m▶[39m src/pages/news/[slug].astro
-[2m23:53:36[22m   [34m├─[39m [2m/news/back2-school/index.html[22m [2m(+101ms)[22m 
-[2m23:53:36[22m   [34m├─[39m [2m/news/new-gen-building/index.html[22m [2m(+98ms)[22m 
-[2m23:53:37[22m   [34m└─[39m [2m/news/new-website/index.html[22m [2m(+99ms)[22m 
-[2m23:53:37[22m [32m▶[39m src/pages/news/index.astro
-[2m23:53:37[22m   [34m└─[39m [2m/news/index.html[22m [2m(+107ms)[22m 
-[2m23:53:37[22m [32m▶[39m src/pages/preschool.astro
-[2m23:53:37[22m   [34m└─[39m [2m/preschool/index.html[22m [2m(+293ms)[22m 
-[2m23:53:37[22m [32m▶[39m src/pages/scholarship-programs.astro
-[2m23:53:37[22m   [34m└─[39m [2m/scholarship-programs/index.html[22m [2m(+103ms)[22m 
-[2m23:53:37[22m [32m▶[39m src/pages/sdg/[slug].astro
-[2m23:53:37[22m   [34m└─[39m [2m/sdg/sdg-4/index.html[22m [2m(+204ms)[22m 
-[2m23:53:37[22m [32m▶[39m src/pages/sdg/index.astro
-[2m23:53:37[22m   [34m└─[39m [2m/sdg/index.html[22m [2m(+196ms)[22m 
-[2m23:53:38[22m [32m▶[39m src/pages/senior-high-school.astro
-[2m23:53:38[22m   [34m└─[39m [2m/senior-high-school/index.html[22m [2m(+467ms)[22m 
-[2m23:53:38[22m [32m▶[39m src/pages/tourism-management.astro
-[2m23:53:38[22m   [34m└─[39m [2m/tourism-management/index.html[22m [2m(+256ms)[22m 
-[2m23:53:38[22m [32m▶[39m src/pages/index.astro
-[2m23:53:38[22m   [34m└─[39m [2m/index.html[22m [2m(+460ms)[22m 
-[2m23:53:39[22m [32m✓ Completed in 8.37s.
+[2m10:42:51[22m [32m▶[39m src/pages/about.astro
+[2m10:42:51[22m   [34m└─[39m [2m/about/index.html[22m [31m(+1.35s)[39m 
+[2m10:42:52[22m [32m▶[39m src/pages/academic-departments/[slug].astro
+[2m10:42:53[22m   [34m├─[39m [2m/academic-departments/gradeschool/index.html[22m [2m(+423ms)[22m 
+[2m10:42:53[22m   [34m├─[39m [2m/academic-departments/preschool/index.html[22m [2m(+327ms)[22m 
+[2m10:42:53[22m   [34m├─[39m [2m/academic-departments/senior-high-school/index.html[22m [2m(+331ms)[22m 
+[2m10:42:54[22m   [34m├─[39m [2m/academic-departments/junior-high-school/index.html[22m [2m(+322ms)[22m 
+[2m10:42:54[22m   [34m└─[39m [2m/academic-departments/college-department/index.html[22m [2m(+430ms)[22m 
+[2m10:42:54[22m [32m▶[39m src/pages/admissions.astro
+[2m10:42:54[22m   [34m└─[39m [2m/admissions/index.html[22m [2m(+115ms)[22m 
+[2m10:42:55[22m [32m▶[39m src/pages/alumni-section.astro
+[2m10:42:55[22m   [34m└─[39m [2m/alumni-section/index.html[22m [2m(+497ms)[22m 
+[2m10:42:55[22m [32m▶[39m src/pages/business-administration-and-entrepreneurship.astro
+[2m10:42:55[22m   [34m└─[39m [2m/business-administration-and-entrepreneurship/index.html[22m [2m(+109ms)[22m 
+[2m10:42:55[22m [32m▶[39m src/pages/college-department/[slug].astro
+[2m10:42:55[22m   [34m├─[39m [2m/college-department/bs-computer-science/index.html[22m [2m(+11ms)[22m 
+[2m10:42:55[22m   [34m└─[39m [2m/college-department/bs-information-technology/index.html[22m [2m(+6ms)[22m 
+[2m10:42:55[22m [32m▶[39m src/pages/college-department/index.astro
+[2m10:42:55[22m   [34m└─[39m [2m/college-department/index.html[22m [2m(+2ms)[22m 
+[2m10:42:55[22m [32m▶[39m src/pages/college-department.astro
+[2m10:42:55[22m   [34m└─[39m [2m/college-department/index.html[22m [2m(+440ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/computing-studies.astro
+[2m10:42:56[22m   [34m└─[39m [2m/computing-studies/index.html[22m [2m(+109ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/contact.astro
+[2m10:42:56[22m   [34m└─[39m [2m/contact/index.html[22m [2m(+114ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/education-and-liberal-arts.astro
+[2m10:42:56[22m   [34m└─[39m [2m/education-and-liberal-arts/index.html[22m [2m(+114ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/events/[slug].astro
+[2m10:42:56[22m   [34m└─[39m [2m/events/fit-2025-2026-2nd-sem/index.html[22m [2m(+116ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/events/index.astro
+[2m10:42:56[22m   [34m└─[39m [2m/events/index.html[22m [2m(+111ms)[22m 
+[2m10:42:56[22m [32m▶[39m src/pages/grade-school.astro
+[2m10:42:56[22m   [34m└─[39m [2m/grade-school/index.html[22m [2m(+316ms)[22m 
+[2m10:42:57[22m [32m▶[39m src/pages/hospitality-management.astro
+[2m10:42:57[22m   [34m└─[39m [2m/hospitality-management/index.html[22m [2m(+109ms)[22m 
+[2m10:42:57[22m [32m▶[39m src/pages/junior-high-school.astro
+[2m10:42:57[22m   [34m└─[39m [2m/junior-high-school/index.html[22m [2m(+315ms)[22m 
+[2m10:42:57[22m [32m▶[39m src/pages/news/[slug].astro
+[2m10:42:57[22m   [34m├─[39m [2m/news/back2-school/index.html[22m [2m(+113ms)[22m 
+[2m10:42:57[22m   [34m├─[39m [2m/news/new-gen-building/index.html[22m [2m(+110ms)[22m 
+[2m10:42:57[22m   [34m└─[39m [2m/news/new-website/index.html[22m [2m(+109ms)[22m 
+[2m10:42:58[22m [32m▶[39m src/pages/news/index.astro
+[2m10:42:58[22m   [34m└─[39m [2m/news/index.html[22m [2m(+113ms)[22m 
+[2m10:42:58[22m [32m▶[39m src/pages/preschool.astro
+[2m10:42:58[22m   [34m└─[39m [2m/preschool/index.html[22m [2m(+319ms)[22m 
+[2m10:42:58[22m [32m▶[39m src/pages/scholarship-programs.astro
+[2m10:42:58[22m   [34m└─[39m [2m/scholarship-programs/index.html[22m [2m(+134ms)[22m 
+[2m10:42:58[22m [32m▶[39m src/pages/sdg/[slug].astro
+[2m10:42:58[22m   [34m└─[39m [2m/sdg/sdg-4/index.html[22m [2m(+214ms)[22m 
+[2m10:42:58[22m [32m▶[39m src/pages/sdg/index.astro
+[2m10:42:58[22m   [34m└─[39m [2m/sdg/index.html[22m [2m(+214ms)[22m 
+[2m10:42:59[22m [32m▶[39m src/pages/senior-high-school.astro
+[2m10:42:59[22m   [34m└─[39m [2m/senior-high-school/index.html[22m [2m(+320ms)[22m 
+[2m10:42:59[22m [32m▶[39m src/pages/tourism-management.astro
+[2m10:42:59[22m   [34m└─[39m [2m/tourism-management/index.html[22m [2m(+106ms)[22m 
+[2m10:42:59[22m [32m▶[39m src/pages/index.astro
+[2m10:42:59[22m   [34m└─[39m [2m/index.html[22m [31m(+858ms)[39m 
+[2m10:43:00[22m [32m✓ Completed in 10.38s.
 [39m
-[2m23:53:39[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
-[2m23:53:39[22m [34m[build][39m 31 page(s) built in [1m22.27s[22m
-[2m23:53:39[22m [34m[build][39m [1mComplete![22m
+[2m10:43:00[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
+[2m10:43:00[22m [34m[build][39m 32 page(s) built in [1m27.04s[22m
+[2m10:43:00[22m [34m[build][39m [1mComplete![22m
