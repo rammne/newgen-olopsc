@@ -1165,7 +1165,21 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         embedId
       }
     },
-    overview,
+    overview {
+      content,
+      backgroundImage {
+        asset->{
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt,
+        hotspot
+      }
+    },
+
     keyFeatures[] {
       icon,
       image {

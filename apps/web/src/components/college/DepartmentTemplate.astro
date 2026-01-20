@@ -175,7 +175,7 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                                     {program.description ||
                                                         "Authorized and recognized by the Commission on Higher Education (CHED)."}
                                                 </p>
-                                                <div class="mt-auto pt-4 border-t border-gray-100">
+                                                {/* <div class="mt-auto pt-4 border-t border-gray-100">
                                                     <span class="text-primary font-bold text-sm group-hover:text-accent transition-colors flex items-center gap-2">
                                                         Learn More{" "}
                                                         <svg
@@ -194,7 +194,7 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                                             <path d="m12 5 7 7-7 7" />
                                                         </svg>
                                                     </span>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     );
@@ -284,14 +284,32 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                 <section class="px-5 py-20 sm:px-[60px] sm:py-24 bg-primary text-white relative overflow-hidden">
                     <div class="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10" />
                     <div class="container mx-auto relative z-10">
-                        <div class="grid lg:grid-cols-2 gap-20">
+                        {/* Dynamic Layout Container */}
+                        <div
+                            class={
+                                hasItems(department.keyFeatures) &&
+                                department.careerOpportunities
+                                    ? "grid lg:grid-cols-2 gap-20 items-start"
+                                    : "max-w-4xl mx-auto"
+                            }
+                        >
                             {/* Features */}
                             {hasItems(department.keyFeatures) && (
-                                <div>
-                                    <h3 class="text-3xl font-serif text-white mb-10 border-l-4 border-accent pl-6">
+                                <div
+                                    class={
+                                        !department.careerOpportunities
+                                            ? "text-center"
+                                            : ""
+                                    }
+                                >
+                                    <h3
+                                        class={`text-3xl font-serif text-white mb-10 ${!department.careerOpportunities ? "inline-block border-b-4 border-accent pb-2" : "border-l-4 border-accent pl-6"}`}
+                                    >
                                         Why Choose This Program?
                                     </h3>
-                                    <div class="space-y-8">
+                                    <div
+                                        class={`space-y-8 ${!department.careerOpportunities ? "grid md:grid-cols-2 gap-8 space-y-0 text-left" : ""}`}
+                                    >
                                         {department.keyFeatures.map(
                                             (feature: any) => (
                                                 <div class="flex gap-6 group">
@@ -331,34 +349,39 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
                             {/* Careers */}
                             {department.careerOpportunities && (
-                                <div class="bg-white/5 rounded-2xl p-8 sm:p-10 border border-white/10 backdrop-blur-sm">
-                                    <h3 class="text-2xl font-serif text-accent mb-6 flex items-center gap-3">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            class="lucide lucide-briefcase"
-                                        >
-                                            <rect
-                                                width="20"
-                                                height="14"
-                                                x="2"
-                                                y="7"
-                                                rx="2"
-                                                ry="2"
-                                            />
-                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                                        </svg>
-                                        {department.careerOpportunities.title ||
-                                            "Career Paths"}
-                                    </h3>
-                                    <p class="text-white/80 mb-8 leading-relaxed">
+                                <div class="bg-white/5 rounded-2xl p-8 sm:p-12 border border-white/10 backdrop-blur-sm hover:border-accent/30 transition-colors duration-500">
+                                    <div class="flex items-center gap-4 mb-8">
+                                        <div class="w-12 h-12 rounded-xl bg-accent flex items-center justify-center text-primary">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="lucide lucide-briefcase"
+                                            >
+                                                <rect
+                                                    width="20"
+                                                    height="14"
+                                                    x="2"
+                                                    y="7"
+                                                    rx="2"
+                                                    ry="2"
+                                                />
+                                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-2xl sm:text-3xl font-serif text-white">
+                                            {department.careerOpportunities
+                                                .title || "Career Paths"}
+                                        </h3>
+                                    </div>
+
+                                    <p class="text-white/80 mb-10 leading-relaxed text-lg">
                                         {
                                             department.careerOpportunities
                                                 .description
@@ -368,10 +391,11 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                     {hasItems(
                                         department.careerOpportunities.careers,
                                     ) && (
-                                        <div class="flex flex-wrap gap-3">
+                                        <div class="flex flex-wrap gap-3 mb-10">
                                             {department.careerOpportunities.careers.map(
                                                 (career: string) => (
-                                                    <span class="bg-white/10 hover:bg-white/20 px-4 py-2.5 rounded-lg text-sm font-medium border border-white/10 transition-colors cursor-default">
+                                                    <span class="bg-white/10 hover:bg-white/20 px-4 py-2.5 rounded-full text-sm font-medium border border-white/10 transition-colors cursor-default text-accent flex items-center gap-2">
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-accent" />
                                                         {career}
                                                     </span>
                                                 ),
@@ -381,7 +405,8 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 
                                     {department.careerOpportunities.image?.asset
                                         ?.url && (
-                                        <div class="mt-10 rounded-xl overflow-hidden shadow-2xl border border-white/20 group">
+                                        <div class="rounded-xl overflow-hidden shadow-2xl border border-white/20 group relative h-64 sm:h-72">
+                                            <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
                                             <img
                                                 src={
                                                     department
@@ -389,7 +414,7 @@ const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
                                                         .image.asset.url
                                                 }
                                                 alt="Careers"
-                                                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700"
+                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                             />
                                         </div>
                                     )}
