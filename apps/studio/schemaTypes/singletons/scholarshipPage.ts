@@ -1,10 +1,17 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Award, BookOpen, Search } from 'lucide-react'
 
 export const scholarshipPage = defineType({
   name: 'scholarshipPage',
   title: 'Scholarship Programs Page',
   type: 'document',
+  icon: Award,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'content', title: 'Content', icon: Award, default: true },
+    { name: 'programs', title: 'Programs & Details', icon: BookOpen },
+    { name: 'seo', title: 'SEO', icon: Search },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,17 +19,20 @@ export const scholarshipPage = defineType({
       type: 'string',
       initialValue: 'Scholarship Programs',
       readOnly: true,
+      group: 'content',
     }),
     defineField({
       name: 'hero',
       title: 'Hero Section',
       type: 'hero',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'intro',
       title: 'Introduction',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'headline',
@@ -37,9 +47,24 @@ export const scholarshipPage = defineType({
       ],
     }),
     defineField({
+      name: 'stats',
+      title: 'Scholarship Statistics',
+      type: 'array',
+      of: [{ type: 'stats' }],
+      description: 'e.g., number of scholarships awarded, total amount',
+      group: 'content',
+    }),
+    defineField({
+      name: 'cta',
+      title: 'Call-to-Action',
+      type: 'cta',
+      group: 'content',
+    }),
+    defineField({
       name: 'scholarshipPrograms',
       title: 'Scholarship Programs',
       type: 'array',
+      group: 'programs',
       of: [
         {
           type: 'object',
@@ -56,14 +81,14 @@ export const scholarshipPage = defineType({
               type: 'string',
               options: {
                 list: [
-                  {title: 'Academic Excellence', value: 'academic'},
-                  {title: 'Athletic', value: 'athletic'},
-                  {title: 'Arts & Culture', value: 'arts'},
-                  {title: 'Financial Need', value: 'financial'},
-                  {title: 'Merit-Based', value: 'merit'},
-                  {title: 'Community Service', value: 'community'},
-                  {title: 'Alumni', value: 'alumni'},
-                  {title: 'Other', value: 'other'},
+                  { title: 'Academic Excellence', value: 'academic' },
+                  { title: 'Athletic', value: 'athletic' },
+                  { title: 'Arts & Culture', value: 'arts' },
+                  { title: 'Financial Need', value: 'financial' },
+                  { title: 'Merit-Based', value: 'merit' },
+                  { title: 'Community Service', value: 'community' },
+                  { title: 'Alumni', value: 'alumni' },
+                  { title: 'Other', value: 'other' },
                 ],
               },
             }),
@@ -107,7 +132,7 @@ export const scholarshipPage = defineType({
                   name: 'requirements',
                   title: 'Requirements',
                   type: 'array',
-                  of: [{type: 'string'}],
+                  of: [{ type: 'string' }],
                 }),
                 defineField({
                   name: 'gpa',
@@ -136,7 +161,7 @@ export const scholarshipPage = defineType({
               name: 'documents',
               title: 'Required Documents',
               type: 'array',
-              of: [{type: 'string'}],
+              of: [{ type: 'string' }],
             }),
             defineField({
               name: 'contact',
@@ -176,6 +201,7 @@ export const scholarshipPage = defineType({
       name: 'applicationForm',
       title: 'Scholarship Application Form',
       type: 'object',
+      group: 'programs',
       fields: [
         defineField({
           name: 'title',
@@ -191,7 +217,7 @@ export const scholarshipPage = defineType({
           name: 'formFields',
           title: 'Form Fields',
           type: 'array',
-          of: [{type: 'formField'}],
+          of: [{ type: 'formField' }],
         }),
       ],
     }),
@@ -199,6 +225,7 @@ export const scholarshipPage = defineType({
       name: 'faq',
       title: 'Frequently Asked Questions',
       type: 'object',
+      group: 'programs',
       fields: [
         defineField({
           name: 'title',
@@ -235,24 +262,14 @@ export const scholarshipPage = defineType({
       name: 'testimonials',
       title: 'Scholarship Recipient Testimonials',
       type: 'array',
-      of: [{type: 'testimonial'}],
-    }),
-    defineField({
-      name: 'stats',
-      title: 'Scholarship Statistics',
-      type: 'array',
-      of: [{type: 'stats'}],
-      description: 'e.g., number of scholarships awarded, total amount',
-    }),
-    defineField({
-      name: 'cta',
-      title: 'Call-to-Action',
-      type: 'cta',
+      of: [{ type: 'testimonial' }],
+      group: 'programs',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
@@ -263,4 +280,3 @@ export const scholarshipPage = defineType({
     },
   },
 })
-

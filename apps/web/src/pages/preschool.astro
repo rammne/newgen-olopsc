@@ -7,7 +7,6 @@ import Stats from "../components/homepage/Stats.astro";
 import Testimonials from "../components/homepage/Testimonials.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import StoryBlocks from "../components/departments/StoryBlocks.astro";
 import HighlightsBento from "../components/departments/HighlightsBento.astro";
 import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
 import DepartmentNews from "../components/departments/DepartmentNews.astro";
@@ -59,19 +58,19 @@ const pageDescription =
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <section
           class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={
+          style={`background-image: url('${
             department.overview.backgroundImage?.asset?.url
-              ? `background-image: url('${getSanityImageUrl(department.overview.backgroundImage, { width: 1920, height: 1080, fit: "crop" })}'); background-size: cover; background-position: center; background-repeat: no-repeat;`
-              : ""
-          }
+              ? getSanityImageUrl(department.overview.backgroundImage, {
+                  width: 1920,
+                  height: 1080,
+                  fit: "crop",
+                })
+              : "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Overview+Background"
+          }'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
         >
-          {department.overview.backgroundImage?.asset?.url && (
-            <div class="absolute inset-0 bg-black/40" />
-          )}
+          <div class="absolute inset-0 bg-black/40" />
           <div class="container mx-auto max-w-4xl relative z-10">
-            <p
-              class={`text-main-mobile sm:text-main-desktop text-center leading-relaxed ${department.overview.backgroundImage?.asset?.url ? "text-white" : "text-[var(--color-primary)]"}`}
-            >
+            <p class="text-main-mobile sm:text-main-desktop text-center leading-relaxed text-white">
               {department.overview.content}
             </p>
           </div>
@@ -85,13 +84,6 @@ const pageDescription =
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <Features features={department.keyFeatures} />
       </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Story Blocks - Visual Storytelling */}
-  {
-    department.storyBlocks && department.storyBlocks.length > 0 && (
-      <StoryBlocks storyBlocks={department.storyBlocks} />
     )
   }
 
@@ -172,15 +164,19 @@ const pageDescription =
                     </ul>
                   )}
               </div>
-              {department.curriculum.image?.asset?.url && (
+              {(department.curriculum.image?.asset?.url || true) && (
                 <div class="rounded-2xl overflow-hidden shadow-xl">
                   <img
-                    src={getSanityImageUrl(department.curriculum.image, {
-                      width: 800,
-                      height: 600,
-                      fit: "crop",
-                    })}
-                    alt={department.curriculum.image.alt || "Curriculum"}
+                    src={
+                      department.curriculum.image?.asset?.url
+                        ? getSanityImageUrl(department.curriculum.image, {
+                            width: 800,
+                            height: 600,
+                            fit: "crop",
+                          })
+                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Curriculum+Photo"
+                    }
+                    alt={department.curriculum.image?.alt || "Curriculum"}
                     class="w-full h-auto object-cover"
                   />
                 </div>
@@ -257,16 +253,20 @@ const pageDescription =
                   <CtaButton cta={department.admissionInfo.cta} />
                 )}
               </div>
-              {department.admissionInfo.image?.asset?.url && (
+              {(department.admissionInfo.image?.asset?.url || true) && (
                 <div class="rounded-2xl overflow-hidden shadow-xl">
                   <img
-                    src={getSanityImageUrl(department.admissionInfo.image, {
-                      width: 800,
-                      height: 600,
-                      fit: "crop",
-                    })}
+                    src={
+                      department.admissionInfo.image?.asset?.url
+                        ? getSanityImageUrl(department.admissionInfo.image, {
+                            width: 800,
+                            height: 600,
+                            fit: "crop",
+                          })
+                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Admission+Photo"
+                    }
                     alt={
-                      department.admissionInfo.image.alt ||
+                      department.admissionInfo.image?.alt ||
                       "Admission Information"
                     }
                     class="w-full h-auto object-cover"

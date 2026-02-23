@@ -7,7 +7,6 @@ import Stats from "../components/homepage/Stats.astro";
 import Testimonials from "../components/homepage/Testimonials.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import StoryBlocks from "../components/departments/StoryBlocks.astro";
 import HighlightsBento from "../components/departments/HighlightsBento.astro";
 import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
 import DepartmentNews from "../components/departments/DepartmentNews.astro";
@@ -90,13 +89,6 @@ const pageDescription =
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <Features features={department.keyFeatures} />
       </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Story Blocks - Visual Storytelling */}
-  {
-    department.storyBlocks && department.storyBlocks.length > 0 && (
-      <StoryBlocks storyBlocks={department.storyBlocks} />
     )
   }
 

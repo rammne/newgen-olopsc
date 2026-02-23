@@ -29,7 +29,7 @@ const FOOTER_SECTIONS = [
     links: [
       { label: 'Events', href: '/events' },
       { label: 'News & Updates', href: '/news' },
-      { label: 'Our SDG Commitments', href: '/sdg' },
+      { label: 'Sustainable Development Goals', href: '/sdg' },
     ],
   },
 ]

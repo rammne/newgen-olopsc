@@ -14,12 +14,6 @@
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Montserrat Semibold';
-    src: url('../assets/fonts/Montserrat-Semibold.woff') format('woff');
-    font-style: normal;
-    font-display: swap;
-}
 
 @theme {
     --text-hero-header-desktop: 48px; /* hero header text, applicable for all hero variants in academic departments */
@@ -71,18 +65,18 @@
     p {
         @apply text-main-desktop;
         font-weight: 400;
-        font-family: 'Montserrat Semibold', sans-serif;
+        font-family: 'Inter', sans-serif;
         overflow-wrap: break-word;
     }
     a {
         @apply text-small-desktop;
         font-weight: 400;
-        font-family: 'Montserrat Semibold', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
     small {
         @apply text-small-desktop;
         font-weight: 400;
-        font-family: 'Montserrat Semibold', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 }
 

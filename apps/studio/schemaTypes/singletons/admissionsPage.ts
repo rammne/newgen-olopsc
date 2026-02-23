@@ -1,10 +1,17 @@
 import { defineField, defineType } from 'sanity'
+import { GraduationCap, ClipboardList, Search } from 'lucide-react'
 
 export const admissionsPage = defineType({
   name: 'admissionsPage',
   title: 'Admissions Page',
   type: 'document',
+  icon: GraduationCap,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'content', title: 'Content', icon: GraduationCap, default: true },
+    { name: 'requirements', title: 'Requirements & Payment', icon: ClipboardList },
+    { name: 'seo', title: 'SEO', icon: Search },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,17 +19,20 @@ export const admissionsPage = defineType({
       type: 'string',
       initialValue: 'Admissions',
       readOnly: true,
+      group: 'content',
     }),
     defineField({
       name: 'hero',
       title: 'Hero Section',
       type: 'hero',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'intro',
       title: 'Introduction',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'headline',
@@ -37,9 +47,16 @@ export const admissionsPage = defineType({
       ],
     }),
     defineField({
+      name: 'cta',
+      title: 'Call-to-Action',
+      type: 'cta',
+      group: 'content',
+    }),
+    defineField({
       name: 'basicEducation',
       title: 'Basic Education (Preschool - Senior High)',
       type: 'object',
+      group: 'requirements',
       fields: [
         defineField({
           name: 'title',
@@ -154,6 +171,7 @@ export const admissionsPage = defineType({
       name: 'higherEducation',
       title: 'Higher Education (College)',
       type: 'object',
+      group: 'requirements',
       fields: [
         defineField({
           name: 'title',
@@ -268,6 +286,7 @@ export const admissionsPage = defineType({
       name: 'paymentOptions',
       title: 'Payment Options',
       type: 'object',
+      group: 'requirements',
       fields: [
         defineField({ name: 'title', title: 'Section Title', type: 'string', initialValue: 'Payment Options' }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
@@ -306,14 +325,10 @@ export const admissionsPage = defineType({
       ]
     }),
     defineField({
-      name: 'cta',
-      title: 'Call-to-Action',
-      type: 'cta',
-    }),
-    defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
@@ -324,4 +339,3 @@ export const admissionsPage = defineType({
     },
   },
 })
-

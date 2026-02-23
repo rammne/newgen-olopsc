@@ -1,10 +1,16 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Phone, Search } from 'lucide-react'
 
 export const contactPage = defineType({
   name: 'contactPage',
   title: 'Contact Page',
   type: 'document',
+  icon: Phone,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'content', title: 'Content', icon: Phone, default: true },
+    { name: 'seo', title: 'SEO', icon: Search },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,19 +18,20 @@ export const contactPage = defineType({
       type: 'string',
       initialValue: 'Contact',
       readOnly: true,
+      group: 'content',
     }),
     defineField({
       name: 'hero',
       title: 'Hero Section',
       type: 'hero',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
-
-
     defineField({
       name: 'departments',
       title: 'Department Contacts',
       type: 'array',
+      group: 'content',
       of: [
         {
           type: 'object',
@@ -44,11 +51,11 @@ export const contactPage = defineType({
         },
       ],
     }),
-
     defineField({
       name: 'socialMedia',
       title: 'Social Media Links',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -59,7 +66,7 @@ export const contactPage = defineType({
           name: 'links',
           title: 'Social Links',
           type: 'array',
-          of: [{type: 'socialLink'}],
+          of: [{ type: 'socialLink' }],
         }),
       ],
     }),
@@ -67,6 +74,7 @@ export const contactPage = defineType({
       name: 'map',
       title: 'Map Section',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -93,6 +101,7 @@ export const contactPage = defineType({
       name: 'officeHours',
       title: 'Office Hours',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -113,13 +122,13 @@ export const contactPage = defineType({
                   type: 'string',
                   options: {
                     list: [
-                      {title: 'Monday', value: 'monday'},
-                      {title: 'Tuesday', value: 'tuesday'},
-                      {title: 'Wednesday', value: 'wednesday'},
-                      {title: 'Thursday', value: 'thursday'},
-                      {title: 'Friday', value: 'friday'},
-                      {title: 'Saturday', value: 'saturday'},
-                      {title: 'Sunday', value: 'sunday'},
+                      { title: 'Monday', value: 'monday' },
+                      { title: 'Tuesday', value: 'tuesday' },
+                      { title: 'Wednesday', value: 'wednesday' },
+                      { title: 'Thursday', value: 'thursday' },
+                      { title: 'Friday', value: 'friday' },
+                      { title: 'Saturday', value: 'saturday' },
+                      { title: 'Sunday', value: 'sunday' },
                     ],
                   },
                 }),
@@ -145,6 +154,7 @@ export const contactPage = defineType({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
@@ -155,4 +165,3 @@ export const contactPage = defineType({
     },
   },
 })
-

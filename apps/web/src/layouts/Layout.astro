@@ -26,11 +26,14 @@ const { title = "Our School", description = "Welcome to Our School" } =
     <link rel="preconnect" href="https://cdn.sanity.io" />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
 
-    {/* Preload critical fonts - fonts are loaded via CSS @font-face */}
-
-    {/* Remove Google Fonts - using local fonts instead */}
-  </head>
-  <body class="bg-[var(--color-neutral)] text-[var(--color-primary)]">
+    {
+      /* Preload critical fonts - fonts are loaded via CSS @font-face and Google Fonts */
+    }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head><body class="bg-[var(--color-neutral)] text-[var(--color-primary)]">
     <Header client:load />
     <main>
       <slot />

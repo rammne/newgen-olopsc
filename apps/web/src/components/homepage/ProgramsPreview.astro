@@ -1,149 +1,160 @@
 ---
-import {getSanityImageUrl} from '../../lib/utils/sanity'
-import CtaButton from '../common/CtaButton.astro'
+import { getSanityImageUrl } from "../../lib/utils/sanity";
+import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
   programsPreview: {
-    title?: string
-    subtitle?: string
+    title?: string;
+    subtitle?: string;
     programs?: Array<{
-      _id?: string
-      title?: string
-      shortTitle?: string
+      _id?: string;
+      title?: string;
+      shortTitle?: string;
       slug?: {
-        current?: string
-      }
+        current?: string;
+      };
       hero?: {
         backgroundImage?: {
           asset?: {
-            _id?: string
-            url?: string
+            _id?: string;
+            url?: string;
             metadata?: {
               dimensions?: {
-                width?: number
-                height?: number
-              }
-            }
-          }
-          alt?: string
-        }
-      }
-      overview?: string
-    }>
+                width?: number;
+                height?: number;
+              };
+            };
+          };
+          alt?: string;
+        };
+      };
+      overview?: string;
+    }>;
     cta?: {
-      text?: string
-      link?: any
-      style?: string
-      openInNewTab?: boolean
-    }
-  }
+      text?: string;
+      link?: any;
+      style?: string;
+      openInNewTab?: boolean;
+    };
+  };
 }
 
-const {programsPreview} = Astro.props
+const { programsPreview } = Astro.props;
 ---
 
-{programsPreview && programsPreview.programs && programsPreview.programs.length > 0 && (
-  <section class="min-h-[60vh] py-10 sm:py-16 bg-[var(--color-neutral)] flex items-center overflow-hidden border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto w-full flex flex-col justify-center">
-      {(programsPreview.title || programsPreview.subtitle) && (
-        <div class="px-5 sm:px-[60px] mb-6 sm:mb-8">
-          {programsPreview.title && (
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-3">
-              {programsPreview.title}
-            </h2>
-          )}
-          {programsPreview.subtitle && (
-            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center max-w-2xl mx-auto">
-              {programsPreview.subtitle}
-            </p>
-          )}
-        </div>
-      )}
-      <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0 flex overflow-x-auto snap-x snap-mandatory pb-4 gap-4 no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:pb-0">
-        {programsPreview.programs.map((program, index) => (
-          <a
-            href={`/${program.slug?.current || ''}`}
-            class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
-          >
-            {program.hero?.backgroundImage?.asset?.url && (
-              <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
-                <img
-                  src={getSanityImageUrl(program.hero.backgroundImage, {width: 600, height: 400, fit: 'crop'})}
-                  alt={program.hero.backgroundImage.alt || program.title || ''}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            )}
-            <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3 flex-grow">
-              {program.shortTitle && (
-                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                  {program.shortTitle}
-                </span>
+{
+  programsPreview &&
+    programsPreview.programs &&
+    programsPreview.programs.length > 0 && (
+      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)] flex items-center overflow-hidden border-t border-[var(--color-neutral)]/30">
+        <div class="container mx-auto w-full flex flex-col justify-center">
+          {(programsPreview.title || programsPreview.subtitle) && (
+            <div class="px-5 sm:px-[60px] mb-6 sm:mb-8">
+              {programsPreview.title && (
+                <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-3">
+                  {programsPreview.title}
+                </h2>
               )}
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-                {program.title}
-              </h3>
-              {program.overview && (
-                <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-3">
-                  {program.overview}
+              {programsPreview.subtitle && (
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center max-w-2xl mx-auto">
+                  {programsPreview.subtitle}
                 </p>
               )}
-              <div class="mt-auto pt-2 w-full flex justify-center">
-                <span class="block h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
-              </div>
             </div>
-          </a>
-        ))}
-      </div>
-      
-      {/* Mobile Scroll Progress Indicator */}
-      <div class="flex justify-center mt-4 sm:hidden">
-        <span class="programs-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
-          1 / {programsPreview.programs.length}
-        </span>
-      </div>
+          )}
+          <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0 flex overflow-x-auto snap-x snap-mandatory pb-4 gap-4 no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:pb-0">
+            {programsPreview.programs.map((program, index) => (
+              <a
+                href={`/${program.slug?.current || ""}`}
+                class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
+              >
+                {program.hero?.backgroundImage?.asset?.url && (
+                  <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
+                    <img
+                      src={getSanityImageUrl(program.hero.backgroundImage, {
+                        width: 600,
+                        height: 400,
+                        fit: "crop",
+                      })}
+                      alt={
+                        program.hero.backgroundImage.alt || program.title || ""
+                      }
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                )}
+                <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3 flex-grow">
+                  {program.shortTitle && (
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                      {program.shortTitle}
+                    </span>
+                  )}
+                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
+                    {program.title}
+                  </h3>
+                  {program.overview && (
+                    <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-3">
+                      {program.overview}
+                    </p>
+                  )}
+                  <div class="mt-auto pt-2 w-full flex justify-center">
+                    <span class="block h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
 
-      {programsPreview.cta && (
-        <div class="text-center px-5 sm:px-[60px] mt-6 sm:mt-8">
-          <CtaButton cta={programsPreview.cta} />
+          {/* Mobile Scroll Progress Indicator */}
+          <div class="flex justify-center mt-4 sm:hidden">
+            <span class="programs-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
+              1 / {programsPreview.programs.length}
+            </span>
+          </div>
+
+          {programsPreview.cta && (
+            <div class="text-center px-5 sm:px-[60px] mt-6 sm:mt-8">
+              <CtaButton cta={programsPreview.cta} />
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  </section>
-)}
+      </section>
+    )
+}
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.programs-grid');
-    const cards = document.querySelectorAll('.program-card');
-    const counter = document.querySelector('.programs-counter');
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".programs-grid");
+    const cards = document.querySelectorAll(".program-card");
+    const counter = document.querySelector(".programs-counter");
 
     if (container && cards.length > 0 && counter) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Find index of intersecting card
-            const index = Array.from(cards).indexOf(entry.target as Element);
-            if (index !== -1) {
-              counter.textContent = `${index + 1} / ${cards.length}`;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Find index of intersecting card
+              const index = Array.from(cards).indexOf(entry.target as Element);
+              if (index !== -1) {
+                counter.textContent = `${index + 1} / ${cards.length}`;
+              }
             }
-          }
-        });
-      }, {
-        root: container,
-        threshold: 0.6 // Card must be 60% visible to trigger
-      });
+          });
+        },
+        {
+          root: container,
+          threshold: 0.6, // Card must be 60% visible to trigger
+        },
+      );
 
-      cards.forEach(card => observer.observe(card));
+      cards.forEach((card) => observer.observe(card));
     }
   });
 </script>
 
 <style>
-
-
   .program-card {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;

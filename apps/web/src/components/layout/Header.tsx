@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 const NAV_ITEMS = [
   { label: 'About OLOPSC', href: '/about' },
   { label: 'Admissions', href: '/admissions' },
-  { label: 'Our SDG Commitments', href: '/sdg' },
+  { label: 'Sustainable Development Goals', href: '/sdg' },
 ]
 
 // Replicating Footer sections for the expanded menu
@@ -36,7 +36,7 @@ const HEADER_MENU_SECTIONS = [
     links: [
       { label: 'Events', href: '/events' },
       { label: 'News & Updates', href: '/news' },
-      { label: 'Our SDG Commitments', href: '/sdg' },
+      { label: 'Sustainable Development Goals', href: '/sdg' },
     ],
   },
 ]

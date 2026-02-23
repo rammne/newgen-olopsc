@@ -1,10 +1,17 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Home, Megaphone, Search } from 'lucide-react'
 
 export const homePage = defineType({
   name: 'homePage',
   title: 'Home Page',
   type: 'document',
+  icon: Home,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'content', title: 'Content', icon: Home, default: true },
+    { name: 'engagement', title: 'Engagement', icon: Megaphone },
+    { name: 'seo', title: 'SEO', icon: Search },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,6 +19,7 @@ export const homePage = defineType({
       type: 'string',
       initialValue: 'Home',
       readOnly: true,
+      group: 'content',
     }),
     defineField({
       name: 'hero',
@@ -19,12 +27,14 @@ export const homePage = defineType({
       type: 'hero',
       description: 'Main hero section - first impression (ATTENTION)',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'intro',
       title: 'Introduction Section',
       type: 'object',
       description: 'Hook visitors with your story (INTEREST) - Keep it visual and concise!',
+      group: 'content',
       fields: [
         defineField({
           name: 'headline',
@@ -73,6 +83,7 @@ export const homePage = defineType({
       title: 'Key Statistics',
       type: 'object',
       description: 'Showcase impressive numbers (CREDIBILITY)',
+      group: 'content',
       fields: [
         defineField({
           name: 'backgroundImage',
@@ -87,7 +98,7 @@ export const homePage = defineType({
           name: 'stats',
           title: 'Statistics',
           type: 'array',
-          of: [{type: 'stats'}],
+          of: [{ type: 'stats' }],
           validation: (Rule) => Rule.max(6),
         }),
       ],
@@ -97,6 +108,7 @@ export const homePage = defineType({
       title: "President's Message",
       type: 'object',
       description: 'A dedicated section for the President\'s message',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -144,6 +156,7 @@ export const homePage = defineType({
       title: 'S-RICE Section',
       type: 'object',
       description: 'Spirituality, Responsibility and Respect, Integrity, Caring Culture, and Excellence',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -201,7 +214,7 @@ export const homePage = defineType({
                   title: 'title',
                   media: 'image',
                 },
-                prepare({letter, title, media}) {
+                prepare({ letter, title, media }) {
                   return {
                     title: `${letter}: ${title}`,
                     media: media,
@@ -219,6 +232,7 @@ export const homePage = defineType({
       title: 'Academic Departments Preview',
       type: 'object',
       description: 'Showcase academic offerings (DESIRE)',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -238,7 +252,7 @@ export const homePage = defineType({
           of: [
             {
               type: 'reference',
-              to: [{type: 'academicDepartment'}],
+              to: [{ type: 'academicDepartment' }],
             },
           ],
         }),
@@ -248,6 +262,7 @@ export const homePage = defineType({
       name: 'programsPreview',
       title: 'Programs Preview',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -268,7 +283,7 @@ export const homePage = defineType({
           of: [
             {
               type: 'reference',
-              to: [{type: 'collegeProgram'}],
+              to: [{ type: 'collegeProgram' }],
             },
           ],
           validation: (Rule) => Rule.max(6).error('Please select up to 6 programs'),
@@ -285,6 +300,7 @@ export const homePage = defineType({
       title: 'Testimonials Section',
       type: 'object',
       description: 'Social proof from students/parents (CREDIBILITY)',
+      group: 'engagement',
       fields: [
         defineField({
           name: 'title',
@@ -295,7 +311,7 @@ export const homePage = defineType({
           name: 'testimonials',
           title: 'Testimonials',
           type: 'array',
-          of: [{type: 'testimonial'}],
+          of: [{ type: 'testimonial' }],
         }),
       ],
     }),
@@ -303,13 +319,15 @@ export const homePage = defineType({
       name: 'features',
       title: 'Key Features/Highlights',
       type: 'array',
-      of: [{type: 'feature'}],
+      of: [{ type: 'feature' }],
       description: 'What makes your school special',
+      group: 'engagement',
     }),
     defineField({
       name: 'latestNews',
       title: 'Latest News Section',
       type: 'object',
+      group: 'engagement',
       fields: [
         defineField({
           name: 'title',
@@ -334,6 +352,7 @@ export const homePage = defineType({
       name: 'upcomingEvents',
       title: 'Upcoming Events Section',
       type: 'object',
+      group: 'engagement',
       fields: [
         defineField({
           name: 'title',
@@ -359,6 +378,7 @@ export const homePage = defineType({
       title: 'Final Call-to-Action',
       type: 'object',
       description: 'Strong CTA to convert visitors (ACTION)',
+      group: 'engagement',
       fields: [
         defineField({
           name: 'headline',
@@ -403,24 +423,20 @@ export const homePage = defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'storyBlocks',
-      title: 'Visual Story Blocks',
-      type: 'array',
-      of: [{type: 'storyBlock'}],
-      description: 'Visual storytelling blocks - Use images, videos, and short captions to tell your story. Keep text minimal!',
-    }),
+
     defineField({
       name: 'sections',
       title: 'Additional Content Sections (Legacy)',
       type: 'array',
-      of: [{type: 'section'}],
+      of: [{ type: 'section' }],
       description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
+      group: 'engagement',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
@@ -431,4 +447,3 @@ export const homePage = defineType({
     },
   },
 })
-

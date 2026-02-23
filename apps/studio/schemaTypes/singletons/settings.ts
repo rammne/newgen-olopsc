@@ -1,10 +1,18 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Settings, Navigation, PanelBottom, Search, BarChart3 } from 'lucide-react'
 
 export const settings = defineType({
   name: 'settings',
   title: 'Site Settings',
   type: 'document',
+  icon: Settings,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'general', title: 'General', icon: Settings, default: true },
+    { name: 'navigation', title: 'Navigation', icon: Navigation },
+    { name: 'footer', title: 'Footer', icon: PanelBottom },
+    { name: 'seoAnalytics', title: 'SEO & Analytics', icon: BarChart3 },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,12 +20,14 @@ export const settings = defineType({
       type: 'string',
       description: 'Main site title',
       validation: (Rule) => Rule.required(),
+      group: 'general',
     }),
     defineField({
       name: 'tagline',
       title: 'Tagline',
       type: 'string',
       description: 'Short tagline or slogan',
+      group: 'general',
     }),
     defineField({
       name: 'logo',
@@ -26,6 +36,7 @@ export const settings = defineType({
       options: {
         hotspot: true,
       },
+      group: 'general',
     }),
     defineField({
       name: 'logoDark',
@@ -34,28 +45,33 @@ export const settings = defineType({
       options: {
         hotspot: true,
       },
+      group: 'general',
     }),
     defineField({
       name: 'favicon',
       title: 'Favicon',
       type: 'image',
       description: 'Site favicon',
+      group: 'general',
     }),
     defineField({
       name: 'contact',
       title: 'Global Contact Information',
       type: 'contactInfo',
+      group: 'general',
     }),
     defineField({
       name: 'socialLinks',
       title: 'Social Media Links',
       type: 'array',
-      of: [{type: 'socialLink'}],
+      of: [{ type: 'socialLink' }],
+      group: 'general',
     }),
     defineField({
       name: 'address',
       title: 'School Address',
       type: 'object',
+      group: 'general',
       fields: [
         defineField({
           name: 'street',
@@ -88,6 +104,7 @@ export const settings = defineType({
       name: 'navigation',
       title: 'Navigation',
       type: 'object',
+      group: 'navigation',
       fields: [
         defineField({
           name: 'mainMenu',
@@ -114,9 +131,9 @@ export const settings = defineType({
                       type: 'string',
                       options: {
                         list: [
-                          {title: 'Internal Page', value: 'internal'},
-                          {title: 'External URL', value: 'external'},
-                          {title: 'Anchor', value: 'anchor'},
+                          { title: 'Internal Page', value: 'internal' },
+                          { title: 'External URL', value: 'external' },
+                          { title: 'Anchor', value: 'anchor' },
                         ],
                       },
                       initialValue: 'internal',
@@ -126,25 +143,25 @@ export const settings = defineType({
                       title: 'Internal Page',
                       type: 'reference',
                       to: [
-                        {type: 'homePage'},
-                        {type: 'aboutPage'},
-                        {type: 'academicDepartment'},
-                        {type: 'collegeProgram'},
-                        {type: 'news'},
+                        { type: 'homePage' },
+                        { type: 'aboutPage' },
+                        { type: 'academicDepartment' },
+                        { type: 'collegeProgram' },
+                        { type: 'news' },
                       ],
-                      hidden: ({parent}) => parent?.type !== 'internal',
+                      hidden: ({ parent }) => parent?.type !== 'internal',
                     }),
                     defineField({
                       name: 'external',
                       title: 'External URL',
                       type: 'url',
-                      hidden: ({parent}) => parent?.type !== 'external',
+                      hidden: ({ parent }) => parent?.type !== 'external',
                     }),
                     defineField({
                       name: 'anchor',
                       title: 'Anchor ID',
                       type: 'string',
-                      hidden: ({parent}) => parent?.type !== 'anchor',
+                      hidden: ({ parent }) => parent?.type !== 'anchor',
                     }),
                   ],
                 }),
@@ -173,8 +190,8 @@ export const settings = defineType({
                               type: 'string',
                               options: {
                                 list: [
-                                  {title: 'Internal Page', value: 'internal'},
-                                  {title: 'External URL', value: 'external'},
+                                  { title: 'Internal Page', value: 'internal' },
+                                  { title: 'External URL', value: 'external' },
                                 ],
                               },
                               initialValue: 'internal',
@@ -184,17 +201,17 @@ export const settings = defineType({
                               title: 'Internal Page',
                               type: 'reference',
                               to: [
-                                {type: 'academicDepartment'},
-                                {type: 'collegeProgram'},
-                                {type: 'news'},
+                                { type: 'academicDepartment' },
+                                { type: 'collegeProgram' },
+                                { type: 'news' },
                               ],
-                              hidden: ({parent}) => parent?.type !== 'internal',
+                              hidden: ({ parent }) => parent?.type !== 'internal',
                             }),
                             defineField({
                               name: 'external',
                               title: 'External URL',
                               type: 'url',
-                              hidden: ({parent}) => parent?.type !== 'external',
+                              hidden: ({ parent }) => parent?.type !== 'external',
                             }),
                           ],
                         }),
@@ -212,6 +229,7 @@ export const settings = defineType({
       name: 'footer',
       title: 'Footer',
       type: 'object',
+      group: 'footer',
       fields: [
         defineField({
           name: 'copyright',
@@ -264,11 +282,13 @@ export const settings = defineType({
       title: 'Default SEO',
       type: 'seo',
       description: 'Default SEO settings for the site',
+      group: 'seoAnalytics',
     }),
     defineField({
       name: 'analytics',
       title: 'Analytics',
       type: 'object',
+      group: 'seoAnalytics',
       fields: [
         defineField({
           name: 'googleAnalyticsId',
@@ -296,4 +316,3 @@ export const settings = defineType({
     },
   },
 })
-

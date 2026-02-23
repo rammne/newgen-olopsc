@@ -1351,31 +1351,6 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         openInNewTab
       }
     },
-    storyBlocks[] {
-      blockType,
-      title,
-      caption,
-      image {
-        asset->{
-          url
-        },
-        alt
-      },
-      video {
-        url,
-        provider,
-        embedId
-      },
-      images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
-        },
-        caption
-      }
-    },
     sections[] {
       title,
       subtitle,
@@ -1915,31 +1890,6 @@ export async function getAcademicDepartmentBySlug(slug: string) {
         },
         style,
         openInNewTab
-      }
-    },
-    storyBlocks[] {
-      blockType,
-      title,
-      caption,
-      image {
-        asset->{
-          url
-        },
-        alt
-      },
-      video {
-        url,
-        provider,
-        embedId
-      },
-      images[] {
-        image {
-          asset->{
-            url
-          },
-          alt
-        },
-        caption
       }
     },
     sections[] {

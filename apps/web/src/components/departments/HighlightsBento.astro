@@ -1,46 +1,56 @@
 ---
-import {getSanityImageUrl} from '../../lib/utils/sanity'
+import { getSanityImageUrl } from "../../lib/utils/sanity";
 
 interface Props {
   highlights: {
-    title?: string
+    title?: string;
     images?: Array<{
       asset?: {
-        _id?: string
-        url?: string
-      }
-      alt?: string
-    }>
-  }
+        _id?: string;
+        url?: string;
+      };
+      alt?: string;
+    }>;
+  };
 }
 
-const {highlights} = Astro.props
+const { highlights } = Astro.props;
 ---
 
-{highlights && highlights.images && highlights.images.length === 6 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto max-w-full">
-      {highlights.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-          {highlights.title}
-        </h2>
-      )}
-      <div class="highlights-bento-grid max-w-6xl mx-auto">
-        {highlights.images.map((image, index) => (
-          <div class={`highlight-item highlight-item-${index + 1}`}>
-            {image.asset?.url && (
-              <img
-                src={getSanityImageUrl(image, {width: 600, height: 400, fit: 'crop'})}
-                alt={image.alt || `Highlight ${index + 1}`}
-                class="w-full h-full object-cover rounded-lg"
-              />
-            )}
-          </div>
-        ))}
+{
+  highlights && highlights.images && highlights.images.length === 6 && (
+    <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white border-t border-[var(--color-neutral)]/30">
+      <div class="container mx-auto max-w-full">
+        {highlights.title && (
+          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
+            {highlights.title}
+          </h2>
+        )}
+        <div class="highlights-bento-grid max-w-6xl mx-auto">
+          {highlights.images.map((image, index) => (
+            <div class={`highlight-item highlight-item-${index + 1}`}>
+              {(image.asset?.url || true) && (
+                <img
+                  src={
+                    image.asset?.url
+                      ? getSanityImageUrl(image, {
+                          width: 600,
+                          height: 400,
+                          fit: "crop",
+                        })
+                      : `https://placehold.co/600x400/e2e8f0/1e293b?text=Highlight+${index + 1}`
+                  }
+                  alt={image.alt || `Highlight ${index + 1}`}
+                  class="w-full h-full object-cover rounded-lg"
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-)}
+    </section>
+  )
+}
 
 <style>
   .highlights-bento-grid {
@@ -138,5 +148,3 @@ const {highlights} = Astro.props
     transform: scale(1.1);
   }
 </style>
-
-

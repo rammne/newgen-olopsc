@@ -93,10 +93,13 @@ const videoUrl = getVideoUrl();
         loading="lazy"
         frameborder="0"
       />
-    ) : imageUrl ? (
+    ) : imageUrl || true ? (
       <img
-        src={imageUrl}
-        alt={hero.backgroundImage?.alt || ""}
+        src={
+          imageUrl ||
+          "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Hero+Background"
+        }
+        alt={hero.backgroundImage?.alt || "Hero Background"}
         class="absolute inset-0 w-full h-full object-cover"
       />
     ) : null

@@ -1,9 +1,11 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Globe } from 'lucide-react'
 
 export const sdg = defineType({
   name: 'sdg',
   title: 'Sustainable Development Goal',
   type: 'document',
+  icon: Globe,
   fields: [
     defineField({
       name: 'title',
@@ -74,7 +76,7 @@ export const sdg = defineType({
       number: 'number',
       media: 'image',
     },
-    prepare({title, number, media}) {
+    prepare({ title, number, media }) {
       return {
         title: `${number}. ${title}`,
         media: media,
@@ -85,7 +87,7 @@ export const sdg = defineType({
     {
       title: 'SDG Number',
       name: 'numberAsc',
-      by: [{field: 'number', direction: 'asc'}],
+      by: [{ field: 'number', direction: 'asc' }],
     },
   ],
 })

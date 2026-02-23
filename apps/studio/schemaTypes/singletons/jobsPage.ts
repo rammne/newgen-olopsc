@@ -1,10 +1,17 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { Briefcase, Users, Search } from 'lucide-react'
 
 export const jobsPage = defineType({
   name: 'jobsPage',
   title: 'Jobs/Careers Page',
   type: 'document',
+  icon: Briefcase,
   __experimental_formPreviewTitle: false,
+  groups: [
+    { name: 'content', title: 'Content', icon: Briefcase, default: true },
+    { name: 'jobs', title: 'Job Listings', icon: Users },
+    { name: 'seo', title: 'SEO', icon: Search },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -12,17 +19,20 @@ export const jobsPage = defineType({
       type: 'string',
       initialValue: 'Careers',
       readOnly: true,
+      group: 'content',
     }),
     defineField({
       name: 'hero',
       title: 'Hero Section',
       type: 'hero',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'intro',
       title: 'Introduction',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'headline',
@@ -40,6 +50,7 @@ export const jobsPage = defineType({
       name: 'whyWorkHere',
       title: 'Why Work Here Section',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -55,7 +66,7 @@ export const jobsPage = defineType({
           name: 'benefits',
           title: 'Benefits',
           type: 'array',
-          of: [{type: 'feature'}],
+          of: [{ type: 'feature' }],
         }),
       ],
     }),
@@ -63,6 +74,7 @@ export const jobsPage = defineType({
       name: 'jobOpenings',
       title: 'Job Openings',
       type: 'array',
+      group: 'jobs',
       of: [
         {
           type: 'object',
@@ -84,10 +96,10 @@ export const jobsPage = defineType({
               type: 'string',
               options: {
                 list: [
-                  {title: 'Full-time', value: 'fulltime'},
-                  {title: 'Part-time', value: 'parttime'},
-                  {title: 'Contract', value: 'contract'},
-                  {title: 'Internship', value: 'internship'},
+                  { title: 'Full-time', value: 'fulltime' },
+                  { title: 'Part-time', value: 'parttime' },
+                  { title: 'Contract', value: 'contract' },
+                  { title: 'Internship', value: 'internship' },
                 ],
               },
             }),
@@ -106,19 +118,19 @@ export const jobsPage = defineType({
               name: 'requirements',
               title: 'Requirements',
               type: 'array',
-              of: [{type: 'string'}],
+              of: [{ type: 'string' }],
             }),
             defineField({
               name: 'responsibilities',
               title: 'Key Responsibilities',
               type: 'array',
-              of: [{type: 'string'}],
+              of: [{ type: 'string' }],
             }),
             defineField({
               name: 'qualifications',
               title: 'Qualifications',
               type: 'array',
-              of: [{type: 'string'}],
+              of: [{ type: 'string' }],
             }),
             defineField({
               name: 'postedDate',
@@ -156,6 +168,7 @@ export const jobsPage = defineType({
       name: 'applicationProcess',
       title: 'Application Process',
       type: 'object',
+      group: 'jobs',
       fields: [
         defineField({
           name: 'title',
@@ -198,22 +211,26 @@ export const jobsPage = defineType({
       name: 'testimonials',
       title: 'Employee Testimonials',
       type: 'array',
-      of: [{type: 'testimonial'}],
+      of: [{ type: 'testimonial' }],
+      group: 'jobs',
     }),
     defineField({
       name: 'contactInfo',
       title: 'HR Contact Information',
       type: 'contactInfo',
+      group: 'jobs',
     }),
     defineField({
       name: 'cta',
       title: 'Call-to-Action',
       type: 'cta',
+      group: 'jobs',
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {
@@ -224,4 +241,3 @@ export const jobsPage = defineType({
     },
   },
 })
-

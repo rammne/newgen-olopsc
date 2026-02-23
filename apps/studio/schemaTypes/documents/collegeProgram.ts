@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const collegeProgram = defineType({
   name: 'collegeProgram',
@@ -34,13 +34,13 @@ export const collegeProgram = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Engineering', value: 'engineering'},
-          {title: 'Business', value: 'business'},
-          {title: 'Education', value: 'education'},
-          {title: 'Arts & Sciences', value: 'arts'},
-          {title: 'Health Sciences', value: 'health'},
-          {title: 'Technology', value: 'technology'},
-          {title: 'Other', value: 'other'},
+          { title: 'Engineering', value: 'engineering' },
+          { title: 'Business', value: 'business' },
+          { title: 'Education', value: 'education' },
+          { title: 'Arts & Sciences', value: 'arts' },
+          { title: 'Health Sciences', value: 'health' },
+          { title: 'Technology', value: 'technology' },
+          { title: 'Other', value: 'other' },
         ],
       },
     }),
@@ -92,7 +92,7 @@ export const collegeProgram = defineType({
           name: 'careers',
           title: 'Career Paths',
           type: 'array',
-          of: [{type: 'string'}],
+          of: [{ type: 'string' }],
         }),
         defineField({
           name: 'image',
@@ -141,10 +141,10 @@ export const collegeProgram = defineType({
                   type: 'string',
                   options: {
                     list: [
-                      {title: '1st Year', value: '1'},
-                      {title: '2nd Year', value: '2'},
-                      {title: '3rd Year', value: '3'},
-                      {title: '4th Year', value: '4'},
+                      { title: '1st Year', value: '1' },
+                      { title: '2nd Year', value: '2' },
+                      { title: '3rd Year', value: '3' },
+                      { title: '4th Year', value: '4' },
                     ],
                   },
                 }),
@@ -152,7 +152,7 @@ export const collegeProgram = defineType({
                   name: 'courses',
                   title: 'Courses',
                   type: 'array',
-                  of: [{type: 'string'}],
+                  of: [{ type: 'string' }],
                 }),
               ],
             },
@@ -174,7 +174,7 @@ export const collegeProgram = defineType({
           name: 'requirements',
           title: 'Requirements',
           type: 'array',
-          of: [{type: 'string'}],
+          of: [{ type: 'string' }],
         }),
         defineField({
           name: 'additionalInfo',
@@ -198,37 +198,31 @@ export const collegeProgram = defineType({
       name: 'faculty',
       title: 'Program Faculty',
       type: 'array',
-      of: [{type: 'facultyMember'}],
+      of: [{ type: 'facultyMember' }],
     }),
     defineField({
       name: 'testimonials',
       title: 'Student/Alumni Testimonials',
       type: 'array',
-      of: [{type: 'testimonial'}],
+      of: [{ type: 'testimonial' }],
     }),
     defineField({
       name: 'features',
       title: 'Program Features',
       type: 'array',
-      of: [{type: 'feature'}],
+      of: [{ type: 'feature' }],
     }),
     defineField({
       name: 'gallery',
       title: 'Program Gallery',
       type: 'gallery',
     }),
-    defineField({
-      name: 'storyBlocks',
-      title: 'Visual Story Blocks',
-      type: 'array',
-      of: [{type: 'storyBlock'}],
-      description: 'Visual storytelling blocks - Use images, videos, and short captions to showcase the program. Keep text minimal!',
-    }),
+
     defineField({
       name: 'sections',
       title: 'Additional Content Sections (Legacy)',
       type: 'array',
-      of: [{type: 'section'}],
+      of: [{ type: 'section' }],
       description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
     }),
     defineField({
@@ -249,7 +243,7 @@ export const collegeProgram = defineType({
       shortTitle: 'shortTitle',
       category: 'category',
     },
-    prepare({title, shortTitle, category}) {
+    prepare({ title, shortTitle, category }) {
       return {
         title: title || 'College Program',
         subtitle: [shortTitle, category].filter(Boolean).join(' • ') || '',
