@@ -159,6 +159,35 @@ export const academicDepartment = defineType({
       ],
     }),
     defineField({
+      name: 'trackClusters',
+      title: 'Track Clusters (Senior High School)',
+      type: 'object',
+      group: 'content',
+      description: 'Use this specifically for Senior High School to display the Track Clusters UI.',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'clusters',
+          title: 'Clusters',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'name', title: 'Cluster Name', type: 'string', validation: (Rule) => Rule.required() }),
+                defineField({ name: 'description', title: 'Description (Optional)', type: 'text', rows: 2 }),
+                defineField({ name: 'tracks', title: 'Tracks', type: 'array', of: [{ type: 'string' }] }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'programs',
       title: 'Programs/Offerings',
       type: 'array',
