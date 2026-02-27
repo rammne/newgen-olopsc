@@ -1,14 +1,19 @@
 ---
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import SEOHead from "../components/common/SEOHead.astro";
 import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
 }
 
-const { title = "Our School", description = "Welcome to Our School" } =
+const { title, description, ogImage, ogType, canonicalUrl, noindex } =
   Astro.props;
 ---
 
@@ -19,8 +24,15 @@ const { title = "Our School", description = "Welcome to Our School" } =
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+
+    <SEOHead
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      canonicalUrl={canonicalUrl}
+      noindex={noindex}
+    />
 
     {/* Resource hints for performance */}
     <link rel="preconnect" href="https://cdn.sanity.io" />

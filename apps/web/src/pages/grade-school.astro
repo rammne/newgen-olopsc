@@ -40,9 +40,10 @@ const pageTitle =
 const pageDescription =
   department.seo?.description ||
   `Learn more about ${department.title} at OLOPSC`;
+const ogImage = department.seo?.image?.asset?.url;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   {department.hero && <Hero hero={department.hero} />}
 
   {

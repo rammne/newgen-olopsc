@@ -42,6 +42,8 @@ const { highlights } = Astro.props;
                   }
                   alt={image.alt || `Highlight ${index + 1}`}
                   class="w-full h-full object-cover rounded-lg"
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
             </div>

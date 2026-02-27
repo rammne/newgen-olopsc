@@ -13,6 +13,7 @@ const pageTitle =
 const pageDescription =
     pageData?.seo?.description ||
     "Explore our scholarship programs and financial aid opportunities.";
+const ogImage = pageData?.seo?.image?.asset?.url;
 
 // Default Hero fallback if not set in Sanity
 const heroData = pageData?.hero || {
@@ -23,7 +24,7 @@ const heroData = pageData?.hero || {
 };
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
     <!-- Hero Section -->
     <Hero hero={heroData} />
 

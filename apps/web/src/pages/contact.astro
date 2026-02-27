@@ -24,6 +24,7 @@ const contactPage = await getContactPage();
 const pageTitle = contactPage?.seo?.title || contactPage?.title || "Contact Us";
 const pageDescription =
     contactPage?.seo?.description || "Get in touch with OLOPSC.";
+const ogImage = contactPage?.seo?.image?.asset?.url;
 
 // Helper to get icon for social
 const getSocialIcon = (platform: string) => {
@@ -45,7 +46,7 @@ const getSocialIcon = (platform: string) => {
 };
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
     {contactPage?.hero && <Hero hero={contactPage.hero} />}
 
     <section

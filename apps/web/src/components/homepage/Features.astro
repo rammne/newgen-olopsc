@@ -1,96 +1,101 @@
 ---
 interface Props {
   features: Array<{
-    icon?: string
+    icon?: string;
     image?: {
       asset?: {
-        url?: string
-      }
-      alt?: string
-    }
-    title?: string
-    description?: string
+        url?: string;
+      };
+      alt?: string;
+    };
+    title?: string;
+    description?: string;
     link?: {
-      url?: string
-      text?: string
-    }
-  }>
+      url?: string;
+      text?: string;
+    };
+  }>;
 }
 
-const {features} = Astro.props
+const { features } = Astro.props;
 ---
 
-{features && features.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto">
-      {/* Mobile View: Compact List */}
-      <div class="flex flex-col gap-4 mb-8 md:hidden">
-        {features.map((feature) => (
-          <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-4">
-            <div class="flex-shrink-0">
+{
+  features && features.length > 0 && (
+    <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
+      <div class="container mx-auto">
+        {/* Mobile View: Compact List */}
+        <div class="flex flex-col gap-4 mb-8 md:hidden">
+          {features.map((feature) => (
+            <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-4">
+              <div class="flex-shrink-0">
+                {feature.image?.asset?.url ? (
+                  <img
+                    src={feature.image.asset.url}
+                    alt={feature.image.alt || ""}
+                    class="w-16 h-16 object-cover rounded-md"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : feature.icon ? (
+                  <div class="w-16 h-16 flex items-center justify-center bg-[var(--color-primary)]/5 rounded-md text-3xl">
+                    {feature.icon}
+                  </div>
+                ) : null}
+              </div>
+              <div class="flex-1 min-w-0">
+                {feature.title && (
+                  <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight mb-1">
+                    {feature.title}
+                  </h3>
+                )}
+                {feature.description && (
+                  <p class="text-small-mobile text-[var(--color-primary)]/80 line-clamp-2">
+                    {feature.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Grid */}
+        <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature) => (
+            <div class="bg-white p-6 rounded-lg shadow-md">
               {feature.image?.asset?.url ? (
                 <img
                   src={feature.image.asset.url}
-                  alt={feature.image.alt || ''}
-                  class="w-16 h-16 object-cover rounded-md"
+                  alt={feature.image.alt || ""}
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : feature.icon ? (
-                <div class="w-16 h-16 flex items-center justify-center bg-[var(--color-primary)]/5 rounded-md text-3xl">
-                  {feature.icon}
-                </div>
+                <div class="text-5xl mb-4 text-center">{feature.icon}</div>
               ) : null}
-            </div>
-            <div class="flex-1 min-w-0">
               {feature.title && (
-                <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight mb-1">
+                <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
                   {feature.title}
                 </h3>
               )}
               {feature.description && (
-                <p class="text-small-mobile text-[var(--color-primary)]/80 line-clamp-2">
+                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
                   {feature.description}
                 </p>
               )}
+              {feature.link?.url && (
+                <a
+                  href={feature.link.url}
+                  class="text-[var(--color-accent)] font-semibold hover:underline"
+                >
+                  {feature.link.text || "Learn More"} →
+                </a>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-
-      {/* Desktop View: Grid */}
-      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map((feature) => (
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            {feature.image?.asset?.url ? (
-              <img
-                src={feature.image.asset.url}
-                alt={feature.image.alt || ''}
-                class="w-full h-48 object-cover rounded-lg mb-4"
-              />
-            ) : feature.icon ? (
-              <div class="text-5xl mb-4 text-center">{feature.icon}</div>
-            ) : null}
-            {feature.title && (
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
-                {feature.title}
-              </h3>
-            )}
-            {feature.description && (
-              <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
-                {feature.description}
-              </p>
-            )}
-            {feature.link?.url && (
-              <a
-                href={feature.link.url}
-                class="text-[var(--color-accent)] font-semibold hover:underline"
-              >
-                {feature.link.text || 'Learn More'} →
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
+    </section>
+  )
+}

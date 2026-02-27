@@ -38,9 +38,10 @@ if (homePage?.upcomingEvents) {
 // Set page title from SEO or default
 const pageTitle = homePage?.seo?.title || homePage?.title || "Home";
 const pageDescription = homePage?.seo?.description || "Welcome to Our School";
+const ogImage = homePage?.seo?.image?.asset?.url;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
 
   {

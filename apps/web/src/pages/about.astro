@@ -20,9 +20,10 @@ const pageTitle = aboutPage?.seo?.title || aboutPage?.title || "About Us";
 const pageDescription =
     aboutPage?.seo?.description ||
     "Learn more about OLOPSC history, mission, and vision.";
+const ogImage = aboutPage?.seo?.image?.asset?.url;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
     {aboutPage?.hero && <Hero hero={aboutPage.hero} />}
 
     {

@@ -1,140 +1,153 @@
 ---
-import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
-import CtaButton from '../common/CtaButton.astro'
+import { getSanityImageUrl, formatDate } from "../../lib/utils/sanity";
+import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
   latestNews: {
-    title?: string
-    count?: number
+    title?: string;
+    count?: number;
     cta?: {
-      text?: string
-      link?: any
-      style?: string
-      openInNewTab?: boolean
-    }
-  }
+      text?: string;
+      link?: any;
+      style?: string;
+      openInNewTab?: boolean;
+    };
+  };
   newsArticles: Array<{
-    _id?: string
-    title?: string
+    _id?: string;
+    title?: string;
     slug?: {
-      current?: string
-    }
-    publishedAt?: string
+      current?: string;
+    };
+    publishedAt?: string;
     featuredImage?: {
       asset?: {
-        url?: string
-      }
-      alt?: string
-    }
-    excerpt?: string
-    category?: string
+        url?: string;
+      };
+      alt?: string;
+    };
+    excerpt?: string;
+    category?: string;
     academicDepartment?: {
-      title?: string
-    }
-  }>
+      title?: string;
+    };
+  }>;
 }
 
-const {latestNews, newsArticles} = Astro.props
+const { latestNews, newsArticles } = Astro.props;
 ---
 
-{latestNews && newsArticles && newsArticles.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10 border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto">
-      {latestNews.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-primary text-center mb-12">
-          {latestNews.title}
-        </h2>
-      )}
-      {/* Mobile View: Compact List */}
-      <div class="flex flex-col gap-4 mb-8 md:hidden">
-        {newsArticles.map((article) => (
-          <a
-            href={`/news/${article.slug?.current || ''}`}
-            class="bg-white rounded-lg overflow-hidden shadow-sm flex items-center p-3 gap-4"
-          >
-            {article.featuredImage?.asset?.url && (
-              <div class="w-24 h-24 flex-shrink-0 rounded-md overflow-hidden bg-[var(--color-neutral)]">
-                <img
-                  src={getSanityImageUrl(article.featuredImage, {width: 200, height: 200, fit: 'crop'})}
-                  alt={article.featuredImage.alt || article.title || ''}
-                  class="w-full h-full object-cover"
-                />
+{
+  latestNews && newsArticles && newsArticles.length > 0 && (
+    <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10 border-t border-[var(--color-neutral)]/30">
+      <div class="container mx-auto">
+        {latestNews.title && (
+          <h2 class="text-section-header-mobile sm:text-section-header-desktop text-primary text-center mb-12">
+            {latestNews.title}
+          </h2>
+        )}
+        {/* Mobile View: Compact List */}
+        <div class="flex flex-col gap-4 mb-8 md:hidden">
+          {newsArticles.map((article) => (
+            <a
+              href={`/news/${article.slug?.current || ""}`}
+              class="bg-white rounded-lg overflow-hidden shadow-sm flex items-center p-3 gap-4"
+            >
+              {article.featuredImage?.asset?.url && (
+                <div class="w-24 h-24 flex-shrink-0 rounded-md overflow-hidden bg-[var(--color-neutral)]">
+                  <img
+                    src={getSanityImageUrl(article.featuredImage, {
+                      width: 200,
+                      height: 200,
+                      fit: "crop",
+                    })}
+                    alt={article.featuredImage.alt || article.title || ""}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              )}
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1">
+                  {article.category && (
+                    <span class="text-[10px] text-[var(--color-accent)] font-bold uppercase tracking-wider">
+                      {article.category}
+                    </span>
+                  )}
+                  {article.publishedAt && (
+                    <span class="text-[10px] text-[var(--color-primary)]/60">
+                      {formatDate(article.publishedAt)}
+                    </span>
+                  )}
+                </div>
+                <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight line-clamp-2 mb-1">
+                  {article.title}
+                </h3>
+                <p class="text-small-mobile text-[var(--color-primary)]/70 line-clamp-1">
+                  {article.academicDepartment?.title || "General"}
+                </p>
               </div>
-            )}
-            <div class="flex-1 min-w-0">
-               <div class="flex items-center gap-2 mb-1">
-                {article.category && (
-                  <span class="text-[10px] text-[var(--color-accent)] font-bold uppercase tracking-wider">
-                    {article.category}
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop View: Grid */}
+        <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {newsArticles.map((article) => (
+            <a
+              href={`/news/${article.slug?.current || ""}`}
+              class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+            >
+              {article.featuredImage?.asset?.url && (
+                <div class="aspect-video overflow-hidden">
+                  <img
+                    src={getSanityImageUrl(article.featuredImage, {
+                      width: 400,
+                      height: 300,
+                      fit: "crop",
+                    })}
+                    alt={article.featuredImage.alt || article.title || ""}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  {article.category && (
+                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
+                      {article.category}
+                    </span>
+                  )}
+                  <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
+                    {article.academicDepartment?.title || "General"}
                   </span>
+                </div>
+                <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                  {article.title}
+                </h3>
+                {article.excerpt && (
+                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
+                    {article.excerpt}
+                  </p>
                 )}
                 {article.publishedAt && (
-                  <span class="text-[10px] text-[var(--color-primary)]/60">
+                  <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
                     {formatDate(article.publishedAt)}
-                  </span>
+                  </p>
                 )}
               </div>
-              <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight line-clamp-2 mb-1">
-                {article.title}
-              </h3>
-              <p class="text-small-mobile text-[var(--color-primary)]/70 line-clamp-1">
-                 {article.academicDepartment?.title || 'General'}
-              </p>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* Desktop View: Grid */}
-      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {newsArticles.map((article) => (
-          <a
-            href={`/news/${article.slug?.current || ''}`}
-            class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-          >
-            {article.featuredImage?.asset?.url && (
-              <div class="aspect-video overflow-hidden">
-                <img
-                  src={getSanityImageUrl(article.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                  alt={article.featuredImage.alt || article.title || ''}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            )}
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-2 flex-wrap">
-                {article.category && (
-                  <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                    {article.category}
-                  </span>
-                )}
-                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                  {article.academicDepartment?.title || 'General'}
-                </span>
-              </div>
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                {article.title}
-              </h3>
-              {article.excerpt && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-3 line-clamp-2">
-                  {article.excerpt}
-                </p>
-              )}
-              {article.publishedAt && (
-                <p class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)] opacity-70">
-                  {formatDate(article.publishedAt)}
-                </p>
-              )}
-            </div>
-          </a>
-        ))}
-      </div>
-      {latestNews.cta && (
-        <div class="text-center">
-          <CtaButton cta={latestNews.cta} />
+            </a>
+          ))}
         </div>
-      )}
-    </div>
-  </section>
-)}
-
+        {latestNews.cta && (
+          <div class="text-center">
+            <CtaButton cta={latestNews.cta} />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

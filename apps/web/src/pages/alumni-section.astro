@@ -1,87 +1,120 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Hero from '../components/homepage/Hero.astro'
-import IdentitySection from '../components/about/IdentitySection.astro'
-import MissionVisionValues from '../components/about/MissionVisionValues.astro'
-import LeadershipSection from '../components/about/LeadershipSection.astro'
-import Testimonials from '../components/homepage/Testimonials.astro'
-import GalleryBento from '../components/departments/GalleryBento.astro'
-import DepartmentNews from '../components/departments/DepartmentNews.astro'
-import DepartmentEvents from '../components/departments/DepartmentEvents.astro'
-import CtaButton from '../components/common/CtaButton.astro'
-import ScrollRevealWrapper from '../components/common/ScrollRevealWrapper.astro'
-import { getAlumniPage, getAlumniNews, getAlumniEvents } from '../lib/sanity/queries'
-import '../styles/global.css'
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import IdentitySection from "../components/about/IdentitySection.astro";
+import MissionVisionValues from "../components/about/MissionVisionValues.astro";
+import LeadershipSection from "../components/about/LeadershipSection.astro";
+import Testimonials from "../components/homepage/Testimonials.astro";
+import GalleryBento from "../components/departments/GalleryBento.astro";
+import DepartmentNews from "../components/departments/DepartmentNews.astro";
+import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
+import CtaButton from "../components/common/CtaButton.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import {
+  getAlumniPage,
+  getAlumniNews,
+  getAlumniEvents,
+} from "../lib/sanity/queries";
+import "../styles/global.css";
 
-const page = await getAlumniPage()
-const news = await getAlumniNews(page?.news?.count || 3)
-const events = await getAlumniEvents(page?.events?.count || 3)
+const page = await getAlumniPage();
+const news = await getAlumniNews(page?.news?.count || 3);
+const events = await getAlumniEvents(page?.events?.count || 3);
 
-const pageTitle = page?.seo?.title || page?.title || 'Alumni'
-const pageDescription = page?.seo?.description || 'OLOPSC Alumni Association'
+const pageTitle = page?.seo?.title || page?.title || "Alumni";
+const pageDescription = page?.seo?.description || "OLOPSC Alumni Association";
+const ogImage = page?.seo?.image?.asset?.url;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   {page?.hero && <Hero hero={page.hero} />}
-  
-  {page?.intro && (
+
+  {
+    page?.intro && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <IdentitySection identity={page.intro} />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
-  {(page?.mission || page?.vision) && (
+  {
+    (page?.mission || page?.vision) && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-         <MissionVisionValues mission={page?.mission} vision={page?.vision} values={undefined} /> 
+        <MissionVisionValues
+          mission={page?.mission}
+          vision={page?.vision}
+          values={undefined}
+        />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
-  {page?.officers && (
+  {
+    page?.officers && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-         <LeadershipSection leadership={page.officers} />
+        <LeadershipSection leadership={page.officers} />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
   {/* Spotlight / Featured Alumni */}
-  {page?.featuredAlumni && page.featuredAlumni.length > 0 && (
+  {
+    page?.featuredAlumni && page.featuredAlumni.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-          <Testimonials testimonials={{ title: "Alumni Spotlight", testimonials: page.featuredAlumni }} />
+        <Testimonials
+          testimonials={{
+            title: "Alumni Spotlight",
+            testimonials: page.featuredAlumni,
+          }}
+        />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
-    {/* Gallery Bento */}
-    {page?.gallery && (
-        <GalleryBento gallery={page.gallery} />
-    )}
+  {/* Gallery Bento */}
+  {page?.gallery && <GalleryBento gallery={page.gallery} />}
 
   {/* News */}
-  {news && news.length > 0 && (
+  {
+    news && news.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-          <DepartmentNews news={news} title={page?.news?.title || "Alumni News"} />
+        <DepartmentNews
+          news={news}
+          title={page?.news?.title || "Alumni News"}
+        />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
   {/* Events */}
-  {events && events.length > 0 && (
+  {
+    events && events.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-          <DepartmentEvents events={events} title={page?.events?.title || "Upcoming Events"} />
+        <DepartmentEvents
+          events={events}
+          title={page?.events?.title || "Upcoming Events"}
+        />
       </ScrollRevealWrapper>
-  )}
+    )
+  }
 
   {/* Contact/Join CTA */}
-  {page?.cta && (
-    <ScrollRevealWrapper direction="fade" delay={0.1}>
-     <section class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)] flex items-center justify-center text-center">
-       <div class="container mx-auto">
-         <h2 class="text-white text-section-header-mobile sm:text-section-header-desktop mb-6">
-            Join the Alumni Association
-         </h2>
-          <p class="text-white/80 text-main-mobile sm:text-main-desktop mb-8 max-w-2xl mx-auto">
-            Reconnect with your alma mater, network with fellow graduates, and support the next generation of OLOPSCians.
-          </p>
-          <CtaButton cta={page.cta} />
-       </div>
-     </section>
-    </ScrollRevealWrapper>
-  )}
+  {
+    page?.cta && (
+      <ScrollRevealWrapper direction="fade" delay={0.1}>
+        <section class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)] flex items-center justify-center text-center">
+          <div class="container mx-auto">
+            <h2 class="text-white text-section-header-mobile sm:text-section-header-desktop mb-6">
+              Join the Alumni Association
+            </h2>
+            <p class="text-white/80 text-main-mobile sm:text-main-desktop mb-8 max-w-2xl mx-auto">
+              Reconnect with your alma mater, network with fellow graduates, and
+              support the next generation of OLOPSCians.
+            </p>
+            <CtaButton cta={page.cta} />
+          </div>
+        </section>
+      </ScrollRevealWrapper>
+    )
+  }
 </Layout>

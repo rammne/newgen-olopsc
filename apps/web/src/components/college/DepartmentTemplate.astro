@@ -16,11 +16,12 @@ if (!department) throw new Error("Department data missing");
 const pageTitle = department.seo?.title || department.title;
 const pageDescription =
     department.seo?.description || `Welcome to ${department.title}`;
+const ogImage = department.seo?.image?.asset?.url;
 
 const hasItems = (arr: any[]) => Array.isArray(arr) && arr.length > 0;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
     <!-- Hero Section -->
     {department.hero && <Hero hero={department.hero} />}
 

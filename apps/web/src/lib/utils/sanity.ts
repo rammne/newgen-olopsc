@@ -24,15 +24,22 @@ export function getSanityImageUrl(
   }
 
   const baseUrl = image.asset.url || `https://cdn.sanity.io/images/6b5ln4gy/production/${image.asset._id}`
-  
+
+  // If no transformation options are passed, return the raw CDN URL (fastest, fully cached)
   if (!options) {
     return baseUrl
   }
 
   const params = new URLSearchParams()
+
+  // Serve modern formats (WebP/AVIF) to browsers that support them
+  params.set('auto', 'format')
+
+  // Default quality of 75 — good balance between file size and visual quality
+  params.set('q', options.quality?.toString() || '75')
+
   if (options.width) params.set('w', options.width.toString())
   if (options.height) params.set('h', options.height.toString())
-  if (options.quality) params.set('q', options.quality.toString())
   if (options.fit) params.set('fit', options.fit)
 
   return `${baseUrl}?${params.toString()}`
@@ -63,7 +70,7 @@ export function resolveCtaLink(cta: {
     return '#'
   }
 
-  const {link} = cta
+  const { link } = cta
 
   switch (link.type) {
     case 'external':
@@ -98,7 +105,7 @@ export function resolveCtaLink(cta: {
  */
 export function formatDate(dateString: string | undefined): string {
   if (!dateString) return ''
-  
+
   const date = new Date(dateString)
   return date.toLocaleDateString('en-US', {
     year: 'numeric',

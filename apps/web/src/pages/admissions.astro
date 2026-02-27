@@ -18,9 +18,10 @@ const pageTitle =
 const pageDescription =
     admissionsPage?.seo?.description ||
     "Join OLOPSC. Learn about our admissions process, requirements, and scholarships.";
+const ogImage = admissionsPage?.seo?.image?.asset?.url;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
     {admissionsPage?.hero && <Hero hero={admissionsPage.hero} />}
 
     {/* Section 1: Introduction */}
