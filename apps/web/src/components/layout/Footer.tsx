@@ -63,7 +63,7 @@ export function Footer() {
                   />
                   <div className="flex flex-col leading-tight">
                     <span className="text-base font-bold tracking-wide text-white sm:text-lg">
-                      OLOPSC COLLEGE
+                      OLOPS COLLEGE
                     </span>
                     <span className="text-xs text-white/80 sm:text-sm">
                       Marikina City, Philippines
