@@ -103,6 +103,10 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                         .title('Computing Studies')
                         .icon(Monitor)
                         .child(S.document().schemaType('computingStudies').documentId('computingStudies')),
+                      S.listItem()
+                        .title('Psychology')
+                        .icon(Users)
+                        .child(S.document().schemaType('psychology').documentId('psychology')),
                     ])
                 ),
             ])
@@ -187,6 +191,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'businessAdmin',
             'educationLiberalArts',
             'computingStudies',
+            'psychology',
           ].includes(listItem.getId() || '')
       ),
     ])

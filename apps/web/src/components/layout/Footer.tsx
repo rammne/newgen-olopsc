@@ -18,6 +18,7 @@ const FOOTER_SECTIONS = [
     title: 'Quick Links',
     links: [
       { label: 'Home', href: '/' },
+      { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
       { label: 'About OLOPSC', href: '/about' },
       { label: 'Admissions', href: '/admissions' },
       { label: 'Alumni Section', href: '/alumni' },

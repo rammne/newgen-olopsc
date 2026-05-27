@@ -20,5 +20,8 @@ call npx sanity documents create --id educationLiberalArts --replace --json "{\"
 echo Creating entrepreneurship...
 call npx sanity documents create --id entrepreneurship --replace --json "{\"_type\": \"entrepreneurship\", \"title\": \"College of Entrepreneurship\"}"
 
+echo Creating psychology...
+call npx sanity documents create --id psychology --replace --json "{\"_type\": \"psychology\", \"title\": \"College of Psychology\"}"
+
 echo Done! Refresh your Studio.
 pause

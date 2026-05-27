@@ -1,0 +1,21 @@
+---
+import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
+import { getPsychologyPage } from "../lib/sanity/queries";
+
+const departmentData = await getPsychologyPage();
+
+const department = departmentData || {
+    title: "College of Psychology",
+    degree: "Bachelor of Science in Psychology, Bachelor of Arts in Psychology",
+    hero: {
+        headline: "College of Psychology",
+        variant: "image",
+    },
+    intro: {
+        headline: "Welcome",
+        content: "Content is being updated.",
+    },
+};
+---
+
+<DepartmentTemplate department={department} />

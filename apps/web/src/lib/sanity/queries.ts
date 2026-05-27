@@ -1620,6 +1620,27 @@ export async function getBusinessAdminPage() {
 }
 
 /**
+ * Get Psychology Page Data
+ */
+export async function getPsychologyPage() {
+  const query = `*[_type == "psychology"][0]{
+    _id,
+    title,
+    hero { ..., backgroundImage { asset->{ url } } },
+    intro { ..., image { asset->{ url } } },
+    degree,
+    duration,
+    programs[] { ..., image { asset->{ url } } },
+    curriculum { ..., courses[] { year, courses[] } },
+    careerOpportunities { ..., image { asset->{ url } } },
+    keyFeatures[] { ..., image { asset->{ url } } },
+    gallery { images[] { asset->{ url }, caption } },
+    seo { ..., image { asset->{ url } } }
+  }`
+  return await client.fetch(query)
+}
+
+/**
  * Get academic department by slug (for backward compatibility)
  */
 export async function getAcademicDepartmentBySlug(slug: string) {
