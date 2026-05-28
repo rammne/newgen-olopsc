@@ -108,6 +108,30 @@ export const event = defineType({
       group: 'details',
     }),
     defineField({
+      name: 'collegePrograms',
+      title: 'College Programs',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{ type: 'collegeProgram' }],
+      }],
+      description: 'Required if Academic Department is College Department. Select multiple if this is a collaboration.',
+      hidden: ({ document }) => !document?.academicDepartment,
+      validation: (Rule) => Rule.custom(async (programs, context) => {
+        const doc = context.document as any;
+        if (!doc?.academicDepartment?._ref) return true;
+        
+        const client = context.getClient({apiVersion: '2022-03-08'});
+        const deptType = await client.fetch('*[_id == $id][0].departmentType', {id: doc.academicDepartment._ref});
+        
+        if (deptType === 'college' && (!programs || (programs as any[]).length === 0)) {
+          return 'College Programs are required when Academic Department is College Department';
+        }
+        return true;
+      }),
+      group: 'details',
+    }),
+    defineField({
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'image',

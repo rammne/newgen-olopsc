@@ -844,7 +844,17 @@ export async function getNewsBySlug(slug: string) {
     category,
     featured,
     academicDepartment->{
-      title
+      title,
+      slug {
+        current
+      }
+    },
+    collegePrograms[]->{
+      _id,
+      title,
+      slug {
+        current
+      }
     },
     content[] {
       ...,
@@ -982,7 +992,17 @@ export async function getEventBySlug(slug: string) {
     category,
     featured,
     academicDepartment->{
-      title
+      title,
+      slug {
+        current
+      }
+    },
+    collegePrograms[]->{
+      _id,
+      title,
+      slug {
+        current
+      }
     },
     location {
       venue,

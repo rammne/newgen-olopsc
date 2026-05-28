@@ -83,8 +83,26 @@ const ogImage =
               )
             }
             <span class="text-[var(--color-primary)]/80">
-              {article.academicDepartment?.title || "General"}
+              {article.academicDepartment ? (
+                <a href={`/${article.academicDepartment.slug?.current || ""}`} class="hover:text-[var(--color-accent)] transition-colors">
+                  {article.academicDepartment.title}
+                </a>
+              ) : (
+                "General"
+              )}
             </span>
+            {
+              article.collegePrograms && article.collegePrograms.length > 0 && (
+                <span class="text-[var(--color-primary)]/80 flex items-center gap-2">
+                  <span>•</span>
+                  {article.collegePrograms.map((prog: any, index: number) => (
+                    <a href={`/${prog.slug?.current || ""}`} class="hover:text-[var(--color-accent)] transition-colors">
+                      {prog.title}{index < article.collegePrograms.length - 1 ? ", " : ""}
+                    </a>
+                  ))}
+                </span>
+              )
+            }
             {
               article.author?.name && (
                 <span class="flex items-center gap-2">
