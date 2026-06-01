@@ -55,9 +55,7 @@ const ogImage = aboutPage?.seo?.image?.asset?.url;
 
     {
         aboutPage?.history && (
-            <ScrollRevealWrapper direction="up" delay={0.1}>
-                <HistorySection history={aboutPage.history} />
-            </ScrollRevealWrapper>
+            <HistorySection history={aboutPage.history} />
         )
     }
 
