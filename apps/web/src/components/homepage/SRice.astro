@@ -2,7 +2,7 @@
 import {getSanityImageUrl} from '../../lib/utils/sanity'
 
 interface Props {
-  sRice: {
+  sRice?: {
     title?: string
     subtitle?: string
     items?: Array<{
@@ -20,230 +20,71 @@ interface Props {
 }
 
 const {sRice} = Astro.props
+
+const items = sRice?.items || [];
+// Fallback default image in case one is missing
+const defaultImage = items.length > 0 && items[0].image ? getSanityImageUrl(items[0].image, {width: 800, height: 800, fit: 'crop'}) : "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=800&auto=format&fit=crop";
+
 ---
 
-{sRice && sRice.items && sRice.items.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto">
-      {sRice.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-4">
-          {sRice.title}
-        </h2>
-      )}
-      {sRice.subtitle && (
-        <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center mb-12 max-w-3xl mx-auto">
-          {sRice.subtitle}
-        </p>
-      )}
-      
-      {/* Mobile View - Horizontal Tab Layout */}
-      <div class="block lg:hidden">
-        <div class="text-center mb-6 animate-pulse">
-            <span class="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] opacity-60 italic bg-[var(--color-neutral)] px-3 py-1 rounded-full border border-[var(--color-primary)]/10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-touchpad"><rect width="16" height="10" x="4" y="2" rx="2" ry="2"/><path d="M12 12v10"/></svg>
-                Tap a letter to explore
-            </span>
-        </div>
-
-        {/* Tab Triggers */}
-        <div class="flex justify-between items-center mb-8 px-2 max-w-sm mx-auto">
-          {sRice.items.map((item, index) => (
-            <button
-              class="mobile-tab-trigger w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 relative bg-white border border-[var(--color-primary)]/10 shadow-sm overflow-hidden"
-              data-index={index}
-              aria-label={`View ${item.title}`}
-            >
-              {/* Active Background (Animated) */}
-              <div class="absolute inset-0 rounded-full bg-[var(--color-accent)] opacity-0 scale-75 transition-all duration-300 trigger-bg z-0"></div>
-              {/* Letter */}
-              <span class="trigger-text text-[var(--color-primary)] relative z-10">{item.letter}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Tab Contents */}
-        <div class="relative min-h-[400px]">
-          {sRice.items.map((item, index) => (
-            <div 
-              class={`mobile-tab-content transition-all duration-500 absolute inset-0 w-full ${index === 0 ? 'opacity-100 pointer-events-auto translate-x-0' : 'opacity-0 pointer-events-none translate-x-4'}`}
-              data-index={index}
-            >
-              <div class="flex flex-col h-full">
-                <div class="text-center mb-6">
-                  <h3 class="text-2xl font-bold text-[var(--color-primary)] mb-3">
-                    {item.title}
-                  </h3>
-                  {item.description && (
-                    <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xl mx-auto">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
-                
-                {item.image && (
-                  <div class="relative w-full aspect-square rounded-2xl overflow-hidden shadow-lg mt-auto">
-                    <img
-                      src={getSanityImageUrl(item.image, {width: 600, height: 600, fit: 'crop'})}
-                      alt={item.image.alt || item.title || ''}
-                      class="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div class="absolute inset-0 bg-[var(--color-primary)]/10"></div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop View - Existing Grid Layout */}
-      <div class="hidden lg:grid grid-cols-2 gap-8 lg:gap-16 items-start">
-        {/* Left Column - S-RICE Items */}
-        <div class="space-y-6 order-1 lg:order-1 relative">
-          <div class="absolute -top-10 left-0 animate-bounce">
-             <span class="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] font-medium bg-[var(--color-neutral)] px-4 py-1.5 rounded-full border border-[var(--color-primary)]/10 shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer-2"><path d="m12 6 2-2h6a2 2 0 0 1 2 2v19a2 2 0 0 1-2 2h-3"/><path d="m6 12 2-2h6a2 2 0 0 1 2 2v19a2 2 0 0 1-2 2H8"/><path d="M12 6V4a2 2 0 0 0-2-2"/></svg>
-                Hover to explore
-            </span>
-          </div>
-
-          {sRice.items.map((item, index) => (
-            <div
-              class={`srice-item group cursor-default transition-all duration-300 rounded-xl border-l-4 border-transparent p-6 ${index === 0 ? 'srice-active bg-[var(--color-neutral)]/50 border-[var(--color-accent)] pl-8' : 'hover:bg-[var(--color-neutral)]/50 hover:border-[var(--color-accent)] hover:pl-8'}`}
-              data-srice-index={index}
-            >
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-accent)] text-[var(--color-primary)] flex items-center justify-center font-bold text-xl shadow-sm group-hover:scale-110 transition-transform duration-300">
-                  {item.letter}
-                </div>
-                <div class="flex-1">
-                  <h3 class="text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                    {item.title}
-                  </h3>
-                  {item.description && (
-                    <p class="text-main-desktop text-[var(--color-primary)]/80">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <hr class="border-primary last:hidden opacity-10" />
-          ))}
-        </div>
-
-        {/* Right Column - Images */}
-        <div class="lg:sticky lg:top-24 order-2 lg:order-2">
-          <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--color-neutral)] shadow-2xl">
-            {sRice.items.map((item, index) => (
-              <img
-                src={getSanityImageUrl(item.image, {width: 600, height: 750, fit: 'crop'})}
-                alt={item.image?.alt || item.title || ''}
-                class={`srice-image absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                  index === 0 ? 'opacity-100' : 'opacity-0'
-                }`}
-                data-srice-index={index}
-                loading="lazy"
-                decoding="async"
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-)}
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Tab Functionality
-    const mobileTriggers = document.querySelectorAll('.mobile-tab-trigger');
-    const mobileContents = document.querySelectorAll('.mobile-tab-content');
-    
-    function activateMobileTab(index) {
-      // Update Triggers
-      mobileTriggers.forEach((btn, i) => {
-        const bg = btn.querySelector('.trigger-bg');
-        if (i === index) {
-          bg?.classList.remove('opacity-0', 'scale-75', '-z-10');
-          bg?.classList.add('opacity-100', 'scale-100', 'z-0');
-          btn.querySelector('.trigger-text')?.classList.add('relative', 'z-10');
-        } else {
-          bg?.classList.add('opacity-0', 'scale-75');
-          bg?.classList.remove('opacity-100', 'scale-100');
-        }
-      });
-
-      // Update Contents
-      mobileContents.forEach((content, i) => {
-        if (i === index) {
-          content.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-4');
-          content.classList.add('opacity-100', 'pointer-events-auto', 'translate-x-0');
-        } else {
-          content.classList.add('opacity-0', 'pointer-events-none', 'translate-x-4');
-          content.classList.remove('opacity-100', 'pointer-events-auto', 'translate-x-0');
-        }
-      });
-    }
-
-    if (mobileTriggers.length > 0) {
-      // Initialize first tab
-      activateMobileTab(0);
-
-      // Add click listeners
-      mobileTriggers.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const index = parseInt(btn.dataset.index || '0');
-          activateMobileTab(index);
-        });
-      });
-    }
-
-    // Desktop Hover Functionality
-    const desktopItems = document.querySelectorAll('.srice-item');
-    const desktopImages = document.querySelectorAll('.srice-image');
-    
-    if (desktopItems.length > 0 && desktopImages.length > 0) {
-      function showDesktopImage(index) {
-        desktopImages.forEach((img, i) => {
-          if (i === index) {
-            img.classList.remove('opacity-0');
-            img.classList.add('opacity-100');
-          } else {
-            img.classList.remove('opacity-100');
-            img.classList.add('opacity-0');
-          }
-        });
-        
-        // Update active state on list items
-        desktopItems.forEach((item, i) => {
-            if (i === index) {
-                item.classList.add('bg-[var(--color-neutral)]/50', 'border-[var(--color-accent)]', 'pl-8');
-            } else {
-                item.classList.remove('bg-[var(--color-neutral)]/50', 'border-[var(--color-accent)]', 'pl-8');
-            }
-        });
-      }
-
-      desktopItems.forEach((item) => {
-        item.addEventListener('mouseenter', () => {
-          const index = parseInt(item.dataset.sriceIndex || '0');
-          showDesktopImage(index);
-        });
-      });
-    }
-  });
-</script>
-
-<style>
-  .srice-image {
-    transition: opacity 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
+{items.length > 0 && (
+<section class="relative bg-blue-950 py-16 md:py-24 overflow-hidden">
   
-  @media (prefers-reduced-motion: reduce) {
-    .srice-image {
-      transition: none;
-    }
-  }
-</style>
+  <div class="container mx-auto px-4 lg:px-6 max-w-[1600px] relative z-10">    
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <div class="text-yellow-400 font-bold tracking-widest uppercase text-sm mb-3">
+        {sRice?.subtitle || "The S-RICE Framework"}
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight">
+        {sRice?.title || "Our Core Values"}
+      </h2>
+    </div>
 
+    <!-- The Responsive Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-6 justify-center">
+      
+      {/* Interactive Image-Backed Cards */}
+      {items.map((val) => {
+        const imageUrl = val.image ? getSanityImageUrl(val.image, {width: 800, height: 800, fit: 'crop'}) : defaultImage;
+        
+        return (
+          <div 
+            class="relative rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-start p-6 lg:p-8 aspect-square group border border-blue-900 hover:border-yellow-400 transition-colors cursor-default bg-blue-950"
+          >
+            <!-- Background Image -->
+            <img 
+              src={imageUrl} 
+              alt={val.title || "Value Image"} 
+              loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 lg:group-hover:scale-105 opacity-20 lg:opacity-100" 
+            />
+            
+            <!-- Contrast Overlay (Desktop only since mobile uses image opacity) -->
+            <div class="hidden lg:block absolute inset-0 bg-blue-950/80 group-hover:bg-blue-950/70 transition-colors duration-500 z-10"></div>
+            
+            <!-- Content Wrapper -->
+            <div class="relative z-20 flex flex-col gap-3 lg:gap-4 h-full justify-start mt-2">
+              <!-- The Letter -->
+              <div class="bg-yellow-400 text-blue-950 font-black flex items-center justify-center rounded-full w-14 h-14 text-3xl lg:w-12 lg:h-12 lg:text-2xl mb-0 lg:mb-4 shadow-lg transform transition-transform group-hover:scale-110">
+                {val.letter}
+              </div>
+              
+              <!-- Title -->
+              <h3 class="font-black lg:font-bold text-white tracking-tight lg:tracking-normal text-2xl mb-0 lg:mb-2">
+                {val.title}
+              </h3>
+              
+              <!-- Body Text -->
+              <p class="text-slate-200 text-base md:text-lg lg:text-base leading-relaxed">
+                {val.description}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+
+    </div>
+  </div>
+</section>
+)}
