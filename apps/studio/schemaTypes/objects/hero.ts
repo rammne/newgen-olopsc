@@ -42,6 +42,7 @@ export const hero = defineType({
         hotspot: true,
         accept: 'image/jpeg,image/png,image/webp',
       },
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
       description: 'JPEG, PNG, or WebP only',
       hidden: ({parent}) => parent?.variant === 'video',
       validation: (Rule) =>
@@ -93,6 +94,18 @@ export const hero = defineType({
       type: 'url',
       description: 'YouTube or Vimeo URL for embedded background video',
       hidden: ({parent}) => parent?.variant !== 'video' || parent?.backgroundVideoSource !== 'embed',
+    }),
+    defineField({
+      name: 'heroPoster',
+      title: 'Hero Video Poster (LCP Optimization)',
+      type: 'image',
+      options: {
+        hotspot: true,
+        accept: 'image/jpeg,image/png,image/webp',
+      },
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
+      description: 'Image that loads instantly before the video. Very important for LCP optimization.',
+      hidden: ({parent}) => parent?.variant !== 'video',
     }),
     defineField({
       name: 'overlay',

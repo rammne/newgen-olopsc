@@ -192,6 +192,7 @@ export const scholarshipPage = defineType({
               options: {
                 hotspot: true,
               },
+              fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
             }),
           ],
         },

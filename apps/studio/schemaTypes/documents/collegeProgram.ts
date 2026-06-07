@@ -101,6 +101,7 @@ export const collegeProgram = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
           description: 'Visual element for career opportunities',
         }),
       ],
@@ -125,6 +126,7 @@ export const collegeProgram = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
           description: 'Visual representation of the curriculum',
         }),
         defineField({
@@ -191,6 +193,7 @@ export const collegeProgram = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
       ],
     }),

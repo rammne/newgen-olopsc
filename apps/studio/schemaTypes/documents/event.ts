@@ -138,6 +138,7 @@ export const event = defineType({
       options: {
         hotspot: true,
       },
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
       group: 'content',
     }),
     defineField({

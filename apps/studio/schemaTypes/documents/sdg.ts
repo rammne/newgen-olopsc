@@ -44,6 +44,7 @@ export const sdg = defineType({
       options: {
         hotspot: true,
       },
+      fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

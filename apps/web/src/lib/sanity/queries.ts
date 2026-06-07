@@ -334,6 +334,15 @@ export async function getHomePage() {
       },
       backgroundVideoUrl,
       backgroundVideoEmbed,
+      heroPoster {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
       overlay {
         enabled,
         opacity,
@@ -1117,6 +1126,15 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
       },
       backgroundVideoUrl,
       backgroundVideoEmbed,
+      heroPoster {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
       overlay {
         enabled,
         opacity,
@@ -1693,6 +1711,15 @@ export async function getAcademicDepartmentBySlug(slug: string) {
       },
       backgroundVideoUrl,
       backgroundVideoEmbed,
+      heroPoster {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
       overlay {
         enabled,
         opacity,

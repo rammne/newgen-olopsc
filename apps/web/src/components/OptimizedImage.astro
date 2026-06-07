@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import { urlFor } from '../utils/sanityImage';
+
+interface Props {
+  node: any; // The Sanity image object reference
+  alt: string;
+  className?: string;
+  priority?: boolean;
+}
+
+const { node, alt, className = '', priority = false } = Astro.props;
+
+// Skip rendering if no valid image node is provided
+if (!node || !node.asset) {
+  return null;
+}
+
+// Generate the optimized URL from the Sanity CDN edge
+const imageUrl = urlFor(node).url();
+---
+
+<Image 
+  src={imageUrl} 
+  alt={alt} 
+  class={className}
+  inferSize={true}
+  loading={priority ? "eager" : "lazy"}
+  fetchpriority={priority ? "high" : "auto"}
+/>

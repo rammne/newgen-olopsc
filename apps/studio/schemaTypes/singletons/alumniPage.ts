@@ -27,7 +27,12 @@ export const alumniPage = defineType({
       fields: [
         defineField({ name: 'title', type: 'string' }),
         defineField({ name: 'content', type: 'array', of: [{ type: 'block' }] }),
-        defineField({ name: 'image', type: 'image', options: { hotspot: true } }),
+        defineField({
+          name: 'image',
+          type: 'image',
+          options: { hotspot: true },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
+        }),
       ],
     }),
     defineField({
@@ -53,6 +58,7 @@ export const alumniPage = defineType({
           name: 'image',
           title: 'Icon/Image',
           type: 'image',
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
         }),
       ],
     }),
@@ -79,6 +85,7 @@ export const alumniPage = defineType({
           name: 'image',
           title: 'Icon/Image',
           type: 'image',
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
         }),
       ],
     }),

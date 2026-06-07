@@ -35,7 +35,7 @@ export const educationLiberalArts = defineType({
             fields: [
                 defineField({ name: 'headline', title: 'Headline', type: 'string' }),
                 defineField({ name: 'content', title: 'Content', type: 'portableText' }),
-                defineField({ name: 'image', title: 'Intro Image', type: 'image', options: { hotspot: true } }),
+                defineField({ name: 'image', title: 'Intro Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
             ],
         }),
         defineField({
@@ -65,7 +65,7 @@ export const educationLiberalArts = defineType({
                         defineField({ name: 'title', title: 'Program Title', type: 'string' }),
                         defineField({ name: 'shortTitle', title: 'Abbreviation', type: 'string' }),
                         defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-                        defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
+                        defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
                     ],
                 },
             ],
@@ -102,7 +102,7 @@ export const educationLiberalArts = defineType({
                 defineField({ name: 'title', title: 'Section Title', type: 'string' }),
                 defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
                 defineField({ name: 'careers', title: 'Careers List', type: 'array', of: [{ type: 'string' }] }),
-                defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
+                defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
             ],
         }),
         defineField({

@@ -36,6 +36,7 @@ export const settings = defineType({
       options: {
         hotspot: true,
       },
+      fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
       group: 'general',
     }),
     defineField({
@@ -51,6 +52,7 @@ export const settings = defineType({
       name: 'favicon',
       title: 'Favicon',
       type: 'image',
+      fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
       description: 'Site favicon',
       group: 'general',
     }),

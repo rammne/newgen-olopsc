@@ -59,6 +59,7 @@ export const homePage = defineType({
             hotspot: true,
             accept: 'image/jpeg,image/png,image/webp',
           },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
           description: 'Primary visual element (JPEG, PNG, or WebP only)',
           validation: (Rule) =>
             Rule.custom((value) => {
@@ -92,6 +93,7 @@ export const homePage = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
           description: 'Background image for the stats section',
         }),
         defineField({
@@ -148,6 +150,7 @@ export const homePage = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
         }),
       ],
     }),
@@ -205,6 +208,7 @@ export const homePage = defineType({
                   options: {
                     hotspot: true,
                   },
+                  fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
                   validation: (Rule) => Rule.required(),
                 }),
               ],
@@ -409,6 +413,7 @@ export const homePage = defineType({
             hotspot: true,
             accept: 'image/jpeg,image/png,image/webp',
           },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
           description: 'JPEG, PNG, or WebP only',
           validation: (Rule) =>
             Rule.custom((value) => {

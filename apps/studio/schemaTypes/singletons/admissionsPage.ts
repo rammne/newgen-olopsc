@@ -300,7 +300,7 @@ export const admissionsPage = defineType({
               fields: [
                 defineField({ name: 'name', title: 'Method Name', type: 'string' }),
                 defineField({ name: 'details', title: 'Details/Instructions', type: 'portableText' }),
-                defineField({ name: 'icon', title: 'Icon', type: 'image' })
+                defineField({ name: 'icon', title: 'Icon', type: 'image', fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] })
               ]
             }
           ]
@@ -317,7 +317,7 @@ export const admissionsPage = defineType({
                 defineField({ name: 'accountName', title: 'Account Name', type: 'string' }),
                 defineField({ name: 'accountNumber', title: 'Account Number', type: 'string' }),
                 defineField({ name: 'branch', title: 'Branch (Optional)', type: 'string' }),
-                defineField({ name: 'logo', title: 'Bank Logo', type: 'image' })
+                defineField({ name: 'logo', title: 'Bank Logo', type: 'image', fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] })
               ]
             }
           ]

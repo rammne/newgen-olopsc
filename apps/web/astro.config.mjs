@@ -22,5 +22,8 @@ export default defineConfig({
       },
     },
   },
+  image: {
+    domains: ['cdn.sanity.io'],
+  },
   output: 'static'
 });

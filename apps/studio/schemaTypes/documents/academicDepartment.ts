@@ -84,6 +84,7 @@ export const academicDepartment = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
           description: 'Primary visual element',
         }),
       ],
@@ -110,6 +111,7 @@ export const academicDepartment = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
           description: 'Optional background image for the overview section',
         }),
       ],
@@ -148,6 +150,7 @@ export const academicDepartment = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
           description: 'Visual representation of the curriculum',
         }),
         defineField({
@@ -257,6 +260,7 @@ export const academicDepartment = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
         }),
         defineField({
           name: 'cta',

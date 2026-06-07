@@ -93,6 +93,7 @@ export const news = defineType({
           options: {
             hotspot: true,
           },
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
       ],
     }),
@@ -103,6 +104,7 @@ export const news = defineType({
       options: {
         hotspot: true,
       },
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
       validation: (Rule) => Rule.required(),
       group: 'media',
     }),
