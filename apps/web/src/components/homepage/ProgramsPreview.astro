@@ -3,7 +3,7 @@ import { getSanityImageUrl } from "../../lib/utils/sanity";
 import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
-  programsPreview: {
+  programsPreview?: {
     title?: string;
     subtitle?: string;
     programs?: Array<{
@@ -40,153 +40,137 @@ interface Props {
 }
 
 const { programsPreview } = Astro.props;
+
+// Fallback Data
+const fallbackSubtitle = "CHED-recognized bachelor's degree programs designed for global industry standards.";
+const fallbackPrograms = [
+  {
+    title: "Computer Science & Technology",
+    shortTitle: "BSCS & ACT",
+    overview: "Outcome-based curriculum covering software engineering, full-stack development, and data structures.",
+    slug: { current: "computing-studies" },
+    imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Hospitality Management",
+    shortTitle: "BSHM",
+    overview: "Industry-standard training in culinary arts, hotel operations, and global hospitality leadership.",
+    slug: { current: "hospitality-management" },
+    imageUrl: "https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Tourism Management",
+    shortTitle: "BSTM",
+    overview: "Comprehensive preparation for global travel, tour operations, and sustainable destination management.",
+    slug: { current: "tourism-management" },
+    imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Business & Entrepreneurship",
+    shortTitle: "BSBA",
+    overview: "Equipping future business leaders with modern marketing, financial management, and corporate strategy skills.",
+    slug: { current: "business-administration-and-entrepreneurship" },
+    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Education & Liberal Arts",
+    shortTitle: "BEEd, BSEd",
+    overview: "Shaping future educators with DepEd-aligned methodologies for Elementary and Secondary instruction.",
+    slug: { current: "education-and-liberal-arts" },
+    imageUrl: "https://images.unsplash.com/photo-1427504494785-319ce8372379?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Psychology",
+    shortTitle: "BSP",
+    overview: "Scientific study of human behavior, preparing graduates for clinical, industrial, and educational roles.",
+    slug: { current: "psychology" },
+    imageUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop"
+  }
+];
+
+// Determine final data
+const title = programsPreview?.title || "Future-Ready Degrees";
+const subtitle = programsPreview?.subtitle || fallbackSubtitle;
+
+// Map CMS programs or use fallbacks
+const displayPrograms = (programsPreview?.programs && programsPreview.programs.length > 0) 
+  ? programsPreview.programs.map((p, index) => ({
+      title: p.title || fallbackPrograms[index]?.title || "Program",
+      shortTitle: p.shortTitle || fallbackPrograms[index]?.shortTitle || "",
+      overview: fallbackPrograms[index]?.overview || p.overview || "",
+      slug: p.slug || { current: fallbackPrograms[index]?.slug?.current || "#" },
+      imageUrl: p.hero?.backgroundImage ? getSanityImageUrl(p.hero.backgroundImage, { width: 800, height: 600, fit: "crop" }) : fallbackPrograms[index]?.imageUrl
+    }))
+  : fallbackPrograms;
+
+const ctaText = programsPreview?.cta?.text || "View All College Programs";
+const ctaLink = typeof programsPreview?.cta?.link === 'string' ? programsPreview.cta.link : "/college-programs";
 ---
 
-{
-  programsPreview &&
-    programsPreview.programs &&
-    programsPreview.programs.length > 0 && (
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)] flex items-center overflow-hidden border-t border-[var(--color-neutral)]/30">
-        <div class="container mx-auto w-full flex flex-col justify-center">
-          {(programsPreview.title || programsPreview.subtitle) && (
-            <div class="px-5 sm:px-[60px] mb-6 sm:mb-8">
-              {programsPreview.title && (
-                <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-3">
-                  {programsPreview.title}
-                </h2>
-              )}
-              {programsPreview.subtitle && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] text-center max-w-2xl mx-auto">
-                  {programsPreview.subtitle}
-                </p>
-              )}
+<section class="bg-slate-50 py-20">
+  <!-- Header Container -->
+  <div class="container mx-auto px-6 max-w-7xl text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black text-blue-950 mb-4 tracking-tight">
+      {title}
+    </h2>
+    <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- The Grid Layout -->
+  <div class="container mx-auto px-6 max-w-7xl">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {displayPrograms.map((program) => (
+        <a 
+          href={`/${program.slug.current}`}
+          class="group relative overflow-hidden rounded-2xl shadow-lg h-[380px] cursor-pointer block bg-blue-950"
+        >
+          <!-- Image Layer -->
+          <img 
+            src={program.imageUrl} 
+            alt={program.title} 
+            loading="lazy"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 z-0" 
+          />
+          
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10"></div>
+          
+          <!-- Text Payload Layer (Hover Reveal) -->
+          <div class="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-bold text-white mb-2 translate-y-0 lg:translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+              {program.title}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              {program.overview}
+            </p>
+          </div>
+          
+          <!-- Acronym Tag -->
+          {program.shortTitle && (
+            <div class="absolute top-6 right-6 bg-yellow-400 text-blue-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider z-20">
+              {program.shortTitle}
             </div>
           )}
-          <div class="w-full programs-grid max-w-6xl mx-auto px-5 sm:px-0 flex overflow-x-auto snap-x snap-mandatory pb-4 gap-4 no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:overflow-visible sm:pb-0">
-            {programsPreview.programs.map((program, index) => (
-              <a
-                href={`/${program.slug?.current || ""}`}
-                class="program-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
-              >
-                {program.hero?.backgroundImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden bg-[var(--color-neutral)]">
-                    <img
-                      src={getSanityImageUrl(program.hero.backgroundImage, {
-                        width: 600,
-                        height: 400,
-                        fit: "crop",
-                      })}
-                      alt={
-                        program.hero.backgroundImage.alt || program.title || ""
-                      }
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                )}
-                <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3 flex-grow">
-                  {program.shortTitle && (
-                    <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                      {program.shortTitle}
-                    </span>
-                  )}
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-                    {program.title}
-                  </h3>
-                  {program.overview && (
-                    <p class="text-main-mobile text-[var(--color-primary)]/80 line-clamp-3">
-                      {program.overview}
-                    </p>
-                  )}
-                  <div class="mt-auto pt-2 w-full flex justify-center">
-                    <span class="block h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+        </a>
+      ))}
+    </div>
 
-          {/* Mobile Scroll Progress Indicator */}
-          <div class="flex justify-center mt-4 sm:hidden">
-            <span class="programs-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
-              1 / {programsPreview.programs.length}
-            </span>
-          </div>
-
-          {programsPreview.cta && (
-            <div class="text-center px-5 sm:px-[60px] mt-6 sm:mt-8">
-              <CtaButton cta={programsPreview.cta} />
-            </div>
-          )}
-        </div>
-      </section>
-    )
-}
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".programs-grid");
-    const cards = document.querySelectorAll(".program-card");
-    const counter = document.querySelector(".programs-counter");
-
-    if (container && cards.length > 0 && counter) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // Find index of intersecting card
-              const index = Array.from(cards).indexOf(entry.target as Element);
-              if (index !== -1) {
-                counter.textContent = `${index + 1} / ${cards.length}`;
-              }
-            }
-          });
-        },
-        {
-          root: container,
-          threshold: 0.6, // Card must be 60% visible to trigger
-        },
-      );
-
-      cards.forEach((card) => observer.observe(card));
-    }
-  });
-</script>
-
-<style>
-  .program-card {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
-  .program-card:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  .program-card:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .program-card:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  .program-card:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-  .program-card:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-  .program-card:nth-child(6) {
-    animation-delay: 0.6s;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>
+    <!-- Global CTA -->
+    {programsPreview?.cta ? (
+      <div class="text-center mt-12">
+        <CtaButton cta={programsPreview.cta} />
+      </div>
+    ) : (
+      <div class="text-center mt-12">
+        <a 
+          href={ctaLink}
+          class="inline-block bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-extrabold py-4 px-10 rounded transition-transform active:scale-95"
+        >
+          {ctaText}
+        </a>
+      </div>
+    )}
+  </div>
+</section>

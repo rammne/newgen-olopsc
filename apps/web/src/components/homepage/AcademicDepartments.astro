@@ -1,5 +1,5 @@
 ---
-import { resolveCtaLink, getSanityImageUrl } from "../../lib/utils/sanity";
+import { getSanityImageUrl } from "../../lib/utils/sanity";
 import { getDepartmentUrl } from "../../lib/utils/departmentUrls";
 
 interface Props {
@@ -32,102 +32,88 @@ interface Props {
 
 const { academicDepartments } = Astro.props;
 
-const departmentTaglines: Record<string, string> = {
-  preschool:
-    "Sparking curiosity through creative play and values formation.",
-  gradeSchool: "Building a strong foundation in academics and character.",
-  juniorHigh: "Empowering independent thinkers to discover their passions.",
-  seniorHigh: "Specialized tracks that make students college and career-ready.",
-  college: "Developing competent, industry-ready professionals.",
+const departmentData: Record<string, { title: string; description: string }> = {
+  preschool: {
+    title: "Pre-School",
+    description: "Play-based early childhood education fostering foundational learning, curiosity, and Christian values.",
+  },
+  gradeSchool: {
+    title: "Grade School",
+    description: "DepEd-accredited primary education focused on core academic competencies and holistic character development.",
+  },
+  juniorHigh: {
+    title: "Junior High School",
+    description: "Rigorous, tech-integrated DepEd curriculum preparing students in Marikina for advanced critical thinking.",
+  },
+  seniorHigh: {
+    title: "Senior High School (SHS)",
+    description: "Academic (STEM, ABM, HUMSS) and Tech-Voc strands perfectly aligned with our College degree pipelines.",
+  },
+  college: {
+    title: "College Degree Programs",
+    description: "CHED-recognized bachelor's degrees equipping future professionals with industry-ready skills for the global workforce.",
+  },
 };
+
+const defaultImage = "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop";
+
 ---
 
 {
   academicDepartments &&
     academicDepartments.departments &&
     academicDepartments.departments.length > 0 && (
-      <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]/10 border-t border-[var(--color-neutral)]/30">
-        <div class="container mx-auto">
-          {academicDepartments.title && (
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-primary text-center mb-4">
-              {academicDepartments.title}
-            </h2>
-          )}
-          {academicDepartments.subtitle && (
-            <p class="text-main-mobile sm:text-main-desktop text-primary text-center mb-10 max-w-3xl mx-auto">
-              {academicDepartments.subtitle}
-            </p>
-          )}
-          <div class="departments-scroll-container flex flex-nowrap overflow-x-auto snap-x snap-mandatory pb-4 sm:flex-wrap sm:justify-center sm:items-center gap-4 no-scrollbar">
-            {academicDepartments.departments.map((dept) => (
-              <a
-                href={dept.departmentType ? getDepartmentUrl(dept.departmentType) : `/${dept.slug?.current || ""}`}
-                class="acad-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex-shrink-0 w-[75vw] sm:w-auto snap-center sm:snap-align-none h-full min-h-[400px] flex flex-col"
-              >
-                {dept.hero?.backgroundImage?.asset?.url && (
-                  <div class="aspect-video overflow-hidden">
-                    <img
-                      src={getSanityImageUrl(dept.hero.backgroundImage, {
-                        width: 400,
-                        height: 300,
-                        fit: "crop",
-                      })}
-                      alt={dept.hero.backgroundImage.alt || dept.title || ""}
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-                      loading="lazy"
-                      decoding="async"
-                    />
+      <section class="bg-slate-50 py-20">
+        <!-- Header Container -->
+        <div class="container mx-auto px-6 max-w-7xl text-center mb-16">
+          <h2 class="text-4xl md:text-5xl font-black text-blue-950 mb-4 tracking-tight">
+            A Pathway for Every Learner
+          </h2>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Excellence at every stage of growth, from foundational learning to professional mastery.
+          </p>
+        </div>
+
+        <!-- The Grid Layout -->
+        <div class="container mx-auto px-4 lg:px-6 max-w-[1600px]">
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-6 justify-center">
+            {academicDepartments.departments.map((dept) => {
+              const imageUrl = dept.hero?.backgroundImage ? getSanityImageUrl(dept.hero.backgroundImage, { width: 800, height: 600, fit: "crop" }) : defaultImage;
+              const href = dept.departmentType ? getDepartmentUrl(dept.departmentType) : `/${dept.slug?.current || ""}`;
+              const deptData = departmentData[dept.departmentType || ""] || { title: dept.title, description: "" };
+              const displayTitle = deptData.title || dept.title;
+              const overview = deptData.description;
+              
+              return (
+                <a 
+                  href={href}
+                  class="group relative overflow-hidden rounded-2xl shadow-lg h-[380px] cursor-pointer block bg-blue-950"
+                >
+                  <!-- Image Layer -->
+                  <img 
+                    src={imageUrl} 
+                    alt={dept.title || "Department Image"} 
+                    loading="lazy"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 z-0" 
+                  />
+                  
+                  <!-- Gradient Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10"></div>
+                  
+                  <!-- Text Payload Layer (Hover Reveal) -->
+                  <div class="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+                    <h3 class="text-2xl font-bold text-white mb-2 translate-y-0 lg:translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                      {displayTitle}
+                    </h3>
+                    <p class="h-[80px] text-slate-300 text-sm leading-relaxed opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                      {overview}
+                    </p>
                   </div>
-                )}
-                <div class="p-6 sm:p-7 flex flex-col items-center text-center gap-3 flex-grow">
-                  <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-                    {dept.title}
-                  </h3>
-                  <p class="text-main-mobile text-[var(--color-primary)]/80 max-w-xs">
-                    {departmentTaglines[dept.departmentType || ""]}
-                  </p>
-                  <div class="mt-auto pt-2 w-full flex justify-center">
-                    <span class="h-px w-12 bg-[var(--color-primary)]/40 group-hover:w-20 group-hover:bg-[var(--color-accent)] transition-all duration-500" />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-          
-          {/* Mobile Scroll Progress Indicator */}
-          <div class="flex justify-center mt-4 sm:hidden">
-            <span class="departments-counter text-small-mobile text-[var(--color-primary)] font-medium bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm border border-[var(--color-neutral)]">
-              1 / {academicDepartments.departments.length}
-            </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
     )
 }
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.departments-scroll-container');
-    const cards = document.querySelectorAll('.acad-card');
-    const counter = document.querySelector('.departments-counter');
-
-    if (container && cards.length > 0 && counter) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Find index of intersecting card
-            const index = Array.from(cards).indexOf(entry.target as Element);
-            if (index !== -1) {
-              counter.textContent = `${index + 1} / ${cards.length}`;
-            }
-          }
-        });
-      }, {
-        root: container,
-        threshold: 0.6
-      });
-
-      cards.forEach(card => observer.observe(card));
-    }
-  });
-</script>

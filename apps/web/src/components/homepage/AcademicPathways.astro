@@ -1,0 +1,75 @@
+---
+const pathways = [
+  {
+    title: "Pre-School & Kindergarten",
+    description: "Play-based early childhood education fostering foundational learning, curiosity, and Christian values.",
+    image: "https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Grade School",
+    description: "DepEd-accredited primary education focused on core academic competencies and holistic character development.",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Junior High School",
+    description: "Rigorous, tech-integrated DepEd curriculum preparing students in Marikina for advanced critical thinking.",
+    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "Senior High School (SHS)",
+    description: "Academic (STEM, ABM, HUMSS) and Tech-Voc clusters perfectly aligned with our College degree pipelines.",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop"
+  },
+  {
+    title: "College Degree Programs",
+    description: "CHED-recognized bachelor's degrees equipping future professionals with industry-ready skills for the global workforce.",
+    image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop"
+  }
+];
+---
+
+<section class="bg-surface py-20">
+  <div class="container mx-auto px-6 max-w-7xl text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
+      A Pathway for Every Learner
+    </h2>
+    <p class="text-lg text-muted max-w-2xl mx-auto">
+      Excellence at every stage of growth, from foundational learning to professional mastery.
+    </p>
+  </div>
+
+  <div class="container mx-auto px-6 max-w-[1600px]">
+    <!-- Flexbox wrapping grid used to guarantee perfect centering of orphaned bottom-row items -->
+    <ul class="flex flex-wrap justify-center gap-6">
+      {pathways.map((pathway) => (
+        <li class="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] 2xl:w-[calc(20%-1.2rem)]">
+          <a 
+            href="#"
+            class="group relative overflow-hidden rounded-xl shadow-lg h-[400px] cursor-pointer block bg-primary"
+          >
+            <!-- Image Layer -->
+            <img 
+              src={pathway.image} 
+              alt={pathway.title} 
+              loading="lazy"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 z-0" 
+            />
+            
+            <!-- Gradient Overlay Layer -->
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10"></div>
+            
+            <!-- Hover Payload Layer -->
+            <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end text-center">
+              <h3 class="text-xl font-bold text-white mb-2 translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                {pathway.title}
+              </h3>
+              <p class="text-white/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                {pathway.description}
+              </p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
