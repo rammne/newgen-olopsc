@@ -53,6 +53,14 @@ const ogImage = homePage?.seo?.image?.asset?.url;
   }
 
   {
+    homePage?.programsPreview && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <ProgramsPreview programsPreview={homePage.programsPreview} />
+      </ScrollRevealWrapper>
+    )
+  }
+
+  {
     homePage?.keyStats &&
       homePage.keyStats.stats &&
       homePage.keyStats.stats.length > 0 && (
@@ -60,6 +68,16 @@ const ogImage = homePage?.seo?.image?.asset?.url;
           <Stats keyStats={homePage.keyStats} />
         </ScrollRevealWrapper>
       )
+  }
+
+  {
+    homePage?.academicDepartments && (
+      <ScrollRevealWrapper direction="up" delay={0.2}>
+        <AcademicDepartments
+          academicDepartments={homePage.academicDepartments}
+        />
+      </ScrollRevealWrapper>
+    )
   }
 
   {
@@ -74,24 +92,6 @@ const ogImage = homePage?.seo?.image?.asset?.url;
     homePage?.sRice && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <SRice sRice={homePage.sRice} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    homePage?.academicDepartments && (
-      <ScrollRevealWrapper direction="up" delay={0.2}>
-        <AcademicDepartments
-          academicDepartments={homePage.academicDepartments}
-        />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    homePage?.programsPreview && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <ProgramsPreview programsPreview={homePage.programsPreview} />
       </ScrollRevealWrapper>
     )
   }
@@ -113,22 +113,22 @@ const ogImage = homePage?.seo?.image?.asset?.url;
   }
 
   {
-    homePage?.latestNews && newsArticles.length > 0 && (
+    homePage?.upcomingEvents && events.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <LatestNews
-          latestNews={homePage.latestNews}
-          newsArticles={newsArticles}
+        <UpcomingEvents
+          upcomingEvents={homePage.upcomingEvents}
+          events={events}
         />
       </ScrollRevealWrapper>
     )
   }
 
   {
-    homePage?.upcomingEvents && events.length > 0 && (
+    homePage?.latestNews && newsArticles.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <UpcomingEvents
-          upcomingEvents={homePage.upcomingEvents}
-          events={events}
+        <LatestNews
+          latestNews={homePage.latestNews}
+          newsArticles={newsArticles}
         />
       </ScrollRevealWrapper>
     )
