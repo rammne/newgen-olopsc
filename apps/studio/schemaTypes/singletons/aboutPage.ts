@@ -38,8 +38,15 @@ export const aboutPage = defineType({
           of: [{ type: 'block' }],
         }),
         defineField({
-          name: 'image',
-          title: 'Image',
+          name: 'mainImage',
+          title: 'Main Image (Back/Large)',
+          type: 'image',
+          options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+        }),
+        defineField({
+          name: 'subImage',
+          title: 'Sub Image (Front/Small)',
           type: 'image',
           options: { hotspot: true },
           fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],

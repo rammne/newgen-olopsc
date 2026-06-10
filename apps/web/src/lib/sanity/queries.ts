@@ -31,7 +31,13 @@ export async function getAboutPage() {
     identity {
       title,
       content,
-      image {
+      mainImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      subImage {
         asset->{
           url
         },

@@ -12,7 +12,7 @@ interface Props {
 const defaultBadge = "Est. 1978 • Marikina City";
 const defaultHeadline = "More Than a School. <span class='text-slate-800'>A Community & A Family.</span>";
 const defaultBody = [
-  "Founded by the late Dionisio Alonzo San Pedro and Carmen C. San Pedro, Our Lady of Perpetual Succor College (OLOPSC) is a premier private Catholic institution. For over 45 years, we have provided a seamless academic pipeline rooted in our unique 'Caring Culture'.",
+  "Founded by the late Dionisio Alonzo Salvador and Carmen C. Salvador, Our Lady of Perpetual Succor College (OLOPSC) is a premier private Catholic institution. For over 45 years, we have provided a seamless academic pipeline rooted in our unique 'Caring Culture'.",
   "From our DepEd-accredited Basic Education programs to our expanding, CHED-recognized College Degree departments, we are dedicated to producing industry-ready professionals capable of making a global impact."
 ];
 const defaultCtaText = "Read Our Full History";
@@ -41,19 +41,19 @@ const resolvedImageUrl = intro?.imageUrl || intro?.image?.asset?.url || imageUrl
 <section class="py-16 md:py-24 bg-white">
   <div class="container mx-auto px-6 max-w-7xl">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-      
+
       <!-- Visual Column (Image) -->
       <!-- order-1 on mobile so it stacks on top, lg:order-2 on desktop so it appears on the right -->
       <div class="relative w-full h-[400px] lg:h-[500px] order-1 lg:order-2 group">
         <!-- Rotated background card -->
         <div class="absolute -inset-2 md:-inset-4 bg-[var(--color-primary)] rounded-2xl transform rotate-3 transition-transform duration-300 group-hover:rotate-6 shadow-2xl"></div>
-        
+
         <!-- Image Container -->
         <div class="relative w-full h-full rounded-2xl overflow-hidden shadow-xl transform transition-transform duration-300 group-hover:scale-[1.01]">
-          <img 
-            src={resolvedImageUrl} 
-            alt="Institutional Authority Image" 
-            loading="lazy" 
+          <img
+            src={resolvedImageUrl}
+            alt="Institutional Authority Image"
+            loading="lazy"
             class="absolute inset-0 w-full h-full object-cover"
           />
           <!-- Subtle dark gradient overlay at the bottom -->
@@ -68,13 +68,13 @@ const resolvedImageUrl = intro?.imageUrl || intro?.image?.asset?.url || imageUrl
         <span class="inline-block text-yellow-500 font-bold uppercase tracking-widest text-sm mb-4">
           {resolvedBadge}
         </span>
-        
+
         <!-- Headline -->
-        <h2 
-          class="text-3xl md:text-5xl font-black text-blue-950 mb-8 leading-tight" 
+        <h2
+          class="text-3xl md:text-5xl font-black text-blue-950 mb-8 leading-tight"
           set:html={resolvedHeadline}
         />
-        
+
         <!-- Body Paragraphs -->
         <div class="mb-8">
           {resolvedBody.map((paragraph: string) => (
@@ -85,19 +85,19 @@ const resolvedImageUrl = intro?.imageUrl || intro?.image?.asset?.url || imageUrl
         </div>
 
         <!-- Minimalist CTA -->
-        <a 
-          href={resolvedCtaUrl} 
+        <a
+          href={resolvedCtaUrl}
           class="group inline-flex items-center gap-2 text-blue-950 font-semibold text-lg hover:text-yellow-600 transition-colors duration-300"
         >
           {resolvedCtaText}
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            class="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-2" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-2"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
             stroke-linejoin="round"
           >
             <path d="M5 12h14"></path>
