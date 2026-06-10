@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Hero from "../../components/homepage/Hero.astro";
 import SdgCard from "../../components/sdg/SdgCard.astro";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
 import { getSdgPage, getAllSdgs } from "../../lib/sanity/queries";
@@ -24,7 +23,6 @@ const pageDescription =
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-    {sdgPage?.hero && <Hero hero={sdgPage.hero} />}
 
     <section
         class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"

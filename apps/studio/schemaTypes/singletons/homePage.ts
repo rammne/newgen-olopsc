@@ -287,7 +287,11 @@ export const homePage = defineType({
           of: [
             {
               type: 'reference',
-              to: [{ type: 'collegeProgram' }],
+              to: [
+                { type: 'collegeProgram' },
+                { type: 'psychology' },
+                { type: 'tourismManagement' }
+              ],
             },
           ],
           validation: (Rule) => Rule.max(6).error('Please select up to 6 programs'),

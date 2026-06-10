@@ -17,11 +17,13 @@ import {
   getHomePage,
   getLatestNews,
   getUpcomingEvents,
+  getCollegeProgramThumbnails,
 } from "../lib/sanity/queries";
 import "../styles/global.css";
 
 // Fetch homepage data
 const homePage = await getHomePage();
+const thumbnails = await getCollegeProgramThumbnails();
 
 // Fetch featured news (max 3) for home page
 let newsArticles = [];
@@ -55,7 +57,7 @@ const ogImage = homePage?.seo?.image?.asset?.url;
   {
     homePage?.programsPreview && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <ProgramsPreview programsPreview={homePage.programsPreview} />
+        <ProgramsPreview programsPreview={homePage.programsPreview} thumbnails={thumbnails} />
       </ScrollRevealWrapper>
     )
   }

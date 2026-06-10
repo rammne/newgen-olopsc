@@ -1,21 +1,263 @@
 ---
-import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
+import Layout from "../layouts/Layout.astro";
+import CtaButton from "../components/common/CtaButton.astro";
 import { getBusinessAdminPage } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 
-const departmentData = await getBusinessAdminPage();
+const pageData = await getBusinessAdminPage();
 
-const department = departmentData || {
-    title: "College of Business Administration & Entrepreneurship",
-    degree: "Bachelor of Science in Business Administration, Bachelor of Science in Entrepreneurship",
-    hero: {
-        headline: "College of Business Administration & Entrepreneurship",
-        variant: "image",
-    },
-    intro: {
-        headline: "Welcome",
-        content: "Content is being updated.",
-    },
+const heroBackground = {
+  url: pageData?.heroBackground?.asset?.url 
+    ? getSanityImageUrl(pageData.heroBackground, { width: 1920, height: 1080, fit: "crop" })
+    : "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1920&auto=format&fit=crop",
+  alt: pageData?.heroBackground?.alt || "Corporate Boardroom and Strategy"
 };
+
+const quickFacts = {
+  duration: pageData?.quickFacts?.duration || "4 Years",
+  units: pageData?.quickFacts?.units || "150 Units",
+  format: pageData?.quickFacts?.format || "On-Campus & Practicum"
+};
+
+const tracks = pageData?.programs && pageData.programs.length > 0
+  ? pageData.programs
+  : [
+      { title: "Human Resource Management", subtitle: "BSBA - HRM", description: "Master organizational behavior, talent acquisition, and corporate labor strategy." },
+      { title: "Marketing Management", subtitle: "BSBA - MM", description: "Command consumer analytics, digital brand architecture, and global market expansion." },
+      { title: "Entrepreneurship", subtitle: "BS - ENT", description: "Architect scalable startups, secure venture funding, and execute disruptive business models." }
+    ];
+
+const overviewMainImage = {
+  url: pageData?.overviewMainImage?.asset?.url 
+    ? getSanityImageUrl(pageData.overviewMainImage, { width: 800, height: 600, fit: "crop" })
+    : "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=800&auto=format&fit=crop",
+  alt: pageData?.overviewMainImage?.alt || "Corporate Enterprise Leadership"
+};
+
+const overviewSubImage = {
+  url: pageData?.overviewSubImage?.asset?.url
+    ? getSanityImageUrl(pageData.overviewSubImage, { width: 600, height: 600, fit: "crop" })
+    : "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop",
+  alt: pageData?.overviewSubImage?.alt || "Business Strategy Collaboration"
+};
+
+const outcomes = pageData?.outcomes && pageData.outcomes.length > 0 
+  ? pageData.outcomes 
+  : [
+      { title: "Strategic Human Capital (HRM)", description: "Mastery of organizational behavior, corporate labor law, and the architecture of high-performance enterprise teams." },
+      { title: "Global Brand Architecture (MM)", description: "The capability to direct consumer analytics, execute digital marketing campaigns, and drive international market expansion." },
+      { title: "Venture Creation & Scaling (ENT)", description: "The application of disruptive business models to launch scalable startups, secure venture funding, and drive innovation." },
+      { title: "Data-Driven Financial Leadership", description: "A deeply ingrained capability to interpret complex financial data, optimize corporate revenue, and execute executive-level strategies." }
+    ];
+
+const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
+  ? pageData.curriculumTracks
+  : [
+      { 
+        id: "hrm", 
+        name: "Human Resource Management", 
+        roadmap: [
+          { year: "Year 1", title: "Enterprise Foundations", subjects: ["Principles of Management", "Business Economics", "Corporate Accounting"] },
+          { year: "Year 2", title: "Talent Architecture", subjects: ["Organizational Behavior", "Labor Law & Legislation", "Recruitment Strategies"] },
+          { year: "Year 3", title: "Strategic HR", subjects: ["Compensation & Benefits", "Performance Management", "Corporate Training"] },
+          { year: "Year 4", title: "Executive Leadership", subjects: ["Strategic HR Management", "Corporate Governance", "Industry Practicum"] }
+        ] 
+      },
+      { 
+        id: "mm", 
+        name: "Marketing Management", 
+        roadmap: [
+          { year: "Year 1", title: "Enterprise Foundations", subjects: ["Principles of Marketing", "Business Economics", "Corporate Accounting"] },
+          { year: "Year 2", title: "Consumer Analytics", subjects: ["Consumer Behavior", "Marketing Research", "Digital Marketing"] },
+          { year: "Year 3", title: "Brand Architecture", subjects: ["Brand Management", "Advertising Strategy", "Global Marketing"] },
+          { year: "Year 4", title: "Market Domination", subjects: ["Strategic Marketing", "Retail Management", "Industry Practicum"] }
+        ] 
+      },
+      { 
+        id: "ent", 
+        name: "Entrepreneurship", 
+        roadmap: [
+          { year: "Year 1", title: "Venture Foundations", subjects: ["Entrepreneurial Mindset", "Business Economics", "Corporate Accounting"] },
+          { year: "Year 2", title: "Business Incubation", subjects: ["Opportunity Seeking", "Business Plan Preparation", "Venture Finance"] },
+          { year: "Year 3", title: "Scaling & Innovation", subjects: ["Innovation Management", "New Product Development", "Supply Chain Management"] },
+          { year: "Year 4", title: "Venture Execution", subjects: ["Business Implementation", "Strategic Management", "Industry Practicum"] }
+        ] 
+      }
+    ];
+
+const pageTitle = pageData?.seo?.title || "BS Business Administration & Entrepreneurship | OLOPSC College of BMSE";
+const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build Ventures. A specialized degree track in HR, Marketing, and Entrepreneurship.";
 ---
 
-<DepartmentTemplate department={department} />
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
+    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+      <div class="lg:col-span-7 flex flex-col">
+        <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Lead Enterprises. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Build Ventures.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a core pillar of the College of Business, Management, Science, and Education (BMSE), this department offers specialized tracks in Human Resource Management, Marketing Management, and Entrepreneurship. We engineer corporate leaders and startup founders driven by data and strategy.</p>
+        <div class="flex flex-wrap gap-4">
+          <CtaButton cta={{ text: "Explore Degree Tracks", link: "#programs", style: "primary" }} />
+          <CtaButton cta={{ text: "View Corporate Paths", link: "#outcomes", style: "outline" }} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+      <!-- Fact 1: Degree Options (Updated for Explicit Acronyms) -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">HRM &bull; MM &bull; ENT</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Specialized Tracks</span>
+      </div>
+
+      <!-- Fact 2: Duration -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">4 Years</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Standard Completion</span>
+      </div>
+
+      <!-- Fact 3: Workload -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">150+ Units</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Average Academic Load</span>
+      </div>
+
+      <!-- Fact 4: Format -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">On-Campus</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Corporate Trajectory.</h2>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {tracks.map((track: any) => (
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 flex flex-col">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-3">{track.subtitle}</span>
+          <h3 class="text-2xl font-black text-white mb-4 leading-tight">{track.title}</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">{track.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <!-- Left Column: Typography & Corporate Payload -->
+      <div class="flex flex-col relative z-10">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Enterprise Leadership.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Business Administration and Entrepreneurship programs provide a rigorous, data-driven foundation in modern commerce. Whether scaling a startup, directing human capital, or architecting global marketing campaigns, this curriculum equips students with the exact frameworks required to command a competitive economy.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Moving beyond traditional theory, our students engage in live corporate case studies, venture capital pitches, and intensive industry practicums. Graduates emerge as agile strategists, prepared to launch their own disruptive enterprises or step into executive roles within multinational corporations.</p>
+      </div>
+
+      <!-- Right Column: Asymmetric Dual-Image Composition -->
+      <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0">
+        <!-- Background Decorative Glow -->
+        <div class="absolute right-12 top-12 w-2/3 h-2/3 bg-surface rounded-full blur-3xl -z-10 opacity-50"></div>
+
+        <!-- Main Image (Back/Bottom-Left) -->
+        <div class="absolute left-0 bottom-0 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl z-10">
+          <img src={overviewMainImage.url} alt={overviewMainImage.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        </div>
+
+        <!-- Sub Image (Front/Top-Right) -->
+        <div class="absolute right-0 top-0 w-[55%] aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20">
+          <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white relative border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+      <!-- Left Column: The Sticky Manifesto (The "Why") -->
+      <div class="lg:col-span-5 relative h-full">
+        <div class="sticky top-32 flex flex-col">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than management. True enterprise creation.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you to read financial statements or memorize marketing theories; we train you to architect growth. Whether you are scaling a tech startup, directing a corporate marketing division, or managing human capital for a multinational firm, our curriculum strips away the theoretical fluff. When you graduate, you possess a distinct set of highly marketable executive capabilities.</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Graduate Capabilities (The Outcomes) -->
+      <div class="lg:col-span-7 flex flex-col">
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+
+        {outcomes.map((outcome: any) => (
+          <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
+              <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
+            <div class="flex flex-col">
+              <h4 class="text-xl font-black text-primary mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
+              <p class="text-slate-600 leading-relaxed text-base">{outcome.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+    Tailwind Safelist for dynamic named peers:
+    peer-checked/hrm:bg-primary peer-checked/hrm:text-white peer-checked/hrm:block peer/hrm
+    peer-checked/mm:bg-primary peer-checked/mm:text-white peer-checked/mm:block peer/mm
+    peer-checked/ent:bg-primary peer-checked/ent:text-white peer-checked/ent:block peer/ent
+  -->
+  <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 relative">
+      <div class="text-center mb-16">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
+      </div>
+
+      <!-- Zero-JS CSS Tab Inputs -->
+      {curriculumTracks.map((track: any, index: number) => (
+        <input type="radio" name="curriculum-tab" id={track.id} class={`peer/${track.id} sr-only`} checked={index === 0} />
+      ))}
+
+      <!-- Tab Labels -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        {curriculumTracks.map((track: any) => (
+          <label for={track.id} class={`cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest bg-white border border-slate-200 text-slate-500 peer-checked/${track.id}:bg-primary peer-checked/${track.id}:text-white hover:bg-slate-50 transition-all`}>
+            {track.name}
+          </label>
+        ))}
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="relative">
+        {curriculumTracks.map((track: any) => (
+          <div class={`hidden peer-checked/${track.id}:block space-y-4 animate-in fade-in duration-500`}>
+            {track.roadmap.map((year: any) => (
+              <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h4 class="text-xl font-black text-primary mb-4">{year.year}: {year.title}</h4>
+                <div class="flex flex-wrap gap-2">
+                  {year.subjects.map((subject: string) => (
+                    <span class="bg-surface text-primary py-1 px-3 rounded-md text-xs font-bold">{subject}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

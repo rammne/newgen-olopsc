@@ -516,6 +516,12 @@ export async function getHomePage() {
         slug {
           current
         },
+        cardThumbnail {
+          asset->{
+            url
+          },
+          alt
+        },
         hero {
           backgroundImage {
             asset->{
@@ -1684,16 +1690,22 @@ export async function getTourismManagementPage() {
   const query = `*[_type == "tourismManagement"][0]{
     _id,
     title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
-    seo { ..., image { asset->{ url } } }
+    heroBackground { alt, asset->{url} },
+    quickFacts,
+    overviewMainImage { alt, asset->{url} },
+    overviewSubImage { alt, asset->{url} },
+    outcomes,
+    curriculum,
+    ecosystemImages {
+      lab { alt, asset->{url} },
+      society { alt, asset->{url} },
+      research { alt, asset->{url} },
+      community { alt, asset->{url} }
+    },
+    chair { ..., image { alt, asset->{url} } },
+    faculty[] { ..., image { alt, asset->{url} } },
+    pathways,
+    seo
   }`
   return await client.fetch(query)
 }
@@ -1704,16 +1716,33 @@ export async function getTourismManagementPage() {
 export async function getHospitalityManagementPage() {
   const query = `*[_type == "hospitalityManagement"][0]{
     _id,
-    title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
+    heroBackground { asset->{ url }, alt },
+    cardThumbnail { asset->{ url }, alt },
+    quickFacts,
+    overviewMainImage { asset->{ url }, alt },
+    overviewSubImage { asset->{ url }, alt },
+    outcomes,
+    curriculum,
+    ecosystemImages {
+      facilities { asset->{ url }, alt },
+      society { asset->{ url }, alt },
+      catering { asset->{ url }, alt },
+      restaurant { asset->{ url }, alt }
+    },
+    chair {
+      name,
+      title,
+      credentials,
+      quote,
+      image { asset->{ url }, alt }
+    },
+    faculty[] {
+      name,
+      specialty,
+      credentials,
+      image { asset->{ url }, alt }
+    },
+    pathways,
     seo { ..., image { asset->{ url } } }
   }`
   return await client.fetch(query)
@@ -1747,16 +1776,22 @@ export async function getPsychologyPage() {
   const query = `*[_type == "psychology"][0]{
     _id,
     title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
-    seo { ..., image { asset->{ url } } }
+    heroBackground { alt, asset->{url} },
+    quickFacts,
+    overviewMainImage { alt, asset->{url} },
+    overviewSubImage { alt, asset->{url} },
+    outcomes,
+    curriculum,
+    ecosystemImages {
+      lab { alt, asset->{url} },
+      society { alt, asset->{url} },
+      research { alt, asset->{url} },
+      community { alt, asset->{url} }
+    },
+    chair { ..., image { alt, asset->{url} } },
+    faculty[] { ..., image { alt, asset->{url} } },
+    pathways,
+    seo
   }`
   return await client.fetch(query)
 }

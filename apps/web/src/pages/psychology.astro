@@ -1,21 +1,463 @@
 ---
-import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
-import { getPsychologyPage } from "../lib/sanity/queries";
+import Layout from "../layouts/Layout.astro";
+import CtaButton from "../components/common/CtaButton.astro";
+import "../styles/global.css";
 
-const departmentData = await getPsychologyPage();
+import { getPsychologyPage } from '../lib/sanity/queries';
 
-const department = departmentData || {
-    title: "College of Psychology",
-    degree: "Bachelor of Science in Psychology, Bachelor of Arts in Psychology",
-    hero: {
-        headline: "College of Psychology",
-        variant: "image",
-    },
-    intro: {
-        headline: "Welcome",
-        content: "Content is being updated.",
-    },
+const sanityData = await getPsychologyPage();
+
+const heroBackground = sanityData?.heroBackground?.asset?.url ? {
+    url: sanityData.heroBackground.asset.url,
+    alt: sanityData.heroBackground.alt || "Psychology students conducting clinical research"
+} : {
+    url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1920&auto=format&fit=crop",
+    alt: "Psychology students conducting clinical research"
 };
+
+const quickFacts = sanityData?.quickFacts || {
+    duration: "4 Years",
+    units: "168 Units",
+    format: "On-Campus"
+};
+
+const overviewMainImage = sanityData?.overviewMainImage?.asset?.url ? {
+    url: sanityData.overviewMainImage.asset.url,
+    alt: sanityData.overviewMainImage.alt || "Psychology Students Campus"
+} : {
+    url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop",
+    alt: "Psychology Students Campus"
+};
+
+const overviewSubImage = sanityData?.overviewSubImage?.asset?.url ? {
+    url: sanityData.overviewSubImage.asset.url,
+    alt: sanityData.overviewSubImage.alt || "Clinical Lab Collaboration"
+} : {
+    url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1920&auto=format&fit=crop",
+    alt: "Clinical Lab Collaboration"
+};
+
+const outcomes = sanityData?.outcomes && sanityData.outcomes.length > 0 ? sanityData.outcomes : [
+    {
+        title: "Advanced Psychometrics",
+        description: "Mastery in the administration, scoring, and clinical interpretation of industry-standard psychological assessments."
+    },
+    {
+        title: "Behavioral Research Proficiency",
+        description: "The capability to ethically design, execute, and publish rigorous qualitative and quantitative behavioral research."
+    },
+    {
+        title: "Clinical & Corporate Intervention",
+        description: "The application of psychological theories to facilitate mental health, wellness, and organizational development."
+    },
+    {
+        title: "Empathetic Ethical Practice",
+        description: "A deeply ingrained commitment to the ethical standards of the psychological profession, rooted in Marian values."
+    }
+];
+
+const curriculum = sanityData?.curriculum && sanityData.curriculum.length > 0 ? sanityData.curriculum : [
+    {
+        year: "Year 1",
+        title: "Foundations of Behavior",
+        description: "Master the fundamental concepts of human behavior, biological sciences, and quantitative logic.",
+        subjects: ["General Psychology", "Anatomy & Physiology", "Psychological Statistics"]
+    },
+    {
+        year: "Year 2",
+        title: "Development & Experimentation",
+        description: "Explore human growth across the lifespan and begin rigorous experimental research design.",
+        subjects: ["Developmental Psychology", "Experimental Psychology", "Theories of Personality"]
+    },
+    {
+        year: "Year 3",
+        title: "Assessment & Clinical Analysis",
+        description: "Dive into psychological testing, diagnostics, and the study of behavioral disorders.",
+        subjects: ["Psychological Assessment", "Abnormal Psychology", "Industrial/Organizational Psychology"]
+    },
+    {
+        year: "Year 4",
+        title: "Practicum & Research Defense",
+        description: "Apply your knowledge in real-world clinical or corporate settings and defend your thesis.",
+        subjects: ["Clinical Practicum", "HR/Corporate Practicum", "Research in Psychology II"]
+    }
+];
+
+const ecosystemImages = sanityData?.ecosystemImages ? {
+    lab: sanityData.ecosystemImages.lab?.asset?.url ? { url: sanityData.ecosystemImages.lab.asset.url, alt: sanityData.ecosystemImages.lab.alt || "Clinical Lab" } : { url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1920&auto=format&fit=crop", alt: "Clinical Lab" },
+    society: sanityData.ecosystemImages.society?.asset?.url ? { url: sanityData.ecosystemImages.society.asset.url, alt: sanityData.ecosystemImages.society.alt || "Psychology Society" } : { url: "https://images.unsplash.com/photo-1529070538774-1843cb1665e4?q=80&w=1920&auto=format&fit=crop", alt: "Psychology Society" },
+    research: sanityData.ecosystemImages.research?.asset?.url ? { url: sanityData.ecosystemImages.research.asset.url, alt: sanityData.ecosystemImages.research.alt || "Research Symposium" } : { url: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920&auto=format&fit=crop", alt: "Research Symposium" },
+    community: sanityData.ecosystemImages.community?.asset?.url ? { url: sanityData.ecosystemImages.community.asset.url, alt: sanityData.ecosystemImages.community.alt || "Community Extension" } : { url: "https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=1920&auto=format&fit=crop", alt: "Community Extension" }
+} : {
+    lab: { url: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1920&auto=format&fit=crop", alt: "Clinical Lab" },
+    society: { url: "https://images.unsplash.com/photo-1529070538774-1843cb1665e4?q=80&w=1920&auto=format&fit=crop", alt: "Psychology Society" },
+    research: { url: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920&auto=format&fit=crop", alt: "Research Symposium" },
+    community: { url: "https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=1920&auto=format&fit=crop", alt: "Community Extension" }
+};
+
+const chair = sanityData?.chair ? {
+    name: sanityData.chair.name || "LEHI SALONGA, MA, RPsy, RPm, CHRP, CLSSGB",
+    title: sanityData.chair.title || "Program Chair & Faculty, Psychology",
+    credentials: sanityData.chair.credentials || "Trauma Specialist Practitioner | Mental Health First Responder | Safety Officer 2",
+    quote: sanityData.chair.quote || "Studying Psychology teaches us to recognize kapwa. As kapwa, we learn to sit with others in their pagdadala, acknowledging the burdens and experiences they carry. This is more than a concept we study. It is the very heart of Psychology: to understand deeply, accompany compassionately, and help build communities grounded in shared humanity, dignity, and meaningful connection.",
+    image: sanityData.chair.image?.asset?.url ? { url: sanityData.chair.image.asset.url, alt: sanityData.chair.image.alt || "Program Chair" } : { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop", alt: "Program Chair" }
+} : {
+    name: "LEHI SALONGA, MA, RPsy, RPm, CHRP, CLSSGB",
+    title: "Program Chair & Faculty, Psychology",
+    credentials: "Trauma Specialist Practitioner | Mental Health First Responder | Safety Officer 2",
+    quote: "Studying Psychology teaches us to recognize kapwa. As kapwa, we learn to sit with others in their pagdadala, acknowledging the burdens and experiences they carry. This is more than a concept we study. It is the very heart of Psychology: to understand deeply, accompany compassionately, and help build communities grounded in shared humanity, dignity, and meaningful connection.",
+    image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop", alt: "Program Chair" }
+};
+
+const faculty = sanityData?.faculty && sanityData.faculty.length > 0 ? sanityData.faculty.map((f: any) => ({
+    name: f.name || "Faculty Name",
+    specialty: f.specialty || "Specialty",
+    credentials: f.credentials || "Credentials",
+    image: f.image?.asset?.url ? { url: f.image.asset.url, alt: f.image.alt || "Faculty" } : { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop", alt: "Faculty" }
+})) : [
+    {
+        name: "Dr. Roberto Reyes",
+        specialty: "Clinical Psychology",
+        credentials: "Ph.D., RPsy",
+        image: { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop", alt: "Faculty" }
+    },
+    {
+        name: "Prof. Elena Cruz",
+        specialty: "Industrial/Organizational",
+        credentials: "M.A., RPm",
+        image: { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop", alt: "Faculty" }
+    },
+    {
+        name: "Dr. Miguel Torres",
+        specialty: "Experimental Psychology",
+        credentials: "Ph.D., RPm",
+        image: { url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop", alt: "Faculty" }
+    },
+    {
+        name: "Prof. Sarah Villanueva",
+        specialty: "Development Psychology",
+        credentials: "M.A., RPm",
+        image: { url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop", alt: "Faculty" }
+    }
+];
+
+const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanityData.pathways : [
+    {
+        title: "Corporate & Industrial",
+        subtitle: "High-Yield Business Roles",
+        description: "Leverage your understanding of human behavior to optimize corporate environments, consumer experiences, and organizational health.",
+        roles: ["Human Resources Director", "UX/UI Researcher", "Organizational Development Consultant", "Consumer Insights Analyst"]
+    },
+    {
+        title: "Clinical & Educational",
+        subtitle: "Direct Psychological Intervention",
+        description: "The traditional route. Acquire your BLEPP license and step directly into mental health, diagnostics, and educational support.",
+        roles: ["Licensed Psychometrician", "Behavioral Therapist", "Guidance Associate", "SPED Educator"]
+    },
+    {
+        title: "The Graduate Pipeline",
+        subtitle: "Advanced Prestige Degrees",
+        description: "Use your B.S. in Psychology as the ultimate scientific stepping stone into elite doctoral and professional programs.",
+        roles: ["Medical School (Psychiatry/Neurology)", "Law School", "Ph.D. in Clinical Psychology", "Master's in Counseling"]
+    }
+];
 ---
 
-<DepartmentTemplate department={department} />
+<Layout title="B.S. Psychology | College of BMSE">
+  <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
+    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+      <div class="lg:col-span-7 flex flex-col">
+        <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science in Psychology</h2>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Understand the Mind. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Shape the Future.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a flagship program of the College of Business, Management, Science, and Education (BMSE), our psychology degree goes beyond theory. We engineer rigorous scientific inquiry, hands-on clinical research, and a deep understanding of human behavior.</p>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} />
+          <CtaButton cta={{ text: "View Career Paths", link: { type: "anchor", anchor: "outcomes" } }} variant="secondary" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+          </svg>
+        </span>
+        <span class="text-xl font-black text-primary tracking-tight">B.S. Psychology</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Degree Program</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.duration || '4 Years'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Standard Completion</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.units || '168 Units'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Total Academic Load</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+        </span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.format || 'On-Campus'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="py-24 md:py-32 bg-white overflow-hidden border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+      <div class="flex flex-col relative z-10">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Empirically-Driven Scientific Foundation.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Psychology provides a comprehensive foundation in the scientific study of human behavior and cognitive processes. This four-year program equips students with the scientific methodologies required to observe, assess, and interpret psychological phenomena.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">The curriculum is heavily weighted toward the natural sciences, integrating neurobiology, advanced statistics, and experimental research. Graduates are fully prepared to pass the Board Licensure Examination for Psychometricians (BLEPP), enter high-value corporate roles, or pursue advanced degrees.</p>
+      </div>
+
+      <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0 group">
+        <div class="absolute right-12 top-12 w-2/3 h-2/3 bg-surface rounded-full blur-3xl -z-10 opacity-50"></div>
+        <div class="absolute left-0 bottom-0 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl z-10">
+          <img src={overviewMainImage.url} alt={overviewMainImage.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        </div>
+        <div class="absolute right-0 top-0 w-[55%] aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20">
+          <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="outcomes" class="py-24 md:py-32 bg-white relative border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+
+      <div class="lg:col-span-5 relative h-full">
+        <div class="sticky top-32 flex flex-col">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than observation. True clinical understanding.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you to read about the mind; we train you to analyze it, measure it, and heal it. Our curriculum strips away the fluff, focusing heavily on hands-on psychometrics, experimental psychology, and actionable clinical interventions. When you graduate, you aren't just holding a degree—you possess a distinct set of highly marketable capabilities.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 flex flex-col">
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        {outcomes.map((outcome) => (
+          <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
+              <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="flex flex-col">
+              <h4 class="text-xl font-black text-primary mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
+              <p class="text-slate-600 leading-relaxed text-base">{outcome.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is strategically sequenced. We focus on core scientific competencies, stripping away redundancies to prepare you for the board exams and clinical practice.</p>
+      </div>
+
+      <div class="space-y-4">
+        {curriculum.map((item) => (
+          <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden">
+              <div class="flex items-center gap-6">
+                <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent transition-colors tracking-tighter">{item.year}</span>
+                <h3 class="text-xl md:text-2xl font-bold text-primary">{item.title}</h3>
+              </div>
+              <span class="w-10 h-10 rounded-full flex items-center justify-center text-primary group-open:rotate-180 transition-transform duration-300 bg-surface">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </summary>
+
+            <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
+              <p class="text-slate-600 mb-6 leading-relaxed">{item.description}</p>
+              <div class="flex flex-col gap-3">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
+                <div class="flex flex-wrap gap-3">
+                  {item.subjects.map((subject) => (
+                    <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Beyond the Classroom.</h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Immerse yourself in a culture of inquiry. From advanced clinical laboratories to student-led mental health initiatives, this is where theory becomes practice.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+
+      <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.lab.url} alt={ecosystemImages.lab.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Infrastructure</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Clinical & Experimental Laboratories</h3>
+          <p class="text-slate-300 text-sm max-w-md hidden md:block">Equipped with industry-standard psychometric testing kits, observation mirrors, and biometric sensors for rigorous behavioral experimentation.</p>
+        </div>
+      </div>
+
+      <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The OLOPSC Psychology Society</h3>
+          <p class="text-slate-300 text-sm">A highly active, student-led organization fostering peer mentorship, academic debates, and mental health advocacy across the Marikina campus.</p>
+        </div>
+      </div>
+
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.research.url} alt={ecosystemImages.research.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Academic Output</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Undergraduate Research Symposium</h3>
+        </div>
+      </div>
+
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.community.url} alt={ecosystemImages.community.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Social Responsibility</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Community Extension Programs</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
+        <div class="lg:col-span-5 relative">
+          <div class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+            <img src={chair.image.url} alt={chair.image.alt} class="w-full h-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
+              <h3 class="text-2xl font-black text-white leading-tight">{chair.name}</h3>
+              <span class="text-accent font-bold text-sm tracking-widest uppercase">{chair.title}</span>
+              <p class="text-slate-300 text-xs mt-1">{chair.credentials}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block">Message from the Program Chair</span>
+          <svg class="w-16 h-16 text-slate-100 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+          <p class="text-2xl md:text-2xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
+        </div>
+      </div>
+
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-black tracking-tight text-primary">Core Faculty & Practitioners</h3>
+        <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Learn directly from actively licensed psychometricians, clinical psychologists, and corporate consultants.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {faculty.map((faculty) => (
+          <div class="group flex flex-col">
+            <div class="relative w-full aspect-[3/4] bg-surface rounded-2xl overflow-hidden mb-6 border border-slate-100 shadow-sm">
+              <img src={faculty.image.url} alt={faculty.image.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+              <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-[10px] font-black uppercase tracking-widest py-1.5 px-3 rounded-md shadow-sm z-20">{faculty.specialty}</div>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+              <h4 class="text-lg font-black text-primary mb-1 group-hover:text-accent transition-colors duration-300">{faculty.name}</h4>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">{faculty.credentials}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Launchpad to the Future.</h2>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Psychology from OLOPSC is not just a diploma; it is a highly versatile asset. Our graduates dominate in the boardroom, the clinic, and elite graduate schools.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      {pathways.map((pathway) => (
+        <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div class="mb-8 border-b border-slate-100 pb-8">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+            <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+          </div>
+          <div class="flex-grow flex flex-col">
+            <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
+            <ul class="space-y-3">
+              {pathway.roles.map((role) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
+      <CtaButton cta={{ text: "Begin Your Application Today", link: { type: "internal", internal: { _type: "page", slug: { current: "admissions" } } } }} />
+    </div>
+  </section>
+
+</Layout>

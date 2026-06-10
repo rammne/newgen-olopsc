@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import { Users, BookOpen, Search } from 'lucide-react'
+import { Users, BookOpen, Search, ImageIcon } from 'lucide-react'
 
 export const psychology = defineType({
   name: 'psychology',
@@ -7,135 +7,194 @@ export const psychology = defineType({
   type: 'document',
   icon: Users,
   groups: [
-    { name: 'content', title: 'Content', icon: Users, default: true },
-    { name: 'programs', title: 'Programs & Curriculum', icon: BookOpen },
+    { name: 'hero', title: 'Hero & Quick Facts', icon: ImageIcon, default: true },
+    { name: 'overview', title: 'Program Overview' },
+    { name: 'outcomes', title: 'Outcomes & Manifesto' },
+    { name: 'curriculum', title: 'Curriculum Engine' },
+    { name: 'ecosystem', title: 'Ecosystem Images' },
+    { name: 'leadership', title: 'Leadership & Faculty' },
+    { name: 'pathways', title: 'Career Pathways' },
     { name: 'seo', title: 'SEO', icon: Search },
   ],
   fields: [
+    // --- HERO & QUICK FACTS ---
     defineField({
-      name: 'title',
-      title: 'Department Title',
-      type: 'string',
-      initialValue: 'College of Psychology',
-      group: 'content',
+      name: 'heroBackground',
+      title: 'Hero Background Image',
+      type: 'image',
+      group: 'hero',
+      options: { hotspot: true },
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
     }),
     defineField({
       name: 'cardThumbnail',
       title: 'Card Thumbnail (Hub Page)',
+      description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800x450px (16:9).',
       type: 'image',
-      description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800×450px (16:9).',
+      group: 'hero',
       options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
-      group: 'content',
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
     }),
     defineField({
-      name: 'hero',
-      title: 'Hero Section',
-      type: 'hero',
-      validation: (Rule) => Rule.required(),
-      group: 'content',
-    }),
-    defineField({
-      name: 'intro',
-      title: 'Introduction',
+      name: 'quickFacts',
+      title: 'Quick Facts',
       type: 'object',
-      group: 'content',
+      group: 'hero',
       fields: [
-        defineField({ name: 'headline', title: 'Headline', type: 'string' }),
-        defineField({ name: 'content', title: 'Content', type: 'portableText' }),
-        defineField({ name: 'image', title: 'Intro Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
-      ],
+        defineField({ name: 'duration', title: 'Duration', type: 'string', initialValue: '4 Years' }),
+        defineField({ name: 'units', title: 'Total Units', type: 'string', initialValue: '168 Units' }),
+        defineField({ name: 'format', title: 'Format', type: 'string', initialValue: 'On-Campus' }),
+      ]
+    }),
+
+    // --- PROGRAM OVERVIEW ---
+    defineField({
+      name: 'overviewMainImage',
+      title: 'Overview Main Image (Back/Bottom-Left)',
+      type: 'image',
+      group: 'overview',
+      options: { hotspot: true },
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
     }),
     defineField({
-      name: 'degree',
-      title: 'Degrees Offered (Summary)',
-      type: 'string',
-      description: 'e.g. BS Psychology • AB Psychology',
-      group: 'content',
+      name: 'overviewSubImage',
+      title: 'Overview Sub Image (Front/Top-Right)',
+      type: 'image',
+      group: 'overview',
+      options: { hotspot: true },
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
     }),
+
+    // --- OUTCOMES ---
     defineField({
-      name: 'duration',
-      title: 'Program Duration',
-      type: 'string',
-      description: 'e.g. 4 Years',
-      group: 'content',
-    }),
-    defineField({
-      name: 'programs',
-      title: 'Offered Programs',
+      name: 'outcomes',
+      title: 'Graduate Capabilities (Outcomes)',
       type: 'array',
-      group: 'programs',
+      group: 'outcomes',
       of: [
         {
           type: 'object',
-          title: 'Program',
           fields: [
-            defineField({ name: 'title', title: 'Program Title', type: 'string' }),
-            defineField({ name: 'shortTitle', title: 'Abbreviation', type: 'string' }),
-            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-            defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
-          ],
-        },
-      ],
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 })
+          ]
+        }
+      ]
     }),
+
+    // --- CURRICULUM ---
     defineField({
       name: 'curriculum',
-      title: 'Curriculum Highlights',
-      type: 'object',
-      group: 'programs',
-      fields: [
-        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-        defineField({
-          name: 'courses',
-          title: 'Featured Courses',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({ name: 'year', title: 'Year Level', type: 'string' }),
-                defineField({ name: 'courses', title: 'Courses', type: 'array', of: [{ type: 'string' }] }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'careerOpportunities',
-      title: 'Career Opportunities',
-      type: 'object',
-      group: 'programs',
-      fields: [
-        defineField({ name: 'title', title: 'Section Title', type: 'string' }),
-        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-        defineField({ name: 'careers', title: 'Careers List', type: 'array', of: [{ type: 'string' }] }),
-        defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
-      ],
-    }),
-    defineField({
-      name: 'keyFeatures',
-      title: 'Key Features / Facilities',
+      title: 'Curriculum Roadmap',
       type: 'array',
-      of: [{ type: 'feature' }],
-      group: 'programs',
+      group: 'curriculum',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'year', title: 'Year (e.g. Year 1)', type: 'string' }),
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+            defineField({ name: 'subjects', title: 'Core Subjects', type: 'array', of: [{ type: 'string' }] })
+          ]
+        }
+      ]
+    }),
+
+    // --- ECOSYSTEM ---
+    defineField({
+      name: 'ecosystemImages',
+      title: 'Department Ecosystem Images',
+      type: 'object',
+      group: 'ecosystem',
+      fields: [
+        defineField({
+          name: 'lab', title: 'Clinical Lab Image', type: 'image', options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+        defineField({
+          name: 'society', title: 'Society Image', type: 'image', options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+        defineField({
+          name: 'research', title: 'Research Symposium Image', type: 'image', options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+        defineField({
+          name: 'community', title: 'Community Extension Image', type: 'image', options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+      ]
+    }),
+
+    // --- LEADERSHIP & FACULTY ---
+    defineField({
+      name: 'chair',
+      title: 'Program Chair',
+      type: 'object',
+      group: 'leadership',
+      fields: [
+        defineField({ name: 'name', title: 'Name', type: 'string' }),
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
+        defineField({ name: 'quote', title: 'Manifesto Quote', type: 'text', rows: 4 }),
+        defineField({
+          name: 'image', title: 'Chair Portrait', type: 'image', options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+      ]
     }),
     defineField({
-      name: 'gallery',
-      title: 'Department Gallery',
-      type: 'gallery',
-      group: 'programs',
+      name: 'faculty',
+      title: 'Core Faculty Grid',
+      type: 'array',
+      group: 'leadership',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'name', title: 'Name', type: 'string' }),
+            defineField({ name: 'specialty', title: 'Specialty Badge', type: 'string' }),
+            defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
+            defineField({
+              name: 'image', title: 'Faculty Portrait', type: 'image', options: { hotspot: true },
+              fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+            }),
+          ]
+        }
+      ]
     }),
+
+    // --- CAREER PATHWAYS ---
+    defineField({
+      name: 'pathways',
+      title: 'Career Pathways & ROI',
+      type: 'array',
+      group: 'pathways',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'subtitle', title: 'Subtitle (Context)', type: 'string' }),
+            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+            defineField({ name: 'roles', title: 'Target Roles', type: 'array', of: [{ type: 'string' }] })
+          ]
+        }
+      ]
+    }),
+
+    // --- SEO ---
     defineField({
       name: 'seo',
-      title: 'SEO',
+      title: 'SEO Metadata',
       type: 'seo',
       group: 'seo',
     }),
   ],
   preview: {
     prepare() {
-      return { title: 'Psychology Page' }
+      return { title: 'Psychology Program Page' }
     },
   },
 })
