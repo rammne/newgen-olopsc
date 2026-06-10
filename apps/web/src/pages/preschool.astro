@@ -1,283 +1,350 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import Intro from "../components/homepage/Intro.astro";
-import Features from "../components/homepage/Features.astro";
-import Stats from "../components/homepage/Stats.astro";
-import Testimonials from "../components/homepage/Testimonials.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import HighlightsBento from "../components/departments/HighlightsBento.astro";
-import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
-import DepartmentNews from "../components/departments/DepartmentNews.astro";
-import FacultyCard from "../components/departments/FacultyCard.astro";
-import {
-  getAcademicDepartmentByType,
-  getEventsByDepartmentType,
-  getNewsByDepartmentType,
-} from "../lib/sanity/queries";
+import { getAcademicDepartmentByType } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
+// Fetch CMS data
 const department = await getAcademicDepartmentByType("preschool");
 
-if (!department) {
-  return Astro.redirect("/404");
+// --- Image Object Mapping ---
+interface SanityImage {
+  url: string;
+  alt: string;
 }
 
-// Fetch events for this department
-const departmentEvents = department.departmentType
-  ? await getEventsByDepartmentType(department.departmentType)
-  : [];
+const heroImage: SanityImage = {
+  url: department?.hero?.backgroundImage?.asset?.url
+    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.hero?.backgroundImage?.alt
+    ?? "OLOPSC Pre-School early childhood learning environment",
+};
 
-// Fetch news for this department
-const departmentNews = department.departmentType
-  ? await getNewsByDepartmentType(department.departmentType)
-  : [];
+const environmentImage: SanityImage = {
+  url: department?.facilityTourImages?.[3]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[3], { width: 1200, height: 1200, fit: "crop" })
+    : department?.curriculum?.image?.asset?.url
+      ? getSanityImageUrl(department.curriculum.image, { width: 1200, height: 1200, fit: "crop" })
+      : "https://images.unsplash.com/photo-1564429238961-5e2809c8d7ab?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[3]?.alt
+    ?? department?.curriculum?.image?.alt
+    ?? "Dedicated and secure OLOPSC Pre-School facility",
+};
 
-const pageTitle =
-  department.seo?.title || department.title || "Preschool Department";
-const pageDescription =
-  department.seo?.description ||
-  `Learn more about ${department.title} at OLOPSC`;
-const ogImage = department.seo?.image?.asset?.url;
+const classroomImage: SanityImage = {
+  url: department?.facilityTourImages?.[0]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1574505342468-b7eb18d6e38b?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[0]?.alt
+    ?? "Sanitized, child-scaled OLOPSC pre-school classroom",
+};
+
+const playgroundImage: SanityImage = {
+  url: department?.facilityTourImages?.[1]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[1]?.alt
+    ?? "Secure pre-school playground with rubberized safety flooring",
+};
+
+const waitingAreaImage: SanityImage = {
+  url: department?.facilityTourImages?.[2]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[2], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[2]?.alt
+    ?? "Staff-monitored secure drop-off and waiting area",
+};
+
+// SEO metadata
+const pageTitle = department?.seo?.title ?? "Pre-School | OLOPSC Marikina";
+const pageDescription = department?.seo?.description ?? "Play-based early childhood education fostering foundational learning, curiosity, and Christian values at OLOPSC Marikina.";
+const ogImage = department?.seo?.image?.asset?.url;
+
+// Timeline data
+const timelineItems = [
+  {
+    time: "7:30 AM",
+    title: "Warm Welcome",
+    desc: "Teachers greet students at our dedicated, secure pre-school gate, ensuring a seamless, tear-free handoff.",
+  },
+  {
+    time: "8:00 AM",
+    title: "Circle Time & Spirituality",
+    desc: "Morning prayers, character stories, and interactive songs to build basic socialization and values.",
+  },
+  {
+    time: "9:00 AM",
+    title: "Foundational Learning",
+    desc: "Play-based, sensory activities focusing on early reading, phonics, and fundamental numeracy tracking.",
+  },
+  {
+    time: "10:15 AM",
+    title: "Supervised Nutrition",
+    desc: "A dedicated break time emphasizing proper hygiene, handwashing routines, and table manners.",
+  },
+];
+
+// Milestone data
+const milestones = [
+  {
+    title: "Cognitive Readiness",
+    text: "Mastering alphabet tracking, foundational phonics, and basic numeric patterns preparing them directly for Grade 1.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+  },
+  {
+    title: "Social Regulation",
+    text: "Learning emotional self-management, active sharing, conflict resolution, and structured teamwork with peers.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+  {
+    title: "Christian Values",
+    text: "Instilling initial roots of our S-RICE framework, prioritizing kindness, respect, and spiritual awareness early.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`,
+  },
+];
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-  {department.hero && <Hero hero={department.hero} />}
 
-  {
-    department.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={department.intro} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 1: The Safe Harbor Hero ==================== -->
+  <section class="relative bg-surface py-20 lg:py-32 border-b border-slate-200 overflow-hidden">
+    <!-- Ambient Glow Layer -->
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
 
-  {
-    department.overview && department.overview.content && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section
-          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={`background-image: url('${
-            department.overview.backgroundImage?.asset?.url
-              ? getSanityImageUrl(department.overview.backgroundImage, {
-                  width: 1920,
-                  height: 1080,
-                  fit: "crop",
-                })
-              : "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Overview+Background"
-          }'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
-        >
-          <div class="absolute inset-0 bg-black/40" />
-          <div class="container mx-auto max-w-4xl relative z-10">
-            <p class="text-main-mobile sm:text-main-desktop text-center leading-relaxed text-white">
-              {department.overview.content}
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
+
+      <!-- Left Column: Text Payload -->
+      <div>
+        <span class="text-accent font-bold tracking-widest uppercase text-sm mb-3 block">
+          Early Childhood Education
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-primary tracking-tight leading-none mb-6">
+          Their First Steps Into a Brighter Future.
+        </h1>
+        <p class="text-lg text-muted leading-relaxed mb-8">
+          We understand that sending your child to school for the first time is a monumental milestone. Our DepEd-aligned Kindergarten and Pre-School programs provide a gentle, secure, and nurturing transition from your home to our campus.
+        </p>
+        <div class="mt-8">
+          <CtaButton cta={{ text: "Start the Enrollment Process", link: "/admissions", style: "primary" }} />
+        </div>
+      </div>
+
+      <!-- Right Column: Visual Frame -->
+      <div class="rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          width="1200"
+          height="900"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: The "Caring Culture" Manifesto ==================== -->
+  <section class="bg-primary text-white py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight">
+        An Extension of Your Home
+      </h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+        At OLOPSC, our early childhood educators do not just teach; they nurture. Rooted in our signature Caring Culture, we maintain low teacher-to-student ratios to ensure your child receives continuous emotional support, physical safety, and individualized guidance as they learn to navigate the world outside their family circle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: A Day in the Life (Timeline) ==================== -->
+  <section class="bg-white py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-primary mb-4 tracking-tight">
+          What Your Child Experiences
+        </h2>
+        <p class="text-muted">
+          A structured, highly predictable morning routine that eliminates anxiety.
+        </p>
+      </div>
+
+      <!-- The Timeline Stack -->
+      <div class="flex flex-col gap-10 relative border-l-2 border-slate-200 pl-8 ml-4 md:ml-0">
+        {timelineItems.map((item) => (
+          <div class="relative">
+            <!-- Decorative dot -->
+            <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-accent border-4 border-white"></div>
+            <span class="text-accent font-bold text-sm uppercase tracking-wider mb-1 block">
+              {item.time}
+            </span>
+            <h3 class="text-xl font-bold text-primary mb-2">
+              {item.title}
+            </h3>
+            <p class="text-muted">
+              {item.desc}
             </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        ))}
+      </div>
+    </div>
+  </section>
 
-  {
-    department.keyFeatures && department.keyFeatures.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={department.keyFeatures} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== NEW SECTION: Guided Facilities Tour ==================== -->
+  <section class="bg-white py-24 border-t border-slate-100">
+    <!-- Header -->
+    <div class="container mx-auto px-6 max-w-5xl text-center mb-20">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Purpose-Built for Early Childhood
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">
+        Every corner of our facility is engineered for the physical safety, hygiene, and developmental scale of a growing toddler.
+      </p>
+    </div>
 
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{
-            testimonials: department.testimonials,
-            title: "Parent's Testimonials",
-          }}
+    <!-- Rows Container -->
+    <div class="container mx-auto px-6 max-w-6xl flex flex-col gap-20">
+
+      <!-- Row 1: The Classrooms (Image Left, Text Right) -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0">
+          <img
+            src={classroomImage.url}
+            alt={classroomImage.alt}
+            width="800"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Sensory-Rich, Sanitized Classrooms
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            Our learning spaces feature child-scaled furniture, climate control, and dedicated zones for art, reading, and play. Every surface is rigorously sanitized daily to maintain the highest health standards for your child's developing immune system.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row 2: Active Play Zones (Text Left, Image Right) -->
+      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0">
+          <img
+            src={playgroundImage.url}
+            alt={playgroundImage.alt}
+            width="800"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Enclosed, Impact-Safe Playgrounds
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            Physical play is crucial for gross motor development. Our dedicated pre-school playground features rubberized, impact-absorbing flooring and age-appropriate climbing structures, completely enclosed and constantly monitored by staff.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row 3: Security & Health (Image Left, Text Right) -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0 bg-surface">
+          <img
+            src={waitingAreaImage.url}
+            alt={waitingAreaImage.alt}
+            width="800"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Secure Drop-off & On-Site Clinic
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            From our weather-proof, staff-monitored waiting areas that ensure secure handoffs, to our on-site clinic staffed by pediatric-trained health professionals, every logistical detail is designed to give parents absolute peace of mind.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: The Developmental Milestones ==================== -->
+  <section class="bg-primary py-24">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <h2 class="text-3xl font-black text-white mb-16 tracking-tight text-center">
+        Clear, Measurable Growth
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {milestones.map((milestone) => (
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+              <Fragment set:html={milestone.icon} />
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">
+              {milestone.title}
+            </h3>
+            <p class="text-muted text-sm leading-relaxed">
+              {milestone.text}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: The Isolated Environment Feature ==================== -->
+  <section class="bg-white py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
+
+      <!-- Left Column: Visual -->
+      <div class="rounded-3xl overflow-hidden shadow-lg">
+        <img
+          src={environmentImage.url}
+          alt={environmentImage.alt}
+          width="1200"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+          class="w-full aspect-square object-cover"
         />
-      </ScrollRevealWrapper>
-    )
-  }
+      </div>
 
-  {/* Highlights Bento Grid */}
-  {
-    department.highlights &&
-      department.highlights.images &&
-      department.highlights.images.length === 6 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <HighlightsBento highlights={department.highlights} />
-        </ScrollRevealWrapper>
-      )
-  }
+      <!-- Right Column: Text Payload -->
+      <div>
+        <h2 class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight">
+          A Dedicated Space for Little Learners
+        </h2>
+        <p class="text-lg text-muted leading-relaxed">
+          Safety is our absolute priority. The OLOPSC Pre-School facility operates within its own secure, self-contained zone of the Marikina campus. Our toddlers have their own dedicated restrooms, play areas, and secure entrance gates, completely isolated from K-12 and College student traffic.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  {/* Department News */}
-  {
-    departmentNews && departmentNews.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentNews news={departmentNews} title="Preschool News" />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 6: Final CTA ==================== -->
+  <section class="bg-primary py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
+        Give Your Child the Best Start
+      </h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
+        Schedule a campus visit to see our Pre-School facilities firsthand, meet our caring educators, and discover why OLOPSC families have trusted us since 1978.
+      </p>
+      <div class="mt-8">
+        <CtaButton cta={{ text: "Book a Campus Tour", link: "/admissions", style: "primary" }} />
+      </div>
+    </div>
+  </section>
 
-  {/* Department Events */}
-  {
-    departmentEvents && departmentEvents.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentEvents events={departmentEvents} title="Preschool Events" />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.curriculum && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                {department.curriculum.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                    {department.curriculum.title}
-                  </h2>
-                )}
-                {department.curriculum.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                    {department.curriculum.description}
-                  </p>
-                )}
-                {department.curriculum.highlights &&
-                  department.curriculum.highlights.length > 0 && (
-                    <ul class="space-y-3">
-                      {department.curriculum.highlights.map(
-                        (highlight: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-              </div>
-              {(department.curriculum.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.curriculum.image?.asset?.url
-                        ? getSanityImageUrl(department.curriculum.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Curriculum+Photo"
-                    }
-                    alt={department.curriculum.image?.alt || "Curriculum"}
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.stats && department.stats.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.faculty && department.faculty.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-              Featured Faculty
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {department.faculty.map((member: any, index: number) => (
-                <FacultyCard member={member} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.admissionInfo && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                {department.admissionInfo.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                    {department.admissionInfo.title}
-                  </h2>
-                )}
-                {department.admissionInfo.content && (
-                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                    {department.admissionInfo.content}
-                  </p>
-                )}
-                {department.admissionInfo.requirements &&
-                  department.admissionInfo.requirements.length > 0 && (
-                    <ul class="space-y-3 mb-8">
-                      {department.admissionInfo.requirements.map(
-                        (req: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                              {req}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-                {department.admissionInfo.cta && (
-                  <CtaButton cta={department.admissionInfo.cta} />
-                )}
-              </div>
-              {(department.admissionInfo.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.admissionInfo.image?.asset?.url
-                        ? getSanityImageUrl(department.admissionInfo.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Admission+Photo"
-                    }
-                    alt={
-                      department.admissionInfo.image?.alt ||
-                      "Admission Information"
-                    }
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
 </Layout>

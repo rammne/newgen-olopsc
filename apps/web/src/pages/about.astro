@@ -10,6 +10,7 @@ import HistorySection from "../components/about/HistorySection.astro";
 import LeadershipSection from "../components/about/LeadershipSection.astro";
 import AccreditationsSection from "../components/about/AccreditationsSection.astro";
 import { getAboutPage } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
 // Fetch about page data
@@ -21,11 +22,59 @@ const pageDescription =
     aboutPage?.seo?.description ||
     "Learn more about OLOPSC history, mission, and vision.";
 const ogImage = aboutPage?.seo?.image?.asset?.url;
+
+const heroBackground = {
+    url: aboutPage?.hero?.backgroundImage?.asset?.url
+        ? getSanityImageUrl(aboutPage.hero.backgroundImage, { width: 1920, height: 1080, fit: "crop" })
+        : "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920&auto=format&fit=crop",
+    alt: aboutPage?.hero?.backgroundImage?.alt ?? "Classic university library and academic heritage"
+};
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-    {aboutPage?.hero && <Hero hero={aboutPage.hero} />}
+    <!-- ==================== NEW CUSTOM HERO ==================== -->
+    <section class="relative bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+      <!-- Background Image -->
+      <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-0 w-full h-full object-cover opacity-75 mix-blend-luminosity pointer-events-none" loading="eager" />
 
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/90 to-primary z-0"></div>
+
+      <!-- Ambient Glow (CSS Only) -->
+      <div class="absolute top-0 left-1/2 w-[800px] h-[400px] bg-primary/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+
+      <!-- Typography Payload & Trust Strip Container -->
+      <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <!-- Subheading -->
+        <span class="inline-block py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-8 backdrop-blur-sm">Founded 1978</span>
+
+        <!-- H1 -->
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-8 text-white">A Legacy of <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">Academic Excellence.</span></h1>
+
+        <!-- Paragraph -->
+        <p class="text-lg md:text-xl text-slate-200 leading-relaxed max-w-3xl mx-auto mb-16">We cultivate intellectual rigor, ethical leadership, and a lifelong passion for scholarly inquiry. OLOPSC stands as a premier non-sectarian institution, preparing the leaders of tomorrow through uncompromising academic standards.</p>
+
+        <!-- The "By the Numbers" Trust Strip -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 max-w-4xl mx-auto bg-white/10 border border-white/20 rounded-2xl md:rounded-full p-8 md:p-4 backdrop-blur-md md:divide-x divide-white/20 shadow-2xl">
+
+          <div class="flex flex-col items-center justify-center text-center px-4">
+            <span class="text-4xl font-black text-accent mb-1 tracking-tighter">4,000+</span>
+            <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">Active Students</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center text-center px-4">
+            <span class="text-4xl font-black text-white mb-1 tracking-tighter">45+</span>
+            <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">Years of Heritage</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center text-center px-4">
+            <span class="text-4xl font-black text-primary bg-accent px-4 py-1 rounded-md mb-1 tracking-tighter shadow-sm">Level III</span>
+            <span class="text-xs font-bold text-slate-200 uppercase tracking-wider">PAASCU Accredited</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
     {
         aboutPage?.identity && (
             <ScrollRevealWrapper direction="up" delay={0.1}>

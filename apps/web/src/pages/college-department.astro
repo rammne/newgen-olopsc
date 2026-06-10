@@ -1,288 +1,751 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import Intro from "../components/homepage/Intro.astro";
-import Features from "../components/homepage/Features.astro";
-import Stats from "../components/homepage/Stats.astro";
-import Testimonials from "../components/homepage/Testimonials.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import HighlightsBento from "../components/departments/HighlightsBento.astro";
-import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
-import DepartmentNews from "../components/departments/DepartmentNews.astro";
-import CollegeProgramsPreview from "../components/departments/CollegeProgramsPreview.astro";
-import FacultyCard from "../components/departments/FacultyCard.astro";
-import {
-  getAcademicDepartmentByType,
-  getEventsByDepartmentType,
-  getNewsByDepartmentType,
-  getAllCollegePrograms,
-} from "../lib/sanity/queries";
+import { getAcademicDepartmentByType, getCollegeProgramThumbnails } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
+// Fetch CMS data
 const department = await getAcademicDepartmentByType("college");
+const thumbnails = await getCollegeProgramThumbnails();
 
-if (!department) {
-  return Astro.redirect("/404");
+// --- Image Object Mapping ---
+interface SanityImage {
+  url: string;
+  alt: string;
 }
 
-// Fetch events for this department
-const departmentEvents = department.departmentType
-  ? await getEventsByDepartmentType(department.departmentType)
-  : [];
+const heroImage: SanityImage = {
+  url: department?.hero?.backgroundImage?.asset?.url
+    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.hero?.backgroundImage?.alt
+    ?? "OLOPSC College students collaborating on industry-ready projects",
+};
 
-// Fetch news for this department
-const departmentNews = department.departmentType
-  ? await getNewsByDepartmentType(department.departmentType)
-  : [];
+const roiImage: SanityImage = {
+  url: department?.facilityTourImages?.[0]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[0]?.alt
+    ?? "OLOPSC College graduates transitioning into successful careers",
+};
 
-// Fetch all college programs
-const collegePrograms = await getAllCollegePrograms();
+const bmseShieldLogo: SanityImage = {
+  url: "/OLOPSC%20_BMSE_Official_Logo.webp",
+  alt: "OLOPSC BMSE Official Shield"
+};
 
-const pageTitle =
-  department.seo?.title || department.title || "College Department";
-const pageDescription =
-  department.seo?.description ||
-  `Learn more about ${department.title} at OLOPSC`;
+interface CollegeCultureImage {
+  url: string;
+  alt: string;
+  title: string;
+  description: string;
+}
+
+const rawGallery = department?.facilityTourImages || [];
+const hasValidGallery = rawGallery.length >= 6;
+
+const collegeCultureGallery: CollegeCultureImage[] = hasValidGallery
+  ? rawGallery.slice(0, 6).map((img: any) => ({
+      url: img?.asset?.url
+        ? getSanityImageUrl(img, { width: 1200, height: 900, fit: "crop" })
+        : "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop",
+      alt: img?.alt || "Campus Facility",
+      title: img?.caption || "Campus Facility",
+      description: img?.description || "A dynamic and engaging campus facility for our College students."
+    }))
+  : [
+      {
+        title: "Modern Library & Research Hubs",
+        description: "Collegiate-level quiet zones and collaborative pods engineered for thesis writing, independent study, and group project development.",
+        alt: "College students collaborating in modern university library",
+        url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Vibrant Student Organizations",
+        description: "Lead recognized academic clubs, cultural societies, and civic action groups to build your professional network and campus influence.",
+        alt: "College student organization leaders planning an event",
+        url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Advanced Innovation Labs",
+        description: "Access to high-performance computing centers and specialized departmental laboratories tailored for industry-level output.",
+        alt: "College students working in advanced computing laboratory",
+        url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Varsity Athletics & Wellness",
+        description: "State-of-the-art indoor courts and fitness facilities fostering physical wellness, teamwork, and institutional pride.",
+        alt: "College varsity athletes competing in indoor court",
+        url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Career & Networking Events",
+        description: "Frequent on-campus recruitment drives and seminars connecting you directly with top-tier corporate, educational, and tech industry partners.",
+        alt: "College students attending an industry networking event",
+        url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Global Immersion Programs",
+        description: "Opportunities for international exchange, industry tours, and cross-cultural academic partnerships to broaden your global perspective.",
+        alt: "College students participating in a global immersion program",
+        url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1200&auto=format&fit=crop"
+      }
+    ];
+
+// SEO metadata
+const pageTitle = "Best College in Marikina | OLOPSC-BMSE Degree Programs";
+const pageDescription = "Looking for a top-tier college in Marikina City? The OLOPSC College of Business, Management, Science, and Education (BMSE) offers CHED-recognized bachelor degrees in IT, Business, Tourism, and Psychology.";
+const ogImage = department?.seo?.image?.asset?.url;
+
+// Degree Matrix data — thumbnails come from each program's singleton schema
+const degreeMatrix = [
+  {
+    department: "Computing Studies",
+    tags: ["BSCS", "ACT"],
+    text: "Master software engineering, algorithms, and full-stack development for the booming global tech industry.",
+    href: "/computing-studies",
+    thumbnailKey: "computing-studies",
+  },
+  {
+    department: "Business Administration & Entrepreneurship",
+    tags: ["BSBA-HRM", "BSBA-MM", "BSE"],
+    text: "Corporate leadership and startup incubation focused on marketing, human resources, and business creation.",
+    href: "/business-administration-and-entrepreneurship",
+    thumbnailKey: "business-administration-and-entrepreneurship",
+  },
+  {
+    department: "Education & Liberal Arts",
+    tags: ["BEED", "BSED", "BAEL"],
+    text: "Shaping the next generation of educators and communicators with modern pedagogical strategies and linguistic mastery.",
+    href: "/education-and-liberal-arts",
+    thumbnailKey: "education-and-liberal-arts",
+  },
+  {
+    department: "Hospitality Management",
+    tags: ["BSHM"],
+    text: "World-class training for global hotel, restaurant, and resort operations, emphasizing premium customer experience.",
+    href: "/hospitality-management",
+    thumbnailKey: "hospitality-management",
+  },
+  {
+    department: "Tourism Management",
+    tags: ["BSTM"],
+    text: "Navigating the international travel economy with expertise in destination marketing, aviation, and tour operations.",
+    href: "/tourism-management",
+    thumbnailKey: "tourism-management",
+  },
+  {
+    department: "Psychology",
+    tags: ["BSP"],
+    text: "Analyzing human behavior and cognitive processes for careers in clinical assessment, corporate HR, and mental health.",
+    href: "/college-programs",
+    thumbnailKey: "psychology",
+  },
+].map(item => {
+  const thumbData = thumbnails?.[item.thumbnailKey]?.cardThumbnail;
+  const imageUrl = thumbData?.asset?.url
+    ? getSanityImageUrl(thumbData, { width: 800, height: 450, fit: "crop" })
+    : null;
+
+  return {
+    ...item,
+    image: imageUrl,
+    alt: thumbData?.alt || `${item.department} thumbnail`
+  };
+});
+
+interface FacultyMember {
+  image: {
+    url: string;
+    alt: string;
+  };
+  name: string;
+  position: string;
+  department: string;
+  achievements: string;
+  background: string;
+}
+
+const rawFaculty = department?.faculty || [];
+const hasValidFaculty = rawFaculty.length > 0;
+
+const facultyMembers: FacultyMember[] = hasValidFaculty
+  ? rawFaculty.map((member: any) => ({
+      image: {
+        url: member?.photo?.asset?.url
+          ? getSanityImageUrl(member.photo, { width: 400, height: 400, fit: "crop" })
+          : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
+        alt: member?.photo?.alt ?? `Professional headshot of ${member?.name || 'faculty member'}`
+      },
+      name: member?.name || "Faculty Member",
+      position: member?.role || "Instructor",
+      department: member?.department || "Department",
+      achievements: Array.isArray(member?.qualifications) ? member.qualifications.join(" | ") : (member?.qualifications || "Credentials unavailable"),
+      background: member?.bio || "Background information unavailable"
+    }))
+  : [
+      {
+        name: "Prof. Alejandro Ramos",
+        position: "Department Chair",
+        department: "Computing Studies",
+        achievements: "MS in Computer Science | CCNP",
+        background: "Former Lead Systems Architect at a global enterprise tech firm.",
+        image: {
+          url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
+          alt: "Professional headshot of Prof. Alejandro Ramos"
+        }
+      },
+      {
+        name: "Dr. Elena Valenzuela",
+        position: "Senior Lecturer",
+        department: "Business Admin",
+        achievements: "Ph.D. in Business | Registered Marketer",
+        background: "Former Corporate Strategy Director for multinational FMCG brands.",
+        image: {
+          url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
+          alt: "Professional headshot of Dr. Elena Valenzuela"
+        }
+      },
+      {
+        name: "Prof. Marcus Santos",
+        position: "Industry Practitioner",
+        department: "Hospitality",
+        achievements: "MBA in Hospitality | Certified Hospitality Professional",
+        background: "Former Executive Chef at international five-star resort chains.",
+        image: {
+          url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
+          alt: "Professional headshot of Prof. Marcus Santos"
+        }
+      },
+      {
+        name: "Dr. Clara Mendoza",
+        position: "Clinical Supervisor",
+        department: "Psychology",
+        achievements: "Psy.D. Clinical Psychology | RPm, RPsy",
+        background: "Active clinical practitioner specializing in cognitive behavioral therapy.",
+        image: {
+          url: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400&auto=format&fit=crop",
+          alt: "Professional headshot of Dr. Clara Mendoza"
+        }
+      },
+      {
+        name: "Prof. David Torres",
+        position: "Program Director",
+        department: "Tourism",
+        achievements: "MS in Tourism Development | IATA Certified",
+        background: "Former Aviation Operations Manager for a major international airline.",
+        image: {
+          url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+          alt: "Professional headshot of Prof. David Torres"
+        }
+      }
+    ];
+
+interface IndustryPartner {
+  logoUrl: string;
+  companyName: string;
+}
+
+const rawPartners = department?.industryPartners || [];
+const hasValidPartners = rawPartners.length > 0;
+
+const industryPartners: IndustryPartner[] = hasValidPartners
+  ? rawPartners.map((partner: any) => ({
+      logoUrl: partner?.logoUrl || partner?.logo?.asset?.url || "https://placehold.co/200x80/e4e4e4/0a095f?text=Partner",
+      companyName: partner?.companyName || "Industry Partner",
+    }))
+  : [
+      { companyName: "Tech Innovators Corp", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=Tech+Innovators" },
+      { companyName: "Global Hospitality Group", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=Global+Hospitality" },
+      { companyName: "Metro Banking Union", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=Metro+Banking" },
+      { companyName: "EduTech Solutions", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=EduTech+Solutions" },
+      { companyName: "Apex Travel & Tours", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=Apex+Travel" },
+      { companyName: "Prime Medical Hub", logoUrl: "https://placehold.co/200x80/e4e4e4/0a095f?text=Prime+Medical" },
+    ];
+
+interface OutcomeStat {
+  value: string;
+  label: string;
+  context: string;
+}
+
+interface AlumniStory {
+  name: string;
+  degree: string;
+  batch: string;
+  role: string;
+  company: string;
+  quote: string;
+  imageUrl: string;
+}
+
+const rawOutcomeStats = department?.outcomeStats || [];
+const hasValidOutcomeStats = rawOutcomeStats.length > 0;
+const outcomeStats: OutcomeStat[] = hasValidOutcomeStats
+  ? rawOutcomeStats.map((stat: any) => ({
+      value: stat?.value || "N/A",
+      label: stat?.label || "Stat Label",
+      context: stat?.context || "",
+    }))
+  : [
+      { value: "85%", label: "Board Exam Passing Rate", context: "Consistently above the national average." },
+      { value: "92%", label: "Employment Rate", context: "Graduates employed within 6 months." },
+      { value: "10k+", label: "Global Alumni Network", context: "Professionals across 20+ countries." },
+    ];
+
+const rawAlumniStories = department?.alumniStories || [];
+const hasValidAlumniStories = rawAlumniStories.length > 0;
+const alumniStories: AlumniStory[] = hasValidAlumniStories
+  ? rawAlumniStories.map((alumni: any) => ({
+      name: alumni?.name || "Alumni Name",
+      degree: alumni?.degree || "Degree",
+      batch: alumni?.batch || "Batch",
+      role: alumni?.role || "Role",
+      company: alumni?.company || "Company",
+      quote: alumni?.quote || "Quote unavailable.",
+      imageUrl: alumni?.image?.asset?.url
+        ? getSanityImageUrl(alumni.image, { width: 150, height: 150, fit: "crop" })
+        : "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=150&auto=format&fit=crop",
+    }))
+  : [
+      { name: "Mark Bautista", degree: "BS Computer Science", batch: "Class of 2022", role: "Junior Cloud Engineer", company: "Accenture", quote: "The rigorous OBE framework at OLOPSC meant I wasn't just learning theory—I was deploying real applications. I walked into my technical interview with a complete portfolio.", imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=150&auto=format&fit=crop" },
+      { name: "Sarah Medina, RPm", degree: "BS Psychology", batch: "Class of 2021", role: "Licensed Psychometrician", company: "Medical City", quote: "The clinical professors pushed us beyond our limits. Passing the board exams felt like a natural next step because the standard of excellence was drilled into us from day one.", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
+      { name: "Leo Fernandez", degree: "BS Hospitality Management", batch: "Class of 2020", role: "Operations Manager", company: "Marriott Hotels", quote: "The international immersion programs and industry-grade laboratories at OLOPSC prepared me for the intense pressure of global hospitality.", imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=150&auto=format&fit=crop" },
+    ];
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  {department.hero && <Hero hero={department.hero} />}
-
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+  <script type="application/ld+json" slot="head" set:html={`
   {
-    department.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={department.intro} />
-      </ScrollRevealWrapper>
-    )
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What is the College Department of OLOPSC called?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The College Department of Our Lady of Perpetual Succor College (OLOPSC) in Marikina is officially named the College of Business, Management, Science, and Education, or OLOPSC-BMSE. It offers accredited bachelor's degrees in Computer Science, Business Administration, Hospitality, Tourism, Psychology, and Education."
+      }
+    }, {
+      "@type": "Question",
+      "name": "Does OLOPSC have a college in Marikina?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, OLOPSC operates a premier higher education institution in Marikina City known as the College of BMSE, providing specialized degree programs for graduating senior high school students."
+      }
+    }]
   }
+  `} />
 
-  {
-    department.overview && department.overview.content && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section
-          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={
-            department.overview.backgroundImage?.asset?.url
-              ? `background-image: url('${getSanityImageUrl(department.overview.backgroundImage, { width: 1920, height: 1080, fit: "crop" })}'); background-size: cover; background-position: center; background-repeat: no-repeat;`
-              : ""
-          }
+  <!-- ==================== SECTION 1: The Ivy-SaaS Hero ==================== -->
+  <section class="relative bg-primary py-20 lg:py-32 border-b border-slate-800 overflow-hidden">
+    <!-- Ambient Glow Layer -->
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
+
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto px-6">
+
+      <!-- Left Column: Typography & Co-Branding -->
+      <div>
+        <div class="flex items-center gap-4 mb-8">
+          <img src={bmseShieldLogo.url} alt={bmseShieldLogo.alt} class="h-16 md:h-20 w-auto drop-shadow-2xl" loading="eager" />
+          <div class="flex flex-col">
+            <span class="text-accent font-black tracking-widest uppercase text-xs">Our Lady of Perpetual Succor College</span>
+            <span class="text-white font-bold tracking-wider uppercase text-sm">College of BMSE</span>
+          </div>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none mb-6 text-white">College of Business Management, Science and Education</h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed mb-10">The OLOPSC College Department is officially the College of Business, Management, Science, and Education (BMSE). We deliver CHED-recognized, outcome-based higher education designed to launch high-paying careers in Metro Manila.</p>
+
+        <!-- CTA Group -->
+        <div class="flex flex-wrap gap-4">
+          <CtaButton cta={{ text: "Contact Admissions", link: "#programs", style: "primary" }} />
+          <CtaButton cta={{ text: "Scholarships", link: "#admissions", style: "secondary" }} />
+        </div>
+      </div>
+
+      <!-- Right Column: Cinematic Visual Frame -->
+      <div class="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/3] border border-slate-700/50 group block">
+        <img src={heroImage.url} alt={heroImage.alt} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="eager" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 1.5: The OBE Framework ==================== -->
+  <section class="bg-white py-24 border-b border-slate-100 overflow-hidden">
+    <!-- Header Container -->
+    <div class="max-w-3xl mx-auto px-6 text-center mb-16">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        Outcome-Based Education
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight">
+        Reverse-Engineered for Industry Success.
+      </h2>
+      <p class="text-lg text-muted">
+        We do not teach to the test; we teach to the industry standard. The College of BMSE's CHED-recognized OBE framework ensures every syllabus, lecture, and laboratory session directly maps to a specific, measurable skill required by modern employers.
+      </p>
+    </div>
+
+    <!-- The 3-Step Flow Architecture -->
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 relative">
+        <!-- Desktop Connecting Line -->
+        <div class="hidden md:block absolute top-8 left-[16.66%] right-[16.66%] h-0.5 bg-slate-200 z-0"></div>
+
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+          <div class="w-16 h-16 rounded-full bg-surface border-2 border-slate-200 flex items-center justify-center text-xl font-black text-primary mb-6">01</div>
+          <h3 class="text-xl font-bold text-primary mb-3">Master Core Competencies</h3>
+          <p class="text-sm text-muted">Acquire the exact theoretical frameworks and technical skills demanded by global industry standards.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+          <div class="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-xl font-black text-primary mb-6 shadow-lg">02</div>
+          <h3 class="text-xl font-bold text-primary mb-3">Apply in Real Projects</h3>
+          <p class="text-sm text-muted">Translate theory into output through intensive laboratory work, software builds, and corporate simulations.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+          <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-xl font-black text-white mb-6">03</div>
+          <h3 class="text-xl font-bold text-primary mb-3">Graduate Industry-Ready</h3>
+          <p class="text-sm text-muted">Enter the workforce with a verified portfolio of skills, zero retraining required by your future employer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: The Degree Matrix ==================== -->
+  <section id="degree-matrix" class="bg-white py-24">
+    <!-- Header -->
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">The Academic Institutes of the College of BMSE</h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">Six specialized institutes encompassing Business, Management, Science, and Education. One standard of global excellence.</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-6">
+      {degreeMatrix.map((card) => (
+        <a
+          href={card.href}
+          class="bg-surface rounded-2xl border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full cursor-pointer group no-underline overflow-hidden"
         >
-          {department.overview.backgroundImage?.asset?.url && (
-            <div class="absolute inset-0 bg-black/40" />
-          )}
-          <div class="container mx-auto max-w-4xl relative z-10">
-            <p
-              class={`text-main-mobile sm:text-main-desktop text-center leading-relaxed ${department.overview.backgroundImage?.asset?.url ? "text-white" : "text-[var(--color-primary)]"}`}
-            >
-              {department.overview.content}
-            </p>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.keyFeatures && department.keyFeatures.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={department.keyFeatures} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Highlights Bento Grid */}
-  {
-    department.highlights &&
-      department.highlights.images &&
-      department.highlights.images.length === 6 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <HighlightsBento highlights={department.highlights} />
-        </ScrollRevealWrapper>
-      )
-  }
-
-  {/* College Programs Preview */}
-  {
-    collegePrograms && collegePrograms.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <CollegeProgramsPreview programs={collegePrograms} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Department News */}
-  {
-    departmentNews && departmentNews.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentNews news={departmentNews} title="College Department News" />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Department Events */}
-  {
-    departmentEvents && departmentEvents.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentEvents
-          events={departmentEvents}
-          title="College Department Events"
-        />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.curriculum && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                {department.curriculum.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                    {department.curriculum.title}
-                  </h2>
-                )}
-                {department.curriculum.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                    {department.curriculum.description}
-                  </p>
-                )}
-                {department.curriculum.highlights &&
-                  department.curriculum.highlights.length > 0 && (
-                    <ul class="space-y-3">
-                      {department.curriculum.highlights.map(
-                        (highlight: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-              </div>
-              {department.curriculum.image?.asset?.url && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={getSanityImageUrl(department.curriculum.image, {
-                      width: 800,
-                      height: 600,
-                      fit: "crop",
-                    })}
-                    alt={department.curriculum.image.alt || "Curriculum"}
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
+          {card.image && (
+            <div class="aspect-[16/9] w-full overflow-hidden border-b border-slate-100 shrink-0">
+              <img
+                src={card.image}
+                alt={card.alt}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
             </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.stats && department.stats.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{ testimonials: department.testimonials }}
-        />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.faculty && department.faculty.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-              Featured Faculty
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {department.faculty.map((member: any, index: number) => (
-                <FacultyCard member={member} index={index} />
+          )}
+          <div class="p-8 flex flex-col flex-1">
+            <h3 class="text-2xl font-black text-primary mb-4 group-hover:text-accent transition-colors">
+              {card.department}
+            </h3>
+            <div class="flex flex-wrap gap-2 mb-6">
+              {card.tags.map((tag) => (
+                <span class="bg-white border border-slate-200 text-xs font-bold px-3 py-1.5 rounded-full text-slate-600">
+                  {tag}
+                </span>
               ))}
             </div>
+            <p class="text-muted text-sm leading-relaxed mt-auto border-t border-slate-200 pt-6">
+              {card.text}
+            </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        </a>
+      ))}
+    </div>
+  </section>
 
-  {
-    department.admissionInfo && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                {department.admissionInfo.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                    {department.admissionInfo.title}
-                  </h2>
-                )}
-                {department.admissionInfo.content && (
-                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                    {department.admissionInfo.content}
-                  </p>
-                )}
-                {department.admissionInfo.requirements &&
-                  department.admissionInfo.requirements.length > 0 && (
-                    <ul class="space-y-3 mb-8">
-                      {department.admissionInfo.requirements.map(
-                        (req: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                              {req}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-                {department.admissionInfo.cta && (
-                  <CtaButton cta={department.admissionInfo.cta} />
-                )}
+  <!-- ==================== SECTION 2.5: The 4-Year Professional Roadmap ==================== -->
+  <section class="bg-surface py-28 border-b border-slate-200 overflow-hidden relative">
+    <div class="max-w-3xl mx-auto px-6 text-center mb-24">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        The Academic Timeline
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Your Path from Learner to Professional
+      </h2>
+      <p class="text-lg text-muted">
+        A four-year degree at the College of BMSE is a massive transformation. We break down your academic commitment into clear, manageable operational milestones engineered to progressively build your competence and market value.
+      </p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative">
+      <div class="hidden md:block absolute top-6 left-[12.5%] right-[12.5%] h-0.5 bg-slate-200 z-0 -translate-y-1/2"></div>
+
+      <!-- Year 1 -->
+      <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+        <div class="w-12 h-12 rounded-xl bg-primary text-white font-black flex items-center justify-center text-lg shadow-md mb-6">Y1</div>
+        <h3 class="text-xl font-bold text-primary mb-3 tracking-tight">Year 1: Core Foundations</h3>
+        <p class="text-sm md:text-base text-muted leading-relaxed">
+          Acclimate to collegiate rigor. Focus heavily on institutional core competencies, fundamental departmental tracking, and critical thinking frameworks across your chosen discipline.
+        </p>
+      </div>
+
+      <!-- Year 2 -->
+      <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+        <div class="w-12 h-12 rounded-xl bg-surface border-2 border-slate-200 text-primary font-black flex items-center justify-center text-lg mb-6">Y2</div>
+        <h3 class="text-xl font-bold text-primary mb-3 tracking-tight">Year 2: Applied Laboratory Work</h3>
+        <p class="text-sm md:text-base text-muted leading-relaxed">
+          Transition from theory to active execution. Students enter advanced specialized laboratories, engage in rigorous group project blocks, and begin mapping their targeted industry paths.
+        </p>
+      </div>
+
+      <!-- Year 3 -->
+      <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+        <div class="w-12 h-12 rounded-xl bg-accent text-primary font-black flex items-center justify-center text-lg shadow-md mb-6">Y3</div>
+        <h3 class="text-xl font-bold text-primary mb-3 tracking-tight">Year 3: Professional Immersion</h3>
+        <p class="text-sm md:text-base text-muted leading-relaxed">
+          Step outside the campus. This year focuses on advanced elective tracks, specialized technical certifications, and local or international On-the-Job Training (OJT) mentorship loops.
+        </p>
+      </div>
+
+      <!-- Year 4 -->
+      <div class="flex flex-col items-center text-center relative z-10 scroll-reveal opacity-0 translate-y-8 transition-all duration-700 ease-out data-[in-view=true]:opacity-100 data-[in-view=true]:translate-y-0">
+        <div class="w-12 h-12 rounded-xl bg-primary text-white font-black flex items-center justify-center text-lg shadow-md mb-6">Y4</div>
+        <h3 class="text-xl font-bold text-primary mb-3 tracking-tight">Year 4: Capstone & Incubation</h3>
+        <p class="text-sm md:text-base text-muted leading-relaxed">
+          The professional culmination. Defend your final undergraduate thesis or product capstone, participate in corporate networking recruitment drives, and transition directly into the global workforce.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: The "Worth It" Data Strip ==================== -->
+  <section class="bg-primary text-white py-20 border-y-8 border-accent">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-7xl mx-auto px-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-700">
+      <!-- Stat 1 -->
+      <div class="pt-8 md:pt-0">
+        <p class="text-xl font-bold text-accent mb-2">CHED Recognized</p>
+        <p class="text-sm text-slate-300">
+          All degree programs operate strictly under the standards of the Commission on Higher Education.
+        </p>
+      </div>
+      <!-- Stat 2 -->
+      <div class="pt-8 md:pt-0">
+        <p class="text-xl font-bold text-accent mb-2">Industry OJT Partnerships</p>
+        <p class="text-sm text-slate-300">
+          Guaranteed internship placements with top-tier corporate, tech, and educational partners in Metro Manila.
+        </p>
+      </div>
+      <!-- Stat 3 -->
+      <div class="pt-8 md:pt-0">
+        <p class="text-xl font-bold text-accent mb-2">Affordable Excellence</p>
+        <p class="text-sm text-slate-300">
+          Transparent tuition structures, zero hidden fees, and accessible academic scholarships for working families.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3.5: The Faculty Spotlight ==================== -->
+  <section class="bg-surface py-28 border-y border-slate-200 overflow-hidden relative">
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16 relative">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        College of BMSE Faculty
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Learn Directly from Industry Practitioners
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">
+        The College of BMSE classrooms are led by seasoned field executives, certified technologists, and active clinical practitioners who bridge the gap between academic theory and real-world execution. Scroll to explore our faculty.
+      </p>
+    </div>
+
+    <div id="faculty-carousel" class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 pb-12 scroll-px-6 md:scroll-px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full scroll-smooth">
+      {facultyMembers.map((item) => (
+        <div class="group relative bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col items-center text-center w-[85vw] md:w-[380px] shrink-0 snap-start cursor-pointer hover:-translate-y-2">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-slate-50 group-hover:border-accent transition-colors duration-500 shadow-inner mb-6 shrink-0 bg-surface">
+            <img src={item.image.url} alt={item.image.alt} loading="lazy" decoding="async" class="w-full h-full object-cover" />
+          </div>
+          <span class="bg-surface text-primary text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-wider mb-4 border border-slate-100">
+            {item.department}
+          </span>
+          <h3 class="text-2xl font-black text-primary mb-1 tracking-tight">{item.name}</h3>
+          <p class="text-sm font-bold text-accent mb-4 uppercase tracking-widest">{item.position}</p>
+          <div class="w-12 h-0.5 bg-slate-100 mb-4 group-hover:w-20 transition-all duration-500"></div>
+          <p class="text-sm font-bold text-slate-700 leading-relaxed mb-3 px-2">{item.achievements}</p>
+          <p class="text-sm text-muted leading-relaxed line-clamp-4">{item.background}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Navigation Arrows (Desktop Only) -->
+    <div class="hidden md:flex justify-center items-center gap-4 mt-8 relative z-10">
+      <button id="faculty-prev" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm cursor-pointer" aria-label="Previous faculty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button id="faculty-next" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm cursor-pointer" aria-label="Next faculty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: Culture, Autonomy & Lifestyle ==================== -->
+  <section class="bg-white py-28 border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        Campus Lifestyle
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Find Your People. Build Your Network.
+      </h2>
+      <p class="text-lg text-muted leading-relaxed">
+        College is about autonomy. Between our modern research hubs, collaborative tech spaces, and vibrant collegiate organizations, you have the freedom to build a lifestyle that supports your ambitions. We provide the infrastructure; you dictate the culture.
+      </p>
+    </div>
+
+    <!-- The Interactive Description Grid -->
+    <div class="container mx-auto max-w-7xl flex md:grid md:grid-cols-3 md:auto-rows-[360px] gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 px-6 md:px-0 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {collegeCultureGallery.map((item, index) => (
+        <div class={`group relative overflow-hidden rounded-3xl shadow-md cursor-pointer block h-[450px] md:h-full w-[85vw] md:w-auto shrink-0 snap-center md:snap-align-none border border-slate-100 hover:shadow-xl transition-shadow duration-500 ${index === 0 ? 'md:col-span-2 md:row-span-2' : 'md:col-span-1 md:row-span-1'}`}>
+          <!-- Image Layer -->
+          <img
+            src={item.url}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+          />
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent opacity-100 md:opacity-85 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+          <!-- Text Payload Container -->
+          <div class="absolute inset-0 z-20 p-8 flex flex-col justify-end overflow-hidden">
+            <h3 class="text-2xl font-bold text-white mb-3 md:transform md:translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+              {item.title}
+            </h3>
+            <p class="text-slate-200 text-sm md:text-base leading-relaxed md:opacity-0 group-hover:opacity-100 md:transform md:translate-y-8 group-hover:translate-y-0 transition-all duration-500 delay-75 line-clamp-3">
+              {item.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4.3: Student & Alumni Outcomes ==================== -->
+  <section class="bg-primary text-white py-24 border-b-8 border-accent">
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        Proof, Not Promises
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black mb-6 tracking-tight">
+        Where Our Graduates Go
+      </h2>
+      <p class="text-lg text-slate-300">We measure our success by the tangible career outcomes of our students. From topping national board exams to securing roles in multinational corporations, a degree from the College of BMSE is a verified catalyst for professional acceleration.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto px-6 mt-16 divide-y md:divide-y-0 md:divide-x divide-slate-700 text-center">
+      {outcomeStats.map((stat) => (
+        <div class="flex flex-col items-center justify-center pt-8 md:pt-0 md:px-8">
+          <span class="text-5xl md:text-6xl font-black text-accent tracking-tighter mb-2">{stat.value}</span>
+          <span class="text-lg font-bold text-white mb-2">{stat.label}</span>
+          <span class="text-sm text-slate-400">{stat.context}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-surface py-24 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {alumniStories.slice(0, 3).map((alumni) => (
+          <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-slate-100 flex flex-col h-full relative">
+            <svg class="absolute top-6 right-6 text-slate-100 w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <p class="text-muted leading-relaxed mb-10 relative z-10 italic">"{alumni.quote}"</p>
+            <div class="flex items-center gap-4 mt-auto border-t border-slate-100 pt-6">
+              <img src={alumni.imageUrl} alt={`${alumni.name} OLOPSC College of BMSE Alumni`} class="w-14 h-14 rounded-full object-cover border-2 border-surface" loading="lazy" />
+              <div class="flex flex-col">
+                <span class="font-black text-primary">{alumni.name}</span>
+                <span class="text-xs font-bold text-accent uppercase tracking-wider">{alumni.degree} • {alumni.batch}</span>
+                <span class="text-sm text-muted">{alumni.role} @ <span class="font-bold text-primary">{alumni.company}</span></span>
               </div>
-              {department.admissionInfo.image?.asset?.url && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={getSanityImageUrl(department.admissionInfo.image, {
-                      width: 800,
-                      height: 600,
-                      fit: "crop",
-                    })}
-                    alt={
-                      department.admissionInfo.image.alt ||
-                      "Admission Information"
-                    }
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
             </div>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4.5: Industry Partners & Internship Pathways ==================== -->
+  <section class="bg-white py-24 border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        Industry Integration
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight">
+        Direct Pathways to the Professional World
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">
+        Internship and immersion partners that give our students real-world experience before graduation. We maintain aggressive pipelines with top-tier corporate, tech, and educational institutions to ensure seamless employment transitions.
+      </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 flex flex-wrap justify-center items-center gap-12 md:gap-20">
+      {industryPartners.map((partner) => (
+        <div class="group block cursor-pointer">
+          <img src={partner.logoUrl} alt={`${partner.companyName} OLOPSC internship partner`} class="h-10 md:h-12 w-auto object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out hover:scale-105" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: The Transactional Anchor ==================== -->
+  <section class="bg-surface py-24 text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6">
+        Take the Final Step.
+      </h2>
+      <p class="text-lg text-muted mb-10">
+        Application portals for incoming Freshmen and Transferees are now open. Review our requirements and secure your future today.
+      </p>
+      <CtaButton cta={{ text: "Contact Admissions now!", link: "/admissions", style: "primary" }} />
+    </div>
+  </section>
+
 </Layout>
+
+<script>
+  // Lightweight Vanilla JS to handle Desktop Carousel Arrows
+  document.addEventListener('DOMContentLoaded', () => {
+    const prevBtn = document.getElementById('faculty-prev');
+    const nextBtn = document.getElementById('faculty-next');
+    const carousel = document.getElementById('faculty-carousel');
+
+    if (prevBtn && nextBtn && carousel) {
+      // Width of card (380px) + gap (24px) = 404px scroll amount
+      const scrollAmount = 404;
+
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // Lightweight Vanilla JS Intersection Observer for Scroll Reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.setAttribute('data-in-view', 'true');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+  });
+</script>

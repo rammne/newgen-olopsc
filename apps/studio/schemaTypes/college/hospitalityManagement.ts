@@ -21,6 +21,15 @@ export const hospitalityManagement = defineType({
             group: 'content',
         }),
         defineField({
+            name: 'cardThumbnail',
+            title: 'Card Thumbnail (Hub Page)',
+            type: 'image',
+            description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800×450px (16:9).',
+            options: { hotspot: true },
+            fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+            group: 'content',
+        }),
+        defineField({
             name: 'hero',
             title: 'Hero Section',
             type: 'hero',

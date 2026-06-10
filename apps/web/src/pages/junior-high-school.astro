@@ -1,283 +1,298 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import Intro from "../components/homepage/Intro.astro";
-import Features from "../components/homepage/Features.astro";
-import Stats from "../components/homepage/Stats.astro";
-import Testimonials from "../components/homepage/Testimonials.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import HighlightsBento from "../components/departments/HighlightsBento.astro";
-import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
-import DepartmentNews from "../components/departments/DepartmentNews.astro";
-import FacultyCard from "../components/departments/FacultyCard.astro";
-import {
-  getAcademicDepartmentByType,
-  getEventsByDepartmentType,
-  getNewsByDepartmentType,
-} from "../lib/sanity/queries";
+import { getAcademicDepartmentByType } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
+// Fetch CMS data
 const department = await getAcademicDepartmentByType("juniorHigh");
 
-if (!department) {
-  return Astro.redirect("/404");
+// --- Image Object Mapping ---
+interface SanityImage {
+  url: string;
+  alt: string;
 }
 
-// Fetch events for this department
-const departmentEvents = department.departmentType
-  ? await getEventsByDepartmentType(department.departmentType)
-  : [];
+const heroImage: SanityImage = {
+  url: department?.hero?.backgroundImage?.asset?.url
+    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.hero?.backgroundImage?.alt
+    ?? "OLOPSC Junior High School teacher mentoring a student",
+};
 
-// Fetch news for this department
-const departmentNews = department.departmentType
-  ? await getNewsByDepartmentType(department.departmentType)
-  : [];
+const transformationImage: SanityImage = {
+  url: department?.facilityTourImages?.[0]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 675, fit: "crop" })
+    : "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[0]?.alt
+    ?? "Junior High School students collaborating on a technology project",
+};
 
-const pageTitle =
-  department.seo?.title || department.title || "Junior High School Department";
-const pageDescription =
-  department.seo?.description ||
-  `Learn more about ${department.title} at OLOPSC`;
-const ogImage = department.seo?.image?.asset?.url;
+const mentorshipImage: SanityImage = {
+  url: department?.facilityTourImages?.[1]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[1]?.alt
+    ?? "OLOPSC faculty guiding students in character development",
+};
+
+interface CampusLifeImage {
+  url: string;
+  alt: string;
+  title: string;
+  description: string;
+}
+
+const rawGallery = department?.facilityTourImages || [];
+const hasValidGallery = rawGallery.length >= 6;
+
+const campusLifeGallery: CampusLifeImage[] = hasValidGallery
+  ? rawGallery.slice(0, 6).map((img: any) => ({
+      url: img?.asset?.url 
+        ? getSanityImageUrl(img, { width: 1200, height: 900, fit: "crop" }) 
+        : "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop",
+      alt: img?.alt || "Campus Facility",
+      title: img?.caption || "Campus Facility",
+      description: img?.description || "A dynamic and engaging campus facility for our Junior High School students."
+    }))
+  : [
+      {
+        title: "Advanced Science Laboratories",
+        alt: "JHS students in science lab",
+        url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop",
+        description: "Fully equipped biology and chemistry stations designed for safe, hands-on empirical research and critical analysis."
+      },
+      {
+        title: "Varsity Athletics & Sports",
+        alt: "JHS basketball and sports facilities",
+        url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop",
+        description: "Indoor courts and training facilities fostering elite teamwork, physical conditioning, and institutional pride."
+      },
+      {
+        title: "Collaborative Study Hubs",
+        alt: "Students working in the library",
+        url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
+        description: "Collegiate-style library spaces providing quiet zones and modern collaborative pods for independent student research."
+      },
+      {
+        title: "Tech & Coding Centers",
+        alt: "Computer laboratory for digital literacy",
+        url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+        description: "Modern computing labs focused on software fundamentals, advanced digital literacy, and safe network access."
+      },
+      {
+        title: "Student Council & Leadership",
+        alt: "JHS student leadership activities",
+        url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop",
+        description: "Dedicated organizational spaces for student leaders to develop civic responsibility, event management, and public speaking."
+      },
+      {
+        title: "Creative Arts & Performance",
+        alt: "JHS students in creative arts and performance",
+        url: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=1200&auto=format&fit=crop",
+        description: "Dedicated spaces for theater, music, and performing arts to foster creative expression and confidence."
+      }
+    ];
+
+
+// SEO metadata
+const pageTitle = department?.seo?.title ?? "Junior High School (Grades 7-10) | OLOPSC Marikina";
+const pageDescription = department?.seo?.description ?? "DepEd-accredited Junior High School blending rigorous academics with Catholic character formation, mentoring teenagers through Grades 7 to 10 at OLOPSC Marikina.";
+const ogImage = department?.seo?.image?.asset?.url;
+
+// Timeline data
+const gradeTimeline = [
+  {
+    grade: "Grade 7",
+    title: "Adjustment & Discovery",
+    text: "Transitioning from Grade School requires patience. We focus on teaching organizational skills, study habits, and digital citizenship, easing them into multiple-subject structures.",
+  },
+  {
+    grade: "Grade 8",
+    title: "Exploration & Analysis",
+    text: "The intellectual gears shift. Students dive deeper into specialized Sciences and Algebra, moving from memorizing facts to questioning systems and conducting active research.",
+  },
+  {
+    grade: "Grade 9",
+    title: "Focus & Identity",
+    text: "As peer dynamics intensify, we double down on the S-RICE values. Academically, students face advanced Chemistry and tech-voc fundamentals, requiring higher discipline and focus.",
+  },
+  {
+    grade: "Grade 10",
+    title: "Leadership & Readiness",
+    text: "The culmination of Junior High. Students take on leadership roles in clubs, complete rigorous capstone projects, and are academically hardened to seamlessly enter the specialized Senior High School strands.",
+  },
+];
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-  {department.hero && <Hero hero={department.hero} />}
 
-  {
-    department.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={department.intro} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 1: The Empathic Hero ==================== -->
+  <section class="relative bg-primary py-20 lg:py-32 border-b border-slate-200 overflow-hidden">
+    <!-- Ambient Glow Layer -->
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
 
-  {
-    department.overview && department.overview.content && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section
-          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={`background-image: url('${
-            department.overview.backgroundImage?.asset?.url
-              ? getSanityImageUrl(department.overview.backgroundImage, {
-                  width: 1920,
-                  height: 1080,
-                  fit: "crop",
-                })
-              : "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Overview+Background"
-          }'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
-        >
-          <div class="absolute inset-0 bg-black/40" />
-          <div class="container mx-auto max-w-4xl relative z-10">
-            <p class="text-main-mobile sm:text-main-desktop text-center leading-relaxed text-white">
-              {department.overview.content}
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
+
+      <!-- Left Column: Text Payload -->
+      <div>
+        <span class="text-accent font-bold tracking-widest uppercase text-sm mb-4 block">
+          Junior High School (Grades 7-10)
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+          Guiding the Teenage Years with Purpose and Passion.
+        </h1>
+        <p class="text-lg text-white leading-relaxed mb-8">
+          The transition from childhood to adolescence is beautiful, volatile, and deeply critical. We do not just teach teenagers; we mentor them. Our DepEd-accredited Junior High School seamlessly blends rigorous academic challenges with the unshakeable moral compass of our Catholic identity, ensuring your child emerges resilient, intelligent, and kind.
+        </p>
+        <CtaButton cta={{ text: "Discover the JHS Journey", link: "/admissions", style: "white" }} />
+      </div>
+
+      <!-- Right Column: Cinematic Visual Frame -->
+      <div class="rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] border-8 border-white">
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          width="1200"
+          height="900"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: The 4-Year Transformation ==================== -->
+  <section class="bg-white py-24">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+      <!-- Left Sidebar: Sticky Context -->
+      <div class="lg:col-span-5 lg:sticky lg:top-24 self-start">
+        <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+          The Architecture of Maturity
+        </h2>
+        <p class="text-lg text-muted leading-relaxed mb-8">
+          Success in Senior High School and College is reverse-engineered here. We have structured Grades 7 through 10 as a deliberate, four-year psychological and intellectual progression. Watch how your child evolves.
+        </p>
+        <div class="rounded-2xl shadow-lg overflow-hidden aspect-video">
+          <img
+            src={transformationImage.url}
+            alt={transformationImage.alt}
+            width="1200"
+            height="675"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      <!-- Right Column: Vertical Storytelling Timeline -->
+      <div class="lg:col-span-7 flex flex-col gap-12 border-l-2 border-slate-100 pl-8 md:pl-12 relative">
+        {gradeTimeline.map((item) => (
+          <div class="relative">
+            <!-- Decorative node -->
+            <div class="absolute -left-[41px] md:-left-[53px] top-1 w-5 h-5 rounded-full bg-accent border-4 border-white shadow-sm"></div>
+            <span class="text-accent font-bold uppercase tracking-wider text-xs mb-1 block">
+              {item.grade}
+            </span>
+            <h3 class="text-2xl font-bold text-primary mb-3">
+              {item.title}
+            </h3>
+            <p class="text-muted text-base leading-relaxed">
+              {item.text}
             </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        ))}
+      </div>
 
-  {
-    department.keyFeatures && department.keyFeatures.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={department.keyFeatures} />
-      </ScrollRevealWrapper>
-    )
-  }
+    </div>
+  </section>
 
-  {/* Highlights Bento Grid */}
-  {
-    department.highlights &&
-      department.highlights.images &&
-      department.highlights.images.length === 6 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <HighlightsBento highlights={department.highlights} />
-        </ScrollRevealWrapper>
-      )
-  }
+  <!-- ==================== SECTION 3: The Mentorship & S-RICE Shield ==================== -->
+  <section class="bg-primary text-white py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto px-6">
 
-  {/* Department News */}
-  {
-    departmentNews && departmentNews.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentNews news={departmentNews} title="Junior High School News" />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Department Events */}
-  {
-    departmentEvents && departmentEvents.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentEvents
-          events={departmentEvents}
-          title="Junior High School Events"
+      <!-- Visual Block (Left) -->
+      <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-700">
+        <img
+          src={mentorshipImage.url}
+          alt={mentorshipImage.alt}
+          width="1200"
+          height="900"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
         />
-      </ScrollRevealWrapper>
-    )
-  }
+      </div>
 
-  {
-    department.curriculum && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                {department.curriculum.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                    {department.curriculum.title}
-                  </h2>
-                )}
-                {department.curriculum.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                    {department.curriculum.description}
-                  </p>
-                )}
-                {department.curriculum.highlights &&
-                  department.curriculum.highlights.length > 0 && (
-                    <ul class="space-y-3">
-                      {department.curriculum.highlights.map(
-                        (highlight: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-              </div>
-              {(department.curriculum.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.curriculum.image?.asset?.url
-                        ? getSanityImageUrl(department.curriculum.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Curriculum+Photo"
-                    }
-                    alt={department.curriculum.image?.alt || "Curriculum"}
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
+      <!-- Text Block (Right) -->
+      <div>
+        <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+          More Than Educators
+        </span>
+        <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight">
+          A Shield Against Peer Pressure
+        </h2>
+        <p class="text-lg text-slate-300 leading-relaxed">
+          Teenagers need boundaries they can trust. Our faculty act as active mentors, utilizing our S-RICE framework (Spirituality, Responsibility, Integrity, Caring Culture, Excellence) to create a culture of absolute accountability. We proactively address digital etiquette, emotional intelligence, and respect, ensuring the Marikina community receives citizens of profound character.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: Campus Life & Facilities ==================== -->
+  <section class="bg-surface py-24 border-t border-slate-200">
+    <!-- Header Container -->
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Facilities Built for Discovery & Growth
+      </h2>
+      <p class="text-lg text-muted leading-relaxed">
+        Independence requires the right environment. From adult-style science laboratories to vibrant athletic courts, our campus provides the spaces necessary for teenagers to safely experiment, collaborate, and lead.
+      </p>
+    </div>
+
+    <!-- The Asymmetrical Culture Grid -->
+    <div class="container mx-auto max-w-7xl flex md:grid md:grid-cols-3 md:auto-rows-[300px] gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 px-6 md:px-0 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {campusLifeGallery.map((item, index) => (
+        <div class={`group relative overflow-hidden rounded-2xl shadow-sm cursor-pointer block h-[400px] md:h-full w-[85vw] md:w-auto shrink-0 snap-center md:snap-align-none ${index === 0 ? 'md:col-span-2 md:row-span-2' : 'md:col-span-1 md:row-span-1'}`}>
+          <!-- Image Layer -->
+          <img
+            src={item.url}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+          />
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/60 to-transparent opacity-100 md:opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+          <!-- Text Payload -->
+          <div class="absolute inset-0 z-20 p-6 md:p-8 flex flex-col justify-end overflow-hidden">
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-2 md:transform md:translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">{item.title}</h3>
+            <p class="text-slate-200 text-sm md:text-base leading-relaxed md:opacity-0 group-hover:opacity-100 md:transform md:translate-y-8 group-hover:translate-y-0 transition-all duration-500 delay-75 line-clamp-3">{item.description}</p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        </div>
+      ))}
+    </div>
+  </section>
 
-  {
-    department.stats && department.stats.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 5: Final CTA ==================== -->
+  <section class="bg-primary py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
+        The Right School for the Hardest Years
+      </h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
+        Your teenager deserves an institution that understands their world. Visit our campus, meet our mentors, and see why families across Marikina trust OLOPSC for Junior High School.
+      </p>
+      <CtaButton cta={{ text: "Book a Campus Tour", link: "/contact", style: "primary" }} />
+    </div>
+  </section>
 
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{ testimonials: department.testimonials }}
-        />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.faculty && department.faculty.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-              Featured Faculty
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {department.faculty.map((member: any, index: number) => (
-                <FacultyCard member={member} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.admissionInfo && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                {department.admissionInfo.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                    {department.admissionInfo.title}
-                  </h2>
-                )}
-                {department.admissionInfo.content && (
-                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                    {department.admissionInfo.content}
-                  </p>
-                )}
-                {department.admissionInfo.requirements &&
-                  department.admissionInfo.requirements.length > 0 && (
-                    <ul class="space-y-3 mb-8">
-                      {department.admissionInfo.requirements.map(
-                        (req: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                              {req}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-                {department.admissionInfo.cta && (
-                  <CtaButton cta={department.admissionInfo.cta} />
-                )}
-              </div>
-              {(department.admissionInfo.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.admissionInfo.image?.asset?.url
-                        ? getSanityImageUrl(department.admissionInfo.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Admission+Photo"
-                    }
-                    alt={
-                      department.admissionInfo.image?.alt ||
-                      "Admission Information"
-                    }
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
 </Layout>

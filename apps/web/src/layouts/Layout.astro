@@ -45,6 +45,7 @@ const { title, description, ogImage, ogType, canonicalUrl, noindex } =
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <slot name="head" />
   </head><body class="bg-[var(--color-neutral)] text-[var(--color-primary)]">
     <Header client:load />
     <main>

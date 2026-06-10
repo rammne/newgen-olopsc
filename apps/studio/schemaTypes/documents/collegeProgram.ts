@@ -29,6 +29,23 @@ export const collegeProgram = defineType({
       description: 'e.g., "BSCS", "BSIT"',
     }),
     defineField({
+      name: 'cardThumbnail',
+      title: 'Card Thumbnail',
+      type: 'image',
+      description: 'Thumbnail image displayed on the College Department hub page program cards. Recommended size: 800×450px (16:9 ratio).',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Describe the image for accessibility (e.g., "Computing Studies students working on a project")',
+        }),
+      ],
+    }),
+    defineField({
       name: 'category',
       title: 'Program Category',
       type: 'string',

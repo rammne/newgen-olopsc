@@ -1,295 +1,361 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import Intro from "../components/homepage/Intro.astro";
-import Features from "../components/homepage/Features.astro";
-import Stats from "../components/homepage/Stats.astro";
-import Testimonials from "../components/homepage/Testimonials.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import HighlightsBento from "../components/departments/HighlightsBento.astro";
-import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
-import DepartmentNews from "../components/departments/DepartmentNews.astro";
-import TrackClusters from "../components/departments/TrackClusters.astro";
-import FacultyCard from "../components/departments/FacultyCard.astro";
-import {
-  getAcademicDepartmentByType,
-  getEventsByDepartmentType,
-  getNewsByDepartmentType,
-} from "../lib/sanity/queries";
+import { getAcademicDepartmentByType } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
+// Fetch CMS data
 const department = await getAcademicDepartmentByType("seniorHigh");
 
-if (!department) {
-  return Astro.redirect("/404");
+// --- Image Object Mapping ---
+interface SanityImage {
+  url: string;
+  alt: string;
 }
 
-// Fetch events for this department
-const departmentEvents = department.departmentType
-  ? await getEventsByDepartmentType(department.departmentType)
-  : [];
+const heroImage: SanityImage = {
+  url: department?.hero?.backgroundImage?.asset?.url
+    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.hero?.backgroundImage?.alt
+    ?? "OLOPSC Senior High School students preparing for university life",
+};
 
-// Fetch news for this department
-const departmentNews = department.departmentType
-  ? await getNewsByDepartmentType(department.departmentType)
-  : [];
+const academicTrackImage: SanityImage = {
+  url: department?.facilityTourImages?.[0]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 1200, fit: "crop" })
+    : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[0]?.alt
+    ?? "STEM, BE, and ASH academic track students at OLOPSC",
+};
 
-const pageTitle =
-  department.seo?.title || department.title || "Senior High School Department";
-const pageDescription =
-  department.seo?.description ||
-  `Learn more about ${department.title} at OLOPSC`;
-const ogImage = department.seo?.image?.asset?.url;
+const techproTrackImage: SanityImage = {
+  url: department?.facilityTourImages?.[1]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 1200, fit: "crop" })
+    : "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[1]?.alt
+    ?? "ICT and Family & Consumer Science TECHPRO students",
+};
+
+interface ShsCultureImage {
+  url: string;
+  alt: string;
+  title: string;
+  description: string;
+}
+
+const rawGallery = department?.facilityTourImages || [];
+const hasValidGallery = rawGallery.length >= 6;
+
+const shsCultureGallery: ShsCultureImage[] = hasValidGallery
+  ? rawGallery.slice(0, 6).map((img: any) => ({
+      url: img?.asset?.url
+        ? getSanityImageUrl(img, { width: 1200, height: 900, fit: "crop" })
+        : "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop",
+      alt: img?.alt || "Campus Facility",
+      title: img?.caption || "Campus Facility",
+      description: img?.description || "A dynamic and engaging campus facility for our Senior High School students."
+    }))
+  : [
+      {
+        title: "Collegiate-Level Science Labs",
+        description: "Advanced laboratories designed specifically for STEM track students to conduct university-grade empirical research and complex biological experiments.",
+        alt: "SHS STEM students in advanced science laboratory",
+        url: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Student Council & Autonomy",
+        description: "A platform for real student voice. Our SHS leadership bodies actively organize campus-wide events, community extensions, and civic debates.",
+        alt: "Senior High School student council leadership",
+        url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Collaborative Research Hubs",
+        description: "Modern, quiet library spaces and collaboration pods built for independent study, thesis writing, and group project development.",
+        alt: "SHS students collaborating in library hub",
+        url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Specialized ICT Centers",
+        description: "High-performance computing environments for Tech-Voc students mastering programming, networking, and digital systems architecture.",
+        alt: "ICT track students coding in computer lab",
+        url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Varsity Athletics & Campus Life",
+        description: "Elite indoor sports facilities fostering physical conditioning, teamwork, and competitive institutional pride among young adults.",
+        alt: "SHS varsity athletes competing on indoor court",
+        url: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200&auto=format&fit=crop"
+      },
+      {
+        title: "Creative Arts & Design Studios",
+        description: "Dedicated spaces for arts and design track students to explore visual communication, multimedia arts, and creative expression.",
+        alt: "SHS students working on creative arts and design",
+        url: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=1200&auto=format&fit=crop"
+      }
+    ];
+
+const roiImage: SanityImage = {
+  url: department?.facilityTourImages?.[3]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[3], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[3]?.alt
+    ?? "OLOPSC graduates transitioning to top universities and careers",
+};
+
+// SEO metadata
+const pageTitle = department?.seo?.title ?? "Senior High School (Grades 11-12) | OLOPSC Marikina";
+const pageDescription = department?.seo?.description ?? "CHED-recognized Senior High School offering STEM, Business, Arts & Humanities, and TECHPRO track clusters with DepEd SHS Voucher acceptance at OLOPSC Marikina.";
+const ogImage = department?.seo?.image?.asset?.url;
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-  {department.hero && <Hero hero={department.hero} />}
 
-  {
-    department.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={department.intro} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 1: The Dual-Hook Hero ==================== -->
+  <section class="relative bg-primary text-white py-24 lg:py-32 overflow-hidden">
+    <!-- Ambient Glow Layer -->
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
 
-  {
-    department.overview && department.overview.content && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section
-          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={`background-image: url('${
-            department.overview.backgroundImage?.asset?.url
-              ? getSanityImageUrl(department.overview.backgroundImage, {
-                  width: 1920,
-                  height: 1080,
-                  fit: "crop",
-                })
-              : "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Overview+Background"
-          }'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
-        >
-          <div class="absolute inset-0 bg-black/40" />
-          <div class="container mx-auto max-w-4xl relative z-10">
-            <p class="text-main-mobile sm:text-main-desktop text-center leading-relaxed text-white">
-              {department.overview.content}
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
+
+      <!-- Left Column: Text Payload -->
+      <div>
+        <span class="text-accent font-bold tracking-widest uppercase text-sm mb-4 block">
+          Senior High School (Grades 11-12)
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none mb-6">
+          Command Your Future. We Provide the Blueprint.
+        </h1>
+        <p class="text-lg text-slate-300 leading-relaxed mb-8">
+          Senior High School is the definitive step toward your career. At OLOPSC, we treat our SHS students as responsible young adults, providing the academic freedom to pursue specific passions, while giving parents the peace of mind of a secure, credible, and values-driven Catholic institution.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <CtaButton cta={{ text: "Contact Admissions", link: "#track-clusters", style: "primary" }} />
+          <a
+            href="/admissions"
+            class="inline-flex items-center justify-center border-2 border-white text-white hover:bg-white hover:text-[#131312] font-bold py-3 px-8 rounded transition-colors"
+          >
+            Explore our Scholarship Programs
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Cinematic Visual Frame -->
+      <div class="rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] border border-slate-700">
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          width="1200"
+          height="900"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 2: The Track Clusters ==================== -->
+  <section id="track-clusters" class="bg-surface py-24">
+    <div class="max-w-5xl mx-auto px-6 text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Tailored Pathways for Every Ambition
+      </h2>
+      <p class="text-muted">
+        Choose the exact curriculum that aligns with your dream university course or immediate career goals.
+      </p>
+    </div>
+
+    <!-- Block A: Academic Track Clusters (Text Left, Image Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20 max-w-7xl mx-auto px-6">
+      <div>
+        <h3 class="text-3xl font-bold text-primary mb-6">
+          Academic Track Clusters
+        </h3>
+        <div class="flex flex-col gap-6">
+          <!-- STEM -->
+          <div>
+            <p class="font-bold text-lg text-primary">
+              Science, Technology, Engineering, and Mathematics
+            </p>
+            <p class="text-muted">
+              Rigorous preparation for medical, engineering, and advanced computing university degrees.
             </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.keyFeatures && department.keyFeatures.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={department.keyFeatures} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Highlights Bento Grid */}
-  {
-    department.highlights &&
-      department.highlights.images &&
-      department.highlights.images.length === 6 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <HighlightsBento highlights={department.highlights} />
-        </ScrollRevealWrapper>
-      )
-  }
-
-  {/* Track Clusters (Senior High School specific) */}
-  {
-    department.trackClusters &&
-      department.trackClusters.clusters &&
-      department.trackClusters.clusters.length > 0 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <TrackClusters trackClusters={department.trackClusters} />
-        </ScrollRevealWrapper>
-      )
-  }
-
-  {/* Department News */}
-  {
-    departmentNews && departmentNews.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentNews news={departmentNews} title="Senior High School News" />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Department Events */}
-  {
-    departmentEvents && departmentEvents.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentEvents
-          events={departmentEvents}
-          title="Senior High School Events"
+          <!-- BE -->
+          <div>
+            <p class="font-bold text-lg text-primary">
+              Business and Entrepreneurship
+            </p>
+            <p class="text-muted">
+              Corporate-focused curriculum covering financial accounting, marketing, and applied economics for future industry leaders.
+            </p>
+          </div>
+          <!-- ASH -->
+          <div>
+            <p class="font-bold text-lg text-primary">
+              Arts, Social Science, and Humanities
+            </p>
+            <p class="text-muted">
+              Sharpening critical communication, psychology, and political science skills for careers in law, education, and journalism.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="aspect-square rounded-3xl overflow-hidden shadow-lg">
+        <img
+          src={academicTrackImage.url}
+          alt={academicTrackImage.alt}
+          width="1200"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
         />
-      </ScrollRevealWrapper>
-    )
-  }
+      </div>
+    </div>
 
-  {
-    department.curriculum && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                {department.curriculum.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                    {department.curriculum.title}
-                  </h2>
-                )}
-                {department.curriculum.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                    {department.curriculum.description}
-                  </p>
-                )}
-                {department.curriculum.highlights &&
-                  department.curriculum.highlights.length > 0 && (
-                    <ul class="space-y-3">
-                      {department.curriculum.highlights.map(
-                        (highlight: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-              </div>
-              {(department.curriculum.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.curriculum.image?.asset?.url
-                        ? getSanityImageUrl(department.curriculum.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Curriculum+Photo"
-                    }
-                    alt={department.curriculum.image?.alt || "Curriculum"}
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.stats && department.stats.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{ testimonials: department.testimonials }}
+    <!-- Block B: TECHPRO Track Clusters (Image Left, Text Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto px-6">
+      <div class="aspect-square rounded-3xl overflow-hidden shadow-lg order-2 lg:order-1">
+        <img
+          src={techproTrackImage.url}
+          alt={techproTrackImage.alt}
+          width="1200"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
         />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.faculty && department.faculty.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-              Featured Faculty
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {department.faculty.map((member: any, index: number) => (
-                <FacultyCard member={member} index={index} />
-              ))}
-            </div>
+      </div>
+      <div class="order-1 lg:order-2">
+        <h3 class="text-3xl font-bold text-primary mb-6">
+          TECHPRO Track Clusters
+        </h3>
+        <p class="text-muted mb-6">
+          An aggressive, hands-on pipeline designed for highly specialized technical skills, NC II certifications, and direct entry into tech or hospitality sectors.
+        </p>
+        <div class="flex flex-col gap-6">
+          <!-- ICT -->
+          <div>
+            <p class="font-bold text-lg text-primary">
+              Information and Communication Technology
+            </p>
+            <p class="text-muted">
+              Advanced programming, networking, and digital systems architecture.
+            </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {
-    department.admissionInfo && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                {department.admissionInfo.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                    {department.admissionInfo.title}
-                  </h2>
-                )}
-                {department.admissionInfo.content && (
-                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                    {department.admissionInfo.content}
-                  </p>
-                )}
-                {department.admissionInfo.requirements &&
-                  department.admissionInfo.requirements.length > 0 && (
-                    <ul class="space-y-3 mb-8">
-                      {department.admissionInfo.requirements.map(
-                        (req: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                              {req}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-                {department.admissionInfo.cta && (
-                  <CtaButton cta={department.admissionInfo.cta} />
-                )}
-              </div>
-              {(department.admissionInfo.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.admissionInfo.image?.asset?.url
-                        ? getSanityImageUrl(department.admissionInfo.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Admission+Photo"
-                    }
-                    alt={
-                      department.admissionInfo.image?.alt ||
-                      "Admission Information"
-                    }
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
+          <!-- Family and Consumer Science -->
+          <div>
+            <p class="font-bold text-lg text-primary">
+              Family and Consumer Science
+            </p>
+            <p class="text-muted">
+              Mastery in culinary arts, hospitality management, and lifestyle services.
+            </p>
           </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: Culture & Autonomy ==================== -->
+  <section class="bg-white py-24 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-6 text-center mb-16">
+      <span class="text-accent font-bold uppercase tracking-wider text-xs mb-3 block">
+        Campus Life & Facilities
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Independence, Respected.
+      </h2>
+      <p class="text-lg text-muted leading-relaxed">
+        We know you aren't kids anymore. Our Senior High environment is built on mutual respect. You will have access to modern science labs, collegiate-level library hubs, and a vibrant campus culture full of specialized clubs where your ideas are taken seriously. You have the autonomy to lead; we provide the platform.
+      </p>
+    </div>
+
+    <!-- The Interactive Description Grid -->
+    <div class="container mx-auto max-w-7xl flex md:grid md:grid-cols-3 md:auto-rows-[320px] gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 px-6 md:px-0 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {shsCultureGallery.map((item, index) => (
+        <div class={`group relative overflow-hidden rounded-2xl shadow-sm cursor-pointer block h-[400px] md:h-full w-[85vw] md:w-auto shrink-0 snap-center md:snap-align-none ${index === 0 ? 'md:col-span-2 md:row-span-2' : 'md:col-span-1 md:row-span-1'}`}>
+          <!-- Image Layer -->
+          <img
+            src={item.url}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+          />
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/60 to-transparent opacity-100 md:opacity-80 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+          <!-- Text Payload Container -->
+          <div class="absolute inset-0 z-20 p-6 md:p-8 flex flex-col justify-end overflow-hidden">
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-2 md:transform md:translate-y-8 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+              {item.title}
+            </h3>
+            <p class="text-slate-200 text-sm md:text-base leading-relaxed md:opacity-0 group-hover:opacity-100 md:transform md:translate-y-8 group-hover:translate-y-0 transition-all duration-500 delay-75 line-clamp-3">
+              {item.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: ROI, Logistics & Security ==================== -->
+  <section class="bg-primary text-white py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-black text-center mb-16">
+        An Investment You Can Trust
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+        <!-- Card 1: Credibility -->
+        <div>
+          <h3 class="text-xl font-bold text-accent mb-3">
+            Proven Track Record
+          </h3>
+          <p class="text-slate-300 leading-relaxed">
+            Our graduates consistently pass top university entrance exams (UPCAT, ACET, DCAT). Our academic rigor ensures they don't just get accepted—they excel.
+          </p>
+        </div>
+
+        <!-- Card 2: Financial Clarity -->
+        <div>
+          <h3 class="text-xl font-bold text-accent mb-3">
+            Affordable & Voucher-Ready
+          </h3>
+          <p class="text-slate-300 leading-relaxed">
+            We provide transparent tuition structures with zero hidden fees. OLOPSC proudly accepts DepEd SHS Vouchers and offers academic scholarships to make elite education accessible.
+          </p>
+        </div>
+
+        <!-- Card 3: Safety -->
+        <div>
+          <h3 class="text-xl font-bold text-accent mb-3">
+            Secure & Monitored Campus
+          </h3>
+          <p class="text-slate-300 leading-relaxed">
+            While we foster independence, we never compromise on safety. From a strict anti-bullying policy to seamless digital grading portals for parents, you are always in the loop.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: The Transactional Anchor ==================== -->
+  <section class="bg-surface py-20 text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6">
+        Ready to Start Your Journey?
+      </h2>
+      <p class="text-lg text-primary/80 font-medium mb-10">
+        The enrollment process is straightforward. Secure your slot for the upcoming academic year today.
+      </p>
+      <CtaButton cta={{ text: "Start Enrollment Process", link: "/admissions", style: "primary" }} />
+    </div>
+  </section>
+
 </Layout>

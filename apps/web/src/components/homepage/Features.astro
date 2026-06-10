@@ -1,101 +1,108 @@
 ---
 interface Props {
-  features: Array<{
-    icon?: string;
-    image?: {
-      asset?: {
-        url?: string;
-      };
-      alt?: string;
-    };
-    title?: string;
-    description?: string;
-    link?: {
-      url?: string;
-      text?: string;
-    };
-  }>;
+  campusImage?: string;
+  labsImage?: string;
+  libraryImage?: string;
+  studentLifeImage?: string;
+  techImage?: string;
+  athleticsImage?: string;
 }
 
-const { features } = Astro.props;
+const {
+  campusImage,
+  labsImage,
+  libraryImage,
+  studentLifeImage,
+  techImage,
+  athleticsImage
+} = Astro.props;
+
+const finalCampusImage = campusImage ?? 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop';
+const finalLabsImage = labsImage ?? 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop';
+const finalLibraryImage = libraryImage ?? 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1200&auto=format&fit=crop';
+const finalStudentLifeImage = studentLifeImage ?? 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop';
+const finalTechImage = techImage ?? '/image_03aafd.jpg';
+const finalAthleticsImage = athleticsImage ?? 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop';
+
+const features = [
+  {
+    title: "The Marikina Campus",
+    desc: "A secure, accessible, and green environment designed to inspire academic excellence and community.",
+    image: finalCampusImage,
+    span: "md:col-span-2 md:row-span-2"
+  },
+  {
+    title: "Modern Laboratories",
+    desc: "Advanced computer and science laboratories tailored for outcome-based College and K-12 technical learning.",
+    image: finalLabsImage,
+    span: "md:col-span-2 md:row-span-1"
+  },
+  {
+    title: "Library & Study Hubs",
+    desc: "Comprehensive academic resource centers equipped for collaborative research and quiet, focused study.",
+    image: finalLibraryImage,
+    span: "md:col-span-1 md:row-span-1"
+  },
+  {
+    title: "Vibrant Student Life",
+    desc: "A dynamic campus culture fostering leadership through recognized student organizations and civic action.",
+    image: finalStudentLifeImage,
+    span: "md:col-span-1 md:row-span-1"
+  },
+  {
+    title: "Tech & IT Innovation",
+    desc: "State-of-the-art coding labs, network simulation centers, and innovation hubs tailored for the booming IT industry (BSCS & ACT).",
+    image: finalTechImage,
+    span: "md:col-span-2 md:row-span-1"
+  },
+  {
+    title: "Athletics & Recreation",
+    desc: "Top-tier sports facilities promoting physical wellness and competitive spirit among OLOPSCians.",
+    image: finalAthleticsImage,
+    span: "md:col-span-2 md:row-span-1"
+  }
+];
 ---
 
-{
-  features && features.length > 0 && (
-    <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-      <div class="container mx-auto">
-        {/* Mobile View: Compact List */}
-        <div class="flex flex-col gap-4 mb-8 md:hidden">
-          {features.map((feature) => (
-            <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-4">
-              <div class="flex-shrink-0">
-                {feature.image?.asset?.url ? (
-                  <img
-                    src={feature.image.asset.url}
-                    alt={feature.image.alt || ""}
-                    class="w-16 h-16 object-cover rounded-md"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : feature.icon ? (
-                  <div class="w-16 h-16 flex items-center justify-center bg-[var(--color-primary)]/5 rounded-md text-3xl">
-                    {feature.icon}
-                  </div>
-                ) : null}
-              </div>
-              <div class="flex-1 min-w-0">
-                {feature.title && (
-                  <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight mb-1">
-                    {feature.title}
-                  </h3>
-                )}
-                {feature.description && (
-                  <p class="text-small-mobile text-[var(--color-primary)]/80 line-clamp-2">
-                    {feature.description}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+<section class="bg-surface py-20">
+  <div class="container mx-auto px-6 max-w-7xl text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
+      Campus Life & Facilities
+    </h2>
+    <p class="text-lg text-primary max-w-2xl mx-auto">
+      Experience a vibrant community and state-of-the-art spaces designed for your holistic growth.
+    </p>
+  </div>
 
-        {/* Desktop View: Grid */}
-        <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              {feature.image?.asset?.url ? (
-                <img
-                  src={feature.image.asset.url}
-                  alt={feature.image.alt || ""}
-                  class="w-full h-48 object-cover rounded-lg mb-4"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : feature.icon ? (
-                <div class="text-5xl mb-4 text-center">{feature.icon}</div>
-              ) : null}
-              {feature.title && (
-                <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-3">
-                  {feature.title}
-                </h3>
-              )}
-              {feature.description && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-4">
-                  {feature.description}
-                </p>
-              )}
-              {feature.link?.url && (
-                <a
-                  href={feature.link.url}
-                  class="text-[var(--color-accent)] font-semibold hover:underline"
-                >
-                  {feature.link.text || "Learn More"} →
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+  <div class="container mx-auto px-6 max-w-7xl">
+    <div class="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6">
+      {features.map((feature) => (
+        <a
+          href="#"
+          class={`relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-full w-full group ${feature.span}`}
+        >
+          <!-- Image Layer -->
+          <img
+            src={feature.image}
+            alt={feature.title}
+            loading="lazy"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+          />
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500 z-10"></div>
+
+          <!-- Hover Payload Layer -->
+          <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end">
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              {feature.title}
+            </h3>
+            <p class="text-white/80 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+              {feature.desc}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

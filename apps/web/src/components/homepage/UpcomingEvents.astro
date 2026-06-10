@@ -1,140 +1,122 @@
 ---
-import {getSanityImageUrl, formatDate} from '../../lib/utils/sanity'
-import CtaButton from '../common/CtaButton.astro'
+import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
-  upcomingEvents: {
-    title?: string
-    count?: number
-    cta?: {
-      text?: string
-      link?: any
-      style?: string
-      openInNewTab?: boolean
-    }
-  }
-  events: Array<{
-    _id?: string
-    title?: string
-    slug?: {
-      current?: string
-    }
-    startDate?: string
-    featuredImage?: {
-      asset?: {
-        url?: string
-      }
-      alt?: string
-    }
-    excerpt?: string
-    location?: string
-    academicDepartment?: {
-      title?: string
-    }
-  }>
+  events?: Array<any>;
 }
 
-const {upcomingEvents, events} = Astro.props
+const { events } = Astro.props;
+
+const fallbackEvents = [
+  {
+    month: "JUN",
+    day: "10",
+    category: "College Department",
+    title: "Game Dev Bootcamp",
+    excerpt: "Master modern game engines and C# scripting in this intensive workshop led by industry veterans and computing faculty.",
+    location: "OLOPSC-BMSE Computer Laboratory",
+    link: "#"
+  },
+  {
+    month: "JUN",
+    day: "24",
+    category: "Computing Studies",
+    title: "ArchiTech Technology Summit",
+    excerpt: "Explore the future of AI, cloud architecture, and software engineering with guest speakers from top regional tech firms.",
+    location: "Main College Auditorium",
+    link: "#"
+  },
+  {
+    month: "JUL",
+    day: "15",
+    category: "Software Engineering",
+    title: "AlgoEval Platform Beta Launch",
+    excerpt: "Join the beta testing phase of our new event-driven microservice platform for remote code execution and algorithm visualization.",
+    location: "Virtual / Remote",
+    link: "#"
+  }
+];
+
+const displayEvents = (events && events.length > 0) ? events : fallbackEvents;
+
+// Helper function to extract event data
+const getEventData = (event: any) => {
+  let month = event.month;
+  let day = event.day;
+  
+  if (event.startDate) {
+    const date = new Date(event.startDate);
+    month = date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+    day = date.getDate().toString();
+  }
+
+  const category = event.academicDepartment?.title || event.category;
+  const link = event.slug?.current ? `/event/${event.slug.current}` : (event.link || "#");
+
+  return { ...event, month, day, category, link };
+};
 ---
 
-{upcomingEvents && events && events.length > 0 && (
-  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral border-t border-[var(--color-neutral)]/30">
-    <div class="container mx-auto">
-      {upcomingEvents.title && (
-        <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-          {upcomingEvents.title}
-        </h2>
-      )}
-      {/* Mobile View: Compact List */}
-      <div class="flex flex-col gap-4 mb-8 md:hidden">
-        {events.map((event) => (
-          <a
-            href={`/events/${event.slug?.current || ''}`}
-            class="bg-white rounded-lg overflow-hidden shadow-sm flex items-start p-3 gap-4"
-          >
-            {/* Date Box or Thumbnail */}
-            <div class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden bg-white shadow-sm flex flex-col items-center justify-center text-center">
-              {event.startDate ? (
-                <>
-                  <span class="text-xs text-[var(--color-primary)] font-bold uppercase block">
-                    {new Date(event.startDate).toLocaleString('default', { month: 'short' })}
-                  </span>
-                  <span class="text-xl text-[var(--color-accent)] font-bold block leading-none">
-                    {new Date(event.startDate).getDate()}
-                  </span>
-                </>
-              ) : (
-                <span class="text-2xl">📅</span>
-              )}
-            </div>
+<section class="bg-white py-20">
+  <div class="container mx-auto px-6 max-w-5xl text-center mb-16">
+    <h2 class="text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
+      Mark Your Calendars
+    </h2>
+    <p class="text-lg text-muted max-w-2xl mx-auto">
+      Join our community for upcoming workshops, academic summits, and technological showcases at our Marikina campus.
+    </p>
+  </div>
 
-            <div class="flex-1 min-w-0 py-1">
-              <span class="text-[10px] text-[var(--color-primary)]/70 uppercase tracking-wide block mb-1">
-                {event.academicDepartment?.title || 'School-wide'}
-              </span>
-              <h3 class="text-main-mobile text-[var(--color-primary)] font-bold leading-tight line-clamp-2 mb-1">
-                {event.title}
-              </h3>
-              {event.location && (
-                <p class="text-small-mobile text-[var(--color-primary)]/80 truncate">
-                  📍 {event.location}
-                </p>
-              )}
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* Desktop View: Grid */}
-      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {events.map((event) => (
-          <a
-            href={`/events/${event.slug?.current || ''}`}
-            class="bg-[var(--color-neutral)] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-          >
-            {event.featuredImage?.asset?.url && (
-              <div class="aspect-video overflow-hidden">
-                <img
-                  src={getSanityImageUrl(event.featuredImage, {width: 400, height: 300, fit: 'crop'})}
-                  alt={event.featuredImage.alt || event.title || ''}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            )}
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-2 flex-wrap">
-                <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                  {event.academicDepartment?.title || 'School-wide'}
-                </span>
-              </div>
-              {event.startDate && (
-                <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                  {formatDate(event.startDate)}
-                </p>
-              )}
-              <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                {event.title}
-              </h3>
-              {event.location && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                  📍 {event.location}
-                </p>
-              )}
-              {event.excerpt && (
-                <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                  {event.excerpt}
-                </p>
-              )}
-            </div>
-          </a>
-        ))}
-      </div>
-      {upcomingEvents.cta && (
-        <div class="text-center">
-          <CtaButton cta={upcomingEvents.cta} />
+  <div class="container mx-auto px-6 max-w-5xl flex flex-col border-t border-slate-200">
+    {displayEvents.map((rawEvent) => {
+      const event = getEventData(rawEvent);
+      return (
+      <a 
+        href={event.link} 
+        class="group flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 py-8 border-b border-slate-200 hover:bg-slate-50 transition-colors duration-300 w-full"
+      >
+        <!-- Date Box (Left) -->
+        <div class="shrink-0 w-24 h-24 rounded-2xl bg-surface flex flex-col items-center justify-center text-primary border border-slate-100 group-hover:bg-accent group-hover:text-primary group-hover:border-accent transition-colors duration-300">
+          <span class="text-sm font-black uppercase tracking-widest mb-1">{event.month}</span>
+          <span class="text-3xl font-black leading-none">{event.day}</span>
         </div>
-      )}
-    </div>
-  </section>
-)}
 
+        <!-- Text Block (Center - Expanding) -->
+        <div class="flex flex-col flex-grow">
+          {event.category && (
+            <span class="text-accent font-bold text-xs uppercase tracking-wider mb-1">
+              {event.category}
+            </span>
+          )}
+          <h3 class="text-2xl font-bold text-primary mb-2 group-hover:underline decoration-2 underline-offset-4">
+            {event.title}
+          </h3>
+          <p class="text-muted text-base leading-relaxed mb-3 line-clamp-2">
+            {event.excerpt}
+          </p>
+          <div class="flex items-center gap-2 text-muted text-sm font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            {event.location}
+          </div>
+        </div>
+
+        <!-- Arrow Icon (Far Right) -->
+        <div class="hidden md:flex shrink-0 ml-auto w-12 h-12 rounded-full border border-slate-200 items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+      );
+    })}
+  </div>
+
+  <!-- Global Action -->
+  <div class="text-center flex justify-center mt-12">
+    <CtaButton cta={{ text: "View All Events", link: "/events", style: "primary" }} />
+  </div>
+</section>

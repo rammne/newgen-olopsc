@@ -305,6 +305,35 @@ export const academicDepartment = defineType({
       ],
     }),
     defineField({
+      name: 'facilityTourImages',
+      title: 'Facility Tour Images',
+      type: 'array',
+      description: 'Upload images showcasing department facilities (classrooms, playgrounds, waiting areas, etc.). Used in the Guided Facilities Tour section.',
+      group: 'media',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Describe what is shown in the image for accessibility.',
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption (Optional)',
+              type: 'string',
+              description: 'e.g., "Classroom", "Playground", "Drop-off Area"',
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'testimonials',
       title: 'Testimonials (Parents/Students)',
       description: 'Add testimonials from parents, students, or alumni here.',
@@ -327,6 +356,61 @@ export const academicDepartment = defineType({
       of: [{ type: 'section' }],
       description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
       group: 'media',
+    }),
+    defineField({
+      name: 'industryPartners',
+      title: 'Industry Partners',
+      type: 'array',
+      group: 'content',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'companyName', title: 'Company Name', type: 'string', validation: (Rule) => Rule.required() }),
+            defineField({ name: 'logo', title: 'Company Logo', type: 'image', options: { hotspot: true } }),
+          ],
+          preview: {
+            select: { title: 'companyName', media: 'logo' },
+          },
+        },
+      ],
+      description: 'Logos of industry partners and internship pathways',
+    }),
+    defineField({
+      name: 'outcomeStats',
+      title: 'Outcome Statistics',
+      type: 'array',
+      group: 'content',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'value', title: 'Value', type: 'string' }),
+            defineField({ name: 'label', title: 'Label', type: 'string' }),
+            defineField({ name: 'context', title: 'Context/Subtext', type: 'string' }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'alumniStories',
+      title: 'Alumni Stories',
+      type: 'array',
+      group: 'content',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'name', title: 'Name', type: 'string' }),
+            defineField({ name: 'degree', title: 'Degree', type: 'string' }),
+            defineField({ name: 'batch', title: 'Batch/Class', type: 'string' }),
+            defineField({ name: 'role', title: 'Job Role', type: 'string' }),
+            defineField({ name: 'company', title: 'Company', type: 'string' }),
+            defineField({ name: 'quote', title: 'Quote/Testimonial', type: 'text', rows: 4 }),
+            defineField({ name: 'image', title: 'Profile Image', type: 'image', options: { hotspot: true } }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: 'seo',

@@ -1257,6 +1257,17 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         alt
       }
     },
+    facilityTourImages[] {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions
+        }
+      },
+      alt,
+      caption
+    },
     collegePrograms {
       title,
       programs[]->{
@@ -1265,6 +1276,17 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         shortTitle,
         slug {
           current
+        },
+        cardThumbnail {
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt,
+          hotspot
         },
         hero {
           backgroundImage {
@@ -1333,6 +1355,32 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         platform,
         url,
         label
+      }
+    },
+    industryPartners[] {
+      companyName,
+      logo {
+        asset->{
+          url
+        }
+      }
+    },
+    outcomeStats[] {
+      value,
+      label,
+      context
+    },
+    alumniStories[] {
+      name,
+      degree,
+      batch,
+      role,
+      company,
+      quote,
+      image {
+        asset->{
+          url
+        }
       }
     },
     testimonials[] {
@@ -1536,6 +1584,35 @@ export async function getAllCollegePrograms() {
       }
     },
     overview
+  }`
+
+  return await client.fetch(query)
+}
+
+/**
+ * Get card thumbnails for all college program singleton pages.
+ * Used by the College Department hub page to display program card images.
+ */
+export async function getCollegeProgramThumbnails() {
+  const query = `{
+    "computing-studies": *[_type == "computingStudies"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    },
+    "business-administration-and-entrepreneurship": *[_type == "businessAdmin"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    },
+    "education-and-liberal-arts": *[_type == "educationLiberalArts"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    },
+    "hospitality-management": *[_type == "hospitalityManagement"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    },
+    "tourism-management": *[_type == "tourismManagement"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    },
+    "psychology": *[_type == "psychology"][0]{
+      cardThumbnail { asset->{ _id, url, metadata { dimensions } }, alt, hotspot }
+    }
   }`
 
   return await client.fetch(query)

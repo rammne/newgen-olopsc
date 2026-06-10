@@ -1,283 +1,354 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import Intro from "../components/homepage/Intro.astro";
-import Features from "../components/homepage/Features.astro";
-import Stats from "../components/homepage/Stats.astro";
-import Testimonials from "../components/homepage/Testimonials.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import HighlightsBento from "../components/departments/HighlightsBento.astro";
-import DepartmentEvents from "../components/departments/DepartmentEvents.astro";
-import DepartmentNews from "../components/departments/DepartmentNews.astro";
-import FacultyCard from "../components/departments/FacultyCard.astro";
-import {
-  getAcademicDepartmentByType,
-  getEventsByDepartmentType,
-  getNewsByDepartmentType,
-} from "../lib/sanity/queries";
+import { getAcademicDepartmentByType } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
+// Fetch CMS data
 const department = await getAcademicDepartmentByType("gradeSchool");
 
-if (!department) {
-  return Astro.redirect("/404");
+// --- Image Object Mapping ---
+interface SanityImage {
+  url: string;
+  alt: string;
 }
 
-// Fetch events for this department
-const departmentEvents = department.departmentType
-  ? await getEventsByDepartmentType(department.departmentType)
-  : [];
+const heroImage: SanityImage = {
+  url: department?.hero?.backgroundImage?.asset?.url
+    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.hero?.backgroundImage?.alt
+    ?? "OLOPSC Grade School students engaging in active learning",
+};
 
-// Fetch news for this department
-const departmentNews = department.departmentType
-  ? await getNewsByDepartmentType(department.departmentType)
-  : [];
+const lowerPrimaryImage: SanityImage = {
+  url: department?.facilityTourImages?.[0]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 675, fit: "crop" })
+    : "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[0]?.alt
+    ?? "Grades 1 to 3 foundational literacy and numeracy activities",
+};
 
-const pageTitle =
-  department.seo?.title || department.title || "Grade School Department";
-const pageDescription =
-  department.seo?.description ||
-  `Learn more about ${department.title} at OLOPSC`;
-const ogImage = department.seo?.image?.asset?.url;
+const upperPrimaryImage: SanityImage = {
+  url: department?.facilityTourImages?.[1]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 675, fit: "crop" })
+    : "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[1]?.alt
+    ?? "Grades 4 to 6 advanced science and collaborative projects",
+};
+
+const extracurricularImage: SanityImage = {
+  url: department?.facilityTourImages?.[2]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[2], { width: 1400, height: 788, fit: "crop" })
+    : "https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=1400&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[2]?.alt
+    ?? "Grade School students participating in holistic extracurricular activities",
+};
+
+const gsClassroomImage: SanityImage = {
+  url: department?.facilityTourImages?.[3]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[3], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[3]?.alt
+    ?? "Modern tech-integrated OLOPSC Grade School classroom",
+};
+
+const gsLabImage: SanityImage = {
+  url: department?.facilityTourImages?.[4]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[4], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[4]?.alt
+    ?? "OLOPSC Grade School computer and science discovery laboratory",
+};
+
+const gsPlayCourtImage: SanityImage = {
+  url: department?.facilityTourImages?.[5]?.asset?.url
+    ? getSanityImageUrl(department.facilityTourImages[5], { width: 1200, height: 900, fit: "crop" })
+    : "https://images.unsplash.com/photo-1542652735873-fb2825bac6e2?q=80&w=1200&auto=format&fit=crop",
+  alt: department?.facilityTourImages?.[5]?.alt
+    ?? "OLOPSC campus sports court and primary play areas",
+};
+
+// SEO metadata
+const pageTitle = department?.seo?.title ?? "Grade School (Grades 1-6) | OLOPSC Marikina";
+const pageDescription = department?.seo?.description ?? "DepEd-accredited primary education building foundational literacy, STEM competence, and Catholic character formation at OLOPSC Marikina.";
+const ogImage = department?.seo?.image?.asset?.url;
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-  {department.hero && <Hero hero={department.hero} />}
 
-  {
-    department.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={department.intro} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 1: The Academic Foundation Hero ==================== -->
+  <section class="relative bg-surface py-20 lg:py-32 border-b border-slate-200 overflow-hidden">
+    <!-- Ambient Glow Layer -->
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0"></div>
+    <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
 
-  {
-    department.overview && department.overview.content && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section
-          class="min-h-[40vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white relative"
-          style={`background-image: url('${
-            department.overview.backgroundImage?.asset?.url
-              ? getSanityImageUrl(department.overview.backgroundImage, {
-                  width: 1920,
-                  height: 1080,
-                  fit: "crop",
-                })
-              : "https://placehold.co/1920x1080/e2e8f0/1e293b?text=Overview+Background"
-          }'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
-        >
-          <div class="absolute inset-0 bg-black/40" />
-          <div class="container mx-auto max-w-4xl relative z-10">
-            <p class="text-main-mobile sm:text-main-desktop text-center leading-relaxed text-white">
-              {department.overview.content}
-            </p>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
 
-  {
-    department.keyFeatures && department.keyFeatures.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={department.keyFeatures} />
-      </ScrollRevealWrapper>
-    )
-  }
+      <!-- Left Column: Text Payload -->
+      <div>
+        <span class="text-accent font-bold tracking-widest uppercase text-sm mb-4 block">
+          Primary Education (Grades 1-6)
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black text-primary tracking-tight leading-tight mb-6">
+          Building the Foundations of Academic Excellence.
+        </h1>
+        <p class="text-lg text-muted leading-relaxed mb-8">
+          The formative years dictate a lifelong love for learning. Our DepEd-accredited Grade School curriculum meticulously bridges the gap between early childhood discovery and rigorous academic competence, deeply rooted in Catholic values.
+        </p>
+        <CtaButton cta={{ text: "View Enrollment Requirements", link: "/admissions", style: "primary" }} />
+      </div>
 
-  {/* Highlights Bento Grid */}
-  {
-    department.highlights &&
-      department.highlights.images &&
-      department.highlights.images.length === 6 && (
-        <ScrollRevealWrapper direction="up" delay={0.1}>
-          <HighlightsBento highlights={department.highlights} />
-        </ScrollRevealWrapper>
-      )
-  }
-
-  {/* Department News */}
-  {
-    departmentNews && departmentNews.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentNews news={departmentNews} title="Grade School News" />
-      </ScrollRevealWrapper>
-    )
-  }
-
-  {/* Department Events */}
-  {
-    departmentEvents && departmentEvents.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <DepartmentEvents
-          events={departmentEvents}
-          title="Grade School Events"
+      <!-- Right Column: Visual Frame -->
+      <div class="rounded-2xl overflow-hidden shadow-2xl aspect-square md:aspect-[4/3] border-4 border-white">
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          width="1200"
+          height="900"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover"
         />
-      </ScrollRevealWrapper>
-    )
-  }
+      </div>
+    </div>
+  </section>
 
-  {
-    department.curriculum && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                {department.curriculum.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] mb-4">
-                    {department.curriculum.title}
-                  </h2>
-                )}
-                {department.curriculum.description && (
-                  <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-6">
-                    {department.curriculum.description}
-                  </p>
-                )}
-                {department.curriculum.highlights &&
-                  department.curriculum.highlights.length > 0 && (
-                    <ul class="space-y-3">
-                      {department.curriculum.highlights.map(
-                        (highlight: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)]">
-                              {highlight}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-              </div>
-              {(department.curriculum.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.curriculum.image?.asset?.url
-                        ? getSanityImageUrl(department.curriculum.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Curriculum+Photo"
-                    }
-                    alt={department.curriculum.image?.alt || "Curriculum"}
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+  <!-- ==================== SECTION 2: The Core Pillars ==================== -->
+  <section class="bg-primary py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-white mb-16 text-center tracking-tight">
+        A Balanced, Rigorous Curriculum
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-  {
-    department.stats && department.stats.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Stats keyStats={{ stats: department.stats }} />
-      </ScrollRevealWrapper>
-    )
-  }
+        <!-- Pillar 1 -->
+        <div class="bg-surface p-10 rounded-2xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300 shadow-sm">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Literacy & Communication
+          </h3>
+          <p class="text-white leading-relaxed">
+            Developing intensive reading comprehension, articulate public speaking, and creative writing skills essential for all future subjects.
+          </p>
+        </div>
 
-  {
-    department.testimonials && department.testimonials.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Testimonials
-          testimonials={{ testimonials: department.testimonials }}
-        />
-      </ScrollRevealWrapper>
-    )
-  }
+        <!-- Pillar 2 -->
+        <div class="bg-surface p-10 rounded-2xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300 shadow-sm">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Foundational STEM
+          </h3>
+          <p class="text-white leading-relaxed">
+            Introducing structured mathematics, critical problem-solving, and hands-on science experiments to ignite analytical thinking early.
+          </p>
+        </div>
 
-  {
-    department.faculty && department.faculty.length > 0 && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
-          <div class="container mx-auto max-w-full">
-            <h2 class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12">
-              Featured Faculty
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {department.faculty.map((member: any, index: number) => (
-                <FacultyCard member={member} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+        <!-- Pillar 3 -->
+        <div class="bg-surface p-10 rounded-2xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300 shadow-sm">
+          <h3 class="text-xl font-bold text-white mb-4">
+            S-RICE Character Building
+          </h3>
+          <p class="text-white leading-relaxed">
+            Integrating Spirituality, Responsibility, Integrity, Caring Culture, and Excellence into daily classroom interactions and discipline.
+          </p>
+        </div>
 
-  {
-    department.admissionInfo && (
-      <ScrollRevealWrapper direction="up" delay={0.1}>
-        <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-primary)]">
-          <div class="container mx-auto max-w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="text-white">
-                {department.admissionInfo.title && (
-                  <h2 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
-                    {department.admissionInfo.title}
-                  </h2>
-                )}
-                {department.admissionInfo.content && (
-                  <p class="text-main-mobile sm:text-main-desktop text-white/90 mb-6">
-                    {department.admissionInfo.content}
-                  </p>
-                )}
-                {department.admissionInfo.requirements &&
-                  department.admissionInfo.requirements.length > 0 && (
-                    <ul class="space-y-3 mb-8">
-                      {department.admissionInfo.requirements.map(
-                        (req: string) => (
-                          <li class="flex items-start gap-3">
-                            <span class="text-[var(--color-accent)] mt-1">
-                              ✓
-                            </span>
-                            <span class="text-main-mobile sm:text-main-desktop text-white/90">
-                              {req}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  )}
-                {department.admissionInfo.cta && (
-                  <CtaButton cta={department.admissionInfo.cta} />
-                )}
-              </div>
-              {(department.admissionInfo.image?.asset?.url || true) && (
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={
-                      department.admissionInfo.image?.asset?.url
-                        ? getSanityImageUrl(department.admissionInfo.image, {
-                            width: 800,
-                            height: 600,
-                            fit: "crop",
-                          })
-                        : "https://placehold.co/800x600/e2e8f0/1e293b?text=Admission+Photo"
-                    }
-                    alt={
-                      department.admissionInfo.image?.alt ||
-                      "Admission Information"
-                    }
-                    class="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      </ScrollRevealWrapper>
-    )
-  }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEW SECTION: The Facilities Tour ==================== -->
+  <section class="bg-surface py-24 border-t border-slate-200">
+    <!-- Header -->
+    <div class="container mx-auto px-6 max-w-5xl text-center mb-20">
+      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+        Spaces Engineered for Active Learning
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto">
+        Our primary campus infrastructure provides the advanced tools, scientific laboratories, and recreational spaces necessary to support a modern academic curriculum.
+      </p>
+    </div>
+
+    <!-- Rows Container -->
+    <div class="container mx-auto px-6 max-w-6xl flex flex-col gap-24">
+
+      <!-- Row 1: Tech-Integrated Classrooms (Image Left, Text Right) -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shrink-0 border-4 border-white">
+          <img
+            src={gsClassroomImage.url}
+            alt={gsClassroomImage.alt}
+            width="1200"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Multimedia Smart Classrooms
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            Designed to maximize focus and interaction, our classrooms feature modern multimedia integration, ergonomic student seating, and extensive whiteboards. These spaces are optimized for collaborative group work, structured lectures, and dynamic presentations that keep primary students fully engaged.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row 2: Science & Computing Labs (Text Left, Image Right) -->
+      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shrink-0 border-4 border-white">
+          <img
+            src={gsLabImage.url}
+            alt={gsLabImage.alt}
+            width="1200"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Early STEM & Innovation Centers
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            We introduce technological literacy and the scientific method early. Our Grade School students utilize specialized computer laboratories for foundational programming tasks and safe, instructor-led science spaces for introductory hands-on experiments, transforming abstract textbook concepts into concrete understanding.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row 3: Sports & Recreation (Image Left, Text Right) -->
+      <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shrink-0 border-4 border-white">
+          <img
+            src={gsPlayCourtImage.url}
+            alt={gsPlayCourtImage.alt}
+            width="1200"
+            height="900"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+          <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
+            Dedicated Sports Courts & Playfields
+          </h3>
+          <p class="text-lg text-muted leading-relaxed">
+            Physical health directly drives cognitive performance. Grade School students have structured access to our secure campus sports courts and open fields for physical education classes, institutional athletics, and monitored recess play, fostering teamwork and physical agility.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: The Stepping Stones (Progression) ==================== -->
+  <section class="bg-primary text-white py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-black mb-16 text-center tracking-tight">
+        The Academic Progression
+      </h2>
+
+      <!-- Row 1: Lower Primary (Image Left, Text Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+        <div class="aspect-video rounded-2xl overflow-hidden shadow-lg">
+          <img
+            src={lowerPrimaryImage.url}
+            alt={lowerPrimaryImage.alt}
+            width="1200"
+            height="675"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div>
+          <span class="text-accent font-bold uppercase tracking-wider mb-2 block">
+            Mastering the Basics
+          </span>
+          <h3 class="text-3xl font-bold mb-4">
+            Lower Primary (Grades 1-3)
+          </h3>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            The crucial transition phase. We focus heavily on ensuring every student achieves reading fluency, basic mathematical automation, and classroom independence. Teachers provide heavy guidance to build unshakeable confidence in their ability to learn.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row 2: Upper Primary (Text Left, Image Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+          <span class="text-accent font-bold uppercase tracking-wider mb-2 block">
+            Preparing for High School
+          </span>
+          <h3 class="text-3xl font-bold mb-4">
+            Upper Primary (Grades 4-6)
+          </h3>
+          <p class="text-slate-300 text-lg leading-relaxed">
+            A shift towards critical thinking and collaborative output. Students engage in complex science projects, advanced reading analysis, and independent study habits. We increase academic rigor to ensure they are fully equipped for the demands of Junior High School.
+          </p>
+        </div>
+        <div class="aspect-video rounded-2xl overflow-hidden shadow-lg order-1 lg:order-2">
+          <img
+            src={upperPrimaryImage.url}
+            alt={upperPrimaryImage.alt}
+            width="1200"
+            height="675"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: Holistic Growth & Extracurriculars ==================== -->
+  <section class="bg-white py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-7xl mx-auto px-6 items-center">
+
+      <!-- Text Block -->
+      <div class="lg:col-span-5">
+        <h2 class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight">
+          Beyond the Classroom
+        </h2>
+        <p class="text-lg text-muted leading-relaxed">
+          Academic excellence is only half the equation. Our Grade School department offers vibrant Scouting programs, academic varsity clubs, and performing arts groups. We actively encourage students to discover their passions, build leadership skills, and practice teamwork in a safe, guided environment.
+        </p>
+      </div>
+
+      <!-- Visual Block -->
+      <div class="lg:col-span-7">
+        <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-video group block">
+          <img
+            src={extracurricularImage.url}
+            alt={extracurricularImage.alt}
+            width="1400"
+            height="788"
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: Final CTA ==================== -->
+  <section class="bg-primary py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
+        Set Them on the Right Path
+      </h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
+        Enroll your child in a Grade School program that values academic rigor, character formation, and holistic development. Visit our Marikina campus and experience the OLOPSC difference.
+      </p>
+      <CtaButton cta={{ text: "Start the Application", link: "/admissions", style: "primary" }} />
+    </div>
+  </section>
+
 </Layout>
