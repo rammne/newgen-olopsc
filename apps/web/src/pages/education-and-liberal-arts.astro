@@ -1,21 +1,508 @@
 ---
-import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
+import Layout from "../layouts/Layout.astro";
+import CtaButton from "../components/common/CtaButton.astro";
 import { getEducationLiberalArtsPage } from "../lib/sanity/queries";
 
-const departmentData = await getEducationLiberalArtsPage();
+const pageData = await getEducationLiberalArtsPage();
 
-const department = departmentData || {
-  title: "College of Education & Liberal Arts",
-  degree: "Bachelor of Early Childhood Education, Bachelor of Special Needs Education, Bachelor of Arts in Communication",
-  hero: {
-    headline: "College of Education & Liberal Arts",
-    variant: "image"
+const heroBackground = pageData?.heroBackground || {
+  url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop",
+  alt: "Education and Liberal Arts Interactive Classroom"
+};
+
+const quickFacts = pageData?.quickFacts || {
+  duration: "4 Years",
+  units: "145+ Units",
+  format: "On-Campus & Teaching Practicum"
+};
+
+const tracks = pageData?.tracks && pageData.tracks.length > 0 
+  ? pageData.tracks
+  : [
+      { title: "Elementary Education", subtitle: "BEED", description: "Master foundational pedagogy, child psychology, and the architecture of early learning environments." },
+      { title: "Secondary Education", subtitle: "BSED", description: "Command subject-matter expertise and adolescent development to lead high school and preparatory classrooms." },
+      { title: "English Language", subtitle: "BAEL", description: "Master advanced linguistics, corporate communication, and structural syntax for global media and publishing." }
+    ];
+
+const overviewMainImage = pageData?.overviewMainImage || {
+  url: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop",
+  alt: "Educational Leadership and Pedagogy"
+};
+
+const overviewSubImage = pageData?.overviewSubImage || {
+  url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
+  alt: "Advanced Linguistics and Communication"
+};
+
+const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
+  ? pageData.outcomes
+  : [
+      { title: "Early Cognitive Architecture (BEED)", description: "Mastery of foundational pedagogy, child psychology, and the design of high-impact early learning environments." },
+      { title: "Subject-Matter Command (BSED)", description: "The capability to direct secondary education classrooms through advanced subject expertise and adolescent behavioral management." },
+      { title: "Advanced Structural Linguistics (BAEL)", description: "The application of syntax, semantics, and corporate communication strategies for global media, publishing, and public relations." },
+      { title: "Curriculum Design & Leadership", description: "A deeply ingrained capability to architect educational frameworks, optimize learning outcomes, and step into administrative leadership roles." }
+    ];
+
+const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
+  ? pageData.curriculumTracks
+  : [
+      {
+        id: "beed",
+        name: "BEED (Elementary)",
+        roadmap: [
+          { year: "Year 1", title: "Foundations of Pedagogy", subjects: ["Child & Adolescent Development", "The Teaching Profession", "Foundations of Special Needs Ed."] },
+          { year: "Year 2", title: "Instructional Methodologies", subjects: ["Teaching Math in Primary Grades", "Early Literacy", "Assessment in Learning 1."] },
+          { year: "Year 3", title: "Curriculum & Technology", subjects: ["Technology for Teaching", "Curriculum Development", "Educational Research."] },
+          { year: "Year 4", title: "Clinical Practice", subjects: ["Field Study 1 & 2", "Teaching Internship", "LET Intensive Review."] }
+        ]
+      },
+      {
+        id: "bsed",
+        name: "BSED (Secondary)",
+        roadmap: [
+          { year: "Year 1", title: "Subject-Matter Foundations", subjects: ["Advanced English/Math/Science (Major-Dependent)", "Adolescent Psychology", "The Teaching Profession."] },
+          { year: "Year 2", title: "Advanced Methodologies", subjects: ["Facilitating Learner-Centered Teaching", "Assessment in Learning 2", "Major Subject Pedagogy."] },
+          { year: "Year 3", title: "EdTech & Assessment", subjects: ["Building & Enhancing New Literacies", "Technology in Sec. Ed", "Action Research."] },
+          { year: "Year 4", title: "Clinical Practice", subjects: ["Field Study 1 & 2", "Teaching Internship", "LET Intensive Review."] }
+        ]
+      },
+      {
+        id: "bael",
+        name: "BAEL (English Language)",
+        roadmap: [
+          { year: "Year 1", title: "Linguistic Foundations", subjects: ["Intro to Linguistics", "Structure of English", "History of the English Language."] },
+          { year: "Year 2", title: "Advanced Syntax & Semantics", subjects: ["Phonetics & Phonology", "Semantics & Pragmatics", "Language & Society."] },
+          { year: "Year 3", title: "Corporate & Media Communication", subjects: ["Technical Writing", "Discourse Analysis", "English for Specific Purposes."] },
+          { year: "Year 4", title: "Research & Practicum", subjects: ["Linguistic Research", "Corporate Practicum (OJT)", "Translation & Editing."] }
+        ]
+      }
+    ];
+
+const ecosystemImages = {
+  modelClassroom: {
+    url: pageData?.ecosystemImages?.modelClassroom?.asset?.url || "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.modelClassroom?.alt || "Interactive Model Classroom"
   },
-  intro: {
-    headline: "Welcome",
-    content: "Content is being updated."
+  speechLab: {
+    url: pageData?.ecosystemImages?.speechLab?.asset?.url || "https://images.unsplash.com/photo-1590402494682-bf346f4c97bb?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.speechLab?.alt || "Digital Phonetics & Speech Suite"
+  },
+  literacyHub: {
+    url: pageData?.ecosystemImages?.literacyHub?.asset?.url || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.literacyHub?.alt || "The Literary & Publishing Workstation"
+  },
+  resourceCenter: {
+    url: pageData?.ecosystemImages?.resourceCenter?.asset?.url || "https://images.unsplash.com/photo-1588534510807-86dfb5ed5d5b?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.resourceCenter?.alt || "Curriculum Design & Media Lab"
   }
 };
+
+const chair = pageData?.chair || {
+  name: "Dr. Maria Santos",
+  title: "Program Chair, Education & Liberal Arts",
+  credentials: "Ed.D, MA in Education",
+  quote: "Teaching is not merely the transfer of facts; it is the architecture of the human mind. Our mission is to forge educators who inspire, and linguists who communicate with absolute precision and power.",
+  image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop", alt: "Program Chair" }
+};
+
+const faculty = pageData?.faculty && pageData.faculty.length > 0
+  ? pageData.faculty
+  : [
+      { name: "Eleanor Rigby", specialty: "Early Childhood Pedagogy", credentials: "MA in Early Childhood Education", image: { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "John Keating", specialty: "Secondary Curriculum Strategy", credentials: "PhD in Education", image: { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "Henry Higgins", specialty: "Applied Linguistics & Syntax", credentials: "PhD in Linguistics", image: { url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "Anne Sullivan", specialty: "Special Needs Education", credentials: "MA in Special Education", image: { url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } }
+    ];
+
+const pathways = pageData?.pathways && pageData.pathways.length > 0
+  ? pageData.pathways
+  : [
+      {
+        title: "Foundational Pedagogy",
+        subtitle: "BEED Trajectory",
+        description: "Shape the cognitive and emotional architecture of the next generation. Direct early learning environments, design inclusive classrooms, and lead foundational education.",
+        roles: ["Master Elementary Educator", "Early Childhood Program Director", "Special Education Needs (SEN) Coordinator", "Educational Consultant"]
+      },
+      {
+        title: "Secondary Educational Leadership",
+        subtitle: "BSED Trajectory",
+        description: "Command adolescent development and advanced subject-matter pedagogy. Shape high school curricula and step into administrative leadership roles within academic institutions.",
+        roles: ["Secondary Education Subject Specialist", "Academic Curriculum Director", "School Administrator / Principal", "EdTech Integration Lead"]
+      },
+      {
+        title: "Global Corporate Communication",
+        subtitle: "BAEL Trajectory",
+        description: "Master structural linguistics and syntax to command global media. Direct corporate narratives, lead publishing houses, and manage international public relations.",
+        roles: ["Corporate Communications Director", "Technical Editor / Publisher", "Public Relations (PR) Executive", "International ESL Consultant"]
+      }
+    ];
+
+const pageTitle = pageData?.seo?.title || "College of Education & Liberal Arts | OLOPSC College of BMSE";
+const pageDescription = pageData?.seo?.description || "Shape Minds. Master Language. Specialized degrees in Elementary Education, Secondary Education, and the English Language.";
 ---
 
-<DepartmentTemplate department={department} />
+<Layout title={pageTitle}>
+  <!-- Hero Section -->
+  <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
+    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+      <div class="lg:col-span-7 flex flex-col">
+        <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor's Degrees</h2>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Shape Minds. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Master Language.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a foundational pillar of the College of Business, Management, Science, and Education (BMSE), this department offers specialized degrees in Elementary Education, Secondary Education, and the English Language. We engineer pedagogical leaders and communication specialists ready to impact generations.</p>
+        <div class="flex flex-wrap gap-4">
+          <CtaButton cta={{ text: "Explore Degree Tracks", link: "#programs", style: "primary" }} />
+          <CtaButton cta={{ text: "View Career Paths", link: "#outcomes", style: "outline" }} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Facts Strip -->
+  <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+      
+      <!-- Fact 1: Degree Options -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">BEED &bull; BSED &bull; BAEL</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Specialized Tracks</span>
+      </div>
+
+      <!-- Fact 2: Duration -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.duration || '4 Years'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Standard Completion</span>
+      </div>
+
+      <!-- Fact 3: Workload -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.units || '145+ Units'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Average Academic Load</span>
+      </div>
+
+      <!-- Fact 4: Format -->
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></span>
+        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.format || 'On-Campus & Teaching Practicum'}</span>
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Degree Tracks Matrix -->
+  <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Professional Trajectory.</h2>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {tracks.map((track: any) => (
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 flex flex-col">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-3">{track.subtitle}</span>
+          <h3 class="text-2xl font-black text-white mb-4 leading-tight">{track.title}</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">{track.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Program Overview -->
+  <section class="py-24 md:py-32 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      
+      <!-- Left Column: Typography & Department Payload -->
+      <div class="flex flex-col relative z-10">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Thought and Communication.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Education and Liberal Arts programs are engineered for those who intend to lead through knowledge transfer and linguistic command. Whether mastering the psychology of early childhood development, commanding secondary education classrooms, or dissecting structural syntax, this curriculum provides a rigorous, science-backed approach to human intellectual growth.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Moving far beyond traditional rote learning, our students engage in immersive teaching practicums, advanced linguistic research, and corporate communication simulations. Graduates emerge not just as teachers and writers, but as agile intellectual leaders prepared to shape curricula, direct corporate training, and dominate global publishing.</p>
+      </div>
+
+      <!-- Right Column: Asymmetric Dual-Image Composition -->
+      <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0 group">
+        <!-- Background Decorative Glow -->
+        <div class="absolute right-12 top-12 w-2/3 h-2/3 bg-surface rounded-full blur-3xl -z-10 opacity-50"></div>
+
+        <!-- Main Image (Back/Bottom-Left) -->
+        <div class="absolute left-0 bottom-0 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl z-10">
+          <img src={overviewMainImage.url} alt={overviewMainImage.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        </div>
+
+        <!-- Sub Image (Front/Top-Right) -->
+        <div class="absolute right-0 top-0 w-[55%] aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20">
+          <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Manifesto & Outcomes -->
+  <section class="py-24 md:py-32 bg-white relative border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+      
+      <!-- Left Column: The Sticky Manifesto -->
+      <div class="lg:col-span-5 relative h-full">
+        <div class="sticky top-32 flex flex-col">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than teaching. True intellectual architecture.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just train you to pass a licensure exam or memorize grammar rules; we train you to shape how the next generation thinks. Whether you are laying the cognitive foundation for children, commanding a high school science lab, or directing corporate communications, our curriculum demands rigor. When you graduate, you possess a highly marketable set of pedagogical and linguistic capabilities.</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Graduate Capabilities -->
+      <div class="lg:col-span-7 flex flex-col">
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        
+        {outcomes.map((outcome: any) => (
+          <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
+            <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
+              <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
+            <div class="flex flex-col">
+              <h4 class="text-xl font-black text-primary mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
+              <p class="text-slate-600 leading-relaxed text-base">{outcome.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 relative">
+      <div class="text-center mb-16">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">Select your specialized pathway below to view the 4-year academic progression and core major subjects.</p>
+      </div>
+
+      <!-- Tab Controls Wrapper -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        {curriculumTracks.map((track: any, index: number) => (
+          <button type="button" data-target={track.id} class={"tab-btn cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest border transition-all " + (index === 0 ? "bg-primary text-white border-primary active-tab" : "bg-white text-slate-500 border-slate-200 hover:bg-slate-50")}>
+            {track.name}
+          </button>
+        ))}
+      </div>
+
+      <!-- Tab Contents (Accordion Engine) -->
+      <div class="relative w-full">
+        {curriculumTracks.map((track: any, index: number) => (
+          <div id={track.id} class={`tab-content space-y-4 w-full animate-in fade-in duration-500 ${index === 0 ? 'block' : 'hidden'}`}>
+            {track.roadmap.map((year: any) => (
+              <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
+                  <div class="flex items-center gap-6">
+                    <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent transition-colors tracking-tighter">{year.year}</span>
+                    <h3 class="text-xl md:text-2xl font-bold text-primary">{year.title}</h3>
+                  </div>
+                  <span class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary group-open:rotate-180 transition-transform duration-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                  </span>
+                </summary>
+
+                <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
+                  <div class="flex flex-col gap-3">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
+                    <div class="flex flex-wrap gap-3">
+                      {year.subjects.map((subject: string) => (
+                        <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Designed for Pedagogical & Linguistic Mastery.</h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities bridge cognitive theory with professional practice. Explore the dedicated laboratories engineered to refine your instructional execution and communication mechanics.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+      <!-- Block 1: Interactive Model Classroom (Wide - Top Left) -->
+      <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.modelClassroom.url} alt={ecosystemImages.modelClassroom.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Instructional Lab</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Interactive Model Classroom</h3>
+          <p class="text-slate-300 text-sm max-w-md hidden md:block">A simulated primary and secondary environment equipped with advanced instructional technologies, smartboard systems, and observational diagnostic tools for real-time pedagogical analysis.</p>
+        </div>
+      </div>
+
+      <!-- Block 2: Advanced Speech & Language Laboratory (Tall - Right) -->
+      <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.speechLab.url} alt={ecosystemImages.speechLab.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Linguistics</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Digital Phonetics & Speech Suite</h3>
+          <p class="text-slate-300 text-sm">High-end audio-linguistic workstations outfitted with phonetic rendering software, acoustic monitoring gear, and communication matrices built for structural language mastery.</p>
+        </div>
+      </div>
+
+      <!-- Block 3: Creative Literacy & Journalism Hub (Square - Bottom Left) -->
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.literacyHub.url} alt={ecosystemImages.literacyHub.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Media & Discourse</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Literary & Publishing Workstation</h3>
+        </div>
+      </div>
+
+      <!-- Block 4: Pedagogical Resource Center (Square - Bottom Center) -->
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.resourceCenter.url} alt={ecosystemImages.resourceCenter.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Material Production</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Curriculum Design & Media Lab</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Part 1: The Program Chair (Editorial Split) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
+        <!-- Left Column (The Portrait) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+            <img src={chair.image.url} alt={chair.image.alt} class="w-full h-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
+              <h3 class="text-2xl font-black text-white leading-tight">{chair.name}</h3>
+              <span class="text-accent font-bold text-sm tracking-widest uppercase">{chair.title}</span>
+              <p class="text-slate-300 text-xs mt-1">{chair.credentials}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column (The Manifesto Quote) -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block">Message from the Chair</span>
+          <svg class="w-16 h-16 text-slate-100 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+          <p class="text-2xl md:text-4xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
+        </div>
+      </div>
+
+      <!-- Part 2: The Faculty Spotlight Grid -->
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-black tracking-tight text-primary">Core Faculty & Academic Mentors</h3>
+        <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Learn directly from seasoned school administrators, published linguists, and master teachers.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {faculty.map((member: any) => (
+          <div class="group flex flex-col">
+            <div class="relative w-full aspect-[3/4] bg-surface rounded-2xl overflow-hidden mb-6 border border-slate-100 shadow-sm">
+              <img src={member.image.url} alt={member.image.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+              <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-[10px] font-black uppercase tracking-widest py-1.5 px-3 rounded-md shadow-sm z-20">{member.specialty}</div>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+              <h4 class="text-lg font-black text-primary mb-1 group-hover:text-accent transition-colors duration-300">{member.name}</h4>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">{member.credentials}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Intellectual Leadership.</h2>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Education or Liberal Arts from OLOPSC is a high-yield investment in human development. Our graduates command classrooms, design national curricula, and direct corporate communications globally.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      {pathways.map((pathway: any) => (
+        <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          
+          <div class="mb-8 border-b border-slate-100 pb-8">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+            <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+          </div>
+          
+          <div class="flex-grow flex flex-col">
+            <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
+            <ul class="space-y-3">
+              {pathway.roles.map((role: string) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
+                  <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
+      <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions", style: "primary" }} />
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.tab-content');
+
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Reset all buttons
+          buttons.forEach(btn => {
+            btn.classList.remove('bg-primary', 'text-white', 'border-primary', 'active-tab');
+            btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
+          });
+          
+          // Hide all content blocks
+          contents.forEach(content => {
+            content.classList.remove('block');
+            content.classList.add('hidden');
+          });
+
+          // Activate clicked button
+          button.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
+          button.classList.add('bg-primary', 'text-white', 'border-primary', 'active-tab');
+          
+          // Show target content
+          const targetId = button.getAttribute('data-target');
+          if (targetId) {
+            const targetContent = document.getElementById(targetId);
+            if (targetContent) {
+              targetContent.classList.remove('hidden');
+              targetContent.classList.add('block');
+            }
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

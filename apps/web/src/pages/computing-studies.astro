@@ -1,21 +1,100 @@
 ---
-import DepartmentTemplate from "../components/college/DepartmentTemplate.astro";
+import Layout from "../layouts/Layout.astro";
 import { getComputingStudiesPage } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 
-const departmentData = await getComputingStudiesPage();
+const pageData = await getComputingStudiesPage();
 
-const department = departmentData || {
-    title: "College of Computer Studies",
-    degree: "Bachelor of Science in Computer Science, Bachelor of Science in Information Technology",
-    hero: {
-        headline: "College of Computer Studies",
-        variant: "image",
-    },
-    intro: {
-        headline: "Welcome",
-        content: "Content is being updated.",
-    },
+const heroBackground = {
+  url: pageData?.heroBackground?.asset?.url 
+    ? getSanityImageUrl(pageData.heroBackground, { width: 1920, height: 1080, fit: "crop" })
+    : "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop",
+  alt: pageData?.heroBackground?.alt || "Server Racks and Data Nodes"
 };
+
+const quickFacts = {
+  duration: pageData?.quickFacts?.duration || "4 Years",
+  units: pageData?.quickFacts?.units || "150 Units",
+  format: pageData?.quickFacts?.format || "On-Site Labs"
+};
+
+const tracks = pageData?.programs && pageData.programs.length > 0
+  ? pageData.programs
+  : [
+      { title: "Computer Science", subtitle: "BSCS \u2022 4 Years", description: "Master complex algorithms, artificial intelligence, large language model (LLM) integration, and high-performance software engineering." },
+      { title: "Computer Technology", subtitle: "ACT \u2022 2 Years", description: "Attain core competencies in full-stack web development, database architecture, and systematic network administration." }
+    ];
+
+const pageTitle = pageData?.seo?.title || "College of Computer Studies | OLOPSC College of BMSE";
+const pageDescription = pageData?.seo?.description || "Architect the Future. Command the Machine. Specialized degrees in Computer Science and Computer Technology.";
 ---
 
-<DepartmentTemplate department={department} />
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="relative bg-[#131312] pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-white/10">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-20 mix-blend-screen z-0" loading="eager" />
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+      <div class="lg:col-span-8 flex flex-col">
+        <div class="inline-flex items-center gap-2 self-start py-1.5 px-3 rounded border border-accent/30 bg-accent/10 mb-6">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          <span class="text-accent font-mono text-xs tracking-widest uppercase">System._Initialize()</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Architect the Future. <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">Command the Machine.</span></h1>
+        <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">The Bachelor of Science in Computer Science (BSCS) and Associate in Computer Technology (ACT) programs deliver rigorous, industry-aligned training in software engineering. Under the mentorship of active developers, students architect production-ready applications, integrate artificial intelligence, and master modern enterprise stacks. This is a deeply technical, hands-on curriculum engineered to forge elite developers ready for the global tech sector.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#programs" class="bg-accent text-[#131312] font-black py-4 px-8 rounded hover:bg-white transition-colors duration-300 font-mono text-sm uppercase tracking-wide">Execute_Tracks</a>
+          <a href="#outcomes" class="bg-white/5 text-white border border-white/10 font-bold py-4 px-8 rounded hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm font-mono text-sm uppercase tracking-wide">View_ROI</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-[#131312] border-b border-white/10 relative z-20 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-white/10">
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></span>
+        <span class="text-xl font-black text-white tracking-tight">BSCS &bull; ACT</span>
+        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Computing_Studies</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+        <span class="text-xl font-black text-white tracking-tight">4 Years / 2 Years</span>
+        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Standard_Completion</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+        <span class="text-xl font-black text-white tracking-tight">150+ / 75+ Units</span>
+        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Total_Academic_Load</span>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4">
+        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></span>
+        <span class="text-xl font-black text-white tracking-tight">On-Campus Labs</span>
+        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Learning_Format</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="programs" class="py-16 md:py-24 bg-[#131312] relative border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+      <span class="text-accent font-mono text-xs mb-4 inline-block">SELECT_ARCHITECTURE</span>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Computing Path.</h2>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+      {tracks.map((track: any) => (
+        <div class="group bg-white/5 border border-white/10 rounded-lg p-8 hover:bg-white/10 hover:border-accent/50 transition-all duration-300 flex flex-col relative overflow-hidden">
+          <div class="absolute -inset-1 bg-gradient-to-r from-accent to-cyan-400 rounded-lg blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+          <div class="relative z-10">
+            <span class="text-accent font-mono text-xs mb-3 block">{track.subtitle}</span>
+            <h3 class="text-3xl font-black text-white mb-4 leading-tight">{track.title}</h3>
+            <p class="text-slate-400 text-base leading-relaxed">{track.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

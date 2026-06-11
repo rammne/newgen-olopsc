@@ -85,6 +85,65 @@ const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks
       }
     ];
 
+const ecosystemImages = {
+  incubator: {
+    url: pageData?.ecosystemImages?.incubator?.asset?.url || "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=1200&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.incubator?.alt || "Venture Creation Incubator"
+  },
+  strategy: {
+    url: pageData?.ecosystemImages?.strategy?.asset?.url || "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.strategy?.alt || "Corporate Strategy Lab"
+  },
+  pitch: {
+    url: pageData?.ecosystemImages?.pitch?.asset?.url || "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.pitch?.alt || "Executive Pitch Arena"
+  },
+  networking: {
+    url: pageData?.ecosystemImages?.networking?.asset?.url || "https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.networking?.alt || "Industry Networking Hub"
+  }
+};
+
+const chair = pageData?.chair || {
+  name: "Dr. Elena Bautista",
+  title: "Program Chair, BSBA & Entrepreneurship",
+  credentials: "DBA, MBA, Strategic Management",
+  quote: "Business is not just about theory; it is about execution, strategy, and resilience. Our mission is to forge leaders who build enterprises, direct corporate growth, and disrupt markets.",
+  image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop", alt: "Program Chair" }
+};
+
+const faculty = pageData?.faculty && pageData.faculty.length > 0
+  ? pageData.faculty
+  : [
+      { name: "Marcus Reyes", specialty: "Venture Capital & Startups", credentials: "MBA, Serial Entrepreneur", image: { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "Sarah Lim", specialty: "Strategic Human Capital", credentials: "PhD in Organizational Psychology", image: { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "David Chen", specialty: "Digital Brand Architecture", credentials: "MS Marketing, Ex-Agency Director", image: { url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
+      { name: "Amanda Torres", specialty: "Corporate Finance", credentials: "CPA, MS Finance", image: { url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } }
+    ];
+
+const pathways = pageData?.pathways && pageData.pathways.length > 0
+  ? pageData.pathways
+  : [
+      {
+        title: "Strategic Human Capital",
+        subtitle: "BSBA - HRM Trajectory",
+        description: "Direct the talent and organizational structure of multinational corporations. Master labor dynamics, executive compensation, and team architecture.",
+        roles: ["Human Resources Director", "Talent Acquisition Manager", "Compensation & Benefits Analyst", "Organizational Development Consultant"]
+      },
+      {
+        title: "Global Brand Architecture",
+        subtitle: "BSBA - MM Trajectory",
+        description: "Command market share and consumer psychology. Direct high-budget digital campaigns, product launches, and international brand expansion.",
+        roles: ["Chief Marketing Officer (CMO)", "Digital Brand Director", "Market Research Lead", "Product Marketing Executive"]
+      },
+      {
+        title: "Venture Creation & Scaling",
+        subtitle: "BS - ENT Trajectory",
+        description: "Architect scalable business models. Launch disruptive startups, secure venture funding, or innovate from within existing enterprise structures.",
+        roles: ["Startup Founder / CEO", "Venture Capital Analyst", "Business Development Director", "Innovation Consultant"]
+      }
+    ];
+
 const pageTitle = pageData?.seo?.title || "BS Business Administration & Entrepreneurship | OLOPSC College of BMSE";
 const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build Ventures. A specialized degree track in HR, Marketing, and Entrepreneurship.";
 ---
@@ -214,50 +273,232 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
     </div>
   </section>
 
-  <!-- 
-    Tailwind Safelist for dynamic named peers:
-    peer-checked/hrm:bg-primary peer-checked/hrm:text-white peer-checked/hrm:block peer/hrm
-    peer-checked/mm:bg-primary peer-checked/mm:text-white peer-checked/mm:block peer/mm
-    peer-checked/ent:bg-primary peer-checked/ent:text-white peer-checked/ent:block peer/ent
-  -->
   <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
     <div class="max-w-4xl mx-auto px-6 relative">
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">Select your specialized pathway below to view the 4-year academic progression and core major subjects.</p>
       </div>
 
-      <!-- Zero-JS CSS Tab Inputs -->
-      {curriculumTracks.map((track: any, index: number) => (
-        <input type="radio" name="curriculum-tab" id={track.id} class={`peer/${track.id} sr-only`} checked={index === 0} />
-      ))}
-
-      <!-- Tab Labels -->
+      <!-- Tab Controls Wrapper -->
       <div class="flex flex-wrap justify-center gap-2 mb-12">
-        {curriculumTracks.map((track: any) => (
-          <label for={track.id} class={`cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest bg-white border border-slate-200 text-slate-500 peer-checked/${track.id}:bg-primary peer-checked/${track.id}:text-white hover:bg-slate-50 transition-all`}>
+        {curriculumTracks.map((track: any, index: number) => (
+          <button type="button" data-target={track.id} class={"tab-btn cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest border transition-all " + (index === 0 ? "bg-primary text-white border-primary active-tab" : "bg-white text-slate-500 border-slate-200 hover:bg-slate-50")}>
             {track.name}
-          </label>
+          </button>
         ))}
       </div>
 
-      <!-- Tab Contents -->
-      <div class="relative">
-        {curriculumTracks.map((track: any) => (
-          <div class={`hidden peer-checked/${track.id}:block space-y-4 animate-in fade-in duration-500`}>
+      <!-- Tab Contents (Accordion Engine) -->
+      <div class="relative w-full">
+        {curriculumTracks.map((track: any, index: number) => (
+          <div id={track.id} class={`tab-content space-y-4 w-full animate-in fade-in duration-500 ${index === 0 ? 'block' : 'hidden'}`}>
             {track.roadmap.map((year: any) => (
-              <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <h4 class="text-xl font-black text-primary mb-4">{year.year}: {year.title}</h4>
-                <div class="flex flex-wrap gap-2">
-                  {year.subjects.map((subject: string) => (
-                    <span class="bg-surface text-primary py-1 px-3 rounded-md text-xs font-bold">{subject}</span>
-                  ))}
+              <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
+                  <div class="flex items-center gap-6">
+                    <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent transition-colors tracking-tighter">{year.year}</span>
+                    <h3 class="text-xl md:text-2xl font-bold text-primary">{year.title}</h3>
+                  </div>
+                  <span class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary group-open:rotate-180 transition-transform duration-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                  </span>
+                </summary>
+
+                <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
+                  <div class="flex flex-col gap-3">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
+                    <div class="flex flex-wrap gap-3">
+                      {year.subjects.map((subject: string) => (
+                        <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </details>
             ))}
           </div>
         ))}
       </div>
     </div>
   </section>
+
+  <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Built for Enterprise.</h2>
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities aren't just classrooms; they are active business environments. From the startup incubator to the corporate strategy lab, this is where you architect your professional future.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+      <!-- Block 1: Business Incubator (Wide - Top Left) -->
+      <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.incubator.url} alt={ecosystemImages.incubator.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Venture Creation</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Startup Incubator</h3>
+          <p class="text-slate-300 text-sm max-w-md hidden md:block">A dedicated hub for entrepreneurs to prototype business models, refine value propositions, and prepare for venture capital engagement.</p>
+        </div>
+      </div>
+
+      <!-- Block 2: Strategy Lab (Tall - Right) -->
+      <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.strategy.url} alt={ecosystemImages.strategy.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Analytics</span>
+          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Corporate Strategy Lab</h3>
+          <p class="text-slate-300 text-sm">Real-time data visualization suites where students master corporate finance, consumer analytics, and international market modeling.</p>
+        </div>
+      </div>
+
+      <!-- Block 3: Pitch Arena (Square - Bottom Left) -->
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.pitch.url} alt={ecosystemImages.pitch.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Output</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Executive Pitch Arena</h3>
+        </div>
+      </div>
+
+      <!-- Block 4: Networking (Square - Bottom Center) -->
+      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+        <img src={ecosystemImages.networking.url} alt={ecosystemImages.networking.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div class="relative z-20">
+          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community</span>
+          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Industry Networking Hub</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Part 1: The Program Chair (Editorial Split) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
+        <!-- Left Column (The Portrait) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+            <img src={chair.image.url} alt={chair.image.alt} class="w-full h-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
+              <h3 class="text-2xl font-black text-white leading-tight">{chair.name}</h3>
+              <span class="text-accent font-bold text-sm tracking-widest uppercase">{chair.title}</span>
+              <p class="text-slate-300 text-xs mt-1">{chair.credentials}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column (The Manifesto Quote) -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <span class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block">Message from the Chair</span>
+          <svg class="w-16 h-16 text-slate-100 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+          <p class="text-2xl md:text-4xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
+        </div>
+      </div>
+
+      <!-- Part 2: The Faculty Spotlight Grid -->
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-black tracking-tight text-primary">Core Faculty & Industry Practitioners</h3>
+        <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Learn directly from startup founders, HR directors, and corporate marketing executives.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {faculty.map((member: any) => (
+          <div class="group flex flex-col">
+            <div class="relative w-full aspect-[3/4] bg-surface rounded-2xl overflow-hidden mb-6 border border-slate-100 shadow-sm">
+              <img src={member.image.url} alt={member.image.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+              <div class="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-[10px] font-black uppercase tracking-widest py-1.5 px-3 rounded-md shadow-sm z-20">{member.specialty}</div>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+              <h4 class="text-lg font-black text-primary mb-1 group-hover:text-accent transition-colors duration-300">{member.name}</h4>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">{member.credentials}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Market Dominance.</h2>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Business or Entrepreneurship degree from OLOPSC is a quantifiable asset. Our graduates scale startups, direct human capital, and command global marketing divisions.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      {pathways.map((pathway: any) => (
+        <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+
+          <div class="mb-8 border-b border-slate-100 pb-8">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+            <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+          </div>
+
+          <div class="flex-grow flex flex-col">
+            <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Executive Roles</span>
+            <ul class="space-y-3">
+              {pathway.roles?.map((role: string) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
+                  <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
+      <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions", style: "primary" }} />
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.tab-content');
+
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Reset all buttons
+          buttons.forEach(btn => {
+            btn.classList.remove('bg-primary', 'text-white', 'border-primary', 'active-tab');
+            btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
+          });
+          
+          // Hide all content blocks
+          contents.forEach(content => {
+            content.classList.remove('block');
+            content.classList.add('hidden');
+          });
+
+          // Activate clicked button
+          button.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
+          button.classList.add('bg-primary', 'text-white', 'border-primary', 'active-tab');
+          
+          // Show target content
+          const targetId = button.getAttribute('data-target');
+          if (targetId) {
+            const targetContent = document.getElementById(targetId);
+            if (targetContent) {
+              targetContent.classList.remove('hidden');
+              targetContent.classList.add('block');
+            }
+          }
+        });
+      });
+    });
+  </script>
 </Layout>

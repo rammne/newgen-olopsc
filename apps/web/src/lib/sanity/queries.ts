@@ -1755,15 +1755,22 @@ export async function getBusinessAdminPage() {
   const query = `*[_type == "businessAdmin"][0]{
     _id,
     title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
+    heroBackground { alt, asset->{url} },
+    quickFacts,
+    tracks,
+    overviewMainImage { alt, asset->{url} },
+    overviewSubImage { alt, asset->{url} },
+    outcomes,
+    curriculumTracks,
+    ecosystemImages {
+      incubator { alt, asset->{url} },
+      strategy { alt, asset->{url} },
+      pitch { alt, asset->{url} },
+      networking { alt, asset->{url} }
+    },
+    chair { ..., image { alt, asset->{url} } },
+    faculty[] { ..., image { alt, asset->{url} } },
+    pathways,
     seo { ..., image { asset->{ url } } }
   }`
   return await client.fetch(query)

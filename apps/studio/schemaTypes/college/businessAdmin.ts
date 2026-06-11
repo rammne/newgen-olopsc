@@ -1,132 +1,183 @@
 import { defineField, defineType } from 'sanity'
-import { GraduationCap, BookOpen, Search } from 'lucide-react'
+import { Briefcase, Search } from 'lucide-react'
 
 export const businessAdmin = defineType({
     name: 'businessAdmin',
     title: 'Business Administration & Entrepreneurship',
     type: 'document',
-    icon: GraduationCap,
+    icon: Briefcase,
     groups: [
-        { name: 'content', title: 'Content', icon: GraduationCap, default: true },
-        { name: 'programs', title: 'Programs & Curriculum', icon: BookOpen },
+        { name: 'hero', title: 'Hero & Quick Facts', default: true },
+        { name: 'overview', title: 'Program Overview' },
+        { name: 'curriculum', title: 'Curriculum & Ecosystem' },
+        { name: 'faculty', title: 'Faculty & Outcomes' },
         { name: 'seo', title: 'SEO', icon: Search },
     ],
     fields: [
+        // --- Hero & Quick Facts ---
         defineField({
-            name: 'title',
-            title: 'Department Title',
-            type: 'string',
-            initialValue: 'College of Business Administration & Entrepreneurship',
-            readOnly: true,
-            group: 'content',
-        }),
-        defineField({
-            name: 'cardThumbnail',
-            title: 'Card Thumbnail (Hub Page)',
+            name: 'heroBackground',
+            title: 'Hero Background Image',
             type: 'image',
-            description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800×450px (16:9).',
+            group: 'hero',
             options: { hotspot: true },
             fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
-            group: 'content',
         }),
         defineField({
-            name: 'hero',
-            title: 'Hero Section',
-            type: 'hero',
-            validation: (Rule) => Rule.required(),
-            group: 'content',
-        }),
-        defineField({
-            name: 'intro',
-            title: 'Introduction',
+            name: 'quickFacts',
+            title: 'Quick Facts',
             type: 'object',
-            group: 'content',
+            group: 'hero',
             fields: [
-                defineField({ name: 'headline', title: 'Headline', type: 'string' }),
-                defineField({ name: 'content', title: 'Content', type: 'portableText' }),
-                defineField({ name: 'image', title: 'Intro Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
-            ],
+                defineField({ name: 'duration', title: 'Duration', type: 'string', initialValue: '4 Years' }),
+                defineField({ name: 'units', title: 'Units', type: 'string', initialValue: '144 Units' }),
+                defineField({ name: 'format', title: 'Format', type: 'string', initialValue: 'On-Campus & Practicum' }),
+            ]
         }),
         defineField({
-            name: 'degree',
-            title: 'Degrees Offered (Summary)',
-            type: 'string',
-            description: 'e.g. BS Business Admin',
-            group: 'content',
-        }),
-        defineField({
-            name: 'duration',
-            title: 'Program Duration',
-            type: 'string',
-            description: 'e.g. 4 Years',
-            group: 'content',
-        }),
-        defineField({
-            name: 'programs',
-            title: 'Offered Programs',
+            name: 'tracks',
+            title: 'Degree Tracks Matrix',
             type: 'array',
-            group: 'programs',
+            group: 'hero',
             of: [
                 {
                     type: 'object',
-                    title: 'Program',
                     fields: [
-                        defineField({ name: 'title', title: 'Program Title', type: 'string' }),
-                        defineField({ name: 'shortTitle', title: 'Abbreviation', type: 'string' }),
+                        defineField({ name: 'title', title: 'Title', type: 'string' }),
+                        defineField({ name: 'subtitle', title: 'Subtitle', type: 'string' }),
                         defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-                        defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
-                    ],
-                },
-            ],
+                    ]
+                }
+            ]
+        }),
+
+        // --- Overview & Manifesto ---
+        defineField({
+            name: 'overviewMainImage',
+            title: 'Overview Main Image',
+            type: 'image',
+            group: 'overview',
+            options: { hotspot: true },
+            fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
         }),
         defineField({
-            name: 'curriculum',
-            title: 'Curriculum Highlights',
-            type: 'object',
-            group: 'programs',
-            fields: [
-                defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-                defineField({
-                    name: 'courses',
-                    title: 'Featured Courses',
-                    type: 'array',
-                    of: [
-                        {
-                            type: 'object',
-                            fields: [
-                                defineField({ name: 'year', title: 'Year Level', type: 'string' }),
-                                defineField({ name: 'courses', title: 'Courses', type: 'array', of: [{ type: 'string' }] }),
-                            ],
-                        },
-                    ],
-                }),
-            ],
+            name: 'overviewSubImage',
+            title: 'Overview Sub Image',
+            type: 'image',
+            group: 'overview',
+            options: { hotspot: true },
+            fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
         }),
         defineField({
-            name: 'careerOpportunities',
-            title: 'Career Opportunities',
-            type: 'object',
-            group: 'programs',
-            fields: [
-                defineField({ name: 'title', title: 'Section Title', type: 'string' }),
-                defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-                defineField({ name: 'careers', title: 'Careers List', type: 'array', of: [{ type: 'string' }] }),
-                defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
-            ],
-        }),
-        defineField({
-            name: 'keyFeatures',
-            title: 'Key Features / Facilities',
+            name: 'outcomes',
+            title: 'Program Outcomes (Why OLOPSC Business)',
             type: 'array',
-            of: [{ type: 'feature' }],
-            group: 'programs',
+            group: 'overview',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({ name: 'title', title: 'Title', type: 'string' }),
+                        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+                    ]
+                }
+            ]
+        }),
+
+        // --- Curriculum Engine & Ecosystem ---
+        defineField({
+            name: 'curriculumTracks',
+            title: 'Curriculum Engine Tracks',
+            type: 'array',
+            group: 'curriculum',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({ name: 'id', title: 'Track ID', type: 'string', description: 'e.g., hrm, mm, ent' }),
+                        defineField({ name: 'name', title: 'Track Name', type: 'string' }),
+                        defineField({
+                            name: 'roadmap',
+                            title: 'Roadmap',
+                            type: 'array',
+                            of: [
+                                {
+                                    type: 'object',
+                                    fields: [
+                                        defineField({ name: 'year', title: 'Year', type: 'string' }),
+                                        defineField({ name: 'title', title: 'Theme/Title', type: 'string' }),
+                                        defineField({ name: 'subjects', title: 'Subjects', type: 'array', of: [{ type: 'string' }] }),
+                                    ]
+                                }
+                            ]
+                        })
+                    ]
+                }
+            ]
         }),
         defineField({
-            name: 'gallery',
-            title: 'Department Gallery',
-            type: 'gallery',
-            group: 'programs',
+            name: 'ecosystemImages',
+            title: 'Department Ecosystem Images',
+            type: 'object',
+            group: 'curriculum',
+            fields: [
+                defineField({ name: 'incubator', title: 'Startup Incubator', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+                defineField({ name: 'strategy', title: 'Corporate Strategy Lab', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+                defineField({ name: 'pitch', title: 'Executive Pitch Arena', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+                defineField({ name: 'networking', title: 'Industry Networking Hub', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+            ]
         }),
+
+        // --- Faculty & Pathways ---
+        defineField({
+            name: 'chair',
+            title: 'Program Chair',
+            type: 'object',
+            group: 'faculty',
+            fields: [
+                defineField({ name: 'name', title: 'Name', type: 'string' }),
+                defineField({ name: 'title', title: 'Title', type: 'string' }),
+                defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
+                defineField({ name: 'quote', title: 'Manifesto Quote', type: 'text', rows: 4 }),
+                defineField({ name: 'image', title: 'Portrait', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+            ]
+        }),
+        defineField({
+            name: 'faculty',
+            title: 'Faculty Spotlight',
+            type: 'array',
+            group: 'faculty',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({ name: 'name', title: 'Name', type: 'string' }),
+                        defineField({ name: 'specialty', title: 'Specialty', type: 'string' }),
+                        defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
+                        defineField({ name: 'image', title: 'Portrait', type: 'image', options: { hotspot: true }, fields: [{ name: 'alt', type: 'string', title: 'Alt Text' }] }),
+                    ]
+                }
+            ]
+        }),
+        defineField({
+            name: 'pathways',
+            title: 'Career Pathways & ROI',
+            type: 'array',
+            group: 'faculty',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({ name: 'title', title: 'Pathway Title', type: 'string' }),
+                        defineField({ name: 'subtitle', title: 'Subtitle (e.g., BSBA - HRM Trajectory)', type: 'string' }),
+                        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+                        defineField({ name: 'roles', title: 'Target Roles', type: 'array', of: [{ type: 'string' }] }),
+                    ]
+                }
+            ]
+        }),
+
+        // --- SEO ---
         defineField({
             name: 'seo',
             title: 'SEO',
@@ -136,7 +187,7 @@ export const businessAdmin = defineType({
     ],
     preview: {
         prepare() {
-            return { title: 'Business Administration Page' }
+            return { title: 'Business Admin & Entrepreneurship' }
         },
     },
 })
