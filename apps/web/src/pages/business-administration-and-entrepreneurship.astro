@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../components/common/CtaButton.astro";
 import { getBusinessAdminPage } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
@@ -153,7 +154,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
     <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
     <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+    <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Lead Enterprises. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Build Ventures.</span></h1>
@@ -163,11 +164,11 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           <CtaButton cta={{ text: "View Corporate Paths", link: "#outcomes", style: "outline" }} />
         </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
-    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+    <ScrollRevealWrapper animation="fade-in" delay={200} class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
       <!-- Fact 1: Degree Options (Updated for Explicit Acronyms) -->
       <div class="flex flex-col items-center text-center px-4">
         <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></span>
@@ -195,28 +196,30 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
         <span class="text-xl font-black text-primary tracking-tight">On-Campus</span>
         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </div>
 
   <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
-      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Corporate Trajectory.</h2>
-    </div>
+    <ScrollRevealWrapper animation="slide-up">
+      <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Corporate Trajectory.</h2>
+      </div>
 
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-      {tracks.map((track: any) => (
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 flex flex-col">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-3">{track.subtitle}</span>
-          <h3 class="text-2xl font-black text-white mb-4 leading-tight">{track.title}</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">{track.description}</p>
-        </div>
-      ))}
-    </div>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {tracks.map((track: any) => (
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 flex flex-col">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-3">{track.subtitle}</span>
+            <h3 class="text-2xl font-black text-white mb-4 leading-tight">{track.title}</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">{track.description}</p>
+          </div>
+        ))}
+      </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
       <!-- Left Column: Typography & Corporate Payload -->
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
@@ -240,11 +243,11 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
         </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white relative border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+    <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
       <!-- Left Column: The Sticky Manifesto (The "Why") -->
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
@@ -270,11 +273,11 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           </div>
         ))}
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
-    <div class="max-w-4xl mx-auto px-6 relative">
+    <ScrollRevealWrapper animation="fade-in" class="max-w-4xl mx-auto px-6 relative">
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
@@ -321,63 +324,65 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           </div>
         ))}
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Built for Enterprise.</h2>
-      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities aren't just classrooms; they are active business environments. From the startup incubator to the corporate strategy lab, this is where you architect your professional future.</p>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
-      <!-- Block 1: Business Incubator (Wide - Top Left) -->
-      <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.incubator.url} alt={ecosystemImages.incubator.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Venture Creation</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Startup Incubator</h3>
-          <p class="text-slate-300 text-sm max-w-md hidden md:block">A dedicated hub for entrepreneurs to prototype business models, refine value propositions, and prepare for venture capital engagement.</p>
-        </div>
+    <ScrollRevealWrapper animation="slide-up">
+      <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Built for Enterprise.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities aren't just classrooms; they are active business environments. From the startup incubator to the corporate strategy lab, this is where you architect your professional future.</p>
       </div>
 
-      <!-- Block 2: Strategy Lab (Tall - Right) -->
-      <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.strategy.url} alt={ecosystemImages.strategy.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Analytics</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Corporate Strategy Lab</h3>
-          <p class="text-slate-300 text-sm">Real-time data visualization suites where students master corporate finance, consumer analytics, and international market modeling.</p>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+        <!-- Block 1: Business Incubator (Wide - Top Left) -->
+        <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.incubator.url} alt={ecosystemImages.incubator.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Venture Creation</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Startup Incubator</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">A dedicated hub for entrepreneurs to prototype business models, refine value propositions, and prepare for venture capital engagement.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Block 3: Pitch Arena (Square - Bottom Left) -->
-      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.pitch.url} alt={ecosystemImages.pitch.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Output</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Executive Pitch Arena</h3>
+        <!-- Block 2: Strategy Lab (Tall - Right) -->
+        <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.strategy.url} alt={ecosystemImages.strategy.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Analytics</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Corporate Strategy Lab</h3>
+            <p class="text-slate-300 text-sm">Real-time data visualization suites where students master corporate finance, consumer analytics, and international market modeling.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Block 4: Networking (Square - Bottom Center) -->
-      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.networking.url} alt={ecosystemImages.networking.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Industry Networking Hub</h3>
+        <!-- Block 3: Pitch Arena (Square - Bottom Left) -->
+        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.pitch.url} alt={ecosystemImages.pitch.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Output</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Executive Pitch Arena</h3>
+          </div>
+        </div>
+
+        <!-- Block 4: Networking (Square - Bottom Center) -->
+        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.networking.url} alt={ecosystemImages.networking.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Industry Networking Hub</h3>
+          </div>
         </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-6">
+    <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6">
       <!-- Part 1: The Program Chair (Editorial Split) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
         <!-- Left Column (The Portrait) -->
@@ -422,47 +427,49 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           </div>
         ))}
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Market Dominance.</h2>
-      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Business or Entrepreneurship degree from OLOPSC is a quantifiable asset. Our graduates scale startups, direct human capital, and command global marketing divisions.</p>
-    </div>
+    <ScrollRevealWrapper animation="slide-up">
+      <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Market Dominance.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Business or Entrepreneurship degree from OLOPSC is a quantifiable asset. Our graduates scale startups, direct human capital, and command global marketing divisions.</p>
+      </div>
 
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      {pathways.map((pathway: any) => (
-        <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
-          <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
-            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {pathways.map((pathway: any) => (
+          <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+            <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+
+            <div class="mb-8 border-b border-slate-100 pb-8">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+              <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+            </div>
+
+            <div class="flex-grow flex flex-col">
+              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Executive Roles</span>
+              <ul class="space-y-3">
+                {pathway.roles?.map((role: string) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
+                    <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+        ))}
+      </div>
 
-          <div class="mb-8 border-b border-slate-100 pb-8">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
-            <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
-          </div>
-
-          <div class="flex-grow flex flex-col">
-            <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Executive Roles</span>
-            <ul class="space-y-3">
-              {pathway.roles?.map((role: string) => (
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
-                  <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
-      <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions", style: "primary" }} />
-    </div>
+      <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
+        <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions", style: "primary" }} />
+      </div>
+    </ScrollRevealWrapper>
   </section>
 
   <script>

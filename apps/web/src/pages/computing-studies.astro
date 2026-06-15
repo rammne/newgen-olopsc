@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { getComputingStudiesPage } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import CtaButton from "../components/common/CtaButton.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 
 const pageData = await getComputingStudiesPage();
 
@@ -40,30 +41,124 @@ const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks
         id: "bscs",
         name: "BSCS (Computer Science)",
         roadmap: [
-          { year: "Year 1", title: "System Foundations", subjects: ["Introduction to Computing", "Programming 1 & 2 (C++/Python)", "Discrete Structures"] },
-          { year: "Year 2", title: "Data & Architecture", subjects: ["Data Structures & Algorithms", "Object-Oriented Programming", "Database Management Systems"] },
-          { year: "Year 3", title: "Advanced Engineering", subjects: ["Software Engineering (NextJS/TypeScript)", "Artificial Intelligence", "Automata Theory"] },
-          { year: "Year 4", title: "Deployment & Research", subjects: ["Thesis Research Defense", "Cloud Computing Architecture", "Corporate Practicum (OJT)"] }
+          { 
+            year: "Year 1", 
+            title: "Computing Fundamentals & Programming", 
+            subjects: [
+              "[1st Sem] Introduction to Computing", 
+              "[1st Sem] Computer Programming 1 (Fundamentals of Programming)", 
+              "[2nd Sem] Discrete Structures 1", 
+              "[2nd Sem] Computer Programming 2 (Intermediate Programming)"
+            ] 
+          },
+          { 
+            year: "Year 2", 
+            title: "Data Structures & Systems Analysis", 
+            subjects: [
+              "[1st Sem] Data Structures and Algorithms", 
+              "[1st Sem] Fundamentals of Database Systems", 
+              "[1st Sem] Discrete Structures 2", 
+              "[1st Sem] Object-Oriented Programming", 
+              "[1st Sem] Applications Development and Emerging Technologies", 
+              "[2nd Sem] Information Management", 
+              "[2nd Sem] Systems Analysis and Design", 
+              "[2nd Sem] Algorithms and Complexity", 
+              "[2nd Sem] Analysis (Integral Calculus)", 
+              "[2nd Sem] Programming Languages"
+            ] 
+          },
+          { 
+            year: "Year 3", 
+            title: "Software Engineering & Advanced Theory", 
+            subjects: [
+              "[1st Sem] Automata Theory and Formal Languages", 
+              "[1st Sem] Architecture and Organization", 
+              "[1st Sem] Organization and Management Concepts", 
+              "[1st Sem] Systems Administration and Maintenance", 
+              "[1st Sem] Graphics and Visual Computing", 
+              "[1st Sem] CS Thesis Writing 1", 
+              "[2nd Sem] Quantitative Methods", 
+              "[2nd Sem] Software Engineering 1", 
+              "[2nd Sem] Social Issues and Professional Practices", 
+              "[2nd Sem] Networks and Communications", 
+              "[2nd Sem] Computational Science", 
+              "[2nd Sem] CS Thesis Writing 2"
+            ] 
+          },
+          { 
+            year: "Year 4", 
+            title: "Industry Practicum & Enterprise Systems", 
+            subjects: [
+              "[1st Sem] Software Engineering 2", 
+              "[1st Sem] Operating Systems", 
+              "[1st Sem] Information Assurance and Security", 
+              "[1st Sem] Human Computer Interaction", 
+              "[2nd Sem] Practicum 1 (300 hours)", 
+              "[2nd Sem] Enterprise Architecture", 
+              "[2nd Sem] System Fundamentals"
+            ] 
+          }
         ]
       },
       {
         id: "act",
         name: "ACT (Computer Technology)",
         roadmap: [
-          { year: "Year 1", title: "Core Execution", subjects: ["Introduction to Computing", "Programming 1 & 2 (C++/Python)", "Networking Fundamentals"] },
-          { year: "Year 2", title: "Applied Development", subjects: ["Full-Stack Web Development", "Database Management Systems", "Systems Integration"] }
+          { 
+            year: "Year 1", 
+            title: "Core Execution", 
+            subjects: [
+              "[1st Sem] Introduction to Computing", 
+              "[1st Sem] Computer Programming 1 (Fundamentals of Programming)", 
+              "[2nd Sem] Discrete Structures 1", 
+              "[2nd Sem] Computer Programming 2 (Intermediate Programming) 2"
+            ] 
+          },
+          {
+            year: "Midyear",
+            title: "Industry Practicum",
+            subjects: [
+              "[Midyear] Practicum 1 (300 hours)"
+            ]
+          },
+          { 
+            year: "Year 2", 
+            title: "Applied Development", 
+            subjects: [
+              "[1st Sem] Data Structures and Algorithms", 
+              "[1st Sem] Fundamentals of Database Systems", 
+              "[1st Sem] Discrete Structures 2", 
+              "[1st Sem] Object-Oriented Programming", 
+              "[2nd Sem] Information Management", 
+              "[2nd Sem] Systems Analysis and Design", 
+              "[2nd Sem] Networks and Communications", 
+              "[2nd Sem] Programming Languages"
+            ] 
+          }
         ]
       }
     ];
 
-const ecosystemImages = pageData?.ecosystemImages || {
-  engineeringLab: { url: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop", alt: "Advanced Software Engineering Lab" },
-  gameStudio: { url: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800&auto=format&fit=crop", alt: "Interactive Media & Game Studio" },
-  networkHub: { url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop", alt: "Architecture & Routing Node" },
-  aiNode: { url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop", alt: "Machine Learning & LLM Cluster" }
+const ecosystemImages = {
+  engineeringLab: {
+    url: pageData?.ecosystemImages?.engineeringLab?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.engineeringLab, { width: 1200, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.engineeringLab?.alt || "Advanced Software Engineering Lab"
+  },
+  gameStudio: {
+    url: pageData?.ecosystemImages?.gameStudio?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.gameStudio, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.gameStudio?.alt || "Interactive Media & Game Studio"
+  },
+  networkHub: {
+    url: pageData?.ecosystemImages?.networkHub?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.networkHub, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.networkHub?.alt || "Architecture & Routing Node"
+  },
+  aiNode: {
+    url: pageData?.ecosystemImages?.aiNode?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.aiNode, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.aiNode?.alt || "Machine Learning & LLM Cluster"
+  }
 };
 
-const leadInstructor = pageData?.leadInstructor || {
+const leadInstructor = pageData?.chair || {
   name: "Rame Tiongson",
   title: "Computing Studies Instructor & Software Engineer",
   stack: "ReactJS / Next.js / TypeScript / Go",
@@ -71,8 +166,18 @@ const leadInstructor = pageData?.leadInstructor || {
   image: { url: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=800&auto=format&fit=crop", alt: "Rame Tiongson Portrait" }
 };
 
+if (pageData?.chair?.image?.asset?.url) {
+  leadInstructor.image.url = getSanityImageUrl(pageData.chair.image, { width: 800, height: 1000, fit: "crop" });
+}
+
 const faculty = pageData?.faculty && pageData.faculty.length > 0
-  ? pageData.faculty
+  ? pageData.faculty.map((f: any) => ({
+      ...f,
+      image: {
+        url: f.image?.asset?.url ? getSanityImageUrl(f.image, { width: 600, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+        alt: f.image?.alt || f.name
+      }
+    }))
   : [
       { name: "John Doe", specialty: "Algorithm Visualization & Distributed Systems", credentials: "Ph.D. Computer Science", image: { url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop", alt: "John Doe Portrait" } },
       { name: "Jane Smith", specialty: "Interactive Media & Godot Architecture", credentials: "M.S. Game Development", image: { url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop", alt: "Jane Smith Portrait" } },
@@ -114,287 +219,307 @@ const pageDescription = pageData?.seo?.description || "Master the Logic Behind M
   <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-white/10">
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
     <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-20 mix-blend-screen z-0" loading="eager" />
-
-    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
-      <div class="lg:col-span-8 flex flex-col">
-        <div class="inline-flex items-center gap-2 self-start py-1.5 px-3 rounded border border-accent/30 bg-accent/10 mb-6">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          <span class="text-accent font-mono text-xs tracking-widest uppercase">College of BMSE &bull; BACHELOR OF SCIENCE IN COMPUTER SCIENCE &bull; ASSOCIATE IN COMPUTER TECHNOLOGY</span>
+    <ScrollRevealWrapper>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+        <div class="lg:col-span-8 flex flex-col">
+          <div class="inline-flex items-center gap-2 self-start py-1.5 px-3 rounded border border-accent/30 bg-accent/10 mb-6">
+            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+            <span class="text-accent font-mono text-xs tracking-widest uppercase">College of BMSE &bull; BACHELOR OF SCIENCE IN COMPUTER SCIENCE &bull; ASSOCIATE IN COMPUTER TECHNOLOGY</span>
+          </div>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Master the Logic Behind <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">Modern Technology.</span></h1>
+          <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">The tech industry is shifting. Artificial Intelligence is automating routine programming tasks, making basic IT skills obsolete. Our Computing Studies programs are engineered for this new reality. We train students to understand complex logic, system architecture, and modern full-stack development. We don't just teach you how to write code; we teach you how to build, deploy, and command the technologies that drive the industry forward.</p>
+          <div class="flex flex-wrap gap-4 mt-10">
+            <CtaButton cta={{ text: "Explore Curriculum", link: "#curriculum", style: "primary" }} />
+          </div>
         </div>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Master the Logic Behind <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">Modern Technology.</span></h1>
-        <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">The software industry is evolving rapidly alongside Artificial Intelligence. In this landscape, writing routine syntax is no longer enough. The Computing Studies programs at OLOPSC are rigorously designed for this reality. Rather than competing with automation, we train students to command it. Our curriculum focuses on algorithmic efficiency, system architecture, and modern full-stack development, producing engineers capable of building and deploying complex, scalable applications.</p>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <div class="bg-primary border-b border-white/10 relative z-20 shadow-sm">
-    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-white/10">
-      <div class="flex flex-col items-center text-center px-4">
-        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></span>
-        <span class="text-xl font-black text-white tracking-tight">BSCS &bull; ACT</span>
-        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Computing_Studies</span>
-      </div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-white/10">
+        <div class="flex flex-col items-center text-center px-4">
+          <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></span>
+          <span class="text-xl font-black text-white tracking-tight">BSCS &bull; ACT</span>
+          <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Computing_Studies</span>
+        </div>
 
-      <div class="flex flex-col items-center text-center px-4">
-        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
-        <span class="text-xl font-black text-white tracking-tight">4 Years / 2 Years</span>
-        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Standard_Completion</span>
-      </div>
+        <div class="flex flex-col items-center text-center px-4">
+          <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+          <span class="text-xl font-black text-white tracking-tight">4 Years / 2 Years</span>
+          <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Standard_Completion</span>
+        </div>
 
-      <div class="flex flex-col items-center text-center px-4">
-        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
-        <span class="text-xl font-black text-white tracking-tight">150+ / 75+ Units</span>
-        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Total_Academic_Load</span>
-      </div>
+        <div class="flex flex-col items-center text-center px-4">
+          <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
+          <span class="text-xl font-black text-white tracking-tight">150+ / 75+ Units</span>
+          <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Total_Academic_Load</span>
+        </div>
 
-      <div class="flex flex-col items-center text-center px-4">
-        <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></span>
-        <span class="text-xl font-black text-white tracking-tight">On-Campus and Laboratory</span>
-        <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Learning_Format</span>
+        <div class="flex flex-col items-center text-center px-4">
+          <span class="text-accent mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></span>
+          <span class="text-xl font-black text-white tracking-tight">On-Campus and Laboratory</span>
+          <span class="text-xs font-mono text-slate-500 mt-1 tracking-wider uppercase">Learning_Format</span>
+        </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </div>
 
-  <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
-      <span class="text-accent font-mono text-xs mb-4 inline-block">SELECT_PROGRAM</span>
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Computing Path.</h2>
-    </div>
+  <section id="programs" class="py-16 md:py-24 bg-white relative border-b border-slate-200">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+        <span class="text-accent font-mono font-bold text-xs mb-4 inline-block tracking-widest">SELECT_PROGRAM</span>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-primary">Choose Your Computing Path.</h2>
+      </div>
 
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-      {tracks.map((track: any) => (
-        <div class="group bg-white/5 border border-white/10 rounded-lg p-8 hover:bg-white/10 hover:border-accent/50 transition-all duration-300 flex flex-col relative overflow-hidden">
-          <div class="absolute -inset-1 bg-gradient-to-r from-accent to-cyan-400 rounded-lg blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
-          <div class="relative z-10">
-            <span class="text-accent font-mono text-xs mb-3 block">{track.subtitle}</span>
-            <h3 class="text-3xl font-black text-white mb-4 leading-tight">{track.title}</h3>
-            <p class="text-slate-400 text-base leading-relaxed">{track.description}</p>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {tracks.map((track: any) => (
+          <div class="group bg-white border border-slate-200 rounded-lg p-8 hover:bg-slate-50 hover:border-accent/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col relative overflow-hidden">
+            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-cyan-400 rounded-lg blur opacity-0 group-hover:opacity-10 transition duration-500"></div>
+            <div class="relative z-10">
+              <span class="text-accent font-mono font-bold text-xs mb-3 block uppercase tracking-wider">{track.subtitle}</span>
+              <h3 class="text-3xl font-black text-primary mb-4 leading-tight">{track.title}</h3>
+              <p class="text-slate-600 text-base leading-relaxed">{track.description}</p>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-primary relative border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
-      <div class="lg:col-span-5 relative h-full">
-        <div class="sticky top-32 flex flex-col">
-          <span class="text-accent font-mono text-xs mb-4 uppercase tracking-widest block">/ Execution_Protocol</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-[1.1]">Engineering Logic. Building Systems.</h2>
-          <p class="text-lg text-slate-400 leading-relaxed mb-8">We treat Computing Studies as an applied engineering discipline. Across 146 total academic units, students progress from foundational programming logic to enterprise-level software architecture. The curriculum is structured to bridge theoretical algorithms with production-grade execution, culminating in a 300-hour industry practicum and a rigorously defended thesis.</p>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+        <div class="lg:col-span-5 relative h-full">
+          <div class="sticky top-32 flex flex-col">
+            <span class="text-accent font-mono text-xs mb-4 uppercase tracking-widest block">/ Execution_Protocol</span>
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-[1.1]">Engineering Logic. Building Systems.</h2>
+            <p class="text-lg text-slate-400 leading-relaxed mb-8">We treat Computing Studies as an applied engineering discipline. Across 146 total academic units, students progress from foundational programming logic to enterprise-level software architecture. The curriculum is structured to bridge theoretical algorithms with production-grade execution, culminating in a 300-hour industry practicum and a rigorously defended thesis.</p>
+          </div>
+        </div>
+        <div class="lg:col-span-7 flex flex-col">
+          <h3 class="text-lg font-mono text-slate-500 mb-8 pb-4 border-b border-white/10 uppercase tracking-widest">System_Capabilities</h3>
+          {outcomes.map((outcome: any) => (
+            <div class="group relative py-8 border-b border-white/10 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-white/5 transition-colors duration-300 px-6 -mx-6 rounded-lg">
+              <div class="w-12 h-12 rounded bg-primary flex items-center justify-center shrink-0 border border-white/10 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
+                <svg class="w-5 h-5 text-white group-hover:text-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="text-xl font-black text-white mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
+                <p class="text-slate-400 leading-relaxed text-base">{outcome.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-lg font-mono text-slate-500 mb-8 pb-4 border-b border-white/10 uppercase tracking-widest">System_Capabilities</h3>
-        {outcomes.map((outcome: any) => (
-          <div class="group relative py-8 border-b border-white/10 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-white/5 transition-colors duration-300 px-6 -mx-6 rounded-lg">
-            <div class="w-12 h-12 rounded bg-primary flex items-center justify-center shrink-0 border border-white/10 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
-              <svg class="w-5 h-5 text-white group-hover:text-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            </div>
-            <div class="flex flex-col">
-              <h4 class="text-xl font-black text-white mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
-              <p class="text-slate-400 leading-relaxed text-base">{outcome.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
-  <section id="curriculum" class="py-24 md:py-32 bg-primary relative border-b border-white/10">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <span class="text-accent font-mono text-xs mb-4 inline-block tracking-widest uppercase">/ Academic_Roadmap</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Execution Pipeline.</h2>
-        <p class="text-lg text-slate-400 leading-relaxed">Initialize your preferred runtime below to view the academic progression and core technical subjects.</p>
-      </div>
+  <section id="curriculum" class="py-24 md:py-32 bg-white relative border-b border-slate-200">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <ScrollRevealWrapper>
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <span class="text-accent font-mono font-bold text-xs mb-4 inline-block tracking-widest uppercase">/ Academic_Roadmap</span>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Execution Pipeline.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed">Initialize your preferred runtime below to view the academic progression and core technical subjects.</p>
+        </div>
 
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
-        {curriculumTracks.map((track: any, index: number) => (
-          <button type="button" data-target={track.id} class={`tab-btn cursor-pointer px-6 py-3 rounded font-mono text-sm uppercase tracking-widest border transition-all duration-300 ${index === 0 ? "bg-accent text-primary border-accent active-tab shadow-[0_0_15px_rgba(var(--color-accent),0.4)]" : "bg-transparent text-slate-400 border-white/20 hover:border-white/50 hover:text-white"}`}>
-            {track.name}
-          </button>
-        ))}
-      </div>
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          {curriculumTracks.map((track: any, index: number) => (
+            <button type="button" data-target={track.id} class={`tab-btn cursor-pointer px-6 py-3 rounded font-mono font-bold text-sm uppercase tracking-widest border transition-all duration-300 ${index === 0 ? "bg-accent text-primary border-accent active-tab shadow-[0_0_15px_rgba(var(--color-accent),0.4)]" : "bg-transparent text-slate-500 border-slate-200 hover:border-slate-300 hover:text-primary"}`}>
+              {track.name}
+            </button>
+          ))}
+        </div>
 
-      <div class="relative w-full">
-        {curriculumTracks.map((track: any, index: number) => (
-          <div id={track.id} class={`tab-content space-y-4 w-full ${index === 0 ? "block" : "hidden"}`}>
-            {track.roadmap.map((year: any) => (
-              <details class="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-colors">
-                <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
-                  <div class="flex items-center gap-6">
-                    <span class="text-3xl md:text-4xl font-black text-white/10 group-open:text-accent/50 transition-colors tracking-tighter">{year.year}</span>
-                    <h3 class="text-xl md:text-2xl font-bold text-white group-open:text-accent transition-colors">{year.title}</h3>
-                  </div>
-                  <span class="w-10 h-10 rounded bg-primary border border-white/10 flex items-center justify-center text-white group-open:rotate-180 group-open:border-accent group-open:text-accent transition-all duration-300">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                  </span>
-                </summary>
+        <div class="relative w-full">
+          {curriculumTracks.map((track: any, index: number) => (
+            <div id={track.id} class={`tab-content space-y-4 w-full ${index === 0 ? "block" : "hidden"}`}>
+              {track.roadmap.map((year: any) => (
+                <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-slate-300 transition-all">
+                  <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
+                    <div class="flex items-center gap-6">
+                      <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent/80 transition-colors tracking-tighter">{year.year}</span>
+                      <h3 class="text-xl md:text-2xl font-bold text-primary group-open:text-accent transition-colors">{year.title}</h3>
+                    </div>
+                    <span class="w-10 h-10 rounded bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 group-open:rotate-180 group-open:border-accent group-open:text-accent group-open:bg-white transition-all duration-300">
+                      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </span>
+                  </summary>
 
-                <div class="px-6 md:px-8 pb-8 pt-2 border-t border-white/10 mt-2 bg-black/20">
-                  <div class="flex flex-col gap-4 mt-4">
-                    <h4 class="text-xs font-mono text-slate-500 uppercase tracking-widest">Required_Modules</h4>
-                    <div class="flex flex-wrap gap-3">
-                      {year.subjects.map((subject: string) => (
-                        <span class="bg-primary text-accent border border-white/10 py-2 px-4 rounded text-sm font-mono shadow-sm">{subject}</span>
-                      ))}
+                  <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2 bg-slate-50">
+                    <div class="flex flex-col gap-4 mt-4">
+                      <h4 class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">Required_Modules</h4>
+                      <div class="flex flex-wrap gap-3">
+                        {year.subjects.map((subject: string) => (
+                          <span class="bg-white text-primary font-bold border border-slate-200 py-2 px-4 rounded text-sm font-mono shadow-sm hover:border-accent hover:text-accent transition-colors">{subject}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </details>
-            ))}
-          </div>
-        ))}
+                </details>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
-    <div class="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
-      <span class="text-accent font-mono text-xs mb-4 inline-block tracking-widest uppercase">/ Hardware_&_Facilities</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">The Execution Environment.</h2>
-      <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">Our laboratories mirror high-performance industry workspaces. From multi-monitor development suites to dedicated routing hardware, this is where theory compiles into production-ready software.</p>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px] relative z-10">
-      <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-2 md:row-span-1">
-        <img src={ecosystemImages.engineeringLab.url} alt={ecosystemImages.engineeringLab.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Web_Dev</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Advanced Software Engineering Lab</h3>
-          <p class="text-slate-400 text-sm max-w-md hidden md:block">High-performance workstations configured for modern web architecture, local server deployment, and continuous integration workflows.</p>
-        </div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
+        <span class="text-accent font-mono text-xs mb-4 inline-block tracking-widest uppercase">/ Hardware_&_Facilities</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">The Execution Environment.</h2>
+        <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">Our laboratories mirror high-performance industry workspaces. From multi-monitor development suites to dedicated routing hardware, this is where theory compiles into production-ready software.</p>
       </div>
 
-      <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-2">
-        <img src={ecosystemImages.gameStudio.url} alt={ecosystemImages.gameStudio.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Render</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Interactive Media & Game Studio</h3>
-          <p class="text-slate-400 text-sm mt-2">GPU-accelerated machines dedicated to 3D asset modeling in Blender and logic programming within Godot 4 and Roblox Studio.</p>
-        </div>
-      </div>
-
-      <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
-        <img src={ecosystemImages.networkHub.url} alt={ecosystemImages.networkHub.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Network</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Architecture & Routing Node</h3>
-        </div>
-      </div>
-
-      <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
-        <img src={ecosystemImages.aiNode.url} alt={ecosystemImages.aiNode.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Compute</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Machine Learning & LLM Cluster</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-24 md:py-32 bg-primary relative border-t border-white/10">
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
-        <div class="lg:col-span-5 relative group">
-          <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-primary">
-            <img src={leadInstructor.image.url} alt={leadInstructor.image.alt} class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent z-10"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-8 border-t border-white/10 bg-primary/80 backdrop-blur-sm">
-              <h3 class="text-2xl font-black text-white leading-tight mb-1">{leadInstructor.name}</h3>
-              <span class="text-accent font-mono text-xs tracking-widest uppercase block mb-2">{leadInstructor.title}</span>
-              <div class="inline-flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span class="text-slate-400 font-mono text-[10px] uppercase tracking-widest">Stack: {leadInstructor.stack}</span>
-              </div>
-            </div>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px] relative z-10">
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-2 md:row-span-1">
+          <img src={ecosystemImages.engineeringLab.url} alt={ecosystemImages.engineeringLab.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Web_Dev</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Advanced Software Engineering Lab</h3>
+            <p class="text-slate-400 text-sm max-w-md hidden md:block">High-performance workstations configured for modern web architecture, local server deployment, and continuous integration workflows.</p>
           </div>
         </div>
 
-        <div class="lg:col-span-7 flex flex-col justify-center">
-          <span class="text-accent font-mono tracking-widest uppercase text-xs mb-6 inline-block">/ Lead_Architecture</span>
-          <svg class="w-12 h-12 text-white/10 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
-          <p class="text-2xl md:text-4xl font-black text-white leading-snug tracking-tight mb-8">"{leadInstructor.quote}"</p>
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-2">
+          <img src={ecosystemImages.gameStudio.url} alt={ecosystemImages.gameStudio.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Render</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Interactive Media & Game Studio</h3>
+            <p class="text-slate-400 text-sm mt-2">GPU-accelerated machines dedicated to 3D asset modeling in Blender and logic programming within Godot 4 and Roblox Studio.</p>
+          </div>
+        </div>
+
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
+          <img src={ecosystemImages.networkHub.url} alt={ecosystemImages.networkHub.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Network</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Architecture & Routing Node</h3>
+          </div>
+        </div>
+
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
+          <img src={ecosystemImages.aiNode.url} alt={ecosystemImages.aiNode.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Compute</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Machine Learning & LLM Cluster</h3>
+          </div>
         </div>
       </div>
+    </ScrollRevealWrapper>
+  </section>
 
-      <div class="text-center mb-16">
-        <h3 class="text-3xl font-black tracking-tight text-white">Active Practitioners & Mentors</h3>
-        <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Learn directly from engineers and academics who build software, not just theorize about it.</p>
+  <section class="py-24 md:py-32 bg-white relative border-t border-slate-200">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
+          <div class="lg:col-span-5 relative group">
+            <div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden border border-slate-200 shadow-2xl bg-white">
+              <img src={leadInstructor.image.url} alt={leadInstructor.image.alt} class="w-full h-full object-cover transition-all duration-700" loading="lazy" />
+              <div class="absolute bottom-0 left-0 right-0 p-8 border-t border-slate-200 bg-white/90 backdrop-blur-sm z-20">
+                <h3 class="text-2xl font-black text-primary leading-tight mb-1">{leadInstructor.name}</h3>
+                <span class="text-accent font-mono font-bold text-xs tracking-widest uppercase block mb-2">{leadInstructor.title}</span>
+                <div class="inline-flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                  <span class="text-slate-500 font-mono text-[10px] uppercase tracking-widest font-bold">Stack: {leadInstructor.stack}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 flex flex-col justify-center">
+            <span class="text-accent font-mono font-bold tracking-widest uppercase text-xs mb-6 inline-block">/ Lead_Architecture</span>
+            <svg class="w-12 h-12 text-slate-200 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+            <p class="text-2xl md:text-4xl font-black text-primary leading-snug tracking-tight mb-8">"{leadInstructor.quote}"</p>
+          </div>
+        </div>
+
+        <div class="text-center mb-16">
+          <h3 class="text-3xl font-black tracking-tight text-primary">Active Practitioners & Mentors</h3>
+          <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Learn directly from engineers and academics who build software, not just theorize about it.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {faculty.map((member: any) => (
+            <div class="group flex flex-col">
+              <div class="relative w-full aspect-[3/4] bg-slate-50 rounded-lg overflow-hidden mb-6 border border-slate-200 shadow-sm group-hover:border-accent/50 group-hover:shadow-lg transition-all duration-300">
+                <img src={member.image.url} alt={member.image.alt} class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" loading="lazy" />
+                <div class="absolute top-4 left-4 bg-white/90 border border-slate-200 backdrop-blur text-accent font-mono font-bold text-[9px] uppercase tracking-widest py-1.5 px-3 rounded shadow-sm z-20">{member.specialty}</div>
+              </div>
+              <div class="flex flex-col px-2">
+                <h4 class="text-lg font-black text-primary mb-1 group-hover:text-accent transition-colors duration-300">{member.name}</h4>
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest">{member.credentials}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </ScrollRevealWrapper>
+  </section>
+
+  <section class="py-24 md:py-32 bg-white relative border-t border-slate-200">
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+    <ScrollRevealWrapper>
+      <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+        <span class="text-accent font-mono font-bold tracking-widest uppercase text-xs mb-4 inline-block">/ Return_On_Investment</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">High-Yield Technical Trajectories.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">An OLOPSC Computing Studies degree is a technical asset. Our graduates are trained to architect systems, direct AI integration, and build immersive digital environments.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {faculty.map((member: any) => (
-          <div class="group flex flex-col">
-            <div class="relative w-full aspect-[3/4] bg-primary rounded-lg overflow-hidden mb-6 border border-white/10 shadow-sm group-hover:border-accent/50 transition-colors duration-300">
-              <img src={member.image.url} alt={member.image.alt} class="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-80 z-10"></div>
-              <div class="absolute top-4 left-4 bg-primary/90 border border-white/10 backdrop-blur text-accent font-mono text-[9px] uppercase tracking-widest py-1.5 px-3 rounded shadow-sm z-20">{member.specialty}</div>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {pathways.map((pathway: any) => (
+          <div class="bg-white rounded-lg p-8 md:p-10 border border-slate-200 shadow-sm flex flex-col h-full group hover:bg-slate-50 hover:border-accent/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="w-14 h-14 rounded bg-slate-50 flex items-center justify-center text-accent mb-8 border border-slate-200 shadow-sm group-hover:bg-accent group-hover:text-primary transition-colors duration-500">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={pathway.iconPath} /></svg>
             </div>
-            <div class="flex flex-col px-2">
-              <h4 class="text-lg font-black text-white mb-1 group-hover:text-accent transition-colors duration-300">{member.name}</h4>
-              <span class="text-xs font-mono text-slate-500 uppercase tracking-widest">{member.credentials}</span>
+
+            <div class="mb-8 border-b border-slate-100 pb-8">
+              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+              <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+            </div>
+
+            <div class="flex-grow flex flex-col">
+              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 bg-slate-100 self-start px-2 py-1 rounded">Target_Roles</span>
+              <ul class="space-y-3">
+                {pathway.roles.map((role: string) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-4 h-4 text-accent shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+                    <span class="text-slate-700 font-mono text-sm leading-tight font-medium">{role}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
       </div>
 
-    </div>
-  </section>
-
-  <section class="py-24 md:py-32 bg-primary relative border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-      <span class="text-accent font-mono tracking-widest uppercase text-xs mb-4 inline-block">/ Return_On_Investment</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">High-Yield Technical Trajectories.</h2>
-      <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">An OLOPSC Computing Studies degree is a technical asset. Our graduates are trained to architect systems, direct AI integration, and build immersive digital environments.</p>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      {pathways.map((pathway: any) => (
-        <div class="bg-white/5 rounded-lg p-8 md:p-10 border border-white/10 flex flex-col h-full group hover:bg-white/10 hover:border-accent/50 transition-all duration-300">
-          <div class="w-14 h-14 rounded bg-primary flex items-center justify-center text-accent mb-8 border border-white/10 group-hover:bg-accent group-hover:text-primary transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={pathway.iconPath} /></svg>
-          </div>
-
-          <div class="mb-8 border-b border-white/10 pb-8">
-            <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
-            <h3 class="text-2xl font-black text-white leading-tight mb-4">{pathway.title}</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">{pathway.description}</p>
-          </div>
-
-          <div class="flex-grow flex flex-col">
-            <span class="text-[10px] font-mono text-white/60 uppercase tracking-widest mb-4 bg-white/5 self-start px-2 py-1 rounded">Target_Roles</span>
-            <ul class="space-y-3">
-              {pathway.roles.map((role: string) => (
-                <li class="flex items-start gap-3">
-                  <svg class="w-4 h-4 text-accent shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
-                  <span class="text-slate-300 font-mono text-sm leading-tight">{role}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div class="max-w-4xl mx-auto px-6 mt-20 text-center flex justify-center">
-      <CtaButton
-        cta={{
-          text: "Initialize_Application",
-          link: { type: "external", external: "/admissions" }
-        }}
-        variant="primary"
-        class="font-black py-4 px-10 text-lg shadow-[0_0_20px_rgba(var(--color-accent),0.3)] !rounded-lg"
-      />
-    </div>
+      <div class="max-w-4xl mx-auto px-6 mt-20 text-center flex justify-center">
+        <CtaButton
+          cta={{
+            text: "Initialize_Application",
+            link: { type: "external", external: "/admissions" }
+          }}
+          variant="primary"
+          class="font-black py-4 px-10 text-lg shadow-[0_0_20px_rgba(var(--color-accent),0.3)] !rounded-lg"
+        />
+      </div>
+    </ScrollRevealWrapper>
   </section>
 </Layout>
 

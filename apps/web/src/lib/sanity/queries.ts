@@ -1669,16 +1669,23 @@ export async function getComputingStudiesPage() {
   const query = `*[_type == "computingStudies"][0]{
     _id,
     title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
-    seo { ..., image { asset->{ url } } }
+    heroBackground { alt, asset->{url} },
+    cardThumbnail { alt, asset->{url} },
+    quickFacts,
+    overviewMainImage { alt, asset->{url} },
+    overviewSubImage { alt, asset->{url} },
+    outcomes,
+    curriculumTracks,
+    ecosystemImages {
+      engineeringLab { alt, asset->{url} },
+      gameStudio { alt, asset->{url} },
+      networkHub { alt, asset->{url} },
+      aiNode { alt, asset->{url} }
+    },
+    chair { ..., image { alt, asset->{url} } },
+    faculty[] { ..., image { alt, asset->{url} } },
+    pathways,
+    seo
   }`
   return await client.fetch(query)
 }

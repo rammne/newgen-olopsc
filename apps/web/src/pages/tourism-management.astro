@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaButton from "../components/common/CtaButton.astro";
+import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 import "../styles/global.css";
 
 import { getTourismManagementPage } from '../lib/sanity/queries';
@@ -174,7 +175,7 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
     <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
     <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
 
-    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+    <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Master the Business of <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Global Travel.</span></h1>
@@ -184,11 +185,11 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
           <CtaButton cta={{ text: "View Corporate Paths", link: "#outcomes" }} variant="secondary" />
         </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
-    <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+    <ScrollRevealWrapper animation="fade-in" delay={200} class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
       
       <div class="flex flex-col items-center text-center px-4">
         <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
@@ -214,11 +215,11 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
       </div>
 
-    </div>
+    </ScrollRevealWrapper>
   </div>
 
   <section class="py-24 md:py-32 bg-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Global Hospitality.</h2>
@@ -237,11 +238,11 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
           <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
         </div>
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white relative border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+    <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
       
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
@@ -267,11 +268,11 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
         ))}
       </div>
 
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
-    <div class="max-w-4xl mx-auto px-6">
+    <ScrollRevealWrapper animation="fade-in" class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
@@ -305,65 +306,67 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
           </details>
         ))}
       </div>
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Where Theory Meets Operations.</h2>
-      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Step into a fully realized training environment. From simulated aviation cabins to executing live MICE events, this is where you master the mechanics of the global travel industry.</p>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
-      
-      <!-- Block 1: Facilities -->
-      <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.facilities.url} alt={ecosystemImages.facilities.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Infrastructure</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Aviation & Hospitality Simulation Suites</h3>
-          <p class="text-slate-300 text-sm max-w-md hidden md:block">Train in industry-standard environments, including mock aircraft cabins, premium hotel front-desk systems, and travel agency operations centers.</p>
-        </div>
+    <ScrollRevealWrapper animation="slide-up">
+      <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Where Theory Meets Operations.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Step into a fully realized training environment. From simulated aviation cabins to executing live MICE events, this is where you master the mechanics of the global travel industry.</p>
       </div>
 
-      <!-- Block 2: The Society -->
-      <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
-          <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The OLOPSC Tourism Society</h3>
-          <p class="text-slate-300 text-sm">A highly active, student-led organization focused on global networking, destination familiarization tours, and hospitality leadership.</p>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+        
+        <!-- Block 1: Facilities -->
+        <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.facilities.url} alt={ecosystemImages.facilities.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Infrastructure</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Aviation & Hospitality Simulation Suites</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">Train in industry-standard environments, including mock aircraft cabins, premium hotel front-desk systems, and travel agency operations centers.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Block 3: Event Execution -->
-      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.events.url} alt={ecosystemImages.events.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Operational Output</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Annual Travel & MICE Expo</h3>
+        <!-- Block 2: The Society -->
+        <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The OLOPSC Tourism Society</h3>
+            <p class="text-slate-300 text-sm">A highly active, student-led organization focused on global networking, destination familiarization tours, and hospitality leadership.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Block 4: Sustainable Tourism -->
-      <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-        <img src={ecosystemImages.sustainability.url} alt={ecosystemImages.sustainability.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-        <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
-        <div class="relative z-20">
-          <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Social Responsibility</span>
-          <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Sustainable Destination Advocacy</h3>
+        <!-- Block 3: Event Execution -->
+        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.events.url} alt={ecosystemImages.events.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Operational Output</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Annual Travel & MICE Expo</h3>
+          </div>
         </div>
-      </div>
 
-    </div>
+        <!-- Block 4: Sustainable Tourism -->
+        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
+          <img src={ecosystemImages.sustainability.url} alt={ecosystemImages.sustainability.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+          <div class="relative z-20">
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Social Responsibility</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Sustainable Destination Advocacy</h3>
+          </div>
+        </div>
+
+      </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-6">
+    <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
         <div class="lg:col-span-5 relative">
@@ -406,49 +409,51 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
         ))}
       </div>
 
-    </div>
+    </ScrollRevealWrapper>
   </section>
 
   <section id="outcomes" class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Ticket to Global Enterprise.</h2>
-      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Tourism Management from OLOPSC is a highly versatile business asset. Our graduates command operations in aviation, premium lodging, and international event logistics.</p>
-    </div>
+    <ScrollRevealWrapper animation="slide-up">
+      <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Ticket to Global Enterprise.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Tourism Management from OLOPSC is a highly versatile business asset. Our graduates command operations in aviation, premium lodging, and international event logistics.</p>
+      </div>
 
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-      {pathways.map((pathway: any) => (
-        <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
-          
-          <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        {pathways.map((pathway: any) => (
+          <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+            
+            <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+
+            <div class="mb-8 border-b border-slate-100 pb-8">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
+              <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
+            </div>
+
+            <div class="flex-grow flex flex-col">
+              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
+              <ul class="space-y-3">
+                {pathway.roles.map((role: string) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
+        ))}
+      </div>
 
-          <div class="mb-8 border-b border-slate-100 pb-8">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
-            <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
-          </div>
-
-          <div class="flex-grow flex flex-col">
-            <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
-            <ul class="space-y-3">
-              {pathway.roles.map((role: string) => (
-                <li class="flex items-start gap-3">
-                  <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                  <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-      ))}
-    </div>
-
-    <div class="max-w-4xl mx-auto px-6 mt-20 flex justify-center">
-      <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions" }} variant="primary" />
-    </div>
+      <div class="max-w-4xl mx-auto px-6 mt-20 flex justify-center">
+        <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions" }} variant="primary" />
+      </div>
+    </ScrollRevealWrapper>
   </section>
 
 </Layout>
