@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getComputingStudiesPage } from "../lib/sanity/queries";
-import { getSanityImageUrl } from "../lib/utils/sanity";
-import CtaButton from "../components/common/CtaButton.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getComputingStudiesPage } from "../../lib/sanity/queries";
+import { getSanityImageUrl } from "../../lib/utils/sanity";
+import CtaButton from "../../components/common/CtaButton.astro";
+import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
 
 const pageData = await getComputingStudiesPage();
 

@@ -1,0 +1,308 @@
+---
+/**
+ * AdmissionEngine.astro
+ * Interactive Admission Engine — Section 2 of College Admission page.
+ * 
+ * SEO-safe: All tab content is pre-rendered in the DOM and toggled via
+ * .hidden / opacity classes with vanilla JS. Zero framework overhead.
+ */
+
+interface Step {
+  title: string;
+  description: string;
+}
+
+interface AdmissionPath {
+  id: string;
+  title: string;
+  checklist: string[];
+  note?: string;
+  steps: Step[];
+}
+
+const admissionPaths: AdmissionPath[] = [
+  {
+    id: "incoming-freshmen",
+    title: "Incoming Freshmen",
+    checklist: [
+      "Latest Report Card with LRN (Form 138), PEPT, or ALS Result",
+      "PSA Birth Certificate",
+      "Good Moral Certificate",
+      "Two (2) 2x2 colored ID pictures (White background)",
+    ],
+    note: "Non-recognized SHS graduates are required to take the Philippine Validating Test.",
+    steps: [
+      {
+        title: "Application & Requirements",
+        description:
+          "Submit all required documents to the Registrar's Office for initial screening and verification.",
+      },
+      {
+        title: "Application Fee Payment",
+        description:
+          "Proceed to the Accounting Office and pay the non-refundable application fee of Php 500.00.",
+      },
+      {
+        title: "Initial Academic Advising",
+        description:
+          "Meet with your designated Program Chair for course selection and academic planning.",
+      },
+      {
+        title: "Fee Assessment & Coding",
+        description:
+          "Return to the Registrar's Office for official fee assessment and student coding.",
+      },
+      {
+        title: "Initial Down Payment",
+        description:
+          "Settle the initial down payment of Php 3,000.00 at the Accounting Office to secure your enrollment slot.",
+      },
+      {
+        title: "Student Services Accounts",
+        description:
+          "Complete your registration at the Dean's Office and IT Department for student portal and ID processing.",
+      },
+    ],
+  },
+  {
+    id: "transferees",
+    title: "Transferees",
+    checklist: [
+      "Transcript of Records (TOR) or Certification of Grades",
+      "Transfer Credentials (Honorable Dismissal / Transfer Certificate)",
+      "PSA Birth Certificate",
+      "Certificate of NSTP Completion (if applicable)",
+      "Two (2) 2x2 colored ID pictures (White background)",
+    ],
+    steps: [
+      {
+        title: "Application & Requirements",
+        description:
+          "Submit all required documents to the Registrar's Office for initial screening and verification.",
+      },
+      {
+        title: "Application Fee Payment",
+        description:
+          "Proceed to the Accounting Office and pay the non-refundable application fee of Php 500.00.",
+      },
+      {
+        title: "Initial Academic Advising",
+        description:
+          "Meet with your designated Program Chair for course selection, credit evaluation, and academic planning.",
+      },
+      {
+        title: "Fee Assessment & Coding",
+        description:
+          "Return to the Registrar's Office for official fee assessment and student coding.",
+      },
+      {
+        title: "Initial Down Payment",
+        description:
+          "Settle the initial down payment of Php 3,000.00 at the Accounting Office to secure your enrollment slot.",
+      },
+      {
+        title: "Student Services Accounts",
+        description:
+          "Complete your registration at the Dean's Office and IT Department for student portal and ID processing.",
+      },
+    ],
+  },
+  {
+    id: "continuing-students",
+    title: "Continuing Students",
+    checklist: [
+      "Fully signed Student Clearance",
+      "Previous semester account clearance (no outstanding balance)",
+    ],
+    steps: [
+      {
+        title: "Subject Enlistment & Advising",
+        description:
+          "Coordinate with the Registrar's Office and your Academic Adviser for subject enlistment and schedule finalization.",
+      },
+      {
+        title: "Assessment of Fees",
+        description:
+          "Proceed to the Registrar's Office for official fee assessment based on your enlisted subjects.",
+      },
+      {
+        title: "Enrollment Activation",
+        description:
+          "Settle the initial down payment of Php 3,000.00 at the Accounting Office to activate your enrollment for the semester.",
+      },
+    ],
+  },
+];
+---
+
+<section id="admission-paths" class="py-24 md:py-32 bg-slate-50 border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-6">
+
+    {/* Section Header */}
+    <div class="text-center mb-16">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">
+        Enrollment Pathways
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+        Select Your Applicant Status.
+      </h2>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+        Review your document checklist and enrollment procedure below.
+        Ensure all financial balances are cleared before proceeding.
+      </p>
+    </div>
+
+    {/* Tab Controls */}
+    <div class="flex flex-wrap justify-center gap-2 mb-12">
+      {admissionPaths.map((path, index) => (
+        <button
+          type="button"
+          data-target={path.id}
+          class={
+            "tab-btn cursor-pointer px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest border transition-all duration-300 " +
+            (index === 0
+              ? "bg-primary text-white border-primary shadow-lg"
+              : "bg-white text-slate-500 border-slate-200 hover:bg-slate-100")
+          }
+        >
+          {path.title}
+        </button>
+      ))}
+    </div>
+
+    {/* Content Panels — All pre-rendered for SEO */}
+    <div class="relative w-full">
+      {admissionPaths.map((path, index) => (
+        <div
+          id={path.id}
+          class={
+            "tab-content w-full transition-opacity duration-300 " +
+            (index === 0 ? "block opacity-100" : "hidden opacity-0")
+          }
+        >
+          {/* Grid: Checklist (left) | Steps (right) */}
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+            {/* Left Column — Required Documents Checklist */}
+            <div class="lg:col-span-5 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm sticky top-32">
+              <h3 class="text-xl font-black text-primary mb-6 pb-4 border-b border-slate-100">
+                Required Documents
+              </h3>
+              <ul class="space-y-4">
+                {path.checklist.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <svg
+                      class="w-5 h-5 text-accent shrink-0 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span class="text-slate-600 text-sm leading-relaxed">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Conditional Note */}
+              {path.note && (
+                <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-2xl">
+                  <p class="text-xs text-amber-800 leading-relaxed font-medium">
+                    <strong>Note:</strong> {path.note}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Right Column — Enrollment Procedure Steps */}
+            <div class="lg:col-span-7 flex flex-col space-y-8">
+              {path.steps.map((step, stepIndex) => (
+                <div class="flex gap-6 group">
+                  {/* Step Number Node */}
+                  <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-primary font-black text-xl shrink-0 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                    {stepIndex + 1}
+                  </div>
+
+                  {/* Step Details */}
+                  <div class="flex flex-col pt-1">
+                    <h4 class="text-lg font-black text-primary mb-2">
+                      {step.title}
+                    </h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+{/* Vanilla JS Tab Controller — Zero framework overhead */}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Reset all buttons to inactive state
+        buttons.forEach((btn) => {
+          btn.classList.remove(
+            "bg-primary",
+            "text-white",
+            "border-primary",
+            "shadow-lg"
+          );
+          btn.classList.add("bg-white", "text-slate-500", "border-slate-200");
+        });
+
+        // Hide all content panels
+        contents.forEach((content) => {
+          content.classList.remove("block", "opacity-100");
+          content.classList.add("hidden", "opacity-0");
+        });
+
+        // Activate clicked button
+        button.classList.remove(
+          "bg-white",
+          "text-slate-500",
+          "border-slate-200"
+        );
+        button.classList.add(
+          "bg-primary",
+          "text-white",
+          "border-primary",
+          "shadow-lg"
+        );
+
+        // Reveal target content with fade
+        const targetId = button.getAttribute("data-target");
+        const targetContent = targetId
+          ? document.getElementById(targetId)
+          : null;
+        if (targetContent) {
+          targetContent.classList.remove("hidden");
+          // Slight delay for CSS transition to register the opacity change
+          setTimeout(() => {
+            targetContent.classList.remove("opacity-0");
+            targetContent.classList.add("block", "opacity-100");
+          }, 50);
+        }
+      });
+    });
+  });
+</script>

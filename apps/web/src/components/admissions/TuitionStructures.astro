@@ -1,0 +1,162 @@
+---
+/**
+ * TuitionStructures.astro
+ * Tuition Payment Structures — Section 3 of College Admission page.
+ *
+ * Enterprise Light Mode pricing card layout. All content is static
+ * and pre-rendered — zero JS, zero framework overhead.
+ */
+
+interface PaymentPlan {
+  id: string;
+  name: string;
+  tag: string;
+  description: string;
+  features: string[];
+  highlight?: boolean;
+}
+
+const paymentPlans: PaymentPlan[] = [
+  {
+    id: "full-payment",
+    name: "Full Payment",
+    tag: "One-Time Settlement",
+    description:
+      "A single, upfront settlement of all tuition and institutional fees for the entire semester.",
+    features: [
+      "Zero installment fees",
+      "Cleared financial status for the term",
+      "Priority clearance at end-of-semester",
+    ],
+  },
+  {
+    id: "plan-a",
+    name: "Plan A: Quarterly",
+    tag: "Standard Installment",
+    description:
+      "Features a structured installment plan divided into four chronological academic periods.",
+    features: [
+      "Down Payment (Upon Enrollment)",
+      "Prelim Period Assessment",
+      "Midterm Period Assessment",
+      "Final Exam Period Assessment",
+    ],
+  },
+  {
+    id: "plan-b",
+    name: "Plan B: Monthly",
+    tag: "Extended Installment",
+    description:
+      "Spreads the financial costs across six manageable payment installments over the operational school term.",
+    features: [
+      "Standard Down Payment",
+      "Fixed monthly payments (June to Nov)",
+      "Includes standard installment fee",
+    ],
+  },
+];
+---
+
+<section id="tuition-fees" class="py-24 md:py-32 bg-white border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-6">
+
+    {/* Section Header */}
+    <div class="text-center mb-16">
+      <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">
+        Financial Planning
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+        Tuition Payment Structures.
+      </h2>
+      <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+        OLOPSC offers three flexible financing schemes. Please review these
+        plans carefully to select the structure that best fits your capability.
+      </p>
+    </div>
+
+    {/* Activation Banner — Global Down Payment */}
+    <div class="max-w-3xl mx-auto mb-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+      {/* Left — Description */}
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-lg font-black text-primary">Standard Enrollment Activation</h4>
+          <p class="text-sm text-slate-600">
+            Required for all installment plans to officially activate student status.
+          </p>
+        </div>
+      </div>
+
+      {/* Right — Price */}
+      <div class="text-right shrink-0">
+        <span class="block text-3xl font-black text-primary tracking-tight">
+          ₱3,000<span class="text-lg text-slate-400 font-bold">.00</span>
+        </span>
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+          Initial Down Payment
+        </span>
+      </div>
+    </div>
+
+    {/* Pricing Card Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {paymentPlans.map((plan) => (
+        <div
+          class={
+            "relative flex flex-col bg-white rounded-3xl p-8 shadow-sm border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl " +
+            (plan.highlight
+              ? "border-accent ring-1 ring-accent shadow-md"
+              : "border-slate-200")
+          }
+        >
+          {/* Highlight Badge */}
+          {plan.highlight && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-sm">
+              Most Popular
+            </div>
+          )}
+
+          {/* Card Header */}
+          <div class="mb-8 pb-8 border-b border-slate-100">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+              {plan.tag}
+            </span>
+            <h3 class="text-2xl font-black text-primary mb-4">{plan.name}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed h-16">
+              {plan.description}
+            </p>
+          </div>
+
+          {/* Features List */}
+          <div class="flex-grow">
+            <ul class="space-y-4">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3">
+                  <svg
+                    class="w-5 h-5 text-accent shrink-0 mt-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span class="text-slate-700 text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

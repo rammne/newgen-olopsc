@@ -41,6 +41,17 @@ const HEADER_MENU_SECTIONS = [
       { label: 'Sustainable Development Goals', href: '/sdg' },
     ],
   },
+  {
+    title: 'College Programs',
+    links: [
+      { label: 'Computing Studies', href: '/college/computing-studies' },
+      { label: 'Business Administration and Entrepreneurship', href: '/college/business-administration-and-entrepreneurship' },
+      { label: 'Education and Liberal Arts', href: '/college/education-and-liberal-arts' },
+      { label: 'Psychology', href: '/college/psychology' },
+      { label: 'Hospitality Management', href: '/college/hospitality-management' },
+      { label: 'Tourism Management', href: '/college/tourism-management' },
+    ],
+  },
 ]
 
 export function Header() {
@@ -177,7 +188,7 @@ export function Header() {
             className="overflow-hidden border-t border-white/10 bg-[var(--color-primary)]"
           >
             <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-[60px] sm:py-16">
-              <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
                 {HEADER_MENU_SECTIONS.map((section, idx) => (
                   <motion.div
                     key={section.title}

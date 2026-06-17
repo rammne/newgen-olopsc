@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
-import CtaButton from "../components/common/CtaButton.astro";
-import { getBusinessAdminPage } from "../lib/sanity/queries";
-import { getSanityImageUrl } from "../lib/utils/sanity";
+import Layout from "../../layouts/Layout.astro";
+import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import CtaButton from "../../components/common/CtaButton.astro";
+import { getBusinessAdminPage } from "../../lib/sanity/queries";
+import { getSanityImageUrl } from "../../lib/utils/sanity";
 
 const pageData = await getBusinessAdminPage();
 

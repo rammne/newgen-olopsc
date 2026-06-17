@@ -33,6 +33,17 @@ const FOOTER_SECTIONS = [
       { label: 'Sustainable Development Goals', href: '/sdg' },
     ],
   },
+  {
+    title: 'College Programs',
+    links: [
+      { label: 'Computing Studies', href: '/college/computing-studies' },
+      { label: 'Business Administration and Entrepreneurship', href: '/college/business-administration-and-entrepreneurship' },
+      { label: 'Education and Liberal Arts', href: '/college/education-and-liberal-arts' },
+      { label: 'Psychology', href: '/college/psychology' },
+      { label: 'Hospitality Management', href: '/college/hospitality-management' },
+      { label: 'Tourism Management', href: '/college/tourism-management' },
+    ],
+  },
 ]
 
 // Social media links (can be fetched from Sanity later)

@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import AdmissionEngine from "../components/admissions/AdmissionEngine.astro";
+import TuitionStructures from "../components/admissions/TuitionStructures.astro";
+import PoliciesDirectory from "../components/admissions/PoliciesDirectory.astro";
+import { getAdmissionsPage } from "../lib/sanity/queries";
+import "../styles/global.css";
+
+// Fetch admissions page data (reuse existing Sanity query for the hero)
+const admissionsPage = await getAdmissionsPage();
+
+const pageTitle = "College Admission — OLOPSC College of BMSE";
+const pageDescription =
+  "Learn how to enroll at the OLOPSC College of Business, Management, Sciences, and Education. Step-by-step admission procedures for freshmen, transferees, and continuing students.";
+const ogImage = admissionsPage?.seo?.image?.asset?.url;
+---
+
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+  {/* Section 1: Hero (preserved from existing admissions page) */}
+  {admissionsPage?.hero && <Hero hero={admissionsPage.hero} />}
+
+  {/* Section 2: Interactive Admission Engine */}
+  <AdmissionEngine />
+
+  {/* Section 3: Tuition Payment Structures */}
+  <TuitionStructures />
+
+  {/* Section 4: Policies & Helpdesk Directory */}
+  <PoliciesDirectory />
+</Layout>

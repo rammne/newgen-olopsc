@@ -32,14 +32,13 @@ The following pages **MUST** be created as static `.astro` files in `apps/web/sr
 - `senior-high-school.astro` → `/senior-high-school`
 - `college-department.astro` → `/college-department`
 
-**College Program Pages:**
-- `college-programs.astro` → `/college-programs` (main listing page)
-- `computing-studies.astro` → `/computing-studies`
-- `hospitality-management.astro` → `/hospitality-management`
-- `tourism-management.astro` → `/tourism-management`
-- `business-administration-and-entrepreneurship.astro` → `/business-administration-and-entrepreneurship`
-- `education-and-liberal-arts.astro` → `/education-and-liberal-arts`
-- `entrepreneurship.astro` → `/entrepreneurship`
+**College Program Pages (under `pages/college/`):**
+- `college/computing-studies.astro` → `/college/computing-studies`
+- `college/hospitality-management.astro` → `/college/hospitality-management`
+- `college/tourism-management.astro` → `/college/tourism-management`
+- `college/business-administration-and-entrepreneurship.astro` → `/college/business-administration-and-entrepreneurship`
+- `college/education-and-liberal-arts.astro` → `/college/education-and-liberal-arts`
+- `college/psychology.astro` → `/college/psychology`
 
 ### Routing Rules
 1. **Static Pages**: All URLs listed above must be static pages (`.astro` files), NOT dynamic routes

@@ -1,10 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import CtaButton from "../components/common/CtaButton.astro";
-import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
-import "../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+import CtaButton from "../../components/common/CtaButton.astro";
+import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import "../../styles/global.css";
 
-import { getTourismManagementPage } from '../lib/sanity/queries';
+import { getTourismManagementPage } from '../../lib/sanity/queries';
 
 const sanityData = await getTourismManagementPage();
 
