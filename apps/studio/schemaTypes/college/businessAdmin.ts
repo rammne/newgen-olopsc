@@ -24,6 +24,15 @@ export const businessAdmin = defineType({
             fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
         }),
         defineField({
+            name: 'cardThumbnail',
+            title: 'Card Thumbnail (Hub Page)',
+            description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800x450px (16:9).',
+            type: 'image',
+            group: 'hero',
+            options: { hotspot: true },
+            fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
+        }),
+        defineField({
             name: 'quickFacts',
             title: 'Quick Facts',
             type: 'object',

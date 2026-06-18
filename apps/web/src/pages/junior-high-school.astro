@@ -22,22 +22,34 @@ const heroImage: SanityImage = {
     ?? "OLOPSC Junior High School teacher mentoring a student",
 };
 
+// --- Helper: find a section image by label ---
+function findSectionImage(label: string) {
+  return department?.sectionImages?.find((s: any) =>
+    s.sectionLabel?.toLowerCase().includes(label.toLowerCase())
+  );
+}
+
+// Section 2: "4-Year Transformation" image — pulls from sectionImages with label containing "transformation" or "journey"
+const transformationEntry = findSectionImage("transformation") || findSectionImage("journey") || findSectionImage("4-year");
 const transformationImage: SanityImage = {
-  url: department?.facilityTourImages?.[0]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 675, fit: "crop" })
+  url: transformationEntry?.image?.asset?.url
+    ? getSanityImageUrl(transformationEntry.image, { width: 1200, height: 675, fit: "crop" })
     : "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[0]?.alt
+  alt: transformationEntry?.image?.alt
     ?? "Junior High School students collaborating on a technology project",
 };
 
+// Section 3: "Mentorship & S-RICE Shield" image — pulls from sectionImages with label containing "mentorship" or "s-rice"
+const mentorshipEntry = findSectionImage("mentorship") || findSectionImage("s-rice") || findSectionImage("shield");
 const mentorshipImage: SanityImage = {
-  url: department?.facilityTourImages?.[1]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 900, fit: "crop" })
+  url: mentorshipEntry?.image?.asset?.url
+    ? getSanityImageUrl(mentorshipEntry.image, { width: 1200, height: 900, fit: "crop" })
     : "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[1]?.alt
+  alt: mentorshipEntry?.image?.alt
     ?? "OLOPSC faculty guiding students in character development",
 };
 
+// Section 4: Campus Life gallery — exclusively uses facilityTourImages
 interface CampusLifeImage {
   url: string;
   alt: string;
@@ -46,7 +58,7 @@ interface CampusLifeImage {
 }
 
 const rawGallery = department?.facilityTourImages || [];
-const hasValidGallery = rawGallery.length >= 6;
+const hasValidGallery = rawGallery.length > 0;
 
 const campusLifeGallery: CampusLifeImage[] = hasValidGallery
   ? rawGallery.slice(0, 6).map((img: any) => ({

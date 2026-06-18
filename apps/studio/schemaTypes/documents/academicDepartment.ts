@@ -125,6 +125,27 @@ export const academicDepartment = defineType({
       group: 'content',
     }),
     defineField({
+      name: 'learningObjectives',
+      title: 'Learning Objectives',
+      type: 'object',
+      group: 'content',
+      description: 'Used primarily for Grade School to list specific learning goals.',
+      fields: [
+        defineField({
+          name: 'generalObjective',
+          title: 'General Objective',
+          type: 'text',
+          rows: 3,
+        }),
+        defineField({
+          name: 'specificObjectives',
+          title: 'Specific Objectives',
+          type: 'array',
+          of: [{ type: 'string' }],
+        }),
+      ],
+    }),
+    defineField({
       name: 'curriculum',
       title: 'Curriculum Section',
       type: 'object',
@@ -222,6 +243,93 @@ export const academicDepartment = defineType({
       ],
     }),
     defineField({
+      name: 'academicProgression',
+      title: 'Academic Progression / Stepping Stones',
+      type: 'array',
+      group: 'content',
+      description: 'Used to outline the progression through different grade levels (e.g., Lower Primary, Upper Primary).',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', title: 'Title (e.g., Lower Primary)', type: 'string' }),
+            defineField({ name: 'subtitle', title: 'Subtitle (e.g., Mastering the Basics)', type: 'string' }),
+            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+            defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true }, fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })] }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'dean',
+      title: 'Dean / Academic Leadership',
+      type: 'object',
+      group: 'content',
+      description: 'Used primarily for College Department to showcase the Dean.',
+      fields: [
+        defineField({
+          name: 'name',
+          title: 'Name',
+          type: 'string',
+        }),
+        defineField({
+          name: 'title',
+          title: 'Designation / Position',
+          type: 'string',
+        }),
+        defineField({
+          name: 'credentials',
+          title: 'Credentials / Degrees',
+          type: 'string',
+        }),
+        defineField({
+          name: 'quote',
+          title: 'Message from the Dean',
+          type: 'text',
+          rows: 4,
+        }),
+        defineField({
+          name: 'image',
+          title: 'Dean Portrait',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'extracurricular',
+      title: 'Holistic Growth & Extracurriculars',
+      type: 'object',
+      group: 'content',
+      description: 'Used primarily for Grade School to showcase extracurricular activities.',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 4,
+        }),
+        defineField({
+          name: 'image',
+          title: 'Section Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
+          description: 'Image for the extracurricular / holistic growth section.',
+        }),
+      ],
+    }),
+    defineField({
       name: 'faculty',
       title: 'Featured Faculty',
       type: 'array',
@@ -305,10 +413,56 @@ export const academicDepartment = defineType({
       ],
     }),
     defineField({
-      name: 'facilityTourImages',
-      title: 'Facility Tour Images',
+      name: 'sectionImages',
+      title: 'Section-Specific Images',
       type: 'array',
-      description: 'Upload images showcasing department facilities (classrooms, playgrounds, waiting areas, etc.). Used in the Guided Facilities Tour section.',
+      group: 'media',
+      description: 'Upload images for specific page sections (e.g., "4-Year Journey", "Mentorship", "Extracurriculars"). Each image has a label so you know which section it belongs to. These are separate from the Campus Life / Facility Tour gallery.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'sectionLabel',
+              title: 'Section Label',
+              type: 'string',
+              description: 'Which section this image is for, e.g., "4-Year Journey Image", "Mentorship Section Image", "Extracurricular Image"',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'sectionLabel',
+              media: 'image',
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'facilitiesHeader',
+      title: 'Facilities Header',
+      type: 'object',
+      group: 'media',
+      description: 'Header text for the Facilities Tour / Campus Life section.',
+      fields: [
+        defineField({ name: 'title', title: 'Title', type: 'string' }),
+        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+      ],
+    }),
+    defineField({
+      name: 'facilityTourImages',
+      title: 'Campus Life / Facility Tour Images',
+      type: 'array',
+      description: 'Upload images showcasing campus life, facilities (classrooms, labs, student orgs, etc.). Used in the Campus Life / Guided Facilities Tour section. College Dept requires 6 images for the full layout.',
       group: 'media',
       of: [
         {
@@ -325,9 +479,16 @@ export const academicDepartment = defineType({
             }),
             defineField({
               name: 'caption',
-              title: 'Caption (Optional)',
+              title: 'Caption / Title (Optional)',
               type: 'string',
-              description: 'e.g., "Classroom", "Playground", "Drop-off Area"',
+              description: 'e.g., "Modern Computer Labs", "Active Student Organizations"',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description (Optional)',
+              type: 'text',
+              rows: 3,
+              description: 'A brief description of this aspect of campus life or facility.',
             }),
           ],
         },

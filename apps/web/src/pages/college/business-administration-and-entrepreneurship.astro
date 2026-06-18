@@ -8,7 +8,7 @@ import { getSanityImageUrl } from "../../lib/utils/sanity";
 const pageData = await getBusinessAdminPage();
 
 const heroBackground = {
-  url: pageData?.heroBackground?.asset?.url 
+  url: pageData?.heroBackground?.asset?.url
     ? getSanityImageUrl(pageData.heroBackground, { width: 1920, height: 1080, fit: "crop" })
     : "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1920&auto=format&fit=crop",
   alt: pageData?.heroBackground?.alt || "Corporate Boardroom and Strategy"
@@ -29,7 +29,7 @@ const tracks = pageData?.programs && pageData.programs.length > 0
     ];
 
 const overviewMainImage = {
-  url: pageData?.overviewMainImage?.asset?.url 
+  url: pageData?.overviewMainImage?.asset?.url
     ? getSanityImageUrl(pageData.overviewMainImage, { width: 800, height: 600, fit: "crop" })
     : "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=800&auto=format&fit=crop",
   alt: pageData?.overviewMainImage?.alt || "Corporate Enterprise Leadership"
@@ -42,8 +42,8 @@ const overviewSubImage = {
   alt: pageData?.overviewSubImage?.alt || "Business Strategy Collaboration"
 };
 
-const outcomes = pageData?.outcomes && pageData.outcomes.length > 0 
-  ? pageData.outcomes 
+const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
+  ? pageData.outcomes
   : [
       { title: "Strategic Human Capital (HRM)", description: "Mastery of organizational behavior, corporate labor law, and the architecture of high-performance enterprise teams." },
       { title: "Global Brand Architecture (MM)", description: "The capability to direct consumer analytics, execute digital marketing campaigns, and drive international market expansion." },
@@ -54,67 +54,78 @@ const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
 const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
   ? pageData.curriculumTracks
   : [
-      { 
-        id: "hrm", 
-        name: "Human Resource Management", 
+      {
+        id: "hrm",
+        name: "Human Resource Management",
         roadmap: [
           { year: "Year 1", title: "Enterprise Foundations", subjects: ["Principles of Management", "Business Economics", "Corporate Accounting"] },
           { year: "Year 2", title: "Talent Architecture", subjects: ["Organizational Behavior", "Labor Law & Legislation", "Recruitment Strategies"] },
           { year: "Year 3", title: "Strategic HR", subjects: ["Compensation & Benefits", "Performance Management", "Corporate Training"] },
           { year: "Year 4", title: "Executive Leadership", subjects: ["Strategic HR Management", "Corporate Governance", "Industry Practicum"] }
-        ] 
+        ]
       },
-      { 
-        id: "mm", 
-        name: "Marketing Management", 
+      {
+        id: "mm",
+        name: "Marketing Management",
         roadmap: [
           { year: "Year 1", title: "Enterprise Foundations", subjects: ["Principles of Marketing", "Business Economics", "Corporate Accounting"] },
           { year: "Year 2", title: "Consumer Analytics", subjects: ["Consumer Behavior", "Marketing Research", "Digital Marketing"] },
           { year: "Year 3", title: "Brand Architecture", subjects: ["Brand Management", "Advertising Strategy", "Global Marketing"] },
           { year: "Year 4", title: "Market Domination", subjects: ["Strategic Marketing", "Retail Management", "Industry Practicum"] }
-        ] 
+        ]
       },
-      { 
-        id: "ent", 
-        name: "Entrepreneurship", 
+      {
+        id: "ent",
+        name: "Entrepreneurship",
         roadmap: [
           { year: "Year 1", title: "Venture Foundations", subjects: ["Entrepreneurial Mindset", "Business Economics", "Corporate Accounting"] },
           { year: "Year 2", title: "Business Incubation", subjects: ["Opportunity Seeking", "Business Plan Preparation", "Venture Finance"] },
           { year: "Year 3", title: "Scaling & Innovation", subjects: ["Innovation Management", "New Product Development", "Supply Chain Management"] },
           { year: "Year 4", title: "Venture Execution", subjects: ["Business Implementation", "Strategic Management", "Industry Practicum"] }
-        ] 
+        ]
       }
     ];
 
 const ecosystemImages = {
   incubator: {
-    url: pageData?.ecosystemImages?.incubator?.asset?.url || "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=1200&auto=format&fit=crop",
-    alt: pageData?.ecosystemImages?.incubator?.alt || "Venture Creation Incubator"
+    url: pageData?.ecosystemImages?.incubator?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.incubator, { width: 1200, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.incubator?.alt || "Business Incubation Center"
   },
   strategy: {
-    url: pageData?.ecosystemImages?.strategy?.asset?.url || "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    url: pageData?.ecosystemImages?.strategy?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.strategy, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
     alt: pageData?.ecosystemImages?.strategy?.alt || "Corporate Strategy Lab"
   },
   pitch: {
-    url: pageData?.ecosystemImages?.pitch?.asset?.url || "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop",
+    url: pageData?.ecosystemImages?.pitch?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.pitch, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=800&auto=format&fit=crop",
     alt: pageData?.ecosystemImages?.pitch?.alt || "Executive Pitch Arena"
   },
   networking: {
-    url: pageData?.ecosystemImages?.networking?.asset?.url || "https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=800&auto=format&fit=crop",
+    url: pageData?.ecosystemImages?.networking?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.networking, { width: 800, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=800&auto=format&fit=crop",
     alt: pageData?.ecosystemImages?.networking?.alt || "Industry Networking Hub"
   }
 };
 
-const chair = pageData?.chair || {
-  name: "Dr. Elena Bautista",
-  title: "Program Chair, BSBA & Entrepreneurship",
-  credentials: "DBA, MBA, Strategic Management",
-  quote: "Business is not just about theory; it is about execution, strategy, and resilience. Our mission is to forge leaders who build enterprises, direct corporate growth, and disrupt markets.",
-  image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop", alt: "Program Chair" }
+const chair = {
+  name: pageData?.chair?.name || "Dr. Elena Bautista",
+  title: pageData?.chair?.title || "Program Chair, BSBA & Entrepreneurship",
+  credentials: pageData?.chair?.credentials || "",
+  quote: pageData?.chair?.quote || "Business is not just about theory; it is about execution, strategy, and resilience. Our mission is to forge leaders who build enterprises, direct corporate growth, and disrupt markets.",
+  image: {
+    url: pageData?.chair?.image?.asset?.url
+      ? getSanityImageUrl(pageData.chair.image, { width: 800, height: 1000, fit: "crop" })
+      : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+    alt: pageData?.chair?.image?.alt || "Program Chair"
+  }
 };
 
 const faculty = pageData?.faculty && pageData.faculty.length > 0
-  ? pageData.faculty
+  ? pageData.faculty.map((f: any) => ({
+      ...f,
+      image: {
+        url: f.image?.asset?.url ? getSanityImageUrl(f.image, { width: 600, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+        alt: f.image?.alt || f.name
+      }
+    }))
   : [
       { name: "Marcus Reyes", specialty: "Venture Capital & Startups", credentials: "MBA, Serial Entrepreneur", image: { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
       { name: "Sarah Lim", specialty: "Strategic Human Capital", credentials: "PhD in Organizational Psychology", image: { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
@@ -168,7 +179,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
   </section>
 
   <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
-    <ScrollRevealWrapper animation="fade-in" delay={200} class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+    <ScrollRevealWrapper direction="fade" delay={0.2} class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
       <!-- Fact 1: Degree Options (Updated for Explicit Acronyms) -->
       <div class="flex flex-col items-center text-center px-4">
         <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></span>
@@ -402,12 +413,12 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
         <div class="lg:col-span-7 flex flex-col justify-center">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block">Message from the Chair</span>
           <svg class="w-16 h-16 text-slate-100 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
-          <p class="text-2xl md:text-4xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
+          <p class="text-2xl md:text-2xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
         </div>
       </div>
 
       <!-- Part 2: The Faculty Spotlight Grid -->
-      <div class="text-center mb-16">
+      <!-- <div class="text-center mb-16">
         <h3 class="text-3xl font-black tracking-tight text-primary">Core Faculty & Industry Practitioners</h3>
         <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Learn directly from startup founders, HR directors, and corporate marketing executives.</p>
       </div>
@@ -426,7 +437,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
             </div>
           </div>
         ))}
-      </div>
+      </div> -->
     </ScrollRevealWrapper>
   </section>
 
@@ -456,7 +467,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
               <ul class="space-y-3">
                 {pathway.roles?.map((role: string) => (
                   <li class="flex items-start gap-3">
-                    <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
+                    <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
                   </li>
                 ))}
@@ -484,7 +495,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
             btn.classList.remove('bg-primary', 'text-white', 'border-primary', 'active-tab');
             btn.classList.add('bg-white', 'text-slate-500', 'border-slate-200');
           });
-          
+
           // Hide all content blocks
           contents.forEach(content => {
             content.classList.remove('block');
@@ -494,7 +505,7 @@ const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build V
           // Activate clicked button
           button.classList.remove('bg-white', 'text-slate-500', 'border-slate-200');
           button.classList.add('bg-primary', 'text-white', 'border-primary', 'active-tab');
-          
+
           // Show target content
           const targetId = button.getAttribute('data-target');
           if (targetId) {

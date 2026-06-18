@@ -46,48 +46,60 @@ const sdgColors: Record<number, string> = {
 const bgColor = sdg?.color || sdgColors[number] || "#e4e4e4";
 ---
 
-<div
-    class={`relative group rounded-xl overflow-hidden transition-all duration-300 ${
-        isActive
-            ? "hover:shadow-xl hover:-translate-y-1 cursor-pointer"
-            : "opacity-60 grayscale cursor-not-allowed"
-    }`}
->
-    {
-        isActive ? (
-            <a href={`/sdg/${sdg.slug.current}`} class="block h-full">
-                <div
-                    class="aspect-square relative overflow-hidden flex items-center justify-center"
-                    style={`background-color: ${bgColor}`}
-                >
-                    {/* SDG Number Big */}
-                    <div class="text-7xl font-bold text-white font-serif opacity-90 transition-transform duration-500 group-hover:scale-110">
-                        {number}
-                    </div>
-
-                    {/* Overlay on Hover */}
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center z-10">
-                        <h3 class="text-white font-bold text-lg mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            {sdg.title}
-                        </h3>
-                        <span class="text-white/80 text-sm flex items-center gap-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                            Read Our Commitment <ArrowRight size={14} />
-                        </span>
-                    </div>
-                </div>
-            </a>
-        ) : (
-            <div 
-                class="aspect-square relative flex items-center justify-center"
-                style={`background-color: ${bgColor}`}
-            >
-                <div class="text-7xl font-bold text-white/50 font-serif select-none">
+<div class={`h-full relative group transition-all duration-300 ${isActive ? "" : "opacity-60 grayscale cursor-not-allowed"}`}>
+    {isActive ? (
+        <a href={`/sdg/${sdg.slug.current}`} class="flex flex-col h-full bg-white rounded-[24px] overflow-hidden border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-1.5">
+            
+            {/* Number and Icon Header */}
+            <div class="px-6 pt-6 pb-5 flex justify-between items-center relative overflow-hidden">
+                {/* Background Tint */}
+                <div class="absolute inset-0 opacity-[0.08]" style={`background-color: ${bgColor}`}></div>
+                
+                <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-2xl text-white font-bold text-2xl shadow-md" style={`background-color: ${bgColor}`}>
                     {number}
                 </div>
-                <div class="absolute bottom-4 text-xs font-medium text-white/70 uppercase tracking-widest">
+                
+                {sdg.image?.asset?.url && (
+                    <div class="relative z-10 w-14 h-14 rounded-full bg-white p-2 shadow-sm border border-gray-100 flex items-center justify-center">
+                        <img src={sdg.image.asset.url} alt={sdg.image.alt || sdg.title} class="w-full h-full object-contain" />
+                    </div>
+                )}
+            </div>
+            
+            {/* Content Body */}
+            <div class="px-6 pb-6 pt-4 flex flex-col flex-grow bg-white relative">
+                {/* Subtle top border separating header and body */}
+                <div class="absolute top-0 left-6 right-6 h-px bg-gray-100"></div>
+                
+                <h3 class="font-serif font-bold text-xl text-[var(--color-primary)] leading-tight mb-3 line-clamp-2 pt-2">
+                    {sdg.title}
+                </h3>
+                
+                <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-grow">
+                    {sdg.description || "Explore our commitment to this sustainable development goal and how we integrate it into our educational community."}
+                </p>
+                
+                {/* Footer Action */}
+                <div class="flex items-center font-medium mt-auto transition-colors duration-300 hover:opacity-80 group-hover:gap-3 gap-2" style={`color: ${bgColor}`}>
+                    <span class="text-sm font-bold tracking-wide uppercase">Learn More</span>
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300" style={`background-color: ${bgColor}1A; color: ${bgColor}`}>
+                        <ArrowRight size={14} />
+                    </div>
+                </div>
+            </div>
+        </a>
+    ) : (
+        <div class="flex flex-col h-full bg-gray-50/50 rounded-[24px] overflow-hidden border border-gray-200">
+            <div class="px-6 pt-6 pb-5 flex justify-between items-center relative overflow-hidden bg-gray-100/50">
+                 <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-2xl text-gray-500 bg-gray-200 font-bold text-2xl shadow-sm">
+                    {number}
+                </div>
+            </div>
+            <div class="px-6 pb-6 pt-4 flex flex-col flex-grow items-center justify-center min-h-[180px]">
+                <div class="text-gray-400 font-medium uppercase tracking-widest text-sm">
                     Coming Soon
                 </div>
             </div>
-        )
-    }
+        </div>
+    )}
 </div>

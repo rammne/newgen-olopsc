@@ -1278,7 +1278,17 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         }
       },
       alt,
-      caption
+      caption,
+      description
+    },
+    sectionImages[] {
+      sectionLabel,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
     },
     collegePrograms {
       title,
@@ -1327,6 +1337,44 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         }
       }
     },
+    learningObjectives {
+      generalObjective,
+      specificObjectives
+    },
+    academicProgression[] {
+      title,
+      subtitle,
+      description,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    sectionImages[] {
+      sectionLabel,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    facilitiesHeader {
+      title,
+      description
+    },
+    extracurricular {
+      title,
+      description,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
     trackClusters {
       title,
       clusters[] {
@@ -1344,6 +1392,18 @@ export async function getAcademicDepartmentByType(departmentType: 'preschool' | 
         slug {
           current
         }
+      }
+    },
+    dean {
+      name,
+      title,
+      credentials,
+      quote,
+      image {
+        asset->{
+          url
+        },
+        alt
       }
     },
     faculty[] {
@@ -1960,6 +2020,35 @@ export async function getAcademicDepartmentBySlug(slug: string) {
         alt
       }
     },
+    learningObjectives {
+      generalObjective,
+      specificObjectives
+    },
+    academicProgression[] {
+      title,
+      subtitle,
+      description,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
+    facilitiesHeader {
+      title,
+      description
+    },
+    extracurricular {
+      title,
+      description,
+      image {
+        asset->{
+          url
+        },
+        alt
+      }
+    },
     collegePrograms {
       title,
       programs[]->{
@@ -2284,16 +2373,23 @@ export async function getEducationLiberalArtsPage() {
   const query = `*[_type == "educationLiberalArts"][0]{
     _id,
     title,
-    hero { ..., backgroundImage { asset->{ url } } },
-    intro { ..., image { asset->{ url } } },
-    degree,
-    duration,
-    programs[] { ..., image { asset->{ url } } },
-    curriculum { ..., courses[] { year, courses[] } },
-    careerOpportunities { ..., image { asset->{ url } } },
-    keyFeatures[] { ..., image { asset->{ url } } },
-    gallery { images[] { asset->{ url }, caption } },
-    seo { ..., image { asset->{ url } } }
+    heroBackground { alt, asset->{url} },
+    cardThumbnail { alt, asset->{url} },
+    quickFacts,
+    overviewMainImage { alt, asset->{url} },
+    overviewSubImage { alt, asset->{url} },
+    outcomes,
+    curriculumTracks,
+    ecosystemImages {
+      modelClassroom { alt, asset->{url} },
+      speechLab { alt, asset->{url} },
+      literacyHub { alt, asset->{url} },
+      resourceCenter { alt, asset->{url} }
+    },
+    chair { ..., image { alt, asset->{url} } },
+    faculty[] { ..., image { alt, asset->{url} } },
+    pathways,
+    seo
   }`
   return await client.fetch(query)
 }

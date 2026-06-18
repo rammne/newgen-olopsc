@@ -10,6 +10,7 @@
     "sanity:typegen": "sanity typegen generate"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
     "@sanity/image-url": "^2.1.1",
@@ -33,6 +34,6 @@
     "eslint": "^9.28",
     "prettier": "^3.5",
     "sanity": "^5.0.1",
-    "typescript": "^5.8"
+    "typescript": "^5.9.3"
   }
 }

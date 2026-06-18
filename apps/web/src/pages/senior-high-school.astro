@@ -22,22 +22,34 @@ const heroImage: SanityImage = {
     ?? "OLOPSC Senior High School students preparing for university life",
 };
 
+// --- Helper: find a section image by label ---
+function findSectionImage(label: string) {
+  return department?.sectionImages?.find((s: any) =>
+    s.sectionLabel?.toLowerCase().includes(label.toLowerCase())
+  );
+}
+
+// Section 2: Academic Track image — pulls from sectionImages
+const academicTrackEntry = findSectionImage("academic track") || findSectionImage("academic") || findSectionImage("assh");
 const academicTrackImage: SanityImage = {
-  url: department?.facilityTourImages?.[0]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 1200, fit: "crop" })
+  url: academicTrackEntry?.image?.asset?.url
+    ? getSanityImageUrl(academicTrackEntry.image, { width: 1200, height: 1200, fit: "crop" })
     : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[0]?.alt
+  alt: academicTrackEntry?.image?.alt
     ?? "STEM, BE, and ASH academic track students at OLOPSC",
 };
 
+// Section 2: TECHPRO Track image — pulls from sectionImages
+const techproTrackEntry = findSectionImage("techpro") || findSectionImage("tech-voc") || findSectionImage("ict");
 const techproTrackImage: SanityImage = {
-  url: department?.facilityTourImages?.[1]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 1200, fit: "crop" })
+  url: techproTrackEntry?.image?.asset?.url
+    ? getSanityImageUrl(techproTrackEntry.image, { width: 1200, height: 1200, fit: "crop" })
     : "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[1]?.alt
-    ?? "ICT and Family & Consumer Science TECHPRO students",
+  alt: techproTrackEntry?.image?.alt
+    ?? "ICT and Hospitality & Tourism TECHPRO students",
 };
 
+// Section 3: Campus Life gallery — exclusively uses facilityTourImages
 interface ShsCultureImage {
   url: string;
   alt: string;
@@ -46,7 +58,7 @@ interface ShsCultureImage {
 }
 
 const rawGallery = department?.facilityTourImages || [];
-const hasValidGallery = rawGallery.length >= 6;
+const hasValidGallery = rawGallery.length > 0;
 
 const shsCultureGallery: ShsCultureImage[] = hasValidGallery
   ? rawGallery.slice(0, 6).map((img: any) => ({
@@ -96,13 +108,6 @@ const shsCultureGallery: ShsCultureImage[] = hasValidGallery
       }
     ];
 
-const roiImage: SanityImage = {
-  url: department?.facilityTourImages?.[3]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[3], { width: 1200, height: 900, fit: "crop" })
-    : "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[3]?.alt
-    ?? "OLOPSC graduates transitioning to top universities and careers",
-};
 
 // SEO metadata
 const pageTitle = department?.seo?.title ?? "Senior High School (Grades 11-12) | OLOPSC Marikina";
@@ -126,10 +131,10 @@ const ogImage = department?.seo?.image?.asset?.url;
           Senior High School (Grades 11-12)
         </span>
         <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none mb-6">
-          Command Your Future. We Provide the Blueprint.
+          {department?.hero?.headline || "Command Your Future. We Provide the Blueprint."}
         </h1>
         <p class="text-lg text-slate-300 leading-relaxed mb-8">
-          Senior High School is the definitive step toward your career. At OLOPSC, we treat our SHS students as responsible young adults, providing the academic freedom to pursue specific passions, while giving parents the peace of mind of a secure, credible, and values-driven Catholic institution.
+          {department?.hero?.subheadline || "Senior High School is the definitive step toward your career. At OLOPSC, we treat our SHS students as responsible young adults, providing the academic freedom to pursue specific passions, while giving parents the peace of mind of a secure, credible, and values-driven Catholic institution."}
         </p>
         <div class="flex flex-wrap gap-4">
           <CtaButton cta={{ text: "Contact Admissions", link: "#track-clusters", style: "primary" }} />
@@ -160,17 +165,17 @@ const ogImage = department?.seo?.image?.asset?.url;
   <!-- ==================== SECTION 1.5: Strengthened Curriculum ==================== -->
   <section class="bg-white py-24 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      
+
       <!-- Left: Title & Intro -->
       <div class="lg:col-span-5">
         <span class="text-accent font-bold uppercase tracking-wider text-sm mb-4 block">
           Fully Implemented for School Year 2026–2027
         </span>
         <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight leading-tight">
-          Strengthened Senior High School Curriculum
+          {department?.curriculum?.title || "Strengthened Senior High School Curriculum"}
         </h2>
         <p class="text-lg text-muted leading-relaxed">
-          OLOPSC Senior High School proudly embraces the Strengthened Senior High School Curriculum, reinforcing its commitment to providing relevant, learner-centered, and future-focused education.
+          {department?.curriculum?.description || "OLOPSC Senior High School proudly embraces the Strengthened Senior High School Curriculum, reinforcing its commitment to providing relevant, learner-centered, and future-focused education."}
         </p>
       </div>
 
@@ -179,32 +184,45 @@ const ogImage = department?.seo?.image?.asset?.url;
         <p class="text-muted mb-8 leading-relaxed">
           The enhanced curriculum offers a more responsive learning experience through:
         </p>
-        
+
         <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-4">
-            <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-accent text-sm font-bold">✓</span>
-            </div>
-            <span class="text-primary font-medium leading-relaxed">Strengthened foundational competencies</span>
-          </li>
-          <li class="flex items-start gap-4">
-            <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-accent text-sm font-bold">✓</span>
-            </div>
-            <span class="text-primary font-medium leading-relaxed">Improved specialization courses</span>
-          </li>
-          <li class="flex items-start gap-4">
-            <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-accent text-sm font-bold">✓</span>
-            </div>
-            <span class="text-primary font-medium leading-relaxed">Greater alignment with industry and higher education standards</span>
-          </li>
-          <li class="flex items-start gap-4">
-            <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-accent text-sm font-bold">✓</span>
-            </div>
-            <span class="text-primary font-medium leading-relaxed">Meaningful opportunities for experiential and career-focused learning</span>
-          </li>
+          {department?.curriculum?.highlights && department.curriculum.highlights.length > 0 ? (
+            department.curriculum.highlights.map((item: string) => (
+              <li class="flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-accent text-sm font-bold">✓</span>
+                </div>
+                <span class="text-primary font-medium leading-relaxed">{item}</span>
+              </li>
+            ))
+          ) : (
+            <>
+              <li class="flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-accent text-sm font-bold">✓</span>
+                </div>
+                <span class="text-primary font-medium leading-relaxed">Strengthened foundational competencies</span>
+              </li>
+              <li class="flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-accent text-sm font-bold">✓</span>
+                </div>
+                <span class="text-primary font-medium leading-relaxed">Improved specialization courses</span>
+              </li>
+              <li class="flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-accent text-sm font-bold">✓</span>
+                </div>
+                <span class="text-primary font-medium leading-relaxed">Greater alignment with industry and higher education standards</span>
+              </li>
+              <li class="flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-accent text-sm font-bold">✓</span>
+                </div>
+                <span class="text-primary font-medium leading-relaxed">Meaningful opportunities for experiential and career-focused learning</span>
+              </li>
+            </>
+          )}
         </ul>
 
         <p class="text-muted mb-6 leading-relaxed">
@@ -223,7 +241,7 @@ const ogImage = department?.seo?.image?.asset?.url;
   <section id="track-clusters" class="bg-surface py-24">
     <div class="max-w-5xl mx-auto px-6 text-center mb-16">
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
-        Tailored Pathways for Every Ambition
+        {department?.trackClusters?.title || "Tailored Pathways for Every Ambition"}
       </h2>
       <p class="text-muted">
         Choose the exact curriculum that aligns with your dream university course or immediate career goals.
@@ -370,10 +388,10 @@ const ogImage = department?.seo?.image?.asset?.url;
         Campus Life & Facilities
       </span>
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
-        Independence, Respected.
+        {department?.facilitiesHeader?.title || "Independence, Respected."}
       </h2>
       <p class="text-lg text-muted leading-relaxed">
-        We know you aren't kids anymore. Our Senior High environment is built on mutual respect. You will have access to modern science labs, collegiate-level library hubs, and a vibrant campus culture full of specialized clubs where your ideas are taken seriously. You have the autonomy to lead; we provide the platform.
+        {department?.facilitiesHeader?.description || "We know you aren't kids anymore. Our Senior High environment is built on mutual respect. You will have access to modern science labs, collegiate-level library hubs, and a vibrant campus culture full of specialized clubs where your ideas are taken seriously. You have the autonomy to lead; we provide the platform."}
       </p>
     </div>
 
@@ -412,37 +430,50 @@ const ogImage = department?.seo?.image?.asset?.url;
         An Investment You Can Trust
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        {department?.keyFeatures && department.keyFeatures.length > 0 ? (
+          department.keyFeatures.map((feature: any) => (
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-3">
+                {feature.title}
+              </h3>
+              <p class="text-slate-300 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))
+        ) : (
+          <>
+            <!-- Card 1: Credibility -->
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-3">
+                Proven Track Record
+              </h3>
+              <p class="text-slate-300 leading-relaxed">
+                Our graduates consistently pass top university entrance exams (UPCAT, ACET, DCAT). Our academic rigor ensures they don't just get accepted—they excel.
+              </p>
+            </div>
 
-        <!-- Card 1: Credibility -->
-        <div>
-          <h3 class="text-xl font-bold text-accent mb-3">
-            Proven Track Record
-          </h3>
-          <p class="text-slate-300 leading-relaxed">
-            Our graduates consistently pass top university entrance exams (UPCAT, ACET, DCAT). Our academic rigor ensures they don't just get accepted—they excel.
-          </p>
-        </div>
+            <!-- Card 2: Financial Clarity -->
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-3">
+                Affordable & Voucher-Ready
+              </h3>
+              <p class="text-slate-300 leading-relaxed">
+                We provide transparent tuition structures with minimal fees. OLOPSC proudly accepts DepEd SHS Vouchers and offers academic scholarships to make elite education accessible.
+              </p>
+            </div>
 
-        <!-- Card 2: Financial Clarity -->
-        <div>
-          <h3 class="text-xl font-bold text-accent mb-3">
-            Affordable & Voucher-Ready
-          </h3>
-          <p class="text-slate-300 leading-relaxed">
-            We provide transparent tuition structures with zero hidden fees. OLOPSC proudly accepts DepEd SHS Vouchers and offers academic scholarships to make elite education accessible.
-          </p>
-        </div>
-
-        <!-- Card 3: Safety -->
-        <div>
-          <h3 class="text-xl font-bold text-accent mb-3">
-            Secure & Monitored Campus
-          </h3>
-          <p class="text-slate-300 leading-relaxed">
-            While we foster independence, we never compromise on safety. From a strict anti-bullying policy to seamless digital grading portals for parents, you are always in the loop.
-          </p>
-        </div>
-
+            <!-- Card 3: Safety -->
+            <div>
+              <h3 class="text-xl font-bold text-accent mb-3">
+                Secure & Monitored Campus
+              </h3>
+              <p class="text-slate-300 leading-relaxed">
+                While we foster independence, we never compromise on safety. From a strict anti-bullying policy to seamless digital grading portals for parents, you are always in the loop.
+              </p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -451,10 +482,10 @@ const ogImage = department?.seo?.image?.asset?.url;
   <section class="bg-surface py-20 text-center">
     <div class="max-w-3xl mx-auto px-6">
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6">
-        Ready to Start Your Journey?
+        {department?.admissionInfo?.title || "Ready to Start Your Journey?"}
       </h2>
       <p class="text-lg text-primary/80 font-medium mb-10">
-        The enrollment process is straightforward. Secure your slot for the upcoming academic year today.
+        {department?.admissionInfo?.content || "The enrollment process is straightforward. Secure your slot for the upcoming academic year today."}
       </p>
       <CtaButton cta={{ text: "Start Enrollment Process", link: "/admissions", style: "primary" }} />
     </div>
