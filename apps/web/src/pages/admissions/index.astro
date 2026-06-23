@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Hero from "../../components/homepage/Hero.astro";
 import { getAdmissionsPage } from "../../lib/sanity/queries";
+import { getSanityImageUrl } from "../../lib/utils/sanity";
 import "../../styles/global.css";
 
 // Fetch admissions page data for the hero
@@ -13,6 +13,13 @@ const pageDescription =
   admissionsPage?.seo?.description ||
   "Join OLOPSC. Explore our admissions pathways for College and Basic Education programs.";
 const ogImage = admissionsPage?.seo?.image?.asset?.url;
+
+// Use CMS data or smart fallbacks
+const heroHeadline = admissionsPage?.hero?.headline || "Begin Your Journey at OLOPSC";
+const heroSubheadline = admissionsPage?.hero?.subheadline || "Discover a vibrant community dedicated to academic excellence and character formation. Choose your path and apply today.";
+const bgImageUrl = admissionsPage?.hero?.backgroundImage?.asset?.url 
+  ? getSanityImageUrl(admissionsPage.hero.backgroundImage, { width: 1920, height: 1080, fit: "crop" }) 
+  : null;
 
 const admissionPaths = [
   {
@@ -35,8 +42,91 @@ const admissionPaths = [
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-  {/* Hero Section */}
-  {admissionsPage?.hero && <Hero hero={admissionsPage.hero} />}
+  {/* Modern Admissions Hero Section */}
+  <section class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]">
+    {/* Background Layer */}
+    <div class="absolute inset-0 z-0">
+      {bgImageUrl ? (
+        <>
+          <img 
+            src={bgImageUrl} 
+            alt="Admissions Background" 
+            class="w-full h-full object-cover animate-slow-zoom" 
+          />
+          {/* Dual Overlay: Solid color multiply + Gradient */}
+          <div class="absolute inset-0 bg-[#0a095f]/70 mix-blend-multiply"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-[#050340]/90 via-[#0a095f]/60 to-transparent"></div>
+        </>
+      ) : (
+        /* Fallback Gradient */
+        <div class="absolute inset-0 bg-gradient-to-br from-[#050340] via-[#0a095f] to-[#12108a]">
+          {/* Subtle decorative circles */}
+          <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-white/5 blur-[100px] animate-pulse"></div>
+          <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-accent)]/10 blur-[100px]"></div>
+        </div>
+      )}
+    </div>
+
+    {/* Content Container */}
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full mt-10 sm:mt-16">
+      <div class="max-w-3xl animate-fade-in-up" style="animation: fade-in-up 1s ease-out forwards; opacity: 0;">
+        {/* Eyebrow / Tag */}
+        <div class="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+          <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
+          <span class="text-white text-xs sm:text-sm font-bold uppercase tracking-widest font-['Inter']">
+            Admissions Now Open
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8 font-['Montserrat']">
+          {heroHeadline}
+        </h1>
+
+        {/* Subtitle */}
+        <p class="text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl mb-10 font-['Inter'] font-light">
+          {heroSubheadline}
+        </p>
+
+        {/* Action Buttons */}
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a 
+            href="#admission-pathways" 
+            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--color-accent)] text-[var(--color-primary)] font-bold text-lg rounded-full hover:bg-white transition-all duration-300 shadow-[0_4px_20px_rgba(237,192,84,0.4)] hover:shadow-[0_8px_30px_rgba(255,255,255,0.4)] hover:-translate-y-1 group font-['Inter']"
+          >
+            Explore Pathways
+            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slow-zoom {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+    .animate-slow-zoom {
+      animation: slow-zoom 20s ease-in-out infinite alternate;
+    }
+  </style>
 
   {/* Section 2: Admission Pathway Selector */}
   <section id="admission-pathways" class="py-24 md:py-32 bg-slate-50">
