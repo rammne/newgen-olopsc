@@ -1,11 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
-import AdmissionEngine from "../components/admissions/AdmissionEngine.astro";
-import TuitionStructures from "../components/admissions/TuitionStructures.astro";
-import PoliciesDirectory from "../components/admissions/PoliciesDirectory.astro";
-import { getAdmissionsPage } from "../lib/sanity/queries";
-import "../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/homepage/Hero.astro";
+import AdmissionEngine from "../../components/admissions/AdmissionEngine.astro";
+import TuitionStructures from "../../components/admissions/TuitionStructures.astro";
+import PoliciesDirectory from "../../components/admissions/PoliciesDirectory.astro";
+import { getAdmissionsPage } from "../../lib/sanity/queries";
+import "../../styles/global.css";
 
 // Fetch admissions page data (reuse existing Sanity query for the hero)
 const admissionsPage = await getAdmissionsPage();

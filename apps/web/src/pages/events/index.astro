@@ -8,163 +8,275 @@ import "../../styles/global.css";
 const allEvents = await getAllEvents();
 
 // Separate featured and non-featured events
-const featuredEvents = allEvents.filter((event) => event.featured === true);
-const nonFeaturedEvents = allEvents.filter((event) => !event.featured);
+const featuredEvents = allEvents.filter((event: any) => event.featured === true);
+const nonFeaturedEvents = allEvents.filter((event: any) => !event.featured);
 
 const pageTitle = "Events";
 const pageDescription = "View all upcoming events and activities at OLOPSC";
+
+// Category color map
+const categoryColors: Record<string, { bg: string; text: string }> = {
+  academic: { bg: "bg-[#0a095f]", text: "text-white" },
+  workshop: { bg: "bg-[#2563eb]", text: "text-white" },
+  seminar: { bg: "bg-[#7c3aed]", text: "text-white" },
+  sports: { bg: "bg-[#16a34a]", text: "text-white" },
+  cultural: { bg: "bg-[#db2777]", text: "text-white" },
+  community: { bg: "bg-[#ea580c]", text: "text-white" },
+  ceremony: { bg: "bg-[#ca8a04]", text: "text-white" },
+  other: { bg: "bg-[#64748b]", text: "text-white" },
+};
+
+// Date badge color map (inline hex for dynamic styles)
+const categoryHexColors: Record<string, string> = {
+  academic: "#0a095f",
+  workshop: "#2563eb",
+  seminar: "#7c3aed",
+  sports: "#16a34a",
+  cultural: "#db2777",
+  community: "#ea580c",
+  ceremony: "#ca8a04",
+  other: "#64748b",
+};
+
+// Helper to extract date parts
+const getDateParts = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return {
+    month: d.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
+    day: d.getDate(),
+  };
+};
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
+
+  {/* ─── Gradient Page Header ─── */}
   <section
-    class="min-h-screen px-5 pt-32 pb-10 sm:px-[60px] sm:pt-[150px] sm:pb-[100px] bg-[var(--color-neutral)]"
+    class="relative min-h-[35vh] sm:min-h-[40vh] flex items-center justify-center pt-32 sm:pt-[150px] pb-10 sm:pb-16 overflow-hidden"
+    style="background: linear-gradient(135deg, #0a095f 0%, #050340 100%)"
   >
-    <div class="container mx-auto">
-      <h1
-        class="text-section-header-mobile sm:text-section-header-desktop text-[var(--color-primary)] text-center mb-12"
-      >
-        Events
+    {/* Decorative circles */}
+    <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-white/[0.03]"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-white/[0.02] translate-x-1/3 translate-y-1/3"></div>
+    <div class="absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-[var(--color-accent)]/[0.05] -translate-x-1/2 -translate-y-1/2"></div>
+
+    <div class="relative z-10 text-center px-5">
+      <h1 class="text-section-header-mobile sm:text-section-header-desktop text-white mb-4">
+        School Events
       </h1>
-
-      {/* Featured Events Section */}
-      {
-        featuredEvents && featuredEvents.length > 0 && (
-          <div class="mb-16">
-            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-              Featured Events
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredEvents.map((event) => (
-                <a
-                  href={`/events/${event.slug?.current || ""}`}
-                  class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-                >
-                  {event.featuredImage?.asset?.url && (
-                    <div class="aspect-video overflow-hidden">
-                      <img
-                        src={getSanityImageUrl(event.featuredImage, {
-                          width: 400,
-                          height: 300,
-                          fit: "crop",
-                        })}
-                        alt={event.featuredImage.alt || event.title || ""}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div class="p-6">
-                    <div class="flex items-center gap-3 mb-2 flex-wrap">
-                      {event.category && (
-                        <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                          {event.category}
-                        </span>
-                      )}
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]">
-                        ⭐ Featured
-                      </span>
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                        {event.academicDepartment?.title || "School-wide"}
-                      </span>
-                    </div>
-                    <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                      {event.title}
-                    </h3>
-                    {event.startDate && (
-                      <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                        {formatDate(event.startDate)}
-                      </p>
-                    )}
-                    {event.location && (
-                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                        📍 {event.location}
-                      </p>
-                    )}
-                    {event.excerpt && (
-                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                        {event.excerpt}
-                      </p>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        )
-      }
-
-      {/* Non-Featured Events Section */}
-      {
-        nonFeaturedEvents && nonFeaturedEvents.length > 0 && (
-          <div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-primary)] mb-8">
-              All Events
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {nonFeaturedEvents.map((event) => (
-                <a
-                  href={`/events/${event.slug?.current || ""}`}
-                  class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
-                >
-                  {event.featuredImage?.asset?.url && (
-                    <div class="aspect-video overflow-hidden">
-                      <img
-                        src={getSanityImageUrl(event.featuredImage, {
-                          width: 400,
-                          height: 300,
-                          fit: "crop",
-                        })}
-                        alt={event.featuredImage.alt || event.title || ""}
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div class="p-6">
-                    <div class="flex items-center gap-3 mb-2 flex-wrap">
-                      {event.category && (
-                        <span class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold uppercase">
-                          {event.category}
-                        </span>
-                      )}
-                      <span class="text-small-mobile sm:text-small-desktop text-[var(--color-primary)]/70">
-                        {event.academicDepartment?.title || "School-wide"}
-                      </span>
-                    </div>
-                    <h3 class="text-card-title-mobile sm:text-card-title-desktop text-[var(--color-primary)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-                      {event.title}
-                    </h3>
-                    {event.startDate && (
-                      <p class="text-small-mobile sm:text-small-desktop text-[var(--color-accent)] font-semibold mb-2">
-                        {formatDate(event.startDate)}
-                      </p>
-                    )}
-                    {event.location && (
-                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] mb-2">
-                        📍 {event.location}
-                      </p>
-                    )}
-                    {event.excerpt && (
-                      <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] line-clamp-2">
-                        {event.excerpt}
-                      </p>
-                    )}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        )
-      }
-
-      {/* No Events Message */}
-      {
-        allEvents.length === 0 && (
-          <div class="text-center py-20">
-            <p class="text-main-mobile sm:text-main-desktop text-[var(--color-primary)] opacity-70">
-              No events available at the moment.
-            </p>
-          </div>
-        )
-      }
+      <p class="text-white/70 text-main-mobile sm:text-main-desktop max-w-xl mx-auto mb-6" style="font-family: 'Inter', sans-serif;">
+        Stay updated with the latest events and activities at our campus.
+      </p>
+      <div class="w-16 h-1 bg-[var(--color-accent)] mx-auto rounded-full"></div>
     </div>
   </section>
+
+  {/* ─── Main Content ─── */}
+  <section class="px-5 py-10 sm:px-[60px] sm:py-[100px] bg-[var(--color-neutral)]">
+    <div class="container mx-auto max-w-7xl">
+
+      {/* ─── Featured Events ─── */}
+      {featuredEvents && featuredEvents.length > 0 && (
+        <div class="mb-20">
+          <div class="flex items-center gap-4 mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)]" style="font-family: 'Montserrat', sans-serif;">
+              Featured Events
+            </h2>
+            <div class="flex-1 h-px bg-[var(--color-accent)]/30"></div>
+          </div>
+
+          <div class="flex flex-col gap-8">
+            {featuredEvents.map((event: any) => {
+              const colors = categoryColors[event.category] || categoryColors.other;
+              const dateParts = event.startDate ? getDateParts(event.startDate) : null;
+              return (
+                <a
+                  href={`/events/${event.slug?.current || ""}`}
+                  class="group block bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_40px_-8px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-1"
+                >
+                  <div class="flex flex-col lg:flex-row">
+                    {/* Image Side */}
+                    {event.featuredImage?.asset?.url && (
+                      <div class="lg:w-1/2 h-[240px] sm:h-[300px] overflow-hidden">
+                        <img
+                          src={getSanityImageUrl(event.featuredImage, { width: 800, height: 500, fit: "crop" })}
+                          alt={event.featuredImage.alt || event.title || ""}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                    )}
+
+                    {/* Content Side */}
+                    <div class={`${event.featuredImage?.asset?.url ? "lg:w-1/2" : "w-full"} p-6 sm:p-8 lg:p-10 flex flex-col justify-center`}>
+                      <div class="flex items-center gap-2 mb-4 flex-wrap">
+                        {event.category && (
+                          <span class={`px-3 py-1 ${colors.bg} ${colors.text} text-[11px] font-bold uppercase tracking-wider rounded-full`}>
+                            {event.category}
+                          </span>
+                        )}
+                        <span class="px-3 py-1 bg-[var(--color-accent)]/15 text-[var(--color-accent)] text-[11px] font-bold uppercase tracking-wider rounded-full">
+                          ⭐ Featured
+                        </span>
+                        <span class="text-[12px] text-gray-400" style="font-family: 'Inter', sans-serif;">
+                          {event.academicDepartment?.title || "School-wide"}
+                        </span>
+                      </div>
+
+                      <h3 class="text-xl sm:text-2xl font-bold text-[var(--color-primary)] mb-3 group-hover:text-[var(--color-accent)] transition-colors leading-tight" style="font-family: 'Montserrat', sans-serif;">
+                        {event.title}
+                      </h3>
+
+                      <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 mb-4 text-sm text-gray-500" style="font-family: 'Inter', sans-serif;">
+                        {event.startDate && (
+                          <span class="flex items-center gap-1.5">
+                            📅 {formatDate(event.startDate)}
+                          </span>
+                        )}
+                        {event.location && (
+                          <span class="flex items-center gap-1.5">
+                            📍 {event.location}
+                          </span>
+                        )}
+                      </div>
+
+                      {event.excerpt && (
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-2 mb-5" style="font-family: 'Inter', sans-serif;">
+                          {event.excerpt}
+                        </p>
+                      )}
+
+                      <span class="inline-flex items-center gap-2 text-[var(--color-accent)] font-bold text-sm group-hover:gap-3 transition-all" style="font-family: 'Inter', sans-serif;">
+                        View Details <span class="transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ─── All Events Grid ─── */}
+      {nonFeaturedEvents && nonFeaturedEvents.length > 0 && (
+        <div>
+          <div class="flex items-center gap-4 mb-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-primary)]" style="font-family: 'Montserrat', sans-serif;">
+              All Events
+            </h2>
+            <div class="flex-1 h-px bg-[var(--color-accent)]/30"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+            {nonFeaturedEvents.map((event: any) => {
+              const colors = categoryColors[event.category] || categoryColors.other;
+              const hexColor = categoryHexColors[event.category] || categoryHexColors.other;
+              const dateParts = event.startDate ? getDateParts(event.startDate) : null;
+              return (
+                <a
+                  href={`/events/${event.slug?.current || ""}`}
+                  class="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-1.5 h-full"
+                >
+                  {/* Image with Date Badge */}
+                  <div class="relative">
+                    {event.featuredImage?.asset?.url ? (
+                      <div class="aspect-video overflow-hidden">
+                        <img
+                          src={getSanityImageUrl(event.featuredImage, { width: 600, height: 400, fit: "crop" })}
+                          alt={event.featuredImage.alt || event.title || ""}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                    ) : (
+                      <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center">
+                        <span class="text-4xl">📅</span>
+                      </div>
+                    )}
+
+                    {/* Calendar Date Badge */}
+                    {dateParts && (
+                      <div
+                        class="absolute top-4 left-4 w-14 h-14 rounded-xl flex flex-col items-center justify-center text-white shadow-lg"
+                        style={`background-color: ${hexColor}`}
+                      >
+                        <span class="text-[10px] font-bold uppercase tracking-wider leading-none" style="font-family: 'Inter', sans-serif;">
+                          {dateParts.month}
+                        </span>
+                        <span class="text-xl font-black leading-none mt-0.5" style="font-family: 'Montserrat', sans-serif;">
+                          {dateParts.day}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Content */}
+                  <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                    {/* Tags */}
+                    <div class="flex items-center gap-2 mb-3 flex-wrap">
+                      {event.category && (
+                        <span class={`px-2.5 py-0.5 ${colors.bg} ${colors.text} text-[10px] font-bold uppercase tracking-wider rounded-full`}>
+                          {event.category}
+                        </span>
+                      )}
+                      <span class="text-[11px] text-gray-400" style="font-family: 'Inter', sans-serif;">
+                        {event.academicDepartment?.title || "School-wide"}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 class="text-lg sm:text-xl font-bold text-[var(--color-primary)] mb-3 group-hover:text-[var(--color-accent)] transition-colors leading-snug line-clamp-2" style="font-family: 'Montserrat', sans-serif;">
+                      {event.title}
+                    </h3>
+
+                    {/* Date & Location */}
+                    <div class="flex flex-col gap-1.5 mb-3 text-sm text-gray-500" style="font-family: 'Inter', sans-serif;">
+                      {event.startDate && (
+                        <span class="flex items-center gap-1.5">
+                          📅 {formatDate(event.startDate)}
+                        </span>
+                      )}
+                      {event.location && (
+                        <span class="flex items-center gap-1.5">
+                          📍 {event.location}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Excerpt */}
+                    {event.excerpt && (
+                      <p class="text-gray-600 text-sm leading-relaxed line-clamp-2 mb-4 flex-grow" style="font-family: 'Inter', sans-serif;">
+                        {event.excerpt}
+                      </p>
+                    )}
+
+                    {/* CTA */}
+                    <span class="inline-flex items-center gap-2 text-[var(--color-accent)] font-bold text-sm mt-auto group-hover:gap-3 transition-all" style="font-family: 'Inter', sans-serif;">
+                      View Details <span class="transition-transform group-hover:translate-x-1">→</span>
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ─── Empty State ─── */}
+      {allEvents.length === 0 && (
+        <div class="flex items-center justify-center py-20">
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 sm:p-16 text-center max-w-lg">
+            <div class="text-6xl mb-6">📅</div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[var(--color-primary)] mb-3" style="font-family: 'Montserrat', sans-serif;">
+              No Events Yet
+            </h3>
+            <p class="text-gray-500 text-sm sm:text-base" style="font-family: 'Inter', sans-serif;">
+              There are no events scheduled at the moment. Check back soon for upcoming activities and programs!
+            </p>
+          </div>
+        </div>
+      )}
+
+    </div>
+  </section>
+
 </Layout>

@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/homepage/Hero.astro";
+import { getAdmissionsPage } from "../../lib/sanity/queries";
+import "../../styles/global.css";
+
+// Fetch admissions page data (reuse existing Sanity query for the hero)
+const admissionsPage = await getAdmissionsPage();
+
+const pageTitle = "Basic Education Admission — OLOPSC";
+const pageDescription =
+  "Learn how to enroll in OLOPSC's Preschool, Grade School, Junior High School, and Senior High School programs.";
+const ogImage = admissionsPage?.seo?.image?.asset?.url;
+---
+
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+  {/* Section 1: Hero */}
+  {admissionsPage?.hero && <Hero hero={admissionsPage.hero} />}
+
+  {/* Sections to be built */}
+</Layout>
