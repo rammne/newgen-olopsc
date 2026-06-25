@@ -172,65 +172,67 @@ const ogImage = department?.seo?.image?.asset?.url;
           Fully Implemented for School Year 2026–2027
         </span>
         <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight leading-tight">
-          {department?.curriculum?.title || "Strengthened Senior High School Curriculum"}
+          {department?.curriculum?.title || "Specialized SHS Track Clusters"}
         </h2>
         <p class="text-lg text-muted leading-relaxed">
-          {department?.curriculum?.description || "OLOPSC Senior High School proudly embraces the Strengthened Senior High School Curriculum, reinforcing its commitment to providing relevant, learner-centered, and future-focused education."}
+          We offer Academic and TechPro Track Clusters designed to help students prepare for college and their future careers.
         </p>
       </div>
 
       <!-- Right: Scannable Details -->
       <div class="lg:col-span-7 bg-surface p-8 md:p-12 rounded-3xl shadow-sm border border-slate-200">
         <p class="text-muted mb-8 leading-relaxed">
-          The enhanced curriculum offers a more responsive learning experience through:
+          Students can choose from the following Track Clusters:
         </p>
 
-        <ul class="space-y-4 mb-8">
-          {department?.curriculum?.highlights && department.curriculum.highlights.length > 0 ? (
-            department.curriculum.highlights.map((item: string) => (
-              <li class="flex items-start gap-4">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <span class="text-primary font-medium leading-relaxed">{item}</span>
-              </li>
-            ))
-          ) : (
-            <>
-              <li class="flex items-start gap-4">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <span class="text-primary font-medium leading-relaxed">Strengthened foundational competencies</span>
-              </li>
-              <li class="flex items-start gap-4">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <span class="text-primary font-medium leading-relaxed">Improved specialization courses</span>
-              </li>
-              <li class="flex items-start gap-4">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <span class="text-primary font-medium leading-relaxed">Greater alignment with industry and higher education standards</span>
-              </li>
-              <li class="flex items-start gap-4">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <span class="text-primary font-medium leading-relaxed">Meaningful opportunities for experiential and career-focused learning</span>
-              </li>
-            </>
-          )}
-        </ul>
+        <div class="mb-6">
+          <h4 class="font-bold text-primary text-lg mb-3">Academic Track Clusters:</h4>
+          <ul class="space-y-4 pl-2">
+            <li class="flex items-start gap-4">
+              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-accent text-sm font-bold">✓</span>
+              </div>
+              <span class="text-primary font-medium leading-relaxed">Arts, Social Sciences and Humanities (ASSH)</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-accent text-sm font-bold">✓</span>
+              </div>
+              <span class="text-primary font-medium leading-relaxed">Business and Entrepreneurship (BAE)</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-accent text-sm font-bold">✓</span>
+              </div>
+              <span class="text-primary font-medium leading-relaxed">Science, Technology, Engineering and Mathematics (STEM)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h4 class="font-bold text-primary text-lg mb-3">TECHPRO Track Clusters:</h4>
+          <ul class="space-y-4 pl-2">
+            <li class="flex items-start gap-4">
+              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-accent text-sm font-bold">✓</span>
+              </div>
+              <span class="text-primary font-medium leading-relaxed">Hospitality and Tourism (HT)</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-accent text-sm font-bold">✓</span>
+              </div>
+              <span class="text-primary font-medium leading-relaxed">Information and Communications Technology (ICT)</span>
+            </li>
+          </ul>
+        </div>
 
         <p class="text-muted mb-6 leading-relaxed">
-          By integrating academic rigor, practical skills, character formation, and technological competence, the strengthened curriculum ensures that OLOPSC graduates are equipped to excel in college, the workplace, entrepreneurship, and the challenges of an ever-changing world.
+          Our program combines classroom learning with hands-on skills and character building. This ensures that OLOPSC graduates are ready for college, work, or starting their own business.
         </p>
         <div class="bg-primary/5 p-6 rounded-2xl border-l-4 border-accent">
           <p class="text-primary font-medium italic">
-            "At OLOPSC Senior High School, every learner is empowered to discover their potential, pursue their passions, and become future-ready leaders of society."
+            "At OLOPSC Senior High School, we help every student find their passion and become ready for the future."
           </p>
         </div>
       </div>

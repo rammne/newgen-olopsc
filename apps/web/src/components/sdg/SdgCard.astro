@@ -1,5 +1,7 @@
 ---
 import { ArrowRight } from "lucide-astro";
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 interface Props {
     number: number;
@@ -8,13 +10,13 @@ interface Props {
         slug: {
             current: string;
         };
-        image: {
+        image?: {
             asset: {
                 url: string;
             };
             alt: string;
         };
-        color: string;
+        color?: string;
         description?: string;
     };
 }
@@ -44,28 +46,38 @@ const sdgColors: Record<number, string> = {
 };
 
 const bgColor = sdg?.color || sdgColors[number] || "#e4e4e4";
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/sdg-icons/*.jpg');
+const imagePath = `/src/assets/sdg-icons/sdg-${number}.jpg`;
+const imagePromise = images[imagePath] ? images[imagePath]() : null;
 ---
 
 <div class={`h-full relative group transition-all duration-300 ${isActive ? "" : "opacity-60 grayscale cursor-not-allowed"}`}>
     {isActive ? (
         <a href={`/sdg/${sdg.slug.current}`} class="flex flex-col h-full bg-white rounded-[24px] overflow-hidden border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-4px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-1.5">
             
-            {/* Number and Icon Header */}
-            <div class="px-6 pt-6 pb-5 flex justify-between items-center relative overflow-hidden">
+            {/* Header with Icon */}
+            <div class="px-6 pt-6 pb-4 flex relative overflow-hidden">
                 {/* Background Tint */}
-                <div class="absolute inset-0 opacity-[0.08]" style={`background-color: ${bgColor}`}></div>
+                <div class="absolute inset-0 opacity-[0.05]" style={`background-color: ${bgColor}`}></div>
                 
-                <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-2xl text-white font-bold text-2xl shadow-md" style={`background-color: ${bgColor}`}>
-                    {number}
+                <div class="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-xl shadow-sm overflow-hidden border border-gray-100 bg-white shrink-0">
+                    {imagePromise ? (
+                        <Image src={imagePromise} alt={`SDG ${number}`} class="w-full h-full object-contain" />
+                    ) : (
+                        <div class="w-full h-full flex items-center justify-center text-white font-bold text-3xl" style={`background-color: ${bgColor}`}>
+                            {number}
+                        </div>
+                    )}
                 </div>
             </div>
             
             {/* Content Body */}
-            <div class="px-6 pb-6 pt-4 flex flex-col flex-grow bg-white relative">
+            <div class="px-6 pb-6 pt-2 flex flex-col flex-grow bg-white relative">
                 {/* Subtle top border separating header and body */}
                 <div class="absolute top-0 left-6 right-6 h-px bg-gray-100"></div>
                 
-                <h3 class="font-serif font-bold text-xl text-[var(--color-primary)] leading-tight mb-3 line-clamp-2 pt-2">
+                <h3 class="font-serif font-bold text-xl text-[var(--color-primary)] leading-tight mb-3 line-clamp-2 pt-4">
                     {sdg.title}
                 </h3>
                 
@@ -84,13 +96,19 @@ const bgColor = sdg?.color || sdgColors[number] || "#e4e4e4";
         </a>
     ) : (
         <div class="flex flex-col h-full bg-gray-50/50 rounded-[24px] overflow-hidden border border-gray-200">
-            <div class="px-6 pt-6 pb-5 flex justify-between items-center relative overflow-hidden bg-gray-100/50">
-                 <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-2xl text-gray-500 bg-gray-200 font-bold text-2xl shadow-sm">
-                    {number}
+            <div class="px-6 pt-6 pb-4 flex relative overflow-hidden bg-gray-100/50">
+                 <div class="relative z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-xl shadow-sm overflow-hidden border border-gray-200 bg-white shrink-0 opacity-80">
+                    {imagePromise ? (
+                        <Image src={imagePromise} alt={`SDG ${number}`} class="w-full h-full object-contain grayscale" />
+                    ) : (
+                        <div class="w-full h-full flex items-center justify-center text-gray-400 font-bold text-3xl bg-gray-200">
+                            {number}
+                        </div>
+                    )}
                 </div>
             </div>
-            <div class="px-6 pb-6 pt-4 flex flex-col flex-grow items-center justify-center min-h-[180px]">
-                <div class="text-gray-400 font-medium uppercase tracking-widest text-sm">
+            <div class="px-6 pb-6 pt-4 flex flex-col flex-grow items-center justify-center min-h-[140px]">
+                <div class="text-gray-400 font-medium uppercase tracking-widest text-sm text-center">
                     Coming Soon
                 </div>
             </div>

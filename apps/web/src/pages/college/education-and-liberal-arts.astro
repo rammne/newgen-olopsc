@@ -24,7 +24,8 @@ const tracks = pageData?.tracks && pageData.tracks.length > 0
   ? pageData.tracks
   : [
       { title: "Elementary Education", subtitle: "BEED", description: "Master foundational pedagogy, child psychology, and the architecture of early learning environments." },
-      { title: "Secondary Education", subtitle: "BSED", description: "Command subject-matter expertise and adolescent development to lead high school and preparatory classrooms." },
+      { title: "Secondary Education (Mathematics)", subtitle: "BSED Mathematics", description: "Command advanced mathematical principles and adolescent development to lead high school quantitative classrooms." },
+      { title: "Secondary Education (English)", subtitle: "BSED English", description: "Master language acquisition, literature, and pedagogical strategies to lead high school English classrooms." },
       { title: "English Language", subtitle: "BAEL", description: "Master advanced linguistics, corporate communication, and structural syntax for global media and publishing." }
     ];
 
@@ -65,13 +66,100 @@ const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks
         ]
       },
       {
-        id: "bsed",
-        name: "BSED (Secondary)",
+        id: "bsed-english",
+        name: "BSED (English)",
         roadmap: [
-          { year: "Year 1", title: "Subject-Matter Foundations", subjects: ["Advanced English/Math/Science (Major-Dependent)", "Adolescent Psychology", "The Teaching Profession."] },
-          { year: "Year 2", title: "Advanced Methodologies", subjects: ["Facilitating Learner-Centered Teaching", "Assessment in Learning 2", "Major Subject Pedagogy."] },
-          { year: "Year 3", title: "EdTech & Assessment", subjects: ["Building & Enhancing New Literacies", "Technology in Sec. Ed", "Action Research."] },
-          { year: "Year 4", title: "Clinical Practice", subjects: ["Field Study 1 & 2", "Teaching Internship", "LET Intensive Review."] }
+          { year: "Year 1", title: "Language Foundations", subjects: [
+              "[1st Sem] The Child Adolescent Learner and Learning Principles",
+              "[1st Sem] Foundations of Special and Inclusive Education",
+              "[1st Sem] Introduction to Linguistics",
+              "[1st Sem] Language, Culture, and Society",
+              "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
+              "[2nd Sem] Facilitating Learner-Centered Teaching",
+              "[2nd Sem] Structures of English",
+              "[2nd Sem] Literary Criticism"
+          ] },
+          { year: "Year 2", title: "Pedagogical Methodologies", subjects: [
+              "[1st Sem] Technology for Teaching and Learning 1",
+              "[1st Sem] Principles and Theories of Language Acquisition and Learning",
+              "[1st Sem] Teaching and Assessment of the Macroskills",
+              "[1st Sem] Teaching and Assessment of the Literature Studies",
+              "[2nd Sem] The Teacher and the School Curriculum",
+              "[2nd Sem] Technology for Teaching and Learning 2 (Secondary Language Education)",
+              "[2nd Sem] Technical Writing",
+              "[2nd Sem] Teaching and Assessment of Grammar"
+          ] },
+          { year: "Year 3", title: "Advanced Literature & Assessment", subjects: [
+              "[1st Sem] Assessment of Student Learning 1",
+              "[1st Sem] Special Topic/Elective (x2)",
+              "[1st Sem] Children and Adolescent Literature",
+              "[1st Sem] Lang. Programs and Policies in Multilingual Societies",
+              "[1st Sem] Language Learning Materials Development",
+              "[1st Sem] Mythology and Folklore",
+              "[2nd Sem] Assessment of Student Learning 2",
+              "[2nd Sem] The Teaching Profession",
+              "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
+              "[2nd Sem] Language Education Research",
+              "[2nd Sem] Contemporary Popular and Emergent Literature",
+              "[2nd Sem] Speech and Stage Arts",
+              "[2nd Sem] Field Study 1"
+          ] },
+          { year: "Year 4", title: "Clinical Practice & Internship", subjects: [
+              "[1st Sem] Survey of Philippine Literature in English",
+              "[1st Sem] Survey of English and American Literature",
+              "[1st Sem] Survey of Afro-Asian Literature",
+              "[1st Sem] Campus Journalism",
+              "[1st Sem] Field Study 2",
+              "[2nd Sem] Teaching Internship"
+          ] }
+        ]
+      },
+      {
+        id: "bsed-math",
+        name: "BSED (Mathematics)",
+        roadmap: [
+          { year: "Year 1", title: "Mathematical Foundations", subjects: [
+              "[1st Sem] The Child Adolescent Learner and Learning Principles",
+              "[1st Sem] Foundations of Special and Inclusive Education",
+              "[1st Sem] History of Mathematics",
+              "[1st Sem] College and Advance Algebra",
+              "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
+              "[2nd Sem] Facilitating Learner-Centered Teaching",
+              "[2nd Sem] Plane and Solid Geometry",
+              "[2nd Sem] Logic and Set Theory"
+          ] },
+          { year: "Year 2", title: "Advanced Calculus & Geometry", subjects: [
+              "[1st Sem] Technology for Teaching and Learning 1",
+              "[1st Sem] Trigonometry",
+              "[1st Sem] Abstract Algebra",
+              "[1st Sem] Linear Algebra",
+              "[2nd Sem] The Teacher and the School Curriculum",
+              "[2nd Sem] Technology for Teaching and Learning 2 (Instrumentation & Technology in Mathematics)",
+              "[2nd Sem] Modern Geometry",
+              "[2nd Sem] Calculus I with Analytic Geometry"
+          ] },
+          { year: "Year 3", title: "Statistical Modeling & Assessment", subjects: [
+              "[1st Sem] Assessment of Student Learning 1",
+              "[1st Sem] Special Topic/Elective (x2)",
+              "[1st Sem] Number Theory",
+              "[1st Sem] Elementary Statistics and Probability",
+              "[1st Sem] Calculus II",
+              "[1st Sem] Problem Solving, Math Investigation and Modelling",
+              "[2nd Sem] Assessment of Student Learning 2",
+              "[2nd Sem] The Teaching Profession",
+              "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
+              "[2nd Sem] Advance Statistics",
+              "[2nd Sem] Research in Mathematics",
+              "[2nd Sem] Field Study 1"
+          ] },
+          { year: "Year 4", title: "Clinical Practice & Internship", subjects: [
+              "[1st Sem] Calculus III",
+              "[1st Sem] Mathematics of Investment",
+              "[1st Sem] Principles & Strategies in Teaching Mathematics",
+              "[1st Sem] Assessment and Evaluation in Mathematics",
+              "[1st Sem] Field Study 2",
+              "[2nd Sem] Teaching Internship"
+          ] }
         ]
       },
       {
@@ -153,10 +241,16 @@ const pathways = pageData?.pathways && pageData.pathways.length > 0
         roles: ["Master Elementary Educator", "Early Childhood Program Director", "Special Education Needs (SEN) Coordinator", "Educational Consultant"]
       },
       {
-        title: "Secondary Educational Leadership",
-        subtitle: "BSED Trajectory",
-        description: "Command adolescent development and advanced subject-matter pedagogy. Shape high school curricula and step into administrative leadership roles within academic institutions.",
-        roles: ["Secondary Education Subject Specialist", "Academic Curriculum Director", "School Administrator / Principal", "EdTech Integration Lead"]
+        title: "Secondary Educational Leadership (Mathematics)",
+        subtitle: "BSED Mathematics Trajectory",
+        description: "Command adolescent development and advanced mathematical pedagogy. Shape high school quantitative curricula and step into analytical leadership roles.",
+        roles: ["Secondary Mathematics Specialist", "Academic Curriculum Director", "School Administrator / Principal", "STEM Integration Lead"]
+      },
+      {
+        title: "Secondary Educational Leadership (English)",
+        subtitle: "BSED English Trajectory",
+        description: "Command adolescent development and advanced English pedagogy. Shape high school language curricula and step into communication leadership roles.",
+        roles: ["Secondary English Specialist", "Academic Curriculum Director", "School Administrator / Principal", "Language Program Lead"]
       },
       {
         title: "Global Corporate Communication",
@@ -319,7 +413,7 @@ const pageDescription = pageData?.seo?.description || "Shape Minds. Master Langu
       <!-- Tab Controls Wrapper -->
       <div class="flex flex-wrap justify-center gap-2 mb-12">
         {curriculumTracks.map((track: any, index: number) => (
-          <button type="button" data-target={track.id} class={"tab-btn cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest border transition-all " + (index === 0 ? "bg-primary text-white border-primary active-tab" : "bg-white text-slate-500 border-slate-200 hover:bg-slate-50")}>
+          <button type="button" data-target={track.id} class={"tab-btn cursor-pointer px-6 py-3 rounded-full font-black text-sm uppercase tracking-widest border transition-all " + (index === 0 ? "bg-primary text-white border-primary active-tab" : "bg-white text-slate-500 border-slate-200 hover:bg-accent hover:text-white hover:border-accent")}>
             {track.name}
           </button>
         ))}

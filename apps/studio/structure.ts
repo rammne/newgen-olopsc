@@ -15,6 +15,7 @@ import {
   Globe,
   Settings,
   Monitor,
+  Megaphone,
 } from 'lucide-react'
 
 export const structure = (S: StructureBuilder, context: StructureResolverContext) => {
@@ -58,6 +59,16 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
                 .icon(Users)
                 .child(S.document().schemaType('alumniPage').documentId('alumniPage')),
             ])
+        ),
+      // Admission Announcements
+      S.listItem()
+        .title('Admission Announcements')
+        .icon(Megaphone)
+        .child(
+          S.documentTypeList('admissionAnnouncement')
+            .title('Admission Announcements')
+            .filter('_type == "admissionAnnouncement"')
+            .defaultOrdering([{ field: 'createdAt', direction: 'desc' }])
         ),
       // Academic Content
       S.listItem()
@@ -192,6 +203,7 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'educationLiberalArts',
             'computingStudies',
             'psychology',
+            'admissionAnnouncement',
           ].includes(listItem.getId() || '')
       ),
     ])

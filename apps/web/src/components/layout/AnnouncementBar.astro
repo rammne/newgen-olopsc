@@ -1,0 +1,176 @@
+---
+import { getActiveAnnouncement } from '../../lib/sanity/queries'
+
+const announcement = await getActiveAnnouncement()
+---
+
+{announcement && (
+  <div
+    id="announcement-bar"
+    class="announcement-bar"
+    role="banner"
+    aria-label="Site announcement"
+  >
+    <div class="announcement-bar__inner">
+      <a
+        href={announcement.linkUrl || '#'}
+        class="announcement-bar__link"
+      >
+        <span class="announcement-bar__message">
+          {announcement.message}
+          {announcement.linkText && (
+            <span class="announcement-bar__cta">{` ${announcement.linkText}`}</span>
+          )}
+        </span>
+      </a>
+      <button
+        id="announcement-dismiss"
+        class="announcement-bar__dismiss"
+        aria-label="Dismiss announcement"
+        type="button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+)}
+
+<style>
+  .announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    background: var(--color-primary, #0a095f);
+    transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .announcement-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-primary, #0a095f);
+  }
+
+  .announcement-bar.is-hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  .announcement-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 48px 8px 20px;
+    position: relative;
+    max-width: 100%;
+  }
+
+  .announcement-bar__link {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    text-align: center;
+    transition: color 0.2s ease;
+  }
+
+  .announcement-bar__link:hover {
+    color: #fff;
+  }
+
+  .announcement-bar__cta {
+    color: var(--color-accent, #ffa600);
+    font-weight: 600;
+  }
+
+  .announcement-bar__dismiss {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .announcement-bar__dismiss:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .announcement-bar__inner {
+      padding: 8px 40px 8px 16px;
+    }
+
+    .announcement-bar__link {
+      font-size: 0.75rem;
+    }
+
+    .announcement-bar__dismiss {
+      right: 8px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    var bar = document.getElementById('announcement-bar');
+    if (!bar) return;
+
+    var STORAGE_KEY = 'announcement-dismissed-' + (bar.querySelector('a')?.href || '');
+
+    // Check if already dismissed this session
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      bar.classList.add('is-hidden');
+      document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+      return;
+    }
+
+    // Set the CSS variable for header offset
+    function updateBarHeight() {
+      var height = bar.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--announcement-bar-height', height + 'px');
+    }
+
+    updateBarHeight();
+    window.addEventListener('resize', updateBarHeight);
+
+    // Dismiss handler
+    var dismissBtn = document.getElementById('announcement-dismiss');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        bar.classList.add('is-hidden');
+        document.documentElement.style.setProperty('--announcement-bar-height', '0px');
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+      });
+    }
+  })();
+</script>

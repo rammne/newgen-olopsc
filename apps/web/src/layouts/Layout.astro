@@ -1,6 +1,7 @@
 ---
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import AnnouncementBar from "../components/layout/AnnouncementBar.astro";
 import SEOHead from "../components/common/SEOHead.astro";
 import "../styles/global.css";
 
@@ -47,6 +48,7 @@ const { title, description, ogImage, ogType, canonicalUrl, noindex } =
     />
     <slot name="head" />
   </head><body class="bg-[var(--color-neutral)] text-[var(--color-primary)]">
+    <AnnouncementBar />
     <Header client:load />
     <main>
       <slot />
@@ -59,6 +61,7 @@ const { title, description, ogImage, ogType, canonicalUrl, noindex } =
   html {
     width: 100%;
     box-sizing: border-box;
+    --announcement-bar-height: 0px;
   }
 
   body {

@@ -87,7 +87,7 @@ export function Header() {
   }, [menuOpen])
 
   const baseClasses =
-    'fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]'
+    'fixed inset-x-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]'
 
   const backgroundClasses = scrolled || menuOpen
     ? 'bg-[var(--color-primary)] shadow-lg backdrop-blur-md'
@@ -96,7 +96,11 @@ export function Header() {
   const heightClasses = scrolled ? 'py-3' : 'py-5'
 
   return (
-    <header ref={headerRef} className={`${baseClasses} ${backgroundClasses} ${heightClasses}`}>
+    <header
+      ref={headerRef}
+      className={`${baseClasses} ${backgroundClasses} ${heightClasses}`}
+      style={{ top: 'var(--announcement-bar-height, 0px)' }}
+    >
       <div className="mx-auto flex w-full items-center justify-between px-5 sm:px-[60px]">
         {/* Logo + wordmark */}
         <a href="/" className="flex items-center gap-3 relative z-50">

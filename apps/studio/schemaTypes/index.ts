@@ -15,6 +15,7 @@ import { contactInfo } from './objects/contactInfo'
 import { formField } from './objects/formField'
 import { socialLink } from './objects/socialLink'
 import { portableText } from './objects/portableText'
+import { monthlyHighlight } from './objects/monthlyHighlight'
 
 // Documents
 import { academicDepartment } from './documents/academicDepartment'
@@ -22,6 +23,7 @@ import { collegeProgram } from './documents/collegeProgram'
 import { news } from './documents/news'
 import { event } from './documents/event'
 import { sdg } from './documents/sdg'
+import { admissionAnnouncement } from './documents/admissionAnnouncement'
 
 // Singletons
 import { homePage } from './singletons/homePage'
@@ -60,12 +62,14 @@ export const schemaTypes = [
   formField,
   socialLink,
   portableText,
+  monthlyHighlight,
   // Documents
   academicDepartment,
   collegeProgram,
   news,
   event,
   sdg,
+  admissionAnnouncement,
   // Singletons
   homePage,
   aboutPage,

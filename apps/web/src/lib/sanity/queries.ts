@@ -565,22 +565,20 @@ export async function getHomePage() {
         openInNewTab
       }
     },
-    testimonials {
+    monthlyHighlights {
       title,
-      testimonials[] {
-        quote,
-        author {
-          name,
-          role,
-          image {
-            asset->{
-              url
-            },
-            alt
+      subtitle,
+      highlights[] {
+        title,
+        description,
+        date,
+        department,
+        image {
+          asset->{
+            url
           },
-          company
-        },
-        rating
+          alt
+        }
       }
     },
     features[] {
@@ -2736,3 +2734,16 @@ export async function getAlumniEvents(count: number = 3) {
   return await client.fetch(query)
 }
 
+/**
+ * Get the currently active admission announcement
+ */
+export async function getActiveAnnouncement() {
+  const query = `*[_type == "admissionAnnouncement" && isActive == true][0]{
+    _id,
+    message,
+    linkUrl,
+    linkText
+  }`
+
+  return await client.fetch(query)
+}
