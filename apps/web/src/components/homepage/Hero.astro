@@ -24,91 +24,155 @@ function getVideoUrl() {
 const videoUrl = getVideoUrl();
 ---
 
-<header class="relative w-full min-h-[90vh] bg-slate-900 overflow-hidden flex items-center">
+<header
+  class="relative w-full min-h-[90vh] bg-slate-900 overflow-hidden flex items-center"
+>
   <!-- Static Background Poster (Visible before video fades in) -->
-  {heroPosterUrl && (
-    <img
-      src={heroPosterUrl}
-      alt="Hero Poster"
-      class="absolute inset-0 w-full h-full object-cover z-0"
-      fetchpriority="high"
-    />
-  )}
+  {
+    heroPosterUrl && (
+      <img
+        src={heroPosterUrl}
+        alt="Hero Poster"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        fetchpriority="high"
+      />
+    )
+  }
 
   <!-- Background Video (Fades in after timeline completes) -->
-  {videoUrl && (
-    <video
-      class="absolute inset-0 w-full h-full object-cover z-0 dramatic-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      poster={heroPosterUrl || undefined}
-    >
-      <source src={videoUrl} type="video/mp4" />
-    </video>
-  )}
+  {
+    videoUrl && (
+      <video
+        class="absolute inset-0 w-full h-full object-cover z-0 dramatic-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster={heroPosterUrl || undefined}
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
+    )
+  }
 
   <!-- Dark Overlay for WCAG Text Contrast -->
   <div class="absolute inset-0 bg-black/60 backdrop-blur-xs z-0"></div>
 
   <!-- Main Content Container -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-[60px] grid grid-cols-1 lg:grid-cols-12 gap-12 py-20">
-
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-[60px] grid grid-cols-1 lg:grid-cols-12 gap-12 py-20"
+  >
     <!-- Left Column (Content & SEO) -->
-    <div class="col-span-1 lg:col-span-7 flex flex-col justify-center text-left gap-6">
-      <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight animate-from-top">
-        <span class="text-yellow-400">College</span> & K-12 Basic Education in Marikina City
+    <div
+      class="col-span-1 lg:col-span-7 flex flex-col justify-center text-left gap-6"
+    >
+      <h1
+        class="text-5xl lg:text-6xl font-black text-white leading-tight animate-from-top"
+      >
+        <!-- <span class="text-yellow-400">College</span> & K-12 Basic Education in Marikina City, Metro Manila -->
+        Building Future-Ready Minds: K-12 and <span class="text-yellow-400"
+          >College</span
+        >
       </h1>
 
-      <p class="text-lg lg:text-xl text-slate-200 max-w-2xl leading-relaxed animate-from-right">
-        A private Catholic institution serving families since 1978. Offering CHED-recognized Bachelor's degrees and an accredited DepEd K-12 curriculum.
+      <p
+        class="text-lg lg:text-xl text-slate-200 max-w-2xl leading-relaxed animate-from-right"
+      >
+        A premier private Catholic institution serving Marikina City families
+        since 1978. Offering CHED-recognized degrees and comprehensive basic
+        education.
       </p>
 
       <!-- Mobile Timeline (Horizontal) -->
-      <div class="flex md:hidden relative w-full pt-8 pb-28 items-center justify-center max-w-[280px] self-center sm:self-start sm:ml-2">
+      <div
+        class="flex md:hidden relative w-full pt-8 pb-28 items-center justify-center max-w-[280px] self-center sm:self-start sm:ml-2"
+      >
         <div class="relative w-full h-full">
           <!-- Timeline SVG Line Horizontal -->
           <div class="absolute top-[6px] left-[6px] right-[6px] h-[2px]">
-            <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
-              <line x1="0" y1="0" x2="100%" y2="0" class="stroke-yellow-400 stroke-[2px] draw-line-horizontal" pathLength="100" />
+            <svg
+              class="w-full h-full overflow-visible"
+              preserveAspectRatio="none"
+            >
+              <line
+                x1="0"
+                y1="0"
+                x2="100%"
+                y2="0"
+                class="stroke-yellow-400 stroke-[2px] draw-line-horizontal"
+                pathLength="100"></line>
             </svg>
           </div>
 
           <!-- Timeline Nodes Horizontal -->
           <ul class="relative z-10 flex justify-between w-full">
-            <li class="timeline-node-mobile node-ps-h relative flex flex-col items-center">
-              <span class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"></span>
+            <li
+              class="timeline-node-mobile node-ps-h relative flex flex-col items-center"
+            >
+              <span
+                class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"
+              ></span>
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
-                <span class="text-[11px] font-bold text-slate-300 whitespace-nowrap block">Pre School</span>
+                <span
+                  class="text-[11px] font-bold text-slate-300 whitespace-nowrap block"
+                  >Pre School</span
+                >
               </div>
             </li>
 
-            <li class="timeline-node-mobile node-gs-h relative flex flex-col items-center">
-              <span class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"></span>
+            <li
+              class="timeline-node-mobile node-gs-h relative flex flex-col items-center"
+            >
+              <span
+                class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"
+              ></span>
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
-                <span class="text-[11px] font-bold text-slate-300 whitespace-nowrap block">Grade School (Grades 1-6)</span>
+                <span
+                  class="text-[11px] font-bold text-slate-300 whitespace-nowrap block"
+                  >Grade School (Grades 1-6)</span
+                >
               </div>
             </li>
 
-            <li class="timeline-node-mobile node-jhs-h relative flex flex-col items-center">
-              <span class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"></span>
+            <li
+              class="timeline-node-mobile node-jhs-h relative flex flex-col items-center"
+            >
+              <span
+                class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"
+              ></span>
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
-                <span class="text-[11px] font-bold text-slate-300 whitespace-nowrap block">Junior High School</span>
+                <span
+                  class="text-[11px] font-bold text-slate-300 whitespace-nowrap block"
+                  >Junior High School</span
+                >
               </div>
             </li>
 
-            <li class="timeline-node-mobile node-shs-h relative flex flex-col items-center">
-              <span class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"></span>
+            <li
+              class="timeline-node-mobile node-shs-h relative flex flex-col items-center"
+            >
+              <span
+                class="w-3.5 h-3.5 rounded-full bg-slate-400 border-[2px] border-slate-900 relative z-20 shrink-0"
+              ></span>
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
-                <span class="text-[11px] font-bold text-slate-300 whitespace-nowrap block">Senior High School</span>
+                <span
+                  class="text-[11px] font-bold text-slate-300 whitespace-nowrap block"
+                  >Senior High School</span
+                >
               </div>
             </li>
 
-            <li class="timeline-node-mobile node-col-h relative flex flex-col items-center">
-              <span class="w-4 h-4 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.6)] relative z-20 shrink-0 -translate-y-[1px]"></span>
+            <li
+              class="timeline-node-mobile node-col-h relative flex flex-col items-center"
+            >
+              <span
+                class="w-4 h-4 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.6)] relative z-20 shrink-0 -translate-y-[1px]"
+              ></span>
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
-                <span class="text-[12px] font-black text-yellow-400 whitespace-nowrap block">College</span>
+                <span
+                  class="text-[12px] font-black text-yellow-400 whitespace-nowrap block"
+                  >College</span
+                >
               </div>
             </li>
           </ul>
@@ -116,27 +180,46 @@ const videoUrl = getVideoUrl();
       </div>
 
       <!-- CTAs aligned properly with text -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-start items-center sm:items-start mt-2">
-        {hero?.cta && (
-          <div class="animate-from-left">
-            <CtaButton cta={hero.cta} />
-          </div>
-        )}
-        {hero?.secondaryCta && (
-          <div class="animate-from-bottom">
-            <CtaButton cta={hero.secondaryCta} />
-          </div>
-        )}
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-start items-center sm:items-start mt-2"
+      >
+        {
+          hero?.cta && (
+            <div class="animate-from-left">
+              <CtaButton cta={hero.cta} />
+            </div>
+          )
+        }
+        {
+          hero?.secondaryCta && (
+            <div class="animate-from-bottom">
+              <CtaButton cta={hero.secondaryCta} />
+            </div>
+          )
+        }
       </div>
     </div>
 
     <!-- Right Column (Animated Timeline) -->
-    <div class="hidden md:flex lg:col-span-5 relative items-center justify-center min-h-[450px]">
+    <div
+      class="hidden md:flex lg:col-span-5 relative items-center justify-center min-h-[450px]"
+    >
       <div class="relative h-[450px] w-full max-w-[320px]">
         <!-- Timeline SVG Line -->
-        <div class="absolute top-[16px] bottom-[14px] left-[15px] flex justify-center w-[2px]">
-          <svg class="w-full h-full overflow-visible" preserveAspectRatio="none">
-            <line x1="0" y1="100%" x2="0" y2="0%" class="stroke-yellow-400 stroke-[3px] draw-line" pathLength="100" />
+        <div
+          class="absolute top-[16px] bottom-[14px] left-[15px] flex justify-center w-[2px]"
+        >
+          <svg
+            class="w-full h-full overflow-visible"
+            preserveAspectRatio="none"
+          >
+            <line
+              x1="0"
+              y1="100%"
+              x2="0"
+              y2="0%"
+              class="stroke-yellow-400 stroke-[3px] draw-line"
+              pathLength="100"></line>
           </svg>
         </div>
 
@@ -144,42 +227,61 @@ const videoUrl = getVideoUrl();
         <ul class="relative z-10 flex flex-col justify-between h-full w-full">
           <li class="timeline-node node-college flex items-center gap-6">
             <div class="w-8 flex justify-center shrink-0">
-              <span class="w-6 h-6 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.6)] relative z-20"></span>
+              <span
+                class="w-6 h-6 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.6)] relative z-20"
+              ></span>
             </div>
-            <span class="text-yellow-400 font-black text-2xl tracking-tight">College Programs</span>
+            <span class="text-yellow-400 font-black text-2xl tracking-tight"
+              >College Programs</span
+            >
           </li>
 
           <li class="timeline-node node-shs flex items-center gap-6">
             <div class="w-8 flex justify-center shrink-0">
-              <span class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"></span>
+              <span
+                class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"
+              ></span>
             </div>
-            <span class="text-slate-300 font-bold text-lg">Senior High School</span>
+            <span class="text-slate-300 font-bold text-lg"
+              >Senior High School</span
+            >
           </li>
 
           <li class="timeline-node node-jhs flex items-center gap-6">
             <div class="w-8 flex justify-center shrink-0">
-              <span class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"></span>
+              <span
+                class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"
+              ></span>
             </div>
-            <span class="text-slate-300 font-bold text-lg">Junior High School</span>
+            <span class="text-slate-300 font-bold text-lg"
+              >Junior High School</span
+            >
           </li>
 
           <li class="timeline-node node-gs flex items-center gap-6">
             <div class="w-8 flex justify-center shrink-0">
-              <span class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"></span>
+              <span
+                class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"
+              ></span>
             </div>
-            <span class="text-slate-300 font-bold text-lg">Grade School (Grades 1-6)</span>
+            <span class="text-slate-300 font-bold text-lg"
+              >Grade School (Grades 1-6)</span
+            >
           </li>
 
           <li class="timeline-node node-ps flex items-center gap-6">
             <div class="w-8 flex justify-center shrink-0">
-              <span class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"></span>
+              <span
+                class="w-4 h-4 rounded-full bg-slate-400 border-[3px] border-slate-900 relative z-20"
+              ></span>
             </div>
-            <span class="text-slate-300 font-bold text-lg">Pre-School & Kindergarten</span>
+            <span class="text-slate-300 font-bold text-lg"
+              >Preschool, Pre-Kinder & Kinder</span
+            >
           </li>
         </ul>
       </div>
     </div>
-
   </div>
 </header>
 
@@ -229,11 +331,26 @@ const videoUrl = getVideoUrl();
   }
 
   /* Staggered Delays (Bottom to Top / Left to Right) */
-  .node-ps, .node-ps-h { animation-delay: 0.1s; }
-  .node-gs, .node-gs-h { animation-delay: 0.4s; }
-  .node-jhs, .node-jhs-h { animation-delay: 0.8s; }
-  .node-shs, .node-shs-h { animation-delay: 1.2s; }
-  .node-college, .node-col-h { animation-delay: 1.6s; }
+  .node-ps,
+  .node-ps-h {
+    animation-delay: 0.1s;
+  }
+  .node-gs,
+  .node-gs-h {
+    animation-delay: 0.4s;
+  }
+  .node-jhs,
+  .node-jhs-h {
+    animation-delay: 0.8s;
+  }
+  .node-shs,
+  .node-shs-h {
+    animation-delay: 1.2s;
+  }
+  .node-college,
+  .node-col-h {
+    animation-delay: 1.6s;
+  }
 
   /* Horizontal SVG Line Drawing */
   .draw-line-horizontal {
@@ -243,8 +360,12 @@ const videoUrl = getVideoUrl();
   }
 
   @keyframes draw-right {
-    0% { stroke-dashoffset: 100; }
-    100% { stroke-dashoffset: 0; }
+    0% {
+      stroke-dashoffset: 100;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
   }
 
   /* Cinematic Video Reveal */
@@ -254,8 +375,12 @@ const videoUrl = getVideoUrl();
   }
 
   @keyframes dramatic-reveal {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   /* Directional Entry Animations */
@@ -265,7 +390,10 @@ const videoUrl = getVideoUrl();
     animation: fade-slide-top 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   @keyframes fade-slide-top {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .animate-from-right {
@@ -274,7 +402,10 @@ const videoUrl = getVideoUrl();
     animation: fade-slide-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
   }
   @keyframes fade-slide-right {
-    to { opacity: 1; transform: translateX(0); }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .animate-from-left {
@@ -283,15 +414,22 @@ const videoUrl = getVideoUrl();
     animation: fade-slide-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   }
   @keyframes fade-slide-left {
-    to { opacity: 1; transform: translateX(0); }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .animate-from-bottom {
     opacity: 0;
     transform: translateY(50px);
-    animation: fade-slide-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    animation: fade-slide-bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s
+      forwards;
   }
   @keyframes fade-slide-bottom {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

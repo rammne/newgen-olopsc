@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.olopsc.edu.ph/sitemap-index.xml

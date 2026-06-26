@@ -213,9 +213,35 @@ const accreditationsList = aboutPage?.accreditations?.accreditations?.length
         },
       },
     ];
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://www.olopsc.edu.ph/about/#webpage",
+      "url": "https://www.olopsc.edu.ph/about",
+      "name": "About Our Lady of Perpetual Succor College (OLOPSC)",
+      "description": "Learn about the history, mission, vision, and leadership of Our Lady of Perpetual Succor College in Marikina City.",
+      "publisher": {
+        "@id": "https://www.olopsc.edu.ph/#organization"
+      }
+    },
+    ...executives.map(exec => ({
+      "@type": "Person",
+      "name": exec.name,
+      "jobTitle": exec.title,
+      "worksFor": {
+        "@type": "CollegeOrUniversity",
+        "name": "Our Lady of Perpetual Succor College"
+      }
+    }))
+  ]
+};
+
+const schemaString = JSON.stringify(schema);
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage} additionalSchema={schemaString}>
   <!-- ==================== NEW CUSTOM HERO ==================== -->
   <section
     class="relative bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden"

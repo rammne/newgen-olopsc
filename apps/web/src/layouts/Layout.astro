@@ -12,9 +12,10 @@ interface Props {
   ogType?: string;
   canonicalUrl?: string;
   noindex?: boolean;
+  additionalSchema?: string;
 }
 
-const { title, description, ogImage, ogType, canonicalUrl, noindex } =
+const { title, description, ogImage, ogType, canonicalUrl, noindex, additionalSchema } =
   Astro.props;
 ---
 
@@ -33,6 +34,7 @@ const { title, description, ogImage, ogType, canonicalUrl, noindex } =
       ogType={ogType}
       canonicalUrl={canonicalUrl}
       noindex={noindex}
+      additionalSchema={additionalSchema}
     />
 
     {/* Resource hints for performance */}

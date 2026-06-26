@@ -6,6 +6,7 @@ interface Props {
     ogType?: string;
     canonicalUrl?: string;
     noindex?: boolean;
+    additionalSchema?: string;
 }
 
 const SITE_NAME = "OLOPSC";
@@ -23,6 +24,7 @@ const {
     ogType = "website",
     canonicalUrl,
     noindex = false,
+    additionalSchema,
 } = Astro.props;
 
 // Build the final title: append " | OLOPSC" to custom titles, or use the default
@@ -57,3 +59,57 @@ const absoluteOgImage = ogImage.startsWith("http")
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={absoluteOgImage} />
+
+<!-- Structured Data (JSON-LD) for SEO targeting Marikina, Metro Manila Schools & Colleges -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollegeOrUniversity",
+  "name": "Our Lady of Perpetual Succor College",
+  "alternateName": ["OLOPSC", "OLOPSC Marikina", "College in Marikina", "School in Metro Manila", "College of BMSE"],
+  "url": "https://www.olopsc.edu.ph",
+  "logo": "https://www.olopsc.edu.ph/olopsc-logo.webp",
+  "image": "https://www.olopsc.edu.ph/og-image.jpg",
+  "description": "Our Lady of Perpetual Succor College (OLOPSC) is a premier educational institution and college in Marikina City, Metro Manila. We offer quality education from Preschool, Grade School, Junior High School, Senior High School, to College including Computer Science and other degree programs in Metro Manila.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Gen. Ordoñez Street, Concepcion Uno",
+    "addressLocality": "Marikina City",
+    "addressRegion": "Metro Manila",
+    "postalCode": "1807",
+    "addressCountry": "PH"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "14.6467",
+    "longitude": "121.1118"
+  },
+  "telephone": "+63289410188",
+  "sameAs": [
+    "https://www.facebook.com/OLOPSCMarikinaCity",
+    "https://www.instagram.com/olopscmarikinacity",
+    "https://www.youtube.com/@olopscmarikinacity",
+    "https://www.tiktok.com/@olopscmarikina",
+    "https://www.linkedin.com/school/our-lady-of-perpetual-succor-college/"
+  ],
+  "department": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "OLOPSC College of BMSE",
+      "description": "College of BMSE in Marikina, Metro Manila offering degree programs including Computer Science, Associate in Computer Technologies, Hospitality Management, Tourism Management, Psychology, BSBA Marketing Management, BSBA Human Resource Management, BS Entrepreneurship, BA English Language, Bachelor of Elementary Education (BEE), and Bachelor of Secondary Education in Mathematics and English."
+    },
+    {
+      "@type": "EducationalOrganization",
+      "name": "OLOPSC Senior High School",
+      "description": "Senior High School in Marikina offering academic and technical-vocational tracks."
+    },
+    {
+       "@type": "EducationalOrganization",
+      "name": "OLOPSC Basic Education",
+      "description": "Preschool, Grade School, and Junior High School in Marikina City."
+    }
+  ]
+}
+</script>
+
+{additionalSchema && <script type="application/ld+json" set:html={additionalSchema} />}

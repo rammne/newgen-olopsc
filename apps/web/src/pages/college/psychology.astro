@@ -201,9 +201,28 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
         roles: ["Medical School (Psychiatry/Neurology)", "Law School", "Ph.D. in Clinical Psychology", "Master's in Counseling"]
     }
 ];
+const pageTitle = sanityData?.seo?.title || "BS Psychology in Marikina, Metro Manila | OLOPSC College of BMSE";
+const pageDescription = sanityData?.seo?.description || "Master the scientific study of human behavior, psychometrics, and clinical research at OLOPSC College of BMSE in Marikina, Metro Manila.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "Bachelor of Science in Psychology",
+      "description": "A comprehensive scientific study of human behavior and cognitive processes, equipping students with methodologies for clinical and corporate roles in Marikina, Metro Manila.",
+      "provider": {
+        "@type": "CollegeOrUniversity",
+        "name": "OLOPSC College of BMSE",
+        "sameAs": "https://www.olopsc.edu.ph"
+      }
+    }
+  ]
+};
+const schemaString = JSON.stringify(schema);
 ---
 
-<Layout title="B.S. Psychology | College of BMSE">
+<Layout title={pageTitle} description={pageDescription} additionalSchema={schemaString}>
   <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
     <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
     <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-30 mix-blend-luminosity z-0" loading="eager" />
