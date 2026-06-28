@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import sdg4 from "../../assets/sdg-icons/sdg-4.jpg";
+import sdg8 from "../../assets/sdg-icons/sdg-8.jpg";
+import sdg11 from "../../assets/sdg-icons/sdg-11.jpg";
+import sdg12 from "../../assets/sdg-icons/sdg-12.jpg";
 import CtaButton from "../../components/common/CtaButton.astro";
 import { getHospitalityManagementPage } from "../../lib/sanity/queries";
 import { getSanityImageUrl } from "../../lib/utils/sanity";
@@ -37,10 +41,10 @@ const overviewSubImage = {
 const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
   ? pageData.outcomes
   : [
-      { title: "Commercial Culinary Operations", description: "Mastery of high-volume food production, commercial kitchen management, and international culinary standards." },
-      { title: "Luxury Property Management", description: "The capability to direct front office operations, elite housekeeping, and facility management for premium hotel enterprises." },
-      { title: "Enterprise Finance & Cost Control", description: "The application of rigorous financial strategies to optimize restaurant margins, hotel revenue management, and supply chain logistics." },
-      { title: "Premium Guest Experience Design", description: "A deeply ingrained capability to anticipate, architect, and execute 5-star service standards for international and VIP clientele." }
+      { title: "Culinary Arts & Food Production", description: "Learn to prepare international cuisines, manage commercial kitchens, and maintain high standards of food safety." },
+      { title: "Hotel & Resort Management", description: "Gain the skills to oversee front desk operations, housekeeping, and overall guest satisfaction in hotels and resorts." },
+      { title: "Restaurant & Business Operations", description: "Understand the financial side of hospitality, from managing costs to running a profitable food and beverage business." },
+      { title: "Exceptional Guest Service", description: "Develop the interpersonal skills needed to provide outstanding service and memorable experiences for local and international guests." }
     ];
 
 const curriculum = pageData?.curriculum && pageData.curriculum.length > 0
@@ -134,7 +138,7 @@ const chair = pageData?.chair || {
   name: "Chef Alejandro Santos",
   title: "Program Chair, BS Hospitality Management",
   credentials: "",
-  quote: "Service is an art, but hospitality enterprise is a rigorous science of finance, logistics, and flawless execution. Our mission is to forge leaders who command both the kitchen and the boardroom.",
+  quote: "Hospitality is about creating memorable experiences. Our mission is to train passionate individuals who can confidently lead kitchens, manage hotels, and build successful careers in the global tourism industry.",
   image: {
     url: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
     alt: "Program Chair"
@@ -164,27 +168,27 @@ const pathways = pageData?.pathways && pageData.pathways.length > 0
   ? pageData.pathways
   : [
       {
-        title: "Luxury Property Management",
-        subtitle: "Rooms Division & Operations",
-        description: "Command the physical and operational infrastructure of 5-star properties. Direct the front office, housekeeping, and overall guest satisfaction for international hotel chains.",
+        title: "Hotel and Resort Operations",
+        subtitle: "Rooms & Guest Services",
+        description: "Manage the daily operations of hotels and resorts. Ensure guests have a comfortable stay by leading front office teams and overseeing housekeeping standards.",
         roles: ["Hotel General Manager", "Rooms Division Director", "Front Office Manager", "Resort Operations Executive"]
       },
       {
-        title: "Commercial Culinary Enterprise",
-        subtitle: "High-Volume Food & Beverage",
-        description: "Master the logistics of commercial kitchens and global dining. Lead massive catering operations, direct restaurant groups, or launch your own culinary empire.",
+        title: "Culinary Arts & Catering",
+        subtitle: "Food & Beverage",
+        description: "Turn your passion for food into a career. Lead kitchen teams, manage large catering events, or start your own successful restaurant business.",
         roles: ["Executive Chef / Culinary Director", "Food & Beverage (F&B) Director", "Corporate Catering Manager", "Restaurateur"]
       },
       {
-        title: "Hospitality Corporate Strategy",
-        subtitle: "Revenue & Guest Experience",
-        description: "Optimize the financial and human capital of luxury brands. Focus on maximizing property revenue, managing hospitality staff, and curating elite VIP experiences.",
-        roles: ["Hospitality Revenue Manager", "VIP Relations Director", "Hospitality HR Director", "Club & Casino Manager"]
+        title: "Hospitality Management",
+        subtitle: "Events & Corporate Strategy",
+        description: "Take on leadership roles in hospitality brands. Plan major events, manage staff, and ensure the business runs smoothly and profitably.",
+        roles: ["Events and Banquet Manager", "VIP Relations Director", "Hospitality HR Director", "Club & Casino Manager"]
       }
     ];
 
-const pageTitle = pageData?.seo?.title || "BS Hospitality Management in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = pageData?.seo?.description || "Command the business of premium hospitality with a CHED-recognized degree at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageTitle = pageData?.seo?.title || "BS Hospitality Management in Marikina, Metro Manila | OLOPSC";
+const pageDescription = pageData?.seo?.description || "Build a successful career in hotels, resorts, and culinary arts with a CHED-recognized Hospitality Management degree at OLOPSC in Marikina.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -212,8 +216,8 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Command the Business of <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Premium Hospitality.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a flagship program of the College of Business, Management, Science, and Education (BMSE), our B.S. in Hospitality Management goes far beyond basic service. We engineer future hoteliers, culinary directors, and luxury enterprise managers capable of running world-class establishments.</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Your Future in <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Hospitality & Culinary Arts.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">Turn your passion for service into a rewarding career. Our B.S. in Hospitality Management program trains you to become a skilled professional ready to take on exciting roles in hotels, restaurants, resorts, and cruise lines around the world.</p>
         <div class="flex flex-wrap gap-4 mt-10">
           <CtaButton cta={{ text: "Explore Curriculum", link: "#curriculum", style: "primary" }} />
           <CtaButton cta={{ text: "View Enterprise Paths", link: "#outcomes", style: "outline" }} />
@@ -247,14 +251,26 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </div>
 
+  <div class="bg-white border-b border-slate-100 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+      <div class="flex items-center gap-3">
+        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg8.src} alt="SDG 8: Decent Work and Economic Growth" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg11.src} alt="SDG 11: Sustainable Cities and Communities" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg12.src} alt="SDG 12: Responsible Consumption and Production" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+      </div>
+    </div>
+  </div>
+
   <section class="py-24 md:py-32 bg-white overflow-hidden">
     <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
       <!-- Left Column: Typography & Corporate Payload -->
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Premium Service.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Hospitality Management is an intensive, operations-focused business degree. This four-year program equips students with the exact financial, logistical, and managerial frameworks required to run large-scale luxury enterprises.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">Moving far beyond basic culinary arts, our curriculum integrates commercial kitchen operations, property management, corporate human resources, and revenue maximization. Graduates are prepared for high-yield leadership roles in 5-star hotels, international restaurant groups, and luxury resorts.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More Than Just Good Service.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Hospitality Management is a four-year degree program that teaches you everything you need to know about the hospitality and food service industry. It's designed to give you both practical skills in the kitchen and the management knowledge needed to lead a team.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">You will learn how to cook international dishes, run hotel operations, manage events, and start your own food business. With hands-on training in our laboratories and real-world internships, you will graduate ready to work in top hotels, resorts, and restaurants globally.</p>
       </div>
 
       <!-- Right Column: Asymmetric Dual-Image Composition -->
@@ -281,14 +297,14 @@ const schemaString = JSON.stringify(schema);
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than service. True enterprise leadership.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you how to prepare a meal or check in a guest; we train you to command the financial and operational mechanics of the entire property. Our curriculum strips away the fluff, focusing heavily on commercial kitchen logistics, property management systems, and revenue maximization. When you graduate, you possess a distinct set of highly marketable executive capabilities.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Learn by Doing.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We don't just teach you from books; we make sure you experience the industry first-hand. Our students spend a lot of time in our kitchen laboratories and mock hotel rooms to practice their skills before they even graduate. We focus on giving you the confidence and the know-how to succeed anywhere in the hospitality field, whether you want to be a chef, a hotel manager, or an event planner.</p>
         </div>
       </div>
 
       <!-- Right Column: Graduate Capabilities (The Outcomes) -->
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
 
         {outcomes.map((outcome: any) => (
           <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
@@ -310,7 +326,7 @@ const schemaString = JSON.stringify(schema);
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is strategically sequenced. We focus on core operational competencies, preparing you to lead in commercial kitchens, 5-star properties, and luxury enterprise management.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is designed to be engaging and practical. We start with the basics of cooking and hotel service, and slowly guide you towards management and real-world internships.</p>
       </div>
 
       <div class="space-y-4">
@@ -328,9 +344,12 @@ const schemaString = JSON.stringify(schema);
               <p class="text-slate-600 mb-6 leading-relaxed">{item.description}</p>
               <div class="flex flex-col gap-3">
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                <div class="flex flex-wrap gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {item.subjects?.map((subject: string) => (
-                    <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                    <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                      <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <span class="leading-tight">{subject}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -344,9 +363,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Where Operations Meet Elegance.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Step into a fully realized 5-star training environment. From industry-standard commercial kitchens to fully furnished mock hotel suites, this is where theory becomes premium service.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Campus Life</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Hands-on Hospitality Training.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Experience our fully equipped facilities where students practice their culinary and service skills, preparing them for exciting careers in the hospitality industry.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
@@ -355,9 +374,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.facilities.url} alt={ecosystemImages.facilities.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Infrastructure</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Commercial Kitchens & Mock Suites</h3>
-            <p class="text-slate-300 text-sm max-w-md hidden md:block">Train in state-of-the-art culinary laboratories, baking facilities, and fully equipped mock hotel rooms designed to mirror international luxury standards.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Culinary Class</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">Our hospitality management students dressed in their full chef uniforms, ready for their culinary training and kitchen practice.</p>
           </div>
         </div>
 
@@ -366,9 +385,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The OLOPSC Hospitality Society</h3>
-            <p class="text-slate-300 text-sm">A highly active, student-led organization focused on culinary competitions, hotel familiarization tours, and hospitality leadership.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Hands-On Learning</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Culinary Arts Training</h3>
+            <p class="text-slate-300 text-sm">Learn directly from experienced instructors as they guide you through cooking techniques and culinary mastery in our fully-equipped kitchens.</p>
           </div>
         </div>
 
@@ -377,8 +396,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.catering.url} alt={ecosystemImages.catering.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Operational Output</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">High-Volume Catering & Banquets</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Culinary Creations</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Gourmet Plating</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Learn the art of preparing and presenting beautiful, restaurant-quality dishes.</p>
           </div>
         </div>
 
@@ -387,8 +407,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.restaurant.url} alt={ecosystemImages.restaurant.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Enterprise Training</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Live Fine Dining Simulation</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Real-World Practice</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Food & Beverage Service</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Practice your serving and dining management skills in our simulated restaurant environment.</p>
           </div>
         </div>
       </div>
@@ -449,9 +470,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Luxury Enterprise.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Hospitality Management from OLOPSC is a high-yield business asset. Our graduates command operations in 5-star properties, commercial kitchens, and global hospitality conglomerates.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Your Career Pathways</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Where Will This Degree Take You?</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Hospitality Management opens doors to a wide variety of exciting and high-paying jobs in the Philippines and abroad. Our graduates are well-equipped to work in top-tier hotels, commercial kitchens, and global travel companies.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">

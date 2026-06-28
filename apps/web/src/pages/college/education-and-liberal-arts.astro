@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import sdg4 from "../../assets/sdg-icons/sdg-4.jpg";
+import sdg5 from "../../assets/sdg-icons/sdg-5.jpg";
+import sdg10 from "../../assets/sdg-icons/sdg-10.jpg";
+import sdg16 from "../../assets/sdg-icons/sdg-16.jpg";
 import CtaButton from "../../components/common/CtaButton.astro";
 import { getEducationLiberalArtsPage } from "../../lib/sanity/queries";
 import { getSanityImageUrl } from "../../lib/utils/sanity";
@@ -23,10 +27,10 @@ const quickFacts = {
 const tracks = pageData?.tracks && pageData.tracks.length > 0
   ? pageData.tracks
   : [
-      { title: "Elementary Education", subtitle: "BEED", description: "Master foundational pedagogy, child psychology, and the architecture of early learning environments." },
-      { title: "Secondary Education (Mathematics)", subtitle: "BSED Mathematics", description: "Command advanced mathematical principles and adolescent development to lead high school quantitative classrooms." },
-      { title: "Secondary Education (English)", subtitle: "BSED English", description: "Master language acquisition, literature, and pedagogical strategies to lead high school English classrooms." },
-      { title: "English Language", subtitle: "BAEL", description: "Master advanced linguistics, corporate communication, and structural syntax for global media and publishing." }
+      { title: "Elementary Education", subtitle: "BEED", description: "Learn how to teach young children, understand child psychology, and create a fun, effective learning environment." },
+      { title: "Secondary Education (Mathematics)", subtitle: "BSED Mathematics", description: "Gain the skills to teach math effectively to high school students and help them succeed in their academics." },
+      { title: "Secondary Education (English)", subtitle: "BSED English", description: "Discover how to teach English, literature, and communication skills to high school students." },
+      { title: "English Language", subtitle: "BAEL", description: "Develop excellent communication and writing skills perfect for careers in media, writing, and public relations." }
     ];
 
 const overviewMainImage = {
@@ -46,10 +50,10 @@ const overviewSubImage = {
 const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
   ? pageData.outcomes
   : [
-      { title: "Early Cognitive Architecture (BEED)", description: "Mastery of foundational pedagogy, child psychology, and the design of high-impact early learning environments." },
-      { title: "Subject-Matter Command (BSED)", description: "The capability to direct secondary education classrooms through advanced subject expertise and adolescent behavioral management." },
-      { title: "Advanced Structural Linguistics (BAEL)", description: "The application of syntax, semantics, and corporate communication strategies for global media, publishing, and public relations." },
-      { title: "Curriculum Design & Leadership", description: "A deeply ingrained capability to architect educational frameworks, optimize learning outcomes, and step into administrative leadership roles." }
+      { title: "Teaching Young Learners (BEED)", description: "Learn the best ways to teach young children, understand how they learn, and make a positive impact in their early years." },
+      { title: "High School Teaching (BSED)", description: "Gain the confidence to manage a classroom and effectively teach specific subjects like Math or English to teenagers." },
+      { title: "Effective Communication (BAEL)", description: "Develop strong writing, speaking, and analytical skills for careers in journalism, corporate communication, and media." },
+      { title: "Educational Leadership", description: "Learn how to design effective lessons, improve student learning, and prepare for leadership roles in schools." }
     ];
 
 const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
@@ -205,7 +209,7 @@ const chair = pageData?.chair || {
   name: "Dr. Maria Santos",
   title: "Program Chair, Education & Liberal Arts",
   credentials: "Ed.D, MA in Education",
-  quote: "Teaching is not merely the transfer of facts; it is the architecture of the human mind. Our mission is to forge educators who inspire, and linguists who communicate with absolute precision and power.",
+  quote: "Teaching is about inspiring the next generation and making a real difference in their lives. Our goal is to guide students to become passionate, effective teachers and excellent communicators who are ready to change the world.",
   image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop", alt: "Program Chair" }
 };
 
@@ -235,33 +239,33 @@ const pathways = pageData?.pathways && pageData.pathways.length > 0
   ? pageData.pathways
   : [
       {
-        title: "Foundational Pedagogy",
-        subtitle: "BEED Trajectory",
-        description: "Shape the cognitive and emotional architecture of the next generation. Direct early learning environments, design inclusive classrooms, and lead foundational education.",
-        roles: ["Master Elementary Educator", "Early Childhood Program Director", "Special Education Needs (SEN) Coordinator", "Educational Consultant"]
+        title: "Elementary Teaching",
+        subtitle: "BEED Career Path",
+        description: "Help children develop a love for learning in their early years. Create fun, engaging, and supportive classrooms for young students.",
+        roles: ["Elementary School Teacher", "Early Childhood Educator", "School Administrator", "Private Tutor"]
       },
       {
-        title: "Secondary Educational Leadership (Mathematics)",
-        subtitle: "BSED Mathematics Trajectory",
-        description: "Command adolescent development and advanced mathematical pedagogy. Shape high school quantitative curricula and step into analytical leadership roles.",
-        roles: ["Secondary Mathematics Specialist", "Academic Curriculum Director", "School Administrator / Principal", "STEM Integration Lead"]
+        title: "High School Teaching (Mathematics)",
+        subtitle: "BSED Math Career Path",
+        description: "Make math easy to understand for high school students. Help teenagers develop problem-solving skills they can use in life.",
+        roles: ["High School Math Teacher", "Curriculum Developer", "School Administrator", "Math Tutor"]
       },
       {
-        title: "Secondary Educational Leadership (English)",
-        subtitle: "BSED English Trajectory",
-        description: "Command adolescent development and advanced English pedagogy. Shape high school language curricula and step into communication leadership roles.",
-        roles: ["Secondary English Specialist", "Academic Curriculum Director", "School Administrator / Principal", "Language Program Lead"]
+        title: "High School Teaching (English)",
+        subtitle: "BSED English Career Path",
+        description: "Inspire high school students to read, write, and express themselves effectively. Guide them to become better communicators.",
+        roles: ["High School English Teacher", "Curriculum Developer", "School Administrator", "Language Instructor"]
       },
       {
-        title: "Global Corporate Communication",
-        subtitle: "BAEL Trajectory",
-        description: "Master structural linguistics and syntax to command global media. Direct corporate narratives, lead publishing houses, and manage international public relations.",
-        roles: ["Corporate Communications Director", "Technical Editor / Publisher", "Public Relations (PR) Executive", "International ESL Consultant"]
+        title: "Professional Communication",
+        subtitle: "BAEL Career Path",
+        description: "Use your advanced English skills for careers outside the classroom. Work in media, writing, public relations, or corporate communications.",
+        roles: ["Public Relations Officer", "Writer / Editor", "Corporate Communications Specialist", "ESL Teacher"]
       }
     ];
 
 const pageTitle = pageData?.seo?.title || "College of Education & Liberal Arts in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = pageData?.seo?.description || "Shape Minds. Master Language. Pursue specialized degrees in Elementary Education, Secondary Education, and the English Language at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageDescription = pageData?.seo?.description || "Become a Teacher or Communication Expert. Pursue degrees in Elementary Education, Secondary Education, and English Language at OLOPSC College of BMSE in Marikina, Metro Manila.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -320,11 +324,11 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor's Degrees</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Shape Minds. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Master Language.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a foundational pillar of the College of Business, Management, Science, and Education (BMSE), this department offers specialized degrees in Elementary Education, Secondary Education, and the English Language. We engineer pedagogical leaders and communication specialists ready to impact generations.</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Inspire Students. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Master English.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a core part of the College of Business, Management, Science, and Education (BMSE), this department offers specialized degrees in Elementary Education, Secondary Education, and the English Language. We will guide you to become an inspiring teacher or an effective communication professional.</p>
         <div class="flex flex-wrap gap-4">
-          <CtaButton cta={{ text: "Explore Degree Tracks", link: "#programs", style: "primary" }} />
-          <CtaButton cta={{ text: "View Career Paths", link: "#outcomes", style: "outline" }} />
+          <CtaButton cta={{ text: "Explore Our Programs", link: "#programs", style: "primary" }} />
+          <CtaButton cta={{ text: "View Career Opportunities", link: "#outcomes", style: "outline" }} />
         </div>
       </div>
     </ScrollRevealWrapper>
@@ -365,12 +369,24 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </div>
 
+  <div class="bg-white border-b border-slate-100 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+      <div class="flex items-center gap-3">
+        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg5.src} alt="SDG 5: Gender Equality" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg10.src} alt="SDG 10: Reduced Inequalities" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg16.src} alt="SDG 16: Peace, Justice and Strong Institutions" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+      </div>
+    </div>
+  </div>
+
   <!-- Degree Tracks Matrix -->
   <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-slate-800">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
-        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Professional Trajectory.</h2>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Our Programs</span>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Path to Success.</h2>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -392,9 +408,9 @@ const schemaString = JSON.stringify(schema);
       <!-- Left Column: Typography & Department Payload -->
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Thought and Communication.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Education and Liberal Arts programs are engineered for those who intend to lead through knowledge transfer and linguistic command. Whether mastering the psychology of early childhood development, commanding secondary education classrooms, or dissecting structural syntax, this curriculum provides a rigorous, science-backed approach to human intellectual growth.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">Moving far beyond traditional rote learning, our students engage in immersive teaching practicums, advanced linguistic research, and corporate communication simulations. Graduates emerge not just as teachers and writers, but as agile intellectual leaders prepared to shape curricula, direct corporate training, and dominate global publishing.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Learn to Teach and Communicate.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">Our Education and Liberal Arts programs are perfect for those who want to help others learn and grow. Whether you want to understand how young children think, teach high school students, or become an expert in the English language, our courses will give you the right foundation to succeed.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">We focus on hands-on experiences. You will practice teaching in real classrooms (practice teaching), learn effective communication skills, and discover the best ways to connect with different audiences. By the time you graduate, you will be fully prepared and confident to start your career.</p>
       </div>
 
       <!-- Right Column: Asymmetric Dual-Image Composition -->
@@ -424,14 +440,14 @@ const schemaString = JSON.stringify(schema);
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than teaching. True intellectual architecture.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just train you to pass a licensure exam or memorize grammar rules; we train you to shape how the next generation thinks. Whether you are laying the cognitive foundation for children, commanding a high school science lab, or directing corporate communications, our curriculum demands rigor. When you graduate, you possess a highly marketable set of pedagogical and linguistic capabilities.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Practical Skills for the Real World.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We believe in teaching you how to actually apply what you learn. We focus on giving you the right tools to manage a classroom, plan effective lessons, and communicate clearly. When you graduate, you will have the knowledge and experience that schools and companies are actively looking for, making you ready for a great career.</p>
         </div>
       </div>
 
       <!-- Right Column: Graduate Capabilities -->
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
 
         {outcomes.map((outcome: any) => (
           <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
@@ -453,8 +469,8 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="fade-in" class="max-w-4xl mx-auto px-6 relative">
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Select your specialized pathway below to view the 4-year academic progression and core major subjects.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What to Expect</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">Select a program below to see the subjects and topics you will take each year.</p>
       </div>
 
       <!-- Tab Controls Wrapper -->
@@ -485,9 +501,12 @@ const schemaString = JSON.stringify(schema);
                 <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
                   <div class="flex flex-col gap-3">
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                    <div class="flex flex-wrap gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {year.subjects.map((subject: string) => (
-                        <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                        <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                          <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          <span class="leading-tight">{subject}</span>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -503,9 +522,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Designed for Pedagogical & Linguistic Mastery.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities bridge cognitive theory with professional practice. Explore the dedicated laboratories engineered to refine your instructional execution and communication mechanics.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Campus Facilities</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Designed for Learning and Practice.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities are built to give you hands-on experience. Explore our dedicated rooms and laboratories where you can practice teaching and improve your communication skills.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
@@ -514,9 +533,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.modelClassroom.url} alt={ecosystemImages.modelClassroom.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Instructional Lab</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Interactive Model Classroom</h3>
-            <p class="text-slate-300 text-sm max-w-md hidden md:block">A simulated primary and secondary environment equipped with advanced instructional technologies, smartboard systems, and observational diagnostic tools for real-time pedagogical analysis.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Practice Teaching</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Model Classroom</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">A fully equipped classroom where you can practice your teaching skills and get comfortable in front of students using modern teaching tools.</p>
           </div>
         </div>
 
@@ -525,9 +544,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.speechLab.url} alt={ecosystemImages.speechLab.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Linguistics</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Digital Phonetics & Speech Suite</h3>
-            <p class="text-slate-300 text-sm">High-end audio-linguistic workstations outfitted with phonetic rendering software, acoustic monitoring gear, and communication matrices built for structural language mastery.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Language Skills</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Speech Laboratory</h3>
+            <p class="text-slate-300 text-sm">Improve your pronunciation, listening, and speaking skills using our dedicated audio workstations and language software.</p>
           </div>
         </div>
 
@@ -536,8 +555,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.literacyHub.url} alt={ecosystemImages.literacyHub.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Media & Discourse</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Literary & Publishing Workstation</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Writing & Publishing</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Literacy Hub</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">A quiet and inspiring space dedicated to reading, writing, and creating effective written materials.</p>
           </div>
         </div>
 
@@ -546,8 +566,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.resourceCenter.url} alt={ecosystemImages.resourceCenter.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Material Production</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Curriculum Design & Media Lab</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Creating Materials</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Resource Center</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Create your own visual aids, lesson plans, and instructional materials using our design and media tools.</p>
           </div>
         </div>
       </div>
@@ -606,9 +627,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Intellectual Leadership.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Education or Liberal Arts from OLOPSC is a high-yield investment in human development. Our graduates command classrooms, design national curricula, and direct corporate communications globally.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Career Opportunities</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Future Career.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Education or Liberal Arts from OLOPSC opens many doors. Our graduates go on to become successful teachers, school administrators, writers, and communication professionals.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -625,7 +646,7 @@ const schemaString = JSON.stringify(schema);
             </div>
 
             <div class="flex-grow flex flex-col">
-              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
+              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Possible Careers</span>
               <ul class="space-y-3">
                 {pathway.roles.map((role: string) => (
                   <li class="flex items-start gap-3">

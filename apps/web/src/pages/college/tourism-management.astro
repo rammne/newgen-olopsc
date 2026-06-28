@@ -1,6 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import CtaButton from "../../components/common/CtaButton.astro";
+import sdg4 from "../../assets/sdg-icons/sdg-4.jpg";
+import sdg8 from "../../assets/sdg-icons/sdg-8.jpg";
+import sdg11 from "../../assets/sdg-icons/sdg-11.jpg";
+import sdg12 from "../../assets/sdg-icons/sdg-12.jpg";
+import sdg14 from "../../assets/sdg-icons/sdg-14.jpg";
+import sdg15 from "../../assets/sdg-icons/sdg-15.jpg";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
 import "../../styles/global.css";
 
@@ -40,20 +46,20 @@ const overviewSubImage = sanityData?.overviewSubImage?.asset?.url ? {
 
 const outcomes = sanityData?.outcomes && sanityData.outcomes.length > 0 ? sanityData.outcomes : [
     {
-        title: "Global Travel & Aviation Logistics",
-        description: "Mastery in coordinating international travel operations, modern GDS (Global Distribution Systems) ticketing, and aviation management."
+        title: "Travel & Flight Operations",
+        description: "Learn the ins and outs of international travel, including airline operations, ticketing systems, and flight attendant service."
     },
     {
-        title: "Corporate Event & MICE Execution",
-        description: "The capability to architect, budget, and execute large-scale Meetings, Incentives, Conferences, and Exhibitions (MICE) for enterprise clients."
+        title: "Event Planning & Management",
+        description: "Gain the skills to organize, plan, and successfully run large events like conferences, conventions, and travel expos."
     },
     {
-        title: "Sustainable Destination Management",
-        description: "The application of business strategies to develop, market, and manage tourist destinations while ensuring ecological and economic sustainability."
+        title: "Sustainable Tourism",
+        description: "Understand how to promote and manage tourist spots in a way that protects the environment and supports local communities."
     },
     {
-        title: "Premium Hospitality Operations",
-        description: "A deeply ingrained understanding of luxury service standards, hotel enterprise management, and elite guest experience design."
+        title: "Hospitality & Guest Services",
+        description: "Develop a strong foundation in providing excellent customer service and managing hotel and resort operations."
     }
 ];
 
@@ -140,13 +146,13 @@ const chair = sanityData?.chair ? {
     name: sanityData.chair.name || "Dr. Maria Santos, PhD, CHA",
     title: sanityData.chair.title || "Program Chair & Faculty, Tourism Management",
     credentials: sanityData.chair.credentials || "",
-    quote: sanityData.chair.quote || "Hospitality is an art, but global tourism is a rigorous science of logistics, enterprise, and execution. Our goal is to forge leaders who command both.",
+    quote: sanityData.chair.quote || "Tourism is about connecting people and places. Our goal is to train students to be confident professionals who can create amazing travel experiences and manage successful tourism businesses.",
     image: sanityData.chair.image?.asset?.url ? { url: sanityData.chair.image.asset.url, alt: sanityData.chair.image.alt || "Program Chair" } : { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop", alt: "Program Chair" }
 } : {
     name: "Dr. Maria Santos, PhD, CHA",
     title: "Program Chair & Faculty, Tourism Management",
     credentials: "",
-    quote: "Hospitality is an art, but global tourism is a rigorous science of logistics, enterprise, and execution. Our goal is to forge leaders who command both.",
+    quote: "Tourism is about connecting people and places. Our goal is to train students to be confident professionals who can create amazing travel experiences and manage successful tourism businesses.",
     image: { url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop", alt: "Program Chair" }
 };
 
@@ -190,26 +196,26 @@ const faculty = sanityData?.faculty && sanityData.faculty.length > 0 ? sanityDat
 
 const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanityData.pathways : [
     {
-        title: "Aviation & Global Travel",
-        subtitle: "Transportation Logistics",
-        description: "Command the logistical networks that move millions of travelers. Step into leadership roles within international airlines, cruise lines, and global travel agencies.",
-        roles: ["Flight Attendant / Cabin Crew", "Aviation Ground Operations Manager", "Travel Agency Director", "Tourism Attaché"]
+        title: "Airlines & Travel Agencies",
+        subtitle: "Travel Operations",
+        description: "Help people explore the world. Work as a flight attendant or build a career in travel agencies arranging tours, flights, and dream vacations.",
+        roles: ["Flight Attendant / Cabin Crew", "Aviation Ground Operations Manager", "Travel Agency Director", "Tour Coordinator"]
     },
     {
-        title: "Premium Hospitality",
-        subtitle: "Luxury Enterprise Management",
-        description: "Direct the operations of world-class accommodations. Master the financial and operational mechanics of running 5-star hotels and international resorts.",
-        roles: ["Hotel General Manager", "Guest Relations Executive", "Resort Operations Director", "Food & Beverage Manager"]
+        title: "Hotels & Resorts",
+        subtitle: "Hospitality Management",
+        description: "Be part of the growing hotel industry. Manage daily operations, ensure excellent guest experiences, and lead teams in beautiful resorts.",
+        roles: ["Hotel General Manager", "Guest Relations Executive", "Resort Operations Director", "Front Office Manager"]
     },
     {
-        title: "MICE & Corporate Events",
-        subtitle: "Large-Scale Execution",
-        description: "Architect and execute massive corporate gatherings, international conventions, and destination marketing campaigns for enterprise clients.",
-        roles: ["MICE Director / Event Architect", "Convention Coordinator", "Corporate Travel Manager", "Destination Marketing Executive"]
+        title: "Events & Conventions",
+        subtitle: "Event Planning",
+        description: "Plan and organize major events, from corporate conferences to exciting travel expos. Ensure every detail is perfect for the attendees.",
+        roles: ["Event Organizer / Coordinator", "Convention Manager", "Corporate Travel Manager", "Destination Marketing Executive"]
     }
 ];
-const pageTitle = sanityData?.seo?.title || "BS Tourism Management in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = sanityData?.seo?.description || "Master the business of global travel, aviation logistics, and premium hospitality at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageTitle = sanityData?.seo?.title || "BS Tourism Management in Marikina, Metro Manila | OLOPSC";
+const pageDescription = sanityData?.seo?.description || "Build an exciting career as a flight attendant, travel planner, or event manager with a Tourism Management degree at OLOPSC in Marikina.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -237,11 +243,11 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Master the Business of <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Global Travel.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a premier program within the College of Business, Management, Science, and Education (BMSE), our B.S. in Tourism Management goes far beyond hospitality. We engineer leaders capable of managing global travel operations, executing large-scale events, and directing international tourism enterprises.</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Your Journey into the <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">World of Tourism.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">Prepare for a fun and rewarding career that lets you explore the world. Our B.S. in Tourism Management program gives you the skills needed to succeed in airlines, travel agencies, event planning, and hotel management.</p>
         <div class="flex flex-wrap gap-4 mt-10">
           <CtaButton cta={{ text: "Explore Curriculum", link: "#curriculum" }} variant="primary" />
-          <CtaButton cta={{ text: "View Corporate Paths", link: "#outcomes" }} variant="secondary" />
+          <CtaButton cta={{ text: "View Career Paths", link: "#outcomes" }} variant="secondary" />
         </div>
       </div>
     </ScrollRevealWrapper>
@@ -277,13 +283,27 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </div>
 
+  <div class="bg-white border-b border-slate-100 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg8.src} alt="SDG 8: Decent Work and Economic Growth" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg11.src} alt="SDG 11: Sustainable Cities and Communities" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg12.src} alt="SDG 12: Responsible Consumption and Production" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg14.src} alt="SDG 14: Life Below Water" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg15.src} alt="SDG 15: Life on Land" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+      </div>
+    </div>
+  </div>
+
   <section class="py-24 md:py-32 bg-white overflow-hidden">
     <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Global Hospitality.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Tourism Management is an intensive, business-focused program engineered for the modern global economy. This four-year degree equips students with the operational expertise to direct international hospitality brands, manage complex travel logistics, and execute large-scale corporate events.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">Moving far beyond basic service, our curriculum integrates sustainable destination management, digital tourism marketing, and enterprise operations. Graduates are prepared for high-yield leadership roles in aviation, premium hotel chains, and global travel conglomerates.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More Than Just Traveling.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Tourism Management is a four-year degree designed for those who want to turn their love for travel into a career. You will learn the business behind the tourism industry, from organizing tours and booking flights to managing major events.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Our curriculum is balanced with both classroom learning and hands-on experiences. You'll practice in our mock flight cabin, plan real campus events, and go on field trips to learn about sustainable tourism. Graduates are ready for jobs as flight attendants, travel coordinators, and event planners.</p>
       </div>
 
       <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0 group">
@@ -306,13 +326,13 @@ const schemaString = JSON.stringify(schema);
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than hospitality. True operational command.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you about destinations; we train you to manage the complex logistics that move millions of people globally. Our curriculum strips away the fluff, focusing heavily on sustainable enterprise management, aviation logistics, and corporate event execution. When you graduate, you aren't just holding a degree—you possess a distinct set of highly marketable management capabilities.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Ready for the Real World.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We believe that the best way to learn about tourism is to experience it. Our students get practical training inside our campus simulation rooms and through off-campus activities. By the time you graduate, you won't just know the theories—you will have the confidence and skills needed by airlines, travel agencies, and hotels.</p>
         </div>
       </div>
 
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
 
         {outcomes.map((outcome: any) => (
           <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
@@ -335,7 +355,7 @@ const schemaString = JSON.stringify(schema);
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is strategically sequenced. We focus on core operational competencies, preparing you to lead in aviation, premium hospitality, and global event management.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum starts with the basics of the travel industry and gradually moves to more hands-on training, preparing you for internships and your future career.</p>
       </div>
 
       <div class="space-y-4">
@@ -355,9 +375,12 @@ const schemaString = JSON.stringify(schema);
               <p class="text-slate-600 mb-6 leading-relaxed">{item.description}</p>
               <div class="flex flex-col gap-3">
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                <div class="flex flex-wrap gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {item.subjects.map((subject: string) => (
-                    <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                    <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                      <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <span class="leading-tight">{subject}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -371,9 +394,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Where Theory Meets Operations.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Step into a fully realized training environment. From simulated aviation cabins to executing live MICE events, this is where you master the mechanics of the global travel industry.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Campus Life</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Hands-on Tourism Experience.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Step into a real-world training environment. From simulated aircraft cabins to executing travel events, this is where you gain the skills needed for the global travel industry.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
@@ -383,9 +406,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.facilities.url} alt={ecosystemImages.facilities.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Infrastructure</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Aviation & Hospitality Simulation Suites</h3>
-            <p class="text-slate-300 text-sm max-w-md hidden md:block">Train in industry-standard environments, including mock aircraft cabins, premium hotel front-desk systems, and travel agency operations centers.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Real-World Training</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Flight Cabin Simulation</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">Experience hands-on training inside our mock aircraft cabin, preparing you for real-world aviation and in-flight service.</p>
           </div>
         </div>
 
@@ -394,9 +417,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The OLOPSC Tourism Society</h3>
-            <p class="text-slate-300 text-sm">A highly active, student-led organization focused on global networking, destination familiarization tours, and hospitality leadership.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Professional Grooming</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Ready for the Industry</h3>
+            <p class="text-slate-300 text-sm">Look and feel the part. We train our students to maintain the highest standards of professional grooming and corporate etiquette expected in the travel industry.</p>
           </div>
         </div>
 
@@ -405,8 +428,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.events.url} alt={ecosystemImages.events.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Operational Output</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Annual Travel & MICE Expo</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Events</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Travel & Tourism Expos</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Participate in exciting campus events, travel expos, and student gatherings to build your network.</p>
           </div>
         </div>
 
@@ -415,8 +439,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.sustainability.url} alt={ecosystemImages.sustainability.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Social Responsibility</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Sustainable Destination Advocacy</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Field Experiences</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Sustainable Tourism</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Go beyond the classroom with field trips to local destinations, learning about sustainable tourism.</p>
           </div>
         </div>
 
@@ -474,9 +499,9 @@ const schemaString = JSON.stringify(schema);
   <section id="outcomes" class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Ticket to Global Enterprise.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Tourism Management from OLOPSC is a highly versatile business asset. Our graduates command operations in aviation, premium lodging, and international event logistics.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Your Career Pathways</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Where Will This Degree Take You?</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Tourism Management opens up many fun and exciting career opportunities. Whether you want to travel the world as a flight attendant or plan memorable events, our graduates are ready for the job.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -2,6 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
 import CtaButton from "../../components/common/CtaButton.astro";
+import sdg3 from "../../assets/sdg-icons/sdg-3.jpg";
+import sdg4 from "../../assets/sdg-icons/sdg-4.jpg";
+import sdg10 from "../../assets/sdg-icons/sdg-10.jpg";
+import sdg16 from "../../assets/sdg-icons/sdg-16.jpg";
 import "../../styles/global.css";
 
 import { getPsychologyPage } from '../../lib/sanity/queries';
@@ -40,20 +44,20 @@ const overviewSubImage = sanityData?.overviewSubImage?.asset?.url ? {
 
 const outcomes = sanityData?.outcomes && sanityData.outcomes.length > 0 ? sanityData.outcomes : [
     {
-        title: "Advanced Psychometrics",
-        description: "Mastery in the administration, scoring, and clinical interpretation of industry-standard psychological assessments."
+        title: "Psychological Testing",
+        description: "Learn how to use, score, and understand common psychological tests and assessments."
     },
     {
-        title: "Behavioral Research Proficiency",
-        description: "The capability to ethically design, execute, and publish rigorous qualitative and quantitative behavioral research."
+        title: "Research & Analysis",
+        description: "Gain the skills needed to design and conduct meaningful research to better understand human behavior."
     },
     {
-        title: "Clinical & Corporate Intervention",
-        description: "The application of psychological theories to facilitate mental health, wellness, and organizational development."
+        title: "Mental Health Support",
+        description: "Apply your knowledge to help improve mental wellness in schools, clinics, and workplaces."
     },
     {
-        title: "Empathetic Ethical Practice",
-        description: "A deeply ingrained commitment to the ethical standards of the psychological profession, rooted in Marian values."
+        title: "Compassionate Care",
+        description: "Develop a strong commitment to ethical practice and helping others, rooted in our school's values."
     }
 ];
 
@@ -183,26 +187,26 @@ const faculty = sanityData?.faculty && sanityData.faculty.length > 0 ? sanityDat
 
 const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanityData.pathways : [
     {
-        title: "Corporate & Industrial",
-        subtitle: "High-Yield Business Roles",
-        description: "Leverage your understanding of human behavior to optimize corporate environments, consumer experiences, and organizational health.",
-        roles: ["Human Resources Director", "UX/UI Researcher", "Organizational Development Consultant", "Consumer Insights Analyst"]
+        title: "Corporate & Human Resources",
+        subtitle: "Workplace Psychology",
+        description: "Use your understanding of people to improve company culture, hire the best talent, and keep employees happy and productive.",
+        roles: ["Human Resources Officer", "Recruitment Specialist", "Training Coordinator", "Consumer Insights Analyst"]
     },
     {
         title: "Clinical & Educational",
-        subtitle: "Direct Psychological Intervention",
-        description: "The traditional route. Acquire your BLEPP license and step directly into mental health, diagnostics, and educational support.",
-        roles: ["Licensed Psychometrician", "Behavioral Therapist", "Guidance Associate", "SPED Educator"]
+        subtitle: "Mental Health Support",
+        description: "Take the board exam (BLEPP) and work directly in clinics or schools to guide and support individuals' mental well-being.",
+        roles: ["Registered Psychometrician", "Behavioral Therapist", "Guidance Associate", "Special Education Teacher"]
     },
     {
-        title: "The Graduate Pipeline",
-        subtitle: "Advanced Prestige Degrees",
-        description: "Use your B.S. in Psychology as the ultimate scientific stepping stone into elite doctoral and professional programs.",
-        roles: ["Medical School (Psychiatry/Neurology)", "Law School", "Ph.D. in Clinical Psychology", "Master's in Counseling"]
+        title: "Further Studies",
+        subtitle: "Law or Medical School",
+        description: "Use your Psychology degree as a strong foundation to pursue advanced studies in medicine, law, or clinical psychology.",
+        roles: ["Medical School", "Law School", "Master's in Psychology", "Master's in Counseling"]
     }
 ];
-const pageTitle = sanityData?.seo?.title || "BS Psychology in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = sanityData?.seo?.description || "Master the scientific study of human behavior, psychometrics, and clinical research at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageTitle = sanityData?.seo?.title || "BS Psychology in Marikina, Metro Manila | OLOPSC";
+const pageDescription = sanityData?.seo?.description || "Learn about human behavior and prepare for a career in human resources, counseling, or education with a Psychology degree at OLOPSC in Marikina.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -230,8 +234,8 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science in Psychology</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Understand the Mind. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Shape the Future.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a flagship program of the College of Business, Management, Science, and Education (BMSE), our psychology degree goes beyond theory. We engineer rigorous scientific inquiry, hands-on clinical research, and a deep understanding of human behavior.</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Understand the Mind. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Help Others.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">Our Psychology program is perfect for students who want to understand why people think and act the way they do. We provide a balance of classroom learning and hands-on activities to prepare you for a rewarding career in helping others.</p>
         <div class="flex flex-wrap gap-4 mt-6">
           <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} />
           <CtaButton cta={{ text: "View Career Paths", link: { type: "anchor", anchor: "outcomes" } }} variant="secondary" />
@@ -286,14 +290,26 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </div>
 
+  <div class="bg-white border-b border-slate-100 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+      <div class="flex items-center gap-3">
+        <img src={sdg3.src} alt="SDG 3: Good Health and Well-being" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg10.src} alt="SDG 10: Reduced Inequalities" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg16.src} alt="SDG 16: Peace, Justice and Strong Institutions" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+      </div>
+    </div>
+  </div>
+
   <section class="py-24 md:py-32 bg-white overflow-hidden border-b border-slate-100">
     <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Empirically-Driven Scientific Foundation.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Psychology provides a comprehensive foundation in the scientific study of human behavior and cognitive processes. This four-year program equips students with the scientific methodologies required to observe, assess, and interpret psychological phenomena.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">The curriculum is heavily weighted toward the natural sciences, integrating neurobiology, advanced statistics, and experimental research. Graduates are fully prepared to pass the Board Licensure Examination for Psychometricians (BLEPP), enter high-value corporate roles, or pursue advanced degrees.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Discover the Science of Behavior.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Psychology is a four-year course that teaches you how to study and understand human behavior and the mind. It is a great choice if you are curious about people and want to make a positive impact.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Our curriculum covers everything from child development and personality to social behavior and mental health. Graduates are well-prepared to take the Board Exam for Psychometricians (BLEPP), work in human resources, or continue to graduate school.</p>
       </div>
 
       <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0 group">
@@ -315,13 +331,13 @@ const schemaString = JSON.stringify(schema);
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than observation. True clinical understanding.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you to read about the mind; we train you to analyze it, measure it, and heal it. Our curriculum strips away the fluff, focusing heavily on hands-on psychometrics, experimental psychology, and actionable clinical interventions. When you graduate, you aren't just holding a degree—you possess a distinct set of highly marketable capabilities.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Learning by Doing.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We believe that psychology is best learned through experience. Our students don't just read books; they practice psychological testing, participate in research, and join community activities. By the time you graduate, you will have the confidence and practical skills needed by employers and graduate schools.</p>
         </div>
       </div>
 
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
         {outcomes.map((outcome) => (
           <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
             <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
@@ -345,7 +361,7 @@ const schemaString = JSON.stringify(schema);
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is strategically sequenced. We focus on core scientific competencies, stripping away redundancies to prepare you for the board exams and clinical practice.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum starts with the basics of psychology and gradually moves to more advanced topics like assessment and counseling, preparing you for the board exam and your career.</p>
       </div>
 
       <div class="space-y-4">
@@ -367,9 +383,12 @@ const schemaString = JSON.stringify(schema);
               <p class="text-slate-600 mb-6 leading-relaxed">{item.description}</p>
               <div class="flex flex-col gap-3">
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                <div class="flex flex-wrap gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {item.subjects.map((subject) => (
-                    <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                    <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                      <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <span class="leading-tight">{subject}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -383,9 +402,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Campus Life</span>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Beyond the Classroom.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Immerse yourself in a culture of inquiry. From advanced clinical laboratories to student-led mental health initiatives, this is where theory becomes practice.</p>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Get involved and make friends! Join student organizations, participate in fun activities, and experience learning outside the four walls of the classroom.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
@@ -482,9 +501,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Launchpad to the Future.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Bachelor of Science in Psychology from OLOPSC is not just a diploma; it is a highly versatile asset. Our graduates dominate in the boardroom, the clinic, and elite graduate schools.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Your Career Pathways</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Where Will This Degree Take You?</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Psychology opens up many different career doors. Whether you want to work in an office, a clinic, or a school, our graduates are ready for the job.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">

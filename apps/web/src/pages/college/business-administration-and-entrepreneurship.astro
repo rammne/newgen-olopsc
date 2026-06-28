@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ScrollRevealWrapper from "../../components/common/ScrollRevealWrapper.astro";
+import sdg4 from "../../assets/sdg-icons/sdg-4.jpg";
+import sdg8 from "../../assets/sdg-icons/sdg-8.jpg";
+import sdg9 from "../../assets/sdg-icons/sdg-9.jpg";
+import sdg12 from "../../assets/sdg-icons/sdg-12.jpg";
 import CtaButton from "../../components/common/CtaButton.astro";
 import { getBusinessAdminPage } from "../../lib/sanity/queries";
 import { getSanityImageUrl } from "../../lib/utils/sanity";
@@ -23,9 +27,9 @@ const quickFacts = {
 const tracks = pageData?.programs && pageData.programs.length > 0
   ? pageData.programs
   : [
-      { title: "Human Resource Management", subtitle: "BSBA - HRM", description: "Master organizational behavior, talent acquisition, and corporate labor strategy." },
-      { title: "Marketing Management", subtitle: "BSBA - MM", description: "Command consumer analytics, digital brand architecture, and global market expansion." },
-      { title: "Entrepreneurship", subtitle: "BS - ENT", description: "Architect scalable startups, secure venture funding, and execute disruptive business models." }
+      { title: "Human Resource Management", subtitle: "BSBA - HRM", description: "Learn how to manage people, recruit the right talent, and build a positive workplace environment." },
+      { title: "Marketing Management", subtitle: "BSBA - MM", description: "Discover how to promote products, understand consumer behavior, and build strong brands in the digital age." },
+      { title: "Entrepreneurship", subtitle: "BS - ENT", description: "Learn how to start your own business, manage finances, and turn your innovative ideas into reality." }
     ];
 
 const overviewMainImage = {
@@ -45,10 +49,10 @@ const overviewSubImage = {
 const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
   ? pageData.outcomes
   : [
-      { title: "Strategic Human Capital (HRM)", description: "Mastery of organizational behavior, corporate labor law, and the architecture of high-performance enterprise teams." },
-      { title: "Global Brand Architecture (MM)", description: "The capability to direct consumer analytics, execute digital marketing campaigns, and drive international market expansion." },
-      { title: "Venture Creation & Scaling (ENT)", description: "The application of disruptive business models to launch scalable startups, secure venture funding, and drive innovation." },
-      { title: "Data-Driven Financial Leadership", description: "A deeply ingrained capability to interpret complex financial data, optimize corporate revenue, and execute executive-level strategies." }
+      { title: "Managing People and Organizations (HRM)", description: "Learn the essential skills to handle employee relations, understand labor laws, and create a great team culture." },
+      { title: "Creative Marketing and Branding (MM)", description: "Gain the skills to create effective marketing campaigns, understand what customers want, and grow a business." },
+      { title: "Starting Your Own Business (ENT)", description: "Get the knowledge and confidence to launch your own startup, manage business operations, and succeed as an entrepreneur." },
+      { title: "Financial Management and Leadership", description: "Learn how to handle business finances, make smart financial decisions, and lead a company toward success." }
     ];
 
 const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
@@ -257,7 +261,7 @@ const chair = {
   name: pageData?.chair?.name || "Dr. Elena Bautista",
   title: pageData?.chair?.title || "Program Chair, BSBA & Entrepreneurship",
   credentials: pageData?.chair?.credentials || "",
-  quote: pageData?.chair?.quote || "Business is not just about theory; it is about execution, strategy, and resilience. Our mission is to forge leaders who build enterprises, direct corporate growth, and disrupt markets.",
+  quote: pageData?.chair?.quote || "Business is not just about learning concepts in a classroom; it is about taking action and being resilient. Our goal is to guide students to become confident professionals, successful business owners, and capable leaders in their chosen fields.",
   image: {
     url: pageData?.chair?.image?.asset?.url
       ? getSanityImageUrl(pageData.chair.image, { width: 800, height: 1000, fit: "crop" })
@@ -285,27 +289,27 @@ const pathways = pageData?.pathways && pageData.pathways.length > 0
   ? pageData.pathways
   : [
       {
-        title: "Strategic Human Capital",
-        subtitle: "BSBA - HRM Trajectory",
-        description: "Direct the talent and organizational structure of multinational corporations. Master labor dynamics, executive compensation, and team architecture.",
-        roles: ["Human Resources Director", "Talent Acquisition Manager", "Compensation & Benefits Analyst", "Organizational Development Consultant"]
+        title: "Human Resource Management",
+        subtitle: "BSBA - HRM Career Path",
+        description: "Manage employee relations and help companies build strong, positive work environments.",
+        roles: ["Human Resources Manager", "Recruitment Specialist", "Training and Development Officer", "Employee Relations Officer"]
       },
       {
-        title: "Global Brand Architecture",
-        subtitle: "BSBA - MM Trajectory",
-        description: "Command market share and consumer psychology. Direct high-budget digital campaigns, product launches, and international brand expansion.",
-        roles: ["Chief Marketing Officer (CMO)", "Digital Brand Director", "Market Research Lead", "Product Marketing Executive"]
+        title: "Marketing and Branding",
+        subtitle: "BSBA - MM Career Path",
+        description: "Lead marketing efforts, understand what customers need, and help businesses promote their products and services effectively.",
+        roles: ["Marketing Director", "Social Media Manager", "Market Research Analyst", "Brand Manager"]
       },
       {
-        title: "Venture Creation & Scaling",
-        subtitle: "BS - ENT Trajectory",
-        description: "Architect scalable business models. Launch disruptive startups, secure venture funding, or innovate from within existing enterprise structures.",
-        roles: ["Startup Founder / CEO", "Venture Capital Analyst", "Business Development Director", "Innovation Consultant"]
+        title: "Business Ownership and Startup",
+        subtitle: "BS - ENT Career Path",
+        description: "Turn your business ideas into reality. Learn how to manage your own business, secure funding, and grow a successful company.",
+        roles: ["Business Owner / Entrepreneur", "Business Consultant", "Franchise Operator", "Sales Manager"]
       }
     ];
 
 const pageTitle = pageData?.seo?.title || "BSBA & BS Entrepreneurship in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = pageData?.seo?.description || "Lead Enterprises. Build Ventures. Specialized degree tracks in HR, Marketing, and Entrepreneurship at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageDescription = pageData?.seo?.description || "Start Your Business Journey. Enroll in our Business Administration and Entrepreneurship programs at OLOPSC College of BMSE in Marikina, Metro Manila.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -353,11 +357,11 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
       <div class="lg:col-span-7 flex flex-col">
         <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Lead Enterprises. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Build Ventures.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a core pillar of the College of Business, Management, Science, and Education (BMSE), this department offers specialized tracks in Human Resource Management, Marketing Management, and Entrepreneurship. We engineer corporate leaders and startup founders driven by data and strategy.</p>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Start Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Business Journey.</span></h1>
+        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a core pillar of the College of Business, Management, Science, and Education (BMSE), this department offers specialized programs in Human Resource Management, Marketing Management, and Entrepreneurship. We will help you build the practical skills and knowledge you need to succeed in the business world.</p>
         <div class="flex flex-wrap gap-4">
-          <CtaButton cta={{ text: "Explore Degree Tracks", link: "#programs", style: "primary" }} />
-          <CtaButton cta={{ text: "View Corporate Paths", link: "#outcomes", style: "outline" }} />
+          <CtaButton cta={{ text: "Explore Our Programs", link: "#programs", style: "primary" }} />
+          <CtaButton cta={{ text: "View Career Opportunities", link: "#outcomes", style: "outline" }} />
         </div>
       </div>
     </ScrollRevealWrapper>
@@ -395,11 +399,23 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </div>
 
+  <div class="bg-white border-b border-slate-100 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+      <div class="flex items-center gap-3">
+        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg8.src} alt="SDG 8: Decent Work and Economic Growth" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg9.src} alt="SDG 9: Industry, Innovation and Infrastructure" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img src={sdg12.src} alt="SDG 12: Responsible Consumption and Production" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+      </div>
+    </div>
+  </div>
+
   <section id="programs" class="py-16 md:py-24 bg-primary relative border-b border-slate-800">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Specialized Pathways</span>
-        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Corporate Trajectory.</h2>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Our Programs</span>
+        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-white">Choose Your Path to Success.</h2>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -419,9 +435,9 @@ const schemaString = JSON.stringify(schema);
       <!-- Left Column: Typography & Corporate Payload -->
       <div class="flex flex-col relative z-10">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">The Architecture of Enterprise Leadership.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Business Administration and Entrepreneurship programs provide a rigorous, data-driven foundation in modern commerce. Whether scaling a startup, directing human capital, or architecting global marketing campaigns, this curriculum equips students with the exact frameworks required to command a competitive economy.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">Moving beyond traditional theory, our students engage in live corporate case studies, venture capital pitches, and intensive industry practicums. Graduates emerge as agile strategists, prepared to launch their own disruptive enterprises or step into executive roles within multinational corporations.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Learn to Lead and Succeed.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">Our Business Administration and Entrepreneurship programs will give you a strong foundation in modern business practices. Whether you want to manage a team, create exciting marketing campaigns, or start your own company, our courses will teach you the practical skills you need to reach your goals.</p>
+        <p class="text-lg text-slate-600 leading-relaxed">We go beyond textbook learning. You will get hands-on experience through real-world business projects, presentations, and valuable on-the-job training (OJT). By the time you graduate, you will be fully prepared and confident to enter the workforce or launch your own business.</p>
       </div>
 
       <!-- Right Column: Asymmetric Dual-Image Composition -->
@@ -448,14 +464,14 @@ const schemaString = JSON.stringify(schema);
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
           <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More than management. True enterprise creation.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We do not just teach you to read financial statements or memorize marketing theories; we train you to architect growth. Whether you are scaling a tech startup, directing a corporate marketing division, or managing human capital for a multinational firm, our curriculum strips away the theoretical fluff. When you graduate, you possess a distinct set of highly marketable executive capabilities.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Practical Skills for the Real World.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">We believe in teaching you how to actually apply what you learn. We focus on giving you the right tools to grow a business, lead a team, and market products effectively. When you graduate, you will have the knowledge and experience that companies are actively looking for, making you ready for a great career.</p>
         </div>
       </div>
 
       <!-- Right Column: Graduate Capabilities (The Outcomes) -->
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">Graduate Capabilities</h3>
+        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
 
         {outcomes.map((outcome: any) => (
           <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
@@ -476,8 +492,8 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="fade-in" class="max-w-4xl mx-auto px-6 relative">
       <div class="text-center mb-16">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Interactive Degree Tracks</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Select your specialized pathway below to view the 4-year academic progression and core major subjects.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What to Expect</h2>
+        <p class="text-lg text-slate-600 leading-relaxed">Select a program below to see the subjects and topics you will take each year.</p>
       </div>
 
       <!-- Tab Controls Wrapper -->
@@ -508,9 +524,12 @@ const schemaString = JSON.stringify(schema);
                 <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
                   <div class="flex flex-col gap-3">
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                    <div class="flex flex-wrap gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {year.subjects.map((subject: string) => (
-                        <span class="bg-surface text-primary border border-slate-100 py-2 px-4 rounded-lg text-sm font-bold shadow-sm">{subject}</span>
+                        <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                          <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          <span class="leading-tight">{subject}</span>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -527,8 +546,8 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">The Department Ecosystem</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Built for Enterprise.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our facilities aren't just classrooms; they are active business environments. From the startup incubator to the corporate strategy lab, this is where you architect your professional future.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">A Vibrant Student Life.</h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Our department isn't just about classrooms; it's about building a community. From exciting events to networking opportunities, this is where you develop your professional and interpersonal skills.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
@@ -537,9 +556,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.incubator.url} alt={ecosystemImages.incubator.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Venture Creation</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Startup Incubator</h3>
-            <p class="text-slate-300 text-sm max-w-md hidden md:block">A dedicated hub for entrepreneurs to prototype business models, refine value propositions, and prepare for venture capital engagement.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community.Students</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Business Student Community</h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">Join a vibrant community of future business leaders. Connect with your peers and build lifelong friendships in our supportive college environment.</p>
           </div>
         </div>
 
@@ -548,9 +567,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.strategy.url} alt={ecosystemImages.strategy.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Analytics</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Corporate Strategy Lab</h3>
-            <p class="text-slate-300 text-sm">Real-time data visualization suites where students master corporate finance, consumer analytics, and international market modeling.</p>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community.Events</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Campus Events & Collaboration</h3>
+            <p class="text-slate-300 text-sm mt-2">Experience a lively campus life where you can collaborate with students from other departments during exciting school events.</p>
           </div>
         </div>
 
@@ -559,8 +578,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.pitch.url} alt={ecosystemImages.pitch.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Output</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">The Executive Pitch Arena</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Output.Achievements</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Celebrating Success</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Be proud of your accomplishments. We celebrate our students' achievements, presentations, and successful projects together.</p>
           </div>
         </div>
 
@@ -569,8 +589,9 @@ const schemaString = JSON.stringify(schema);
           <img src={ecosystemImages.networking.url} alt={ecosystemImages.networking.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Industry Networking Hub</h3>
+            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Community.Networking</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Future Professionals</h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Dress for success and build your professional network. Participate in activities that develop your leadership and communication skills.</p>
           </div>
         </div>
       </div>
@@ -629,9 +650,9 @@ const schemaString = JSON.stringify(schema);
   <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Return on Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Blueprint for Market Dominance.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Business or Entrepreneurship degree from OLOPSC is a quantifiable asset. Our graduates scale startups, direct human capital, and command global marketing divisions.</p>
+        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Career Opportunities</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Future in Business.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A Business or Entrepreneurship degree from OLOPSC opens many doors. Our graduates go on to build successful companies, manage talented teams, and lead marketing departments.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -648,7 +669,7 @@ const schemaString = JSON.stringify(schema);
             </div>
 
             <div class="flex-grow flex flex-col">
-              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Executive Roles</span>
+              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Possible Careers</span>
               <ul class="space-y-3">
                 {pathway.roles?.map((role: string) => (
                   <li class="flex items-start gap-3">
