@@ -21,17 +21,17 @@ const quickFacts = {
 };
 
 const tracks = [
-  { title: "Computer Science", subtitle: "BSCS \u2022 4 Years", description: "A comprehensive four-year degree centered on advanced software engineering, algorithm design, and system architecture. This path requires rigorous mathematical and logical application, training students to build scalable applications from the ground up and preparing them for elite roles in the global tech sector." },
-  { title: "Computer Technology", subtitle: "ACT \u2022 2 Years", description: "A streamlined two-year program focused on applied programming and modern web technologies. This curriculum is designed for rapid entry into the software industry, equipping students with highly practical, immediate skills in database management, frontend development, and application deployment." }
+  { title: "Computer Science", subtitle: "BSCS \u2022 4 Years", description: "A comprehensive four-year degree that teaches you how to create software, design algorithms, and build computer systems. This program will train you to develop applications from scratch and prepare you for in-demand jobs in the IT industry." },
+  { title: "Computer Technology", subtitle: "ACT \u2022 2 Years", description: "A fast-tracked two-year program focused on practical programming and modern web development. This is designed to help you enter the tech industry quickly, giving you the hands-on skills needed to build websites and manage databases." }
 ];
 
 const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
   ? pageData.outcomes
   : [
-      { title: "Year 1: Computing Fundamentals & Programming", description: "Establishes the foundational logic for software development. Students master introductory computing concepts, discrete structures, and progress through Fundamentals of Programming into Intermediate Programming." },
-      { title: "Year 2: Data Structures & Systems Analysis", description: "Focuses on core computational theory and database architecture. The curriculum covers Object-Oriented Programming, Data Structures and Algorithms, Fundamentals of Database Systems, and Systems Analysis and Design." },
-      { title: "Year 3: Software Engineering & Advanced Theory", description: "Transitions into complex system architecture and formal research. Students engage in Software Engineering 1, Networks and Communications, Automata Theory and Formal Languages, and complete their CS Thesis Writing requirements." },
-      { title: "Year 4: Industry Practicum & Enterprise Systems", description: "Bridges academia with industry application. Students execute a 300-hour Practicum while tackling advanced enterprise topics including Operating Systems, Information Assurance and Security, and Enterprise Architecture." }
+      { title: "Year 1: Computing Fundamentals & Programming", description: "Learn the basics of computer programming and logic. You will start with introductory computing concepts and move on to writing your first programs." },
+      { title: "Year 2: Data Structures & Systems Analysis", description: "Focus on how data is stored and organized. You will learn about databases, object-oriented programming, and how to analyze and design computer systems." },
+      { title: "Year 3: Software Engineering & Advanced Theory", description: "Move on to advanced software engineering and research. You will study computer networks, complex algorithms, and begin writing your Computer Science thesis." },
+      { title: "Year 4: Industry Practicum & Enterprise Systems", description: "Apply what you've learned in the real world. You will complete your industry practicum (OJT) and study advanced topics like operating systems and cybersecurity." }
     ];
 
 const curriculumTracks = pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
@@ -167,7 +167,7 @@ const leadInstructor = pageData?.chair || {
   name: "Rame Tiongson",
   title: "Computing Studies Instructor & Software Engineer",
   stack: "ReactJS / Next.js / TypeScript / Go",
-  quote: "Computing is a high-risk, high-reward discipline. We do not just teach theory; we build active systems. When you execute this program, you will not just earn a degree—you will acquire the exact capabilities required to architect production-ready software in the modern tech industry.",
+  quote: "Information Technology is a fast-growing and rewarding field. Here at OLOPSC, we make sure our students get hands-on experience in building real software. When you finish this program, you will graduate not just with a diploma, but with the practical skills that tech companies are looking for.",
   image: { url: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=800&auto=format&fit=crop", alt: "Rame Tiongson Portrait" }
 };
 
@@ -194,30 +194,30 @@ const pathways = pageData?.pathways && pageData.pathways.length > 0
   ? pageData.pathways
   : [
       {
-        title: "Enterprise Engineering",
+        title: "Software Development",
         subtitle: "BSCS - Software Architecture",
-        description: "Architect and maintain large-scale, high-concurrency systems. Design the backend logic and cloud infrastructure that powers global digital enterprise.",
-        roles: ["Software Engineer (Go/Node/TS)", "Cloud Infrastructure Architect", "Backend Systems Developer", "DevOps Engineer"],
+        description: "Learn to build and manage large software systems and websites that companies use every day.",
+        roles: ["Software Developer", "Web Developer", "Backend Programmer", "Systems Analyst"],
         iconPath: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
       },
       {
-        title: "Intelligent Systems",
-        subtitle: "BSCS - AI & LLM Focus",
-        description: "Command the AI revolution. Develop LLM agents, implement machine learning models, and build the interfaces that bridge human intent with automated machine intelligence.",
-        roles: ["AI/ML Engineer", "Data Scientist", "LLM Agent Developer", "NLP Researcher"],
+        title: "Artificial Intelligence & Data",
+        subtitle: "BSCS - AI Focus",
+        description: "Learn how to work with Artificial Intelligence and machine learning to build smart applications and analyze data.",
+        roles: ["AI/ML Developer", "Data Analyst", "Data Scientist", "Research Assistant"],
         iconPath: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
       },
       {
-        title: "Interactive Media & Engine Dev",
-        subtitle: "BSCS/ACT - Game Engineering",
-        description: "Develop immersive, interactive, and 3D environments. Master the full production pipeline from asset logic in Roblox/Godot to high-performance client rendering.",
-        roles: ["Game Logic Programmer", "3D Engine Developer", "Interactive Media Specialist", "XR/VR Software Engineer"],
+        title: "Game Development & Media",
+        subtitle: "BSCS/ACT - Interactive Media",
+        description: "Learn how to create 3D environments, design games, and build interactive media applications.",
+        roles: ["Game Developer", "3D Modeler", "Multimedia Specialist", "UI/UX Designer"],
         iconPath: "M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       }
     ];
 
 const pageTitle = pageData?.seo?.title || "BS Computer Science & ACT in Marikina, Metro Manila | OLOPSC College of BMSE";
-const pageDescription = pageData?.seo?.description || "Master the Logic Behind Modern Technology. Specialized degrees in Computer Science and Computer Technology at OLOPSC College of BMSE in Marikina, Metro Manila.";
+const pageDescription = pageData?.seo?.description || "Build Your Future in Tech. Enroll in our Computer Science and Computer Technology programs at OLOPSC College of BMSE in Marikina, Metro Manila.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -250,7 +250,7 @@ const schemaString = JSON.stringify(schema);
 <Layout title={pageTitle} description={pageDescription} additionalSchema={schemaString}>
   <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-white/10">
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
-    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-[60%] h-full object-cover opacity-20 mix-blend-screen z-0" loading="eager" />
+    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-full lg:w-[75%] h-full object-cover opacity-40 md:opacity-60 z-0" style="mask-image: linear-gradient(to right, transparent, black 40%); -webkit-mask-image: linear-gradient(to right, transparent, black 40%);" loading="eager" />
     <ScrollRevealWrapper>
       <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
         <div class="lg:col-span-8 flex flex-col">
@@ -258,8 +258,8 @@ const schemaString = JSON.stringify(schema);
             <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
             <span class="text-accent font-mono text-xs tracking-widest uppercase">College of BMSE &bull; BACHELOR OF SCIENCE IN COMPUTER SCIENCE &bull; ASSOCIATE IN COMPUTER TECHNOLOGY</span>
           </div>
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Master the Logic Behind <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">Modern Technology.</span></h1>
-          <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">The tech industry is shifting. Artificial Intelligence is automating routine programming tasks, making basic IT skills obsolete. Our Computing Studies programs are engineered for this new reality. We train students to understand complex logic, system architecture, and modern full-stack development. We don't just teach you how to write code; we teach you how to build, deploy, and command the technologies that drive the industry forward.</p>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Build Your Future in <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">Information Technology.</span></h1>
+          <p class="text-lg md:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">The tech industry is constantly growing and looking for skilled professionals. Our Computing Studies programs will equip you with the right skills for this fast-paced environment. We don't just teach you how to code; we teach you how to create software, build systems, and use the latest technologies that companies are looking for today.</p>
           <div class="flex flex-wrap gap-4 mt-10">
             <CtaButton cta={{ text: "Explore Curriculum", link: "#curriculum", style: "primary" }} />
           </div>
@@ -327,13 +327,13 @@ const schemaString = JSON.stringify(schema);
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
         <div class="lg:col-span-5 relative h-full">
           <div class="sticky top-32 flex flex-col">
-            <span class="text-accent font-mono text-xs mb-4 uppercase tracking-widest block">/ Execution_Protocol</span>
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-[1.1]">Engineering Logic. Building Systems.</h2>
-            <p class="text-lg text-slate-400 leading-relaxed mb-8">We treat Computing Studies as an applied engineering discipline. Across 146 total academic units, students progress from foundational programming logic to enterprise-level software architecture. The curriculum is structured to bridge theoretical algorithms with production-grade execution, culminating in a 300-hour industry practicum and a rigorously defended thesis.</p>
+            <span class="text-accent font-mono text-xs mb-4 uppercase tracking-widest block">/ Program_Overview</span>
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-[1.1]">Learn to Code. Build the Future.</h2>
+            <p class="text-lg text-slate-400 leading-relaxed mb-8">Our programs will guide you from the basics of programming all the way to advanced software development. You will get plenty of hands-on experience in our labs, preparing you for the real world. Your journey will include industry training (OJT) and practical projects to make sure you are job-ready after graduation.</p>
           </div>
         </div>
         <div class="lg:col-span-7 flex flex-col">
-          <h3 class="text-lg font-mono text-slate-500 mb-8 pb-4 border-b border-white/10 uppercase tracking-widest">System_Capabilities</h3>
+          <h3 class="text-lg font-mono text-slate-500 mb-8 pb-4 border-b border-white/10 uppercase tracking-widest">What_You_Will_Learn</h3>
           {outcomes.map((outcome: any) => (
             <div class="group relative py-8 border-b border-white/10 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-white/5 transition-colors duration-300 px-6 -mx-6 rounded-lg">
               <div class="w-12 h-12 rounded bg-primary flex items-center justify-center shrink-0 border border-white/10 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
@@ -356,8 +356,8 @@ const schemaString = JSON.stringify(schema);
       <div class="max-w-4xl mx-auto px-6">
         <div class="text-center mb-16">
           <span class="text-accent font-mono font-bold text-xs mb-4 inline-block tracking-widest uppercase">/ Academic_Roadmap</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Execution Pipeline.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed">Initialize your preferred runtime below to view the academic progression and core technical subjects.</p>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What to Expect.</h2>
+          <p class="text-lg text-slate-600 leading-relaxed">Select a program below to see the subjects and topics you will take each year.</p>
         </div>
 
         <div class="flex flex-wrap justify-center gap-4 mb-12">
@@ -407,46 +407,48 @@ const schemaString = JSON.stringify(schema);
     <ScrollRevealWrapper>
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
         <span class="text-accent font-mono text-xs mb-4 inline-block tracking-widest uppercase">/ Hardware_&_Facilities</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">The Execution Environment.</h2>
-        <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">Our laboratories mirror high-performance industry workspaces. From multi-monitor development suites to dedicated routing hardware, this is where theory compiles into production-ready software.</p>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Our Computer Laboratories.</h2>
+        <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">Our computer labs are equipped with the tools and software you need to practice your skills. This is where you will turn your ideas into working programs and applications.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px] relative z-10">
-        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-2 md:row-span-1">
-          <img src={ecosystemImages.engineeringLab.url} alt={ecosystemImages.engineeringLab.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-slate-900 md:col-span-2 md:row-span-1">
+          <img src={ecosystemImages.engineeringLab.url} alt={ecosystemImages.engineeringLab.alt} class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Web_Dev</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Advanced Software Engineering Lab</h3>
-            <p class="text-slate-400 text-sm max-w-md hidden md:block">High-performance workstations configured for modern web architecture, local server deployment, and continuous integration workflows.</p>
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Lab</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Main Computer Laboratories</h3>
+            <p class="text-slate-400 text-sm max-w-md hidden md:block">Fully equipped computer laboratories where students apply theoretical concepts into hands-on programming and software development.</p>
           </div>
         </div>
 
-        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-2">
-          <img src={ecosystemImages.gameStudio.url} alt={ecosystemImages.gameStudio.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-slate-900 md:col-span-1 md:row-span-2">
+          <img src={ecosystemImages.gameStudio.url} alt={ecosystemImages.gameStudio.alt} class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Render</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Interactive Media & Game Studio</h3>
-            <p class="text-slate-400 text-sm mt-2">GPU-accelerated machines dedicated to 3D asset modeling in Blender and logic programming within Godot 4 and Roblox Studio.</p>
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Interactive</span>
+            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Interactive Media Studio</h3>
+            <p class="text-slate-400 text-sm mt-2">Dedicated spaces for learning fundamental game logic, 3D asset modeling, and developing interactive media applications.</p>
           </div>
         </div>
 
-        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
-          <img src={ecosystemImages.networkHub.url} alt={ecosystemImages.networkHub.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-slate-900 md:col-span-1 md:row-span-1">
+          <img src={ecosystemImages.networkHub.url} alt={ecosystemImages.networkHub.alt} class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Network</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Architecture & Routing Node</h3>
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Community</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Active Tech Community</h3>
+            <p class="text-slate-400 text-sm mt-2 hidden sm:block">Join a vibrant community of tech enthusiasts through student organizations and tech events.</p>
           </div>
         </div>
 
-        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-primary md:col-span-1 md:row-span-1">
-          <img src={ecosystemImages.aiNode.url} alt={ecosystemImages.aiNode.alt} class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent z-10"></div>
+        <div class="group relative rounded-lg overflow-hidden flex flex-col justify-end p-8 border border-white/10 bg-slate-900 md:col-span-1 md:row-span-1">
+          <img src={ecosystemImages.aiNode.url} alt={ecosystemImages.aiNode.alt} class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 z-0" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
           <div class="relative z-20">
-            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Compute</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Machine Learning & LLM Cluster</h3>
+            <span class="text-accent font-mono text-xs uppercase tracking-widest mb-2 block">System.Collaboration</span>
+            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Collaborative Learning</h3>
+            <p class="text-slate-400 text-sm mt-2 hidden sm:block">Engage in peer-to-peer learning, group projects, and interactive problem-solving.</p>
           </div>
         </div>
       </div>
@@ -508,9 +510,9 @@ const schemaString = JSON.stringify(schema);
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
     <ScrollRevealWrapper>
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-mono font-bold tracking-widest uppercase text-xs mb-4 inline-block">/ Return_On_Investment</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">High-Yield Technical Trajectories.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">An OLOPSC Computing Studies degree is a technical asset. Our graduates are trained to architect systems, direct AI integration, and build immersive digital environments.</p>
+        <span class="text-accent font-mono font-bold tracking-widest uppercase text-xs mb-4 inline-block">/ Career_Opportunities</span>
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Your Future Career in Tech.</h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">An OLOPSC degree opens doors to many opportunities. Our graduates are equipped with the right skills to succeed in various roles in the IT industry.</p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -544,7 +546,7 @@ const schemaString = JSON.stringify(schema);
       <div class="max-w-4xl mx-auto px-6 mt-20 text-center flex justify-center">
         <CtaButton
           cta={{
-            text: "Initialize_Application",
+            text: "Apply Now",
             link: { type: "external", external: "/admissions" }
           }}
           variant="primary"
