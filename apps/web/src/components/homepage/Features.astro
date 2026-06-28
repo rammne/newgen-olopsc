@@ -101,7 +101,7 @@ const finalCollegeFeatures = collegeFeatures.length > 0
           {finalBasicEdFeatures.map((feature) => (
             <a
               href="#"
-              class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2"
+              class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 transform-gpu"
               aria-label={`${feature.title} - ${feature.desc}`}
             >
               <!-- Image Layer -->
@@ -109,18 +109,19 @@ const finalCollegeFeatures = collegeFeatures.length > 0
                 src={feature.image}
                 alt=""
                 loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+                decoding="async"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0 transform-gpu"
               />
 
               <!-- Gradient Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10 pointer-events-none"></div>
 
               <!-- Hover Payload Layer -->
-              <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end">
-                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end pointer-events-none">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 transform-gpu">
                   {feature.title}
                 </h3>
-                <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+                <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75 transform-gpu">
                   {feature.desc}
                 </p>
               </div>
@@ -139,7 +140,7 @@ const finalCollegeFeatures = collegeFeatures.length > 0
           {finalCollegeFeatures.map((feature) => (
             <a
               href="#"
-              class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2"
+              class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 transform-gpu"
               aria-label={`${feature.title} - ${feature.desc}`}
             >
               <!-- Image Layer -->
@@ -147,18 +148,19 @@ const finalCollegeFeatures = collegeFeatures.length > 0
                 src={feature.image}
                 alt=""
                 loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+                decoding="async"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0 transform-gpu"
               />
 
               <!-- Gradient Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-10 pointer-events-none"></div>
 
               <!-- Hover Payload Layer -->
-              <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end">
-                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+              <div class="absolute inset-0 z-20 p-6 flex flex-col justify-end pointer-events-none">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 transform-gpu">
                   {feature.title}
                 </h3>
-                <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+                <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75 transform-gpu">
                   {feature.desc}
                 </p>
               </div>
