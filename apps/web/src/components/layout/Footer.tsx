@@ -10,7 +10,7 @@ const FOOTER_SECTIONS = [
       { label: 'Grade School', href: '/grade-school' },
       { label: 'Junior High School', href: '/junior-high-school' },
       { label: 'Senior High School', href: '/senior-high-school' },
-      { label: 'College', href: '/college-department' },
+      { label: 'College', href: '/college' },
       { label: 'Scholarship Programs', href: '/scholarship-programs' },
     ],
   },
@@ -48,11 +48,11 @@ const FOOTER_SECTIONS = [
 
 // Social media links (can be fetched from Sanity later)
 const SOCIAL_LINKS = [
-  { platform: 'Facebook', icon: Facebook, href: '#' },
-  { platform: 'Instagram', icon: Instagram, href: '#' },
-  { platform: 'Twitter', icon: Twitter, href: '#' },
-  { platform: 'YouTube', icon: Youtube, href: '#' },
-  { platform: 'LinkedIn', icon: Linkedin, href: '#' },
+  { platform: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/olopsc.official/' },
+  { platform: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/olopsc_official' },
+  { platform: 'Twitter', icon: Twitter, href: 'https://x.com/OLOPSC_OFFICIAL' },
+  { platform: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@olopscollegeofficial825' },
+  { platform: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/school/olopscmarikina/' },
 ]
 
 export function Footer() {

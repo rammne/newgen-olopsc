@@ -18,7 +18,7 @@ const HEADER_MENU_SECTIONS = [
       { label: 'Grade School', href: '/grade-school' },
       { label: 'Junior High School', href: '/junior-high-school' },
       { label: 'Senior High School', href: '/senior-high-school' },
-      { label: 'College', href: '/college-department' },
+      { label: 'College', href: '/college' },
       { label: 'Scholarship Programs', href: '/scholarship-programs' },
     ],
   },

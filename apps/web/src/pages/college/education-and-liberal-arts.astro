@@ -327,8 +327,8 @@ const schemaString = JSON.stringify(schema);
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Inspire Students. <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Master English.</span></h1>
         <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">As a core part of the College of Business, Management, Science, and Education (BMSE), this department offers specialized degrees in Elementary Education, Secondary Education, and the English Language. We will guide you to become an inspiring teacher or an effective communication professional.</p>
         <div class="flex flex-wrap gap-4">
-          <CtaButton cta={{ text: "Explore Our Programs", link: "#programs", style: "primary" }} />
-          <CtaButton cta={{ text: "View Career Opportunities", link: "#outcomes", style: "outline" }} />
+          <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} variant="primary" />
+          <CtaButton cta={{ text: "View Career Opportunities", link: { type: "anchor", anchor: "outcomes" } }} variant="secondary" />
         </div>
       </div>
     </ScrollRevealWrapper>
@@ -624,7 +624,7 @@ const schemaString = JSON.stringify(schema);
     </ScrollRevealWrapper>
   </section>
 
-  <section class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
+  <section id="outcomes" class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
         <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Career Opportunities</span>
@@ -661,7 +661,7 @@ const schemaString = JSON.stringify(schema);
       </div>
 
       <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
-        <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions", style: "primary" }} />
+        <CtaButton cta={{ text: "Begin Your Application Today", link: { type: "external", external: "/admissions/college-admission" }, style: "primary" }} />
       </div>
     </ScrollRevealWrapper>
   </section>

@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import AdmissionEngine from "../../components/admissions/AdmissionEngine.astro";
 import TuitionStructures from "../../components/admissions/TuitionStructures.astro";
 import PoliciesDirectory from "../../components/admissions/PoliciesDirectory.astro";
+import LocationMap from "../../components/common/LocationMap.astro";
 import { getAdmissionsPage } from "../../lib/sanity/queries";
 import "../../styles/global.css";
 
@@ -54,4 +55,9 @@ const ogImage = admissionsPage?.seo?.image?.asset?.url;
 
   {/* Section 4: Policies & Helpdesk Directory */}
   <PoliciesDirectory />
+
+  {/* Section 5: Location Map */}
+  <section class="py-12 md:py-16 bg-slate-50">
+    <LocationMap />
+  </section>
 </Layout>

@@ -246,8 +246,8 @@ const schemaString = JSON.stringify(schema);
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Your Journey into the <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">World of Tourism.</span></h1>
         <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">Prepare for a fun and rewarding career that lets you explore the world. Our B.S. in Tourism Management program gives you the skills needed to succeed in airlines, travel agencies, event planning, and hotel management.</p>
         <div class="flex flex-wrap gap-4 mt-10">
-          <CtaButton cta={{ text: "Explore Curriculum", link: "#curriculum" }} variant="primary" />
-          <CtaButton cta={{ text: "View Career Paths", link: "#outcomes" }} variant="secondary" />
+          <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} variant="primary" />
+          <CtaButton cta={{ text: "View Career Paths", link: { type: "anchor", anchor: "outcomes" } }} variant="secondary" />
         </div>
       </div>
     </ScrollRevealWrapper>
@@ -535,7 +535,7 @@ const schemaString = JSON.stringify(schema);
       </div>
 
       <div class="max-w-4xl mx-auto px-6 mt-20 flex justify-center">
-        <CtaButton cta={{ text: "Begin Your Application Today", link: "/admissions" }} variant="primary" />
+        <CtaButton cta={{ text: "Begin Your Application Today", link: { type: "external", external: "/admissions/college-admission" } }} variant="primary" />
       </div>
     </ScrollRevealWrapper>
   </section>

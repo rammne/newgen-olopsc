@@ -7,7 +7,7 @@ export function getDepartmentUrl(departmentType: 'preschool' | 'gradeSchool' | '
     gradeSchool: '/grade-school',
     juniorHigh: '/junior-high-school',
     seniorHigh: '/senior-high-school',
-    college: '/college-department',
+    college: '/college',
   }
   
   return urlMap[departmentType] || '/'
@@ -22,7 +22,7 @@ export function getDepartmentTypeFromUrl(path: string): 'preschool' | 'gradeScho
     '/grade-school': 'gradeSchool',
     '/junior-high-school': 'juniorHigh',
     '/senior-high-school': 'seniorHigh',
-    '/college-department': 'college',
+    '/college': 'college',
   }
   
   return typeMap[path] || null

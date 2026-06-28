@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getAdmissionsPage } from "../../lib/sanity/queries";
+import BasicEducationContent from "../../components/admissions/BasicEducationContent.astro";
+import LocationMap from "../../components/common/LocationMap.astro";
 import "../../styles/global.css";
 
 // Fetch admissions page data (reuse existing Sanity query for the hero)
@@ -44,5 +46,11 @@ const ogImage = admissionsPage?.seo?.image?.asset?.url;
     }
   </style>
 
-  {/* Sections to be built */}
+  {/* Content Section */}
+  <BasicEducationContent />
+
+  {/* Location Map */}
+  <section class="py-12 md:py-16 bg-slate-50">
+    <LocationMap />
+  </section>
 </Layout>

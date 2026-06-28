@@ -193,7 +193,16 @@ const videoUrl = getVideoUrl();
         {
           hero?.secondaryCta && (
             <div class="animate-from-bottom">
-              <CtaButton cta={hero.secondaryCta} />
+              <CtaButton
+                cta={{
+                  text: "View Offers",
+                  style: "secondary",
+                  link: {
+                    type: "anchor",
+                    anchor: "academic-departments",
+                  },
+                }}
+              />
             </div>
           )
         }

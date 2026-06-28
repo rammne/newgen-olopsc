@@ -84,7 +84,7 @@ const ogImage =
             }
             <span class="text-[var(--color-primary)]/80">
               {article.academicDepartment ? (
-                <a href={`/${article.academicDepartment.slug?.current || ""}`} class="hover:text-[var(--color-accent)] transition-colors">
+                <a href={`/${article.academicDepartment.slug?.current === 'college-department' ? 'college' : article.academicDepartment.slug?.current || ""}`} class="hover:text-[var(--color-accent)] transition-colors font-medium">
                   {article.academicDepartment.title}
                 </a>
               ) : (
@@ -93,14 +93,16 @@ const ogImage =
             </span>
             {
               article.collegePrograms && article.collegePrograms.length > 0 && (
-                <span class="text-[var(--color-primary)]/80 flex items-center gap-2">
-                  <span>•</span>
-                  {article.collegePrograms.map((prog: any, index: number) => (
-                    <a href={`/${prog.slug?.current || ""}`} class="hover:text-[var(--color-accent)] transition-colors">
-                      {prog.title}{index < article.collegePrograms.length - 1 ? ", " : ""}
+                <div class="flex flex-wrap items-center gap-2 mt-2 w-full">
+                  {article.collegePrograms.map((prog: any) => (
+                    <a 
+                      href={`/college/${prog.slug?.current || ""}`} 
+                      class="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-full text-xs font-semibold transition-colors border border-blue-100 shadow-sm"
+                    >
+                      {prog.title}
                     </a>
                   ))}
-                </span>
+                </div>
               )
             }
             {
