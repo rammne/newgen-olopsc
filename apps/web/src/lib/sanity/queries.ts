@@ -581,7 +581,22 @@ export async function getHomePage() {
         }
       }
     },
-    features[] {
+    basicEdFeatures[] {
+      icon,
+      image {
+        asset->{
+          url
+        },
+        alt
+      },
+      title,
+      description,
+      link {
+        url,
+        text
+      }
+    },
+    collegeFeatures[] {
       icon,
       image {
         asset->{

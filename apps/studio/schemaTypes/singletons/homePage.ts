@@ -333,11 +333,19 @@ export const homePage = defineType({
       ],
     }),
     defineField({
-      name: 'features',
-      title: 'Key Features/Highlights',
+      name: 'basicEdFeatures',
+      title: 'Basic Ed Features',
       type: 'array',
       of: [{ type: 'feature' }],
-      description: 'What makes your school special',
+      description: 'Features for Basic Education',
+      group: 'engagement',
+    }),
+    defineField({
+      name: 'collegeFeatures',
+      title: 'College Features',
+      type: 'array',
+      of: [{ type: 'feature' }],
+      description: 'Features for College Department',
       group: 'engagement',
     }),
     defineField({

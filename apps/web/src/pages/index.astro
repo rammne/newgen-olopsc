@@ -107,9 +107,13 @@ const ogImage = homePage?.seo?.image?.asset?.url;
   }
 
   {
-    homePage?.features && homePage.features.length > 0 && (
+    ((homePage?.basicEdFeatures && homePage.basicEdFeatures.length > 0) || 
+     (homePage?.collegeFeatures && homePage.collegeFeatures.length > 0)) && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features features={homePage.features} />
+        <Features 
+          basicEdFeatures={homePage.basicEdFeatures} 
+          collegeFeatures={homePage.collegeFeatures} 
+        />
       </ScrollRevealWrapper>
     )
   }

@@ -1,64 +1,81 @@
 ---
+interface FeatureItem {
+  icon?: string;
+  image?: {
+    asset?: {
+      url?: string;
+    };
+    alt?: string;
+  };
+  title?: string;
+  description?: string;
+  link?: {
+    url?: string;
+    text?: string;
+  };
+}
+
 interface Props {
-  campusImage?: string;
-  labsImage?: string;
-  libraryImage?: string;
-  studentLifeImage?: string;
-  techImage?: string;
-  athleticsImage?: string;
+  basicEdFeatures?: FeatureItem[];
+  collegeFeatures?: FeatureItem[];
 }
 
 const {
-  campusImage,
-  labsImage,
-  libraryImage,
-  studentLifeImage,
-  techImage,
-  athleticsImage
+  basicEdFeatures = [],
+  collegeFeatures = []
 } = Astro.props;
 
-const finalCampusImage = campusImage ?? 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop';
-const finalLabsImage = labsImage ?? 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop';
-const finalLibraryImage = libraryImage ?? 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1200&auto=format&fit=crop';
-const finalStudentLifeImage = studentLifeImage ?? 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop';
-const finalTechImage = techImage ?? 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop';
-const finalAthleticsImage = athleticsImage ?? 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop';
-
-const basicEdFeatures = [
+const fallbackBasicEdFeatures = [
   {
     title: "The Marikina Campus",
     desc: "A secure, accessible, and green environment designed to inspire academic excellence and community.",
-    image: finalCampusImage,
+    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: "Library & Study Hubs",
     desc: "Comprehensive academic resource centers equipped for collaborative research and quiet, focused study.",
-    image: finalLibraryImage,
+    image: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: "Athletics & Recreation",
     desc: "Top-tier sports facilities promoting physical wellness and competitive spirit among OLOPSCians.",
-    image: finalAthleticsImage,
+    image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop',
   }
 ];
 
-const collegeFeatures = [
+const fallbackCollegeFeatures = [
   {
     title: "Modern Laboratories",
     desc: "Advanced computer and science laboratories tailored for outcome-based College and K-12 technical learning.",
-    image: finalLabsImage,
+    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: "Tech & IT Innovation",
     desc: "State-of-the-art coding labs, network simulation centers, and innovation hubs tailored for the booming IT industry (BSCS & ACT).",
-    image: finalTechImage,
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop',
   },
   {
     title: "Vibrant Student Life",
     desc: "A dynamic campus culture fostering leadership through recognized student organizations and civic action.",
-    image: finalStudentLifeImage,
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop',
   }
 ];
+
+const finalBasicEdFeatures = basicEdFeatures.length > 0 
+  ? basicEdFeatures.map(f => ({
+      title: f.title || "Feature",
+      desc: f.description || "",
+      image: f.image?.asset?.url || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop'
+    }))
+  : fallbackBasicEdFeatures;
+
+const finalCollegeFeatures = collegeFeatures.length > 0
+  ? collegeFeatures.map(f => ({
+      title: f.title || "Feature",
+      desc: f.description || "",
+      image: f.image?.asset?.url || 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop'
+    }))
+  : fallbackCollegeFeatures;
 ---
 
 <section class="bg-surface py-20 px-5 sm:px-[60px] sm:py-[100px] min-h-[60vh]">
@@ -81,7 +98,7 @@ const collegeFeatures = [
           <p class="text-primary font-medium">Shaping young minds from Preschool to Senior High.</p>
         </div>
         <div class="grid grid-cols-1 gap-6">
-          {basicEdFeatures.map((feature) => (
+          {finalBasicEdFeatures.map((feature) => (
             <a
               href="#"
               class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2"
@@ -119,7 +136,7 @@ const collegeFeatures = [
           <p class="text-primary font-medium">Future-Ready facilities and curriculum for College.</p>
         </div>
         <div class="grid grid-cols-1 gap-6">
-          {collegeFeatures.map((feature) => (
+          {finalCollegeFeatures.map((feature) => (
             <a
               href="#"
               class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2"
