@@ -9,6 +9,7 @@ import TenPointAgenda from "../components/about/TenPointAgenda.astro";
 import HistorySection from "../components/about/HistorySection.astro";
 import LeadershipSection from "../components/about/LeadershipSection.astro";
 import AccreditationsSection from "../components/about/AccreditationsSection.astro";
+import { PortableText } from "astro-portabletext";
 import { getAboutPage } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
@@ -351,21 +352,30 @@ const schemaString = JSON.stringify(schema);
         <h2
           class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]"
         >
-          A Premier Private Education in Marikina City.
+          {aboutPage?.identity?.title || "A Premier Private Education in Marikina City."}
         </h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">
-          Founded in 1978, Our Lady of Perpetual Succor College (OLOPSC) is a
-          premier, affordable non-sectarian educational institution. As one of
-          the biggest co-educational private schools in Marikina City, we offer
-          a seamless educational journey from preschool through senior high
-          school, culminating in our CHED-recognized higher education division:
-          the College of Business, Management, Science, and Education (BMSE).
-        </p>
-        <p class="text-lg text-slate-600 leading-relaxed mb-10">
-          Every program is engineered for academic excellence, ensuring
-          accessible, outcome-based learning that forms future-ready, socially
-          responsible professionals.
-        </p>
+        
+        {aboutPage?.identity?.content ? (
+          <div class="prose prose-lg prose-slate text-slate-600 mb-10 max-w-none prose-p:leading-relaxed">
+            <PortableText value={aboutPage.identity.content} />
+          </div>
+        ) : (
+          <>
+            <p class="text-lg text-slate-600 leading-relaxed mb-6">
+              Founded in 1978, Our Lady of Perpetual Succor College (OLOPSC) is a
+              premier, affordable non-sectarian educational institution. As one of
+              the biggest co-educational private schools in Marikina City, we offer
+              a seamless educational journey from preschool through senior high
+              school, culminating in our CHED-recognized higher education division:
+              the College of Business, Management, Science, and Education (BMSE).
+            </p>
+            <p class="text-lg text-slate-600 leading-relaxed mb-10">
+              Every program is engineered for academic excellence, ensuring
+              accessible, outcome-based learning that forms future-ready, socially
+              responsible professionals.
+            </p>
+          </>
+        )}
 
         <!-- <a href="#history" class="inline-flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors group w-fit">
             <span>Explore Our History</span>
@@ -391,7 +401,7 @@ const schemaString = JSON.stringify(schema);
         >
           <img
             src={identityMainImage.url}
-            alt="OLOPSC Main Campus Marikina"
+            alt={identityMainImage.alt}
             class="w-full h-full object-cover"
             loading="lazy"
           />
@@ -403,7 +413,7 @@ const schemaString = JSON.stringify(schema);
         >
           <img
             src={identitySubImage.url}
-            alt="OLOPSC Students Collaborating"
+            alt={identitySubImage.alt}
             class="w-full h-full object-cover"
             loading="lazy"
           />
