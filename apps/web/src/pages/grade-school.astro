@@ -100,7 +100,7 @@ const ogImage = department?.seo?.image?.asset?.url;
         <p class="text-lg text-muted leading-relaxed mb-8">
           {department?.hero?.subheadline || "The formative years dictate a lifelong love for learning. Our DepEd-accredited Grade School curriculum meticulously bridges the gap between early childhood discovery and rigorous academic competence, deeply rooted in Catholic values."}
         </p>
-        <CtaButton cta={{ text: "View Enrollment Requirements", link: "/admissions", style: "primary" }} />
+        <CtaButton cta={{ text: "View Enrollment Requirements", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
       </div>
 
       <!-- Right Column: Visual Frame -->

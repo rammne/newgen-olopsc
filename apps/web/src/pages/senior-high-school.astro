@@ -137,9 +137,9 @@ const ogImage = department?.seo?.image?.asset?.url;
           {department?.hero?.subheadline || "Senior High School is the definitive step toward your career. At OLOPSC, we treat our SHS students as responsible young adults, providing the academic freedom to pursue specific passions, while giving parents the peace of mind of a secure, credible, and values-driven Catholic institution."}
         </p>
         <div class="flex flex-wrap gap-4">
-          <CtaButton cta={{ text: "Contact Admissions", link: "#track-clusters", style: "primary" }} />
+          <CtaButton cta={{ text: "Contact Admissions", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
           <a
-            href="/admissions"
+            href="/scholarship-programs"
             class="inline-flex items-center justify-center border-2 border-white text-white hover:bg-white hover:text-[#131312] font-bold py-3 px-8 rounded transition-colors"
           >
             Explore our Scholarship Programs
@@ -489,7 +489,7 @@ const ogImage = department?.seo?.image?.asset?.url;
       <p class="text-lg text-primary/80 font-medium mb-10">
         {department?.admissionInfo?.content || "The enrollment process is straightforward. Secure your slot for the upcoming academic year today."}
       </p>
-      <CtaButton cta={{ text: "Start Enrollment Process", link: "/admissions", style: "primary" }} />
+      <CtaButton cta={{ text: "Start Enrollment Process", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
     </div>
   </section>
 

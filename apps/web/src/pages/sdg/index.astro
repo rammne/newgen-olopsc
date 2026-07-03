@@ -34,7 +34,7 @@ const pageDescription =
                     <div class="text-center max-w-4xl mx-auto mb-16">
                         {sdgPage.intro.headline && (
                             <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6">
-                                {sdgPage.intro.headline}
+                                {sdgPage.intro.headline?.replace(/\.$/, '')}
                             </h2>
                         )}
                         <div class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full mb-8" />

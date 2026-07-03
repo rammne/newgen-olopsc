@@ -219,29 +219,35 @@ const schema = {
     {
       "@type": "AboutPage",
       "@id": "https://www.olopsc.edu.ph/about/#webpage",
-      "url": "https://www.olopsc.edu.ph/about",
-      "name": "About Our Lady of Perpetual Succor College (OLOPSC)",
-      "description": "Learn about the history, mission, vision, and leadership of Our Lady of Perpetual Succor College in Marikina City.",
-      "publisher": {
-        "@id": "https://www.olopsc.edu.ph/#organization"
-      }
+      url: "https://www.olopsc.edu.ph/about",
+      name: "About Our Lady of Perpetual Succor College (OLOPSC)",
+      description:
+        "Learn about the history, mission, vision, and leadership of Our Lady of Perpetual Succor College in Marikina City.",
+      publisher: {
+        "@id": "https://www.olopsc.edu.ph/#organization",
+      },
     },
-    ...executives.map(exec => ({
+    ...executives.map((exec) => ({
       "@type": "Person",
-      "name": exec.name,
-      "jobTitle": exec.title,
-      "worksFor": {
+      name: exec.name,
+      jobTitle: exec.title,
+      worksFor: {
         "@type": "CollegeOrUniversity",
-        "name": "Our Lady of Perpetual Succor College"
-      }
-    }))
-  ]
+        name: "Our Lady of Perpetual Succor College",
+      },
+    })),
+  ],
 };
 
 const schemaString = JSON.stringify(schema);
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage} additionalSchema={schemaString}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+  additionalSchema={schemaString}
+>
   <!-- ==================== NEW CUSTOM HERO ==================== -->
   <section
     class="relative bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden"
@@ -280,7 +286,8 @@ const schemaString = JSON.stringify(schema);
       >
         A Legacy of <span
           class="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300"
-          >Academic Excellence.</span>
+          >Academic Excellence</span
+        >
       </h1>
 
       <!-- Paragraph -->
@@ -423,7 +430,7 @@ const schemaString = JSON.stringify(schema);
         </div>
         <div class="md:col-span-9">
           <p
-            class="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight"
+            class="text-3xl md:text-3xl lg:text-4xl font-black text-white leading-tight tracking-tight"
           >
             Our Lady of Perpetual Succor College envisions itself as a <span
               class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200"
@@ -492,32 +499,37 @@ const schemaString = JSON.stringify(schema);
 
       <!-- The S-RICE Core Values -->
       <div
-        class="mt-24 md:mt-32 pt-12 border-t border-white flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-60 hover:opacity-100 transition-opacity duration-500"
+        class="mt-24 md:mt-32 pt-12 border-t border-white flex flex-col items-center gap-6 opacity-60 hover:opacity-100 transition-opacity duration-500"
       >
-        <span
-          class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-          >Spirituality</span
+        <span class="text-accent font-black tracking-widest uppercase text-xs"
+          >Core Values</span
         >
-        <span class="text-accent text-2xl leading-none">&bull;</span>
-        <span
-          class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-          >Responsibility</span
-        >
-        <span class="text-accent text-2xl leading-none">&bull;</span>
-        <span
-          class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-          >Integrity</span
-        >
-        <span class="text-accent text-2xl leading-none">&bull;</span>
-        <span
-          class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-          >Caring Culture</span
-        >
-        <span class="text-accent text-2xl leading-none">&bull;</span>
-        <span
-          class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-          >Excellence</span
-        >
+        <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+          <span
+            class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
+            >Spirituality</span
+          >
+          <span class="text-accent text-2xl leading-none">&bull;</span>
+          <span
+            class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
+            >Responsibility and Respect</span
+          >
+          <span class="text-accent text-2xl leading-none">&bull;</span>
+          <span
+            class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
+            >Integrity</span
+          >
+          <span class="text-accent text-2xl leading-none">&bull;</span>
+          <span
+            class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
+            >Caring Culture</span
+          >
+          <span class="text-accent text-2xl leading-none">&bull;</span>
+          <span
+            class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
+            >Excellence</span
+          >
+        </div>
       </div>
     </div>
   </section>
@@ -778,9 +790,7 @@ const schemaString = JSON.stringify(schema);
       {
         executives.map((exec, index) => (
           <div class="group flex flex-col">
-            <div
-              class="relative w-full aspect-[3/4] bg-surface rounded-2xl overflow-hidden mb-6 border border-slate-100 shadow-sm transition-all duration-300 ring-2 ring-accent ring-offset-4"
-            >
+            <div class="relative w-full aspect-[3/4] bg-surface rounded-2xl overflow-hidden mb-6 border border-slate-100 shadow-sm transition-all duration-300 ring-2 ring-accent ring-offset-4">
               <img
                 src={exec.image.url}
                 alt={exec.image.alt}

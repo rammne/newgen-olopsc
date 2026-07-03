@@ -376,8 +376,8 @@ const alumniStories: AlumniStory[] = hasValidAlumniStories
 
         <!-- CTA Group -->
         <div class="flex flex-wrap gap-4">
-          <CtaButton cta={{ text: "Contact Admissions", link: "#programs", style: "primary" }} />
-          <CtaButton cta={{ text: "Scholarships", link: "#admissions", style: "secondary" }} />
+          <CtaButton cta={{ text: "Contact Admissions", link: { type: "external", external: "/admissions/college-admission" }, style: "primary" }} />
+          <CtaButton cta={{ text: "Scholarships", link: { type: "external", external: "/scholarship-programs" }, style: "secondary" }} />
         </div>
       </div>
 
@@ -746,7 +746,7 @@ const alumniStories: AlumniStory[] = hasValidAlumniStories
       <p class="text-lg text-muted mb-10">
         Application portals for incoming Freshmen and Transferees are now open. Review our requirements and secure your future today.
       </p>
-      <CtaButton cta={{ text: "Contact Admissions now!", link: "/admissions", style: "primary" }} />
+      <CtaButton cta={{ text: "Contact Admissions now!", link: { type: "external", external: "/admissions/college-admission" }, style: "primary" }} />
     </div>
   </section>
 

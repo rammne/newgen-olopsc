@@ -16,52 +16,82 @@ interface SanityImage {
 
 const heroImage: SanityImage = {
   url: department?.hero?.backgroundImage?.asset?.url
-    ? getSanityImageUrl(department.hero.backgroundImage, { width: 1200, height: 900, fit: "crop" })
+    ? getSanityImageUrl(department.hero.backgroundImage, {
+        width: 1200,
+        height: 900,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.hero?.backgroundImage?.alt
-    ?? "OLOPSC Pre-School early childhood learning environment",
+  alt:
+    department?.hero?.backgroundImage?.alt ??
+    "OLOPSC Preschool early childhood learning environment",
 };
 
 const environmentImage: SanityImage = {
   url: department?.facilityTourImages?.[3]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[3], { width: 1200, height: 1200, fit: "crop" })
+    ? getSanityImageUrl(department.facilityTourImages[3], {
+        width: 1200,
+        height: 1200,
+        fit: "crop",
+      })
     : department?.curriculum?.image?.asset?.url
-      ? getSanityImageUrl(department.curriculum.image, { width: 1200, height: 1200, fit: "crop" })
+      ? getSanityImageUrl(department.curriculum.image, {
+          width: 1200,
+          height: 1200,
+          fit: "crop",
+        })
       : "https://images.unsplash.com/photo-1564429238961-5e2809c8d7ab?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[3]?.alt
-    ?? department?.curriculum?.image?.alt
-    ?? "Dedicated and secure OLOPSC Pre-School facility",
+  alt:
+    department?.facilityTourImages?.[3]?.alt ??
+    department?.curriculum?.image?.alt ??
+    "Dedicated and secure OLOPSC Preschool facility",
 };
 
 const classroomImage: SanityImage = {
   url: department?.facilityTourImages?.[0]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[0], { width: 1200, height: 900, fit: "crop" })
+    ? getSanityImageUrl(department.facilityTourImages[0], {
+        width: 1200,
+        height: 900,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1574505342468-b7eb18d6e38b?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[0]?.alt
-    ?? "Sanitized, child-scaled OLOPSC pre-school classroom",
+  alt:
+    department?.facilityTourImages?.[0]?.alt ??
+    "Sanitized, child-scaled OLOPSC preschool classroom",
 };
 
 const playgroundImage: SanityImage = {
   url: department?.facilityTourImages?.[1]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[1], { width: 1200, height: 900, fit: "crop" })
+    ? getSanityImageUrl(department.facilityTourImages[1], {
+        width: 1200,
+        height: 900,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[1]?.alt
-    ?? "Secure pre-school playground with rubberized safety flooring",
+  alt:
+    department?.facilityTourImages?.[1]?.alt ??
+    "Secure preschool playground with rubberized safety flooring",
 };
 
 const waitingAreaImage: SanityImage = {
   url: department?.facilityTourImages?.[2]?.asset?.url
-    ? getSanityImageUrl(department.facilityTourImages[2], { width: 1200, height: 900, fit: "crop" })
+    ? getSanityImageUrl(department.facilityTourImages[2], {
+        width: 1200,
+        height: 900,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop",
-  alt: department?.facilityTourImages?.[2]?.alt
-    ?? "Staff-monitored secure drop-off and waiting area",
+  alt:
+    department?.facilityTourImages?.[2]?.alt ??
+    "Staff-monitored secure drop-off and waiting area",
 };
 
 // SEO metadata
-const pageTitle = department?.seo?.title ?? "Pre-School | OLOPSC Marikina";
-const pageDescription = department?.seo?.description ?? "Play-based early childhood education fostering foundational learning, curiosity, and Christian values at OLOPSC Marikina.";
+const pageTitle = department?.seo?.title ?? "Preschool | OLOPSC Marikina";
+const pageDescription =
+  department?.seo?.description ??
+  "Play-based early childhood education fostering foundational learning, curiosity, and Christian values at OLOPSC Marikina.";
 const ogImage = department?.seo?.image?.asset?.url;
-
 
 // Milestone data
 const milestones = [
@@ -84,23 +114,55 @@ const milestones = [
 ---
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
-
   <!-- ==================== SECTION 1: The Safe Harbor Hero ==================== -->
-  <section class="relative bg-slate-50 pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-200">
-    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/50 to-transparent z-0 pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
-      
+  <section
+    class="relative bg-slate-50 pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-200"
+  >
+    <div
+      class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/50 to-transparent z-0 pointer-events-none"
+    >
+    </div>
+    <div
+      class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
+    >
       <div class="flex flex-col items-start text-left">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 block">Early Childhood Education</span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-primary mb-6">The Foundation of Lifelong Learning.</h1>
-        <p class="text-lg md:text-xl text-slate-600 leading-relaxed mb-8">The OLOPSC Preschool Department provides a nurturing, structured environment designed to develop cognitive, motor, and social skills. We offer three specialized early childhood levels: Nursery, Pre-Kinder, and Kinder.</p>
-        <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} />
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4 block"
+          >Early Childhood Education</span
+        >
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-primary mb-6"
+        >
+          The Foundation of Lifelong Learning
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 leading-relaxed mb-8">
+          The OLOPSC Preschool Department provides a nurturing, structured
+          environment designed to develop cognitive, motor, and social skills.
+          We offer three specialized early childhood levels: Nursery,
+          Pre-Kinder, and Kinder.
+        </p>
+        <CtaButton
+          cta={{
+            text: "Start Your Child's Journey",
+            link: {
+              type: "external",
+              external: "/admissions/basic-education-admission",
+            },
+          }}
+        />
       </div>
 
-      <div class="relative w-full aspect-[4/3] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-200">
-        <img src={heroImage.url} alt={heroImage.alt} class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
+      <div
+        class="relative w-full aspect-[4/3] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-200"
+      >
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          class="w-full h-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
-
     </div>
   </section>
 
@@ -109,24 +171,87 @@ const milestones = [
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Level 1: Nursery -->
-        <div class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+        <div
+          class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path></svg
+            >
+          </div>
           <h3 class="text-2xl font-black text-primary mb-4">Nursery</h3>
-          <p class="text-slate-600 leading-relaxed">Focused on foundational socialization, sensory exploration, and basic gross and fine motor skill development in a highly guided environment.</p>
+          <p class="text-slate-600 leading-relaxed">
+            Focused on foundational socialization, sensory exploration, and
+            basic gross and fine motor skill development in a highly guided
+            environment.
+          </p>
         </div>
 
         <!-- Level 2: Pre-Kinder -->
-        <div class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+        <div
+          class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path></svg
+            >
+          </div>
           <h3 class="text-2xl font-black text-primary mb-4">Pre-Kinder</h3>
-          <p class="text-slate-600 leading-relaxed">Introduces structured play, early literacy, numeracy concepts, and independence. Available in both Morning (AM) and Afternoon (PM) sessions.</p>
+          <p class="text-slate-600 leading-relaxed">
+            Introduces structured play, early literacy, numeracy concepts, and
+            independence. Available in both Morning (AM) and Afternoon (PM)
+            sessions.
+          </p>
         </div>
 
         <!-- Level 3: Kinder -->
-        <div class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div>
+        <div
+          class="bg-white rounded-3xl p-8 md:p-10 border border-transparent shadow-xl flex flex-col h-full hover:-translate-y-1 transition-transform duration-300"
+        >
+          <div
+            class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-accent mb-6 shadow-sm"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+              ></path></svg
+            >
+          </div>
           <h3 class="text-2xl font-black text-primary mb-4">Kinder</h3>
-          <p class="text-slate-600 leading-relaxed">The critical transition year preparing students for elementary education. Emphasizes reading readiness, mathematical reasoning, and collaborative learning.</p>
+          <p class="text-slate-600 leading-relaxed">
+            The critical transition year preparing students for elementary
+            education. Emphasizes reading readiness, mathematical reasoning, and
+            collaborative learning.
+          </p>
         </div>
       </div>
     </div>
@@ -136,50 +261,111 @@ const milestones = [
   <section class="py-24 bg-white relative border-b border-slate-100">
     <div class="max-w-5xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-4">Preschool Class Schedule</h2>
-        <p class="text-lg text-slate-600">Review the official operating hours for our Early Childhood programs.</p>
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-4"
+        >
+          Preschool Class Schedule
+        </h2>
+        <p class="text-lg text-slate-600">
+          Review the official operating hours for our Early Childhood programs.
+        </p>
       </div>
 
-      <div class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col md:flex-row">
-        
+      <div
+        class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden flex flex-col md:flex-row"
+      >
         <div class="flex-grow flex flex-col">
-          <div class="grid grid-cols-2 bg-slate-50 border-b border-slate-200 p-6">
-            <span class="text-xs font-black text-slate-500 uppercase tracking-widest">Level / Feature</span>
-            <span class="text-xs font-black text-slate-500 uppercase tracking-widest">Mon - Thu Hours</span>
+          <div
+            class="grid grid-cols-2 bg-slate-50 border-b border-slate-200 p-6"
+          >
+            <span
+              class="text-xs font-black text-slate-500 uppercase tracking-widest"
+              >Level / Feature</span
+            >
+            <span
+              class="text-xs font-black text-slate-500 uppercase tracking-widest"
+              >Mon - Thu Hours</span
+            >
           </div>
-          
-          <div class="grid grid-cols-2 p-6 border-b border-slate-100 items-center">
+
+          <div
+            class="grid grid-cols-2 p-6 border-b border-slate-100 items-center"
+          >
             <span class="text-lg font-black text-primary">Nursery</span>
-            <span class="text-base font-medium text-slate-600">10:00 am - 12:00 nn</span>
+            <span class="text-base font-medium text-slate-600"
+              >10:00 am - 12:00 nn</span
+            >
           </div>
-          
-          <div class="grid grid-cols-2 p-6 border-b border-slate-100 items-center">
-            <span class="text-lg font-black text-primary">Pre-Kinder <span class="text-accent text-sm ml-1">AM</span></span>
-            <span class="text-base font-medium text-slate-600">7:30 am - 10:30 am</span>
+
+          <div
+            class="grid grid-cols-2 p-6 border-b border-slate-100 items-center"
+          >
+            <span class="text-lg font-black text-primary"
+              >Pre-Kinder <span class="text-accent text-sm ml-1">AM</span></span
+            >
+            <span class="text-base font-medium text-slate-600"
+              >7:30 am - 10:30 am</span
+            >
           </div>
-          
-          <div class="grid grid-cols-2 p-6 border-b border-slate-100 items-center">
-            <span class="text-lg font-black text-primary">Pre-Kinder <span class="text-accent text-sm ml-1">PM</span></span>
-            <span class="text-base font-medium text-slate-600">12:00 nn - 3:00 pm</span>
+
+          <div
+            class="grid grid-cols-2 p-6 border-b border-slate-100 items-center"
+          >
+            <span class="text-lg font-black text-primary"
+              >Pre-Kinder <span class="text-accent text-sm ml-1">PM</span></span
+            >
+            <span class="text-base font-medium text-slate-600"
+              >12:00 nn - 3:00 pm</span
+            >
           </div>
-          
-          <div class="grid grid-cols-2 p-6 border-b border-slate-100 items-center">
-            <span class="text-lg font-black text-primary">Kinder <span class="text-accent text-sm ml-1">AM</span></span>
-            <span class="text-base font-medium text-slate-600">7:30 am - 11:00 am</span>
+
+          <div
+            class="grid grid-cols-2 p-6 border-b border-slate-100 items-center"
+          >
+            <span class="text-lg font-black text-primary"
+              >Kinder <span class="text-accent text-sm ml-1">AM</span></span
+            >
+            <span class="text-base font-medium text-slate-600"
+              >7:30 am - 11:00 am</span
+            >
           </div>
-          
+
           <div class="grid grid-cols-2 p-6 items-center">
-            <span class="text-lg font-black text-primary">Kinder <span class="text-accent text-sm ml-1">PM</span></span>
-            <span class="text-base font-medium text-slate-600">12:00 nn - 3:30 pm</span>
+            <span class="text-lg font-black text-primary"
+              >Kinder <span class="text-accent text-sm ml-1">PM</span></span
+            >
+            <span class="text-base font-medium text-slate-600"
+              >12:00 nn - 3:30 pm</span
+            >
           </div>
         </div>
 
-        <div class="w-full md:w-72 bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 p-8 flex flex-col justify-center items-center text-center">
-          <span class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Fridays</span>
-          <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent mb-4"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
-          <h3 class="text-xl font-black text-primary leading-tight">Asynchronous Student Enrichment Day</h3>
+        <div
+          class="w-full md:w-72 bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 p-8 flex flex-col justify-center items-center text-center"
+        >
+          <span
+            class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4"
+            >Fridays</span
+          >
+          <div
+            class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent mb-4"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+            >
+          </div>
+          <h3 class="text-xl font-black text-primary leading-tight">
+            Asynchronous Student Enrichment Day
+          </h3>
         </div>
-        
       </div>
     </div>
   </section>
@@ -191,30 +377,37 @@ const milestones = [
         An Extension of Your Home
       </h2>
       <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
-        At OLOPSC, our early childhood educators do not just teach; they nurture. Rooted in our signature Caring Culture, we maintain low teacher-to-student ratios to ensure your child receives continuous emotional support, physical safety, and individualized guidance as they learn to navigate the world outside their family circle.
+        At OLOPSC, our early childhood educators do not just teach; they
+        nurture. Rooted in our signature Caring Culture, we maintain low
+        teacher-to-student ratios to ensure your child receives continuous
+        emotional support, physical safety, and individualized guidance as they
+        learn to navigate the world outside their family circle.
       </p>
     </div>
   </section>
-
 
   <!-- ==================== NEW SECTION: Guided Facilities Tour ==================== -->
   <section class="bg-white py-24 border-t border-slate-100">
     <!-- Header -->
     <div class="container mx-auto px-6 max-w-5xl text-center mb-20">
-      <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
+      <h2
+        class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight"
+      >
         Purpose-Built for Early Childhood
       </h2>
       <p class="text-lg text-muted max-w-2xl mx-auto">
-        Every corner of our facility is engineered for the physical safety, hygiene, and developmental scale of a growing toddler.
+        Every corner of our facility is engineered for the physical safety,
+        hygiene, and developmental scale of a growing toddler.
       </p>
     </div>
 
     <!-- Rows Container -->
     <div class="container mx-auto px-6 max-w-6xl flex flex-col gap-20">
-
       <!-- Row 1: The Classrooms (Image Left, Text Right) -->
       <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0">
+        <div
+          class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0"
+        >
           <img
             src={classroomImage.url}
             alt={classroomImage.alt}
@@ -230,14 +423,21 @@ const milestones = [
             Sensory-Rich, Sanitized Classrooms
           </h3>
           <p class="text-lg text-muted leading-relaxed">
-            Our learning spaces feature child-scaled furniture, climate control, and dedicated zones for art, reading, and play. Every surface is rigorously sanitized daily to maintain the highest health standards for your child's developing immune system.
+            Our learning spaces feature child-scaled furniture, climate control,
+            and dedicated zones for art, reading, and play. Every surface is
+            rigorously sanitized regularly to maintain the highest health
+            standards for your child's developing immune system.
           </p>
         </div>
       </div>
 
       <!-- Row 2: Active Play Zones (Text Left, Image Right) -->
-      <div class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0">
+      <div
+        class="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16"
+      >
+        <div
+          class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0"
+        >
           <img
             src={playgroundImage.url}
             alt={playgroundImage.alt}
@@ -253,14 +453,19 @@ const milestones = [
             Enclosed, Impact-Safe Playgrounds
           </h3>
           <p class="text-lg text-muted leading-relaxed">
-            Physical play is crucial for gross motor development. Our dedicated pre-school playground features rubberized, impact-absorbing flooring and age-appropriate climbing structures, completely enclosed and constantly monitored by staff.
+            Physical play is crucial for gross motor development. Our dedicated
+            preschool playground features rubberized, impact-absorbing flooring
+            and age-appropriate climbing structures, completely enclosed and
+            constantly monitored by staff.
           </p>
         </div>
       </div>
 
       <!-- Row 3: Security & Health (Image Left, Text Right) -->
       <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-        <div class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0 bg-surface">
+        <div
+          class="w-full lg:w-1/2 aspect-[4/3] rounded-3xl overflow-hidden shadow-lg shrink-0 bg-surface"
+        >
           <img
             src={waitingAreaImage.url}
             alt={waitingAreaImage.alt}
@@ -273,45 +478,49 @@ const milestones = [
         </div>
         <div class="w-full lg:w-1/2 flex flex-col justify-center">
           <h3 class="text-3xl font-bold text-primary mb-4 leading-tight">
-            Secure Drop-off & On-Site Clinic
+            On-Site Clinic
           </h3>
           <p class="text-lg text-muted leading-relaxed">
-            From our weather-proof, staff-monitored waiting areas that ensure secure handoffs, to our on-site clinic staffed by pediatric-trained health professionals, every logistical detail is designed to give parents absolute peace of mind.
+            Our on-site clinic is staffed by nurses and school physicians to
+            handle any health concerns. Every detail is designed to give parents
+            absolute peace of mind regarding their child's health and safety.
           </p>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ==================== SECTION 4: The Developmental Milestones ==================== -->
   <section class="bg-primary py-24">
     <div class="container mx-auto px-6 max-w-7xl">
-      <h2 class="text-3xl font-black text-white mb-16 tracking-tight text-center">
-        Clear, Measurable Growth
+      <h2
+        class="text-3xl font-black text-white mb-16 tracking-tight text-center"
+      >
+        Clear Measurable Growth
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {milestones.map((milestone) => (
-          <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
-            <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
-              <Fragment set:html={milestone.icon} />
+        {
+          milestones.map((milestone) => (
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+              <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                <Fragment set:html={milestone.icon} />
+              </div>
+              <h3 class="text-xl font-bold text-primary mb-4">
+                {milestone.title}
+              </h3>
+              <p class="text-muted text-sm leading-relaxed">{milestone.text}</p>
             </div>
-            <h3 class="text-xl font-bold text-primary mb-4">
-              {milestone.title}
-            </h3>
-            <p class="text-muted text-sm leading-relaxed">
-              {milestone.text}
-            </p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- ==================== SECTION 5: The Isolated Environment Feature ==================== -->
   <section class="bg-white py-24">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6">
-
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6"
+    >
       <!-- Left Column: Visual -->
       <div class="rounded-3xl overflow-hidden shadow-lg">
         <img
@@ -327,11 +536,17 @@ const milestones = [
 
       <!-- Right Column: Text Payload -->
       <div>
-        <h2 class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight">
+        <h2
+          class="text-3xl md:text-4xl font-black text-primary mb-6 tracking-tight"
+        >
           A Dedicated Space for Little Learners
         </h2>
         <p class="text-lg text-muted leading-relaxed">
-          Safety is our absolute priority. The OLOPSC Pre-School facility operates within its own secure, self-contained zone of the Marikina campus. Our toddlers have their own dedicated restrooms, play areas, and secure entrance gates, completely isolated from K-12 and College student traffic.
+          Safety is our absolute priority. The OLOPSC Preschool facility
+          operates within its own secure, self-contained zone of the Marikina
+          campus. Our toddlers have their own dedicated restrooms, play areas,
+          and secure entrance gates, completely isolated from K-12 and College
+          student traffic.
         </p>
       </div>
     </div>
@@ -340,16 +555,28 @@ const milestones = [
   <!-- ==================== SECTION 6: Final CTA ==================== -->
   <section class="bg-primary py-24">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
+      <h2
+        class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight"
+      >
         Give Your Child the Best Start
       </h2>
       <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-        Schedule a campus visit to see our Pre-School facilities firsthand, meet our caring educators, and discover why OLOPSC families have trusted us since 1978.
+        Schedule a campus visit to see our Preschool facilities firsthand, meet
+        our caring educators, and discover why OLOPSC families have trusted us
+        since 1978.
       </p>
       <div class="mt-8">
-        <CtaButton cta={{ text: "Book a Campus Tour", link: { type: "external", external: "/admissions" }, style: "primary" }} />
+        <CtaButton
+          cta={{
+            text: "Book a Campus Tour",
+            link: {
+              type: "external",
+              external: "/admissions/basic-education-admission",
+            },
+            style: "primary",
+          }}
+        />
       </div>
     </div>
   </section>
-
 </Layout>
