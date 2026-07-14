@@ -78,9 +78,10 @@ const videoUrl = getVideoUrl();
       <p
         class="text-lg lg:text-xl text-slate-200 max-w-2xl leading-relaxed animate-from-right"
       >
-        A premier private Catholic institution serving Marikina City families
-        since 1978. Offering CHED-recognized degrees and comprehensive basic
-        education.
+        A premier private non-sectarian educational institution serving Marikina
+        City families since 1978. Offering DepEd-recognized basic education,
+        CHED-recognized degree programs, and PAASCU-accredited academic
+        offerings.
       </p>
 
       <!-- Mobile Timeline (Horizontal) -->
@@ -299,9 +300,16 @@ const videoUrl = getVideoUrl();
     aria-label="Scroll down to explore more"
     class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 group scroll-indicator"
   >
-    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300/70 group-hover:text-yellow-400 transition-colors duration-300">Scroll</span>
-    <div class="w-6 h-10 rounded-full border-2 border-slate-300/40 group-hover:border-yellow-400/60 flex justify-center pt-1.5 transition-colors duration-300">
-      <span class="w-1 h-2.5 rounded-full bg-slate-300/70 group-hover:bg-yellow-400 scroll-dot transition-colors duration-300"></span>
+    <span
+      class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300/70 group-hover:text-yellow-400 transition-colors duration-300"
+      >Scroll</span
+    >
+    <div
+      class="w-6 h-10 rounded-full border-2 border-slate-300/40 group-hover:border-yellow-400/60 flex justify-center pt-1.5 transition-colors duration-300"
+    >
+      <span
+        class="w-1 h-2.5 rounded-full bg-slate-300/70 group-hover:bg-yellow-400 scroll-dot transition-colors duration-300"
+      ></span>
     </div>
   </a>
 </header>
@@ -471,7 +479,8 @@ const videoUrl = getVideoUrl();
   }
 
   @keyframes scroll-bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
       opacity: 0.7;
     }

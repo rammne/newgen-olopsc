@@ -1,62 +1,96 @@
-import { Facebook, Instagram, Twitter, Youtube, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
-import { motion } from 'framer-motion'
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 // Footer link sections
 const FOOTER_SECTIONS = [
   {
-    title: 'Academics',
+    title: "Academics",
     links: [
-      { label: 'Preschool', href: '/preschool' },
-      { label: 'Grade School', href: '/grade-school' },
-      { label: 'Junior High School', href: '/junior-high-school' },
-      { label: 'Senior High School', href: '/senior-high-school' },
-      { label: 'College', href: '/college' },
-      { label: 'Scholarship Programs', href: '/scholarship-programs' },
+      { label: "Preschool", href: "/preschool" },
+      { label: "Grade School", href: "/grade-school" },
+      { label: "Junior High School", href: "/junior-high-school" },
+      { label: "Senior High School", href: "/senior-high-school" },
+      { label: "College", href: "/college" },
+      { label: "Scholarship Programs", href: "/scholarship-programs" },
     ],
   },
   {
-    title: 'Quick Links',
+    title: "Quick Links",
     links: [
-      { label: 'Home', href: '/' },
-      { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
-      { label: 'About OLOPSC', href: '/about' },
-      { label: 'Admissions', href: '/admissions' },
-      { label: 'Alumni Section', href: '/alumni' },
-      { label: 'Contact Us', href: '/contact' },
+      { label: "Home", href: "/" },
+      { label: "Library", href: "http://opac.olopsc.edu.ph/" },
+      { label: "About OLOPSC", href: "/about" },
+      { label: "Admissions", href: "/admissions" },
+      { label: "Alumni Section", href: "/alumni" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
   {
-    title: 'Community',
+    title: "Community",
     links: [
-      { label: 'Events', href: '/events' },
-      { label: 'News & Updates', href: '/news' },
-      { label: 'Sustainable Development Goals', href: '/sdg' },
+      { label: "Events", href: "/events" },
+      { label: "News & Updates", href: "/news" },
+      { label: "Sustainable Development Goals", href: "/sdg" },
     ],
   },
   {
-    title: 'College Programs',
+    title: "College Programs",
     links: [
-      { label: 'Computing Studies', href: '/college/computing-studies' },
-      { label: 'Business Administration and Entrepreneurship', href: '/college/business-administration-and-entrepreneurship' },
-      { label: 'Education and Liberal Arts', href: '/college/education-and-liberal-arts' },
-      { label: 'Psychology', href: '/college/psychology' },
-      { label: 'Hospitality Management', href: '/college/hospitality-management' },
-      { label: 'Tourism Management', href: '/college/tourism-management' },
+      { label: "Computing Studies", href: "/college/computing-studies" },
+      {
+        label: "Business Administration and Entrepreneurship",
+        href: "/college/business-administration-and-entrepreneurship",
+      },
+      {
+        label: "Education and Liberal Arts",
+        href: "/college/education-and-liberal-arts",
+      },
+      { label: "Psychology", href: "/college/psychology" },
+      {
+        label: "Hospitality Management",
+        href: "/college/hospitality-management",
+      },
+      { label: "Tourism Management", href: "/college/tourism-management" },
     ],
   },
-]
+];
 
 // Social media links (can be fetched from Sanity later)
 const SOCIAL_LINKS = [
-  { platform: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/olopsc.official/' },
-  { platform: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/olopsc_official' },
-  { platform: 'Twitter', icon: Twitter, href: 'https://x.com/OLOPSC_OFFICIAL' },
-  { platform: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@olopscollegeofficial825' },
-  { platform: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/school/olopscmarikina/' },
-]
+  {
+    platform: "Facebook",
+    icon: Facebook,
+    href: "https://www.facebook.com/olopsc.official/",
+  },
+  {
+    platform: "Instagram",
+    icon: Instagram,
+    href: "https://www.instagram.com/olopsc_official",
+  },
+  { platform: "Twitter", icon: Twitter, href: "https://x.com/OLOPSC_OFFICIAL" },
+  {
+    platform: "YouTube",
+    icon: Youtube,
+    href: "https://www.youtube.com/@olopscollegeofficial825",
+  },
+  {
+    platform: "LinkedIn",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/school/olopscmarikina/",
+  },
+];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-[var(--color-primary)] text-white relative z-50 overflow-hidden">
@@ -84,8 +118,8 @@ export function Footer() {
                 </div>
               </a>
               <p className="mb-6 text-sm leading-relaxed text-white/80 sm:text-base">
-                Our Lady of Perpetual Succor College - Empowering students through quality
-                education and values formation since 1978.
+                Our Lady of Perpetual Succor College - Empowering students
+                through quality education and values formation since 1978.
               </p>
               {/* <p className="mb-8 font-serif text-lg italic text-[var(--color-accent)]">
                 "With Mary Lift Jesus"
@@ -94,27 +128,36 @@ export function Footer() {
               {/* Contact information */}
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3">
-                  <MapPin size={18} className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]" />
+                  <MapPin
+                    size={18}
+                    className="mt-0.5 flex-shrink-0 text-[var(--color-accent)]"
+                  />
                   <span className="text-white/90">
                     Marikina City, Philippines
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone size={18} className="flex-shrink-0 text-[var(--color-accent)]" />
+                  <Phone
+                    size={18}
+                    className="flex-shrink-0 text-[var(--color-accent)]"
+                  />
                   <a
                     href="tel:+63"
                     className="text-white/90 transition-colors hover:text-[var(--color-accent)]"
                   >
-                    +63 (2) XXX-XXXX
+                    +63 960 563 0970
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail size={18} className="flex-shrink-0 text-[var(--color-accent)]" />
+                  <Mail
+                    size={18}
+                    className="flex-shrink-0 text-[var(--color-accent)]"
+                  />
                   <a
-                    href="mailto:info@olopsc.edu.ph"
+                    href="mailto:admissions@olopsc.edu.ph"
                     className="text-white/90 transition-colors hover:text-[var(--color-accent)]"
                   >
-                    info@olopsc.edu.ph
+                    admissions@olopsc.edu.ph
                   </a>
                 </div>
               </div>
@@ -126,7 +169,7 @@ export function Footer() {
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {SOCIAL_LINKS.map((social) => {
-                    const Icon = social.icon
+                    const Icon = social.icon;
                     return (
                       <motion.a
                         key={social.platform}
@@ -140,7 +183,7 @@ export function Footer() {
                       >
                         <Icon size={18} className="text-white" />
                       </motion.a>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -182,7 +225,16 @@ export function Footer() {
         <div className="mx-auto w-full px-5 py-6 sm:px-[60px]">
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-white/70 sm:text-sm">
-              © {currentYear} Our Lady of Perpetual Succor College. All rights reserved. | Website by <a href="https://www.rammne.com/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-accent)] hover:text-[var(--color-accent)]">Rammne.</a>
+              © {currentYear} Our Lady of Perpetual Succor College. All rights
+              reserved. | Website by{" "}
+              <a
+                href="https://www.rammne.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              >
+                Rammne.
+              </a>
             </p>
             {/* <div className="flex flex-wrap items-center gap-4 text-xs text-white/70 sm:text-sm">
               <a
@@ -213,8 +265,7 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
-
+export default Footer;

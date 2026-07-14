@@ -352,30 +352,36 @@ const schemaString = JSON.stringify(schema);
         <h2
           class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]"
         >
-          {aboutPage?.identity?.title || "A Premier Private Education in Marikina City."}
+          {
+            aboutPage?.identity?.title ||
+              "A Premier Private Education in Marikina City."
+          }
         </h2>
-        
-        {aboutPage?.identity?.content ? (
-          <div class="prose prose-lg prose-slate text-slate-600 mb-10 max-w-none prose-p:leading-relaxed">
-            <PortableText value={aboutPage.identity.content} />
-          </div>
-        ) : (
-          <>
-            <p class="text-lg text-slate-600 leading-relaxed mb-6">
-              Founded in 1978, Our Lady of Perpetual Succor College (OLOPSC) is a
-              premier, affordable non-sectarian educational institution. As one of
-              the biggest co-educational private schools in Marikina City, we offer
-              a seamless educational journey from preschool through senior high
-              school, culminating in our CHED-recognized higher education division:
-              the College of Business, Management, Science, and Education (BMSE).
-            </p>
-            <p class="text-lg text-slate-600 leading-relaxed mb-10">
-              Every program is engineered for academic excellence, ensuring
-              accessible, outcome-based learning that forms future-ready, socially
-              responsible professionals.
-            </p>
-          </>
-        )}
+
+        {
+          aboutPage?.identity?.content ? (
+            <div class="prose prose-lg prose-slate text-slate-600 mb-10 max-w-none prose-p:leading-relaxed">
+              <PortableText value={aboutPage.identity.content} />
+            </div>
+          ) : (
+            <>
+              <p class="text-lg text-slate-600 leading-relaxed mb-6">
+                Founded in 1978, Our Lady of Perpetual Succor College (OLOPSC)
+                is a premier, affordable non-sectarian educational institution.
+                As one of the biggest co-educational private schools in Marikina
+                City, we offer a seamless educational journey from preschool
+                through senior high school, culminating in our CHED-recognized
+                higher education division: the College of Business, Management,
+                Science, and Education (BMSE).
+              </p>
+              <p class="text-lg text-slate-600 leading-relaxed mb-10">
+                Every program is engineered for academic excellence, ensuring
+                accessible, outcome-based learning that forms future-ready,
+                socially responsible professionals.
+              </p>
+            </>
+          )
+        }
 
         <!-- <a href="#history" class="inline-flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors group w-fit">
             <span>Explore Our History</span>
@@ -517,27 +523,27 @@ const schemaString = JSON.stringify(schema);
         <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12">
           <span
             class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-            >Spirituality</span
+            ><span class="text-accent">S</span>pirituality</span
           >
           <span class="text-accent text-2xl leading-none">&bull;</span>
           <span
             class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-            >Responsibility and Respect</span
+            ><span class="text-accent">R</span>esponsibility <span class="text-accent">a</span>nd <span class="text-accent">R</span>espect</span
           >
           <span class="text-accent text-2xl leading-none">&bull;</span>
           <span
             class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-            >Integrity</span
+            ><span class="text-accent">I</span>ntegrity</span
           >
           <span class="text-accent text-2xl leading-none">&bull;</span>
           <span
             class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-            >Caring Culture</span
+            ><span class="text-accent">C</span>aring <span class="text-accent">C</span>ulture</span
           >
           <span class="text-accent text-2xl leading-none">&bull;</span>
           <span
             class="text-sm md:text-base font-bold text-white uppercase tracking-widest"
-            >Excellence</span
+            ><span class="text-accent">E</span>xcellence</span
           >
         </div>
       </div>
@@ -765,7 +771,7 @@ const schemaString = JSON.stringify(schema);
               class={`w-full md:w-[45%] ml-12 md:ml-0 mt-8 md:mt-0 flex flex-col justify-center ${index % 2 === 0 ? "md:order-2 md:text-left" : "md:order-1 md:text-right"}`}
             >
               <span
-                class={`text-6xl md:text-8xl font-black text-slate-200/50 leading-none -ml-2 md:ml-0 mb-4 tracking-tighter transition-colors duration-500 group-hover:text-primary/10 ${index % 2 === 0 ? "" : "md:-mr-2"}`}
+                class={`text-6xl md:text-8xl font-black text-slate-300 leading-none -ml-2 md:ml-0 mb-4 tracking-tighter transition-colors duration-500 group-hover:text-primary/20 ${index % 2 === 0 ? "" : "md:-mr-2"}`}
               >
                 {event.year}
               </span>
