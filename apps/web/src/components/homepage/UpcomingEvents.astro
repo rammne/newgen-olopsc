@@ -51,7 +51,7 @@ const getEventData = (event: any) => {
   }
 
   const category = event.academicDepartment?.title || event.category;
-  const link = event.slug?.current ? `/events/${event.slug.current}` : (event.link || "/events");
+  const link = event.slug?.current ? `/events/${event.slug.current}` : (event.link || "#");
 
   return { ...event, month, day, category, link };
 };
@@ -117,6 +117,6 @@ const getEventData = (event: any) => {
 
   <!-- Global Action -->
   <div class="text-center flex justify-center mt-12">
-    <CtaButton cta={{ text: "View All Events", link: "/events", style: "primary" }} />
+    <CtaButton cta={{ text: "View All Events", link: { type: 'external', external: '/events' }, style: "primary" }} />
   </div>
 </section>
