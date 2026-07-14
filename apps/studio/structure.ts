@@ -62,11 +62,11 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
         ),
       // Admission Announcements
       S.listItem()
-        .title('Admission Announcements')
+        .title('Announcement Banner')
         .icon(Megaphone)
         .child(
           S.documentTypeList('admissionAnnouncement')
-            .title('Admission Announcements')
+            .title('Announcement Banner')
             .filter('_type == "admissionAnnouncement"')
             .defaultOrdering([{ field: 'createdAt', direction: 'desc' }])
         ),
