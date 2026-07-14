@@ -51,7 +51,7 @@ const getEventData = (event: any) => {
   }
 
   const category = event.academicDepartment?.title || event.category;
-  const link = event.slug?.current ? `/events/${event.slug.current}` : (event.link || "#");
+  const link = event.slug?.current ? `/events/${event.slug.current}` : (event.link || "/events");
 
   return { ...event, month, day, category, link };
 };
