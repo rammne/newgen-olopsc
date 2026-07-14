@@ -45,6 +45,7 @@ const ogImage = homePage?.seo?.image?.asset?.url;
 
 <Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
+  <div id="content-below-hero"></div>
 
   {
     homePage?.intro && (

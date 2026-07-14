@@ -36,8 +36,9 @@ export const news = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Announcements', value: 'announcements' },
           { title: 'Achievements', value: 'achievements' },
+          { title: 'Academics', value: 'academics' },
+          { title: 'Student Life', value: 'student-life' },
         ],
       },
       group: 'content',
@@ -174,12 +175,7 @@ export const news = defineType({
       ],
       group: 'media',
     }),
-    defineField({
-      name: 'gallery',
-      title: 'Image Gallery',
-      type: 'gallery',
-      group: 'media',
-    }),
+
     defineField({
       name: 'seo',
       title: 'SEO',

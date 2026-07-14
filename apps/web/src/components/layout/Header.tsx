@@ -3,10 +3,10 @@ import { Menu, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const NAV_ITEMS = [
-  { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
   { label: 'About OLOPSC', href: '/about' },
   { label: 'Admissions', href: '/admissions' },
-  { label: 'Sustainable Development Goals', href: '/sdg' },
+  { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
+  { label: 'Sustainability', href: '/sdg' },
 ]
 
 // Replicating Footer sections for the expanded menu
