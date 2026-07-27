@@ -96,7 +96,7 @@ const collegeCultureGallery: CollegeCultureImage[] = hasValidGallery
     ];
 
 // SEO metadata
-const pageTitle = "Best College in Marikina | OLOPSC-BMSE Degree Programs";
+const pageTitle = "College Department | OLOPSC | OLOPS College";
 const pageDescription = "Looking for a top-tier college in Marikina City? The OLOPSC College of Business, Management, Science, and Education (BMSE) offers CHED-recognized bachelor degrees in IT, Business, Tourism, and Psychology.";
 const ogImage = department?.seo?.image?.asset?.url;
 
@@ -328,9 +328,10 @@ const alumniStories: AlumniStory[] = hasValidAlumniStories
       { name: "Sarah Medina, RPm", degree: "BS Psychology", batch: "Class of 2021", role: "Licensed Psychometrician", company: "Medical City", quote: "The clinical professors pushed us beyond our limits. Passing the board exams felt like a natural next step because the standard of excellence was drilled into us from day one.", imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
       { name: "Leo Fernandez", degree: "BS Hospitality Management", batch: "Class of 2020", role: "Operations Manager", company: "Marriott Hotels", quote: "The international immersion programs and industry-grade laboratories at OLOPSC prepared me for the intense pressure of global hospitality.", imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=150&auto=format&fit=crop" },
     ];
+const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   <script type="application/ld+json" slot="head" set:html={`
   {
     "@context": "https://schema.org",

@@ -9,8 +9,8 @@ export const seo = defineType({
       name: 'title',
       title: 'SEO Title',
       type: 'string',
-      description: 'Title for search engines (50-60 characters recommended)',
-      validation: (Rule) => Rule.max(60).warning('SEO titles should be under 60 characters'),
+      description: 'Title for search engines. " | OLOPSC" will be appended automatically. (Keep under 51 chars to stay within 60 char limit)',
+      validation: (Rule) => Rule.max(51).warning('SEO titles should be under 51 characters to account for the " | OLOPSC" suffix'),
     }),
     defineField({
       name: 'description',

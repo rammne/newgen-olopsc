@@ -18,7 +18,7 @@ import "../styles/global.css";
 const aboutPage = await getAboutPage();
 
 // Set page title from SEO or default
-const pageTitle = aboutPage?.seo?.title || aboutPage?.title || "About Us";
+const pageTitle = "About | OLOPSC | OLOPS College";
 const pageDescription =
   aboutPage?.seo?.description ||
   "Learn more about OLOPSC history, mission, and vision.";
@@ -241,14 +241,15 @@ const schema = {
 };
 
 const schemaString = JSON.stringify(schema);
+const canonicalUrl = aboutPage?.seo?.canonicalUrl;
 ---
 
 <Layout
-  title={pageTitle}
+  rawTitle={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
   additionalSchema={schemaString}
->
+ canonicalUrl={canonicalUrl}>
   <!-- ==================== NEW CUSTOM HERO ==================== -->
   <section
     class="relative bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden"

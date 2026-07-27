@@ -15,14 +15,14 @@ const sdgMap = new Map(activeSdgs.map((sdg: any) => [sdg.number, sdg]));
 // Array of 1-17 for grid generation
 const sdgGrid = Array.from({ length: 17 }, (_, i) => i + 1);
 
-const pageTitle =
-    sdgPage?.seo?.title || sdgPage?.title || "Our SDG Commitments";
+const pageTitle = "SDG";
 const pageDescription =
     sdgPage?.seo?.description ||
     "Explore our commitment to the UN Sustainable Development Goals.";
+const canonicalUrl = sdgPage?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
 
     <section
         class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"

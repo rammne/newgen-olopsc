@@ -3,6 +3,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getNewsBySlug, getAllNewsSlugs } from "../../lib/sanity/queries";
 import { getSanityImageUrl, formatDate } from "../../lib/utils/sanity";
+import { buildCmsTitle } from "../../lib/utils/seoUtils";
 import "../../styles/global.css";
 
 // Generate static paths for all news articles
@@ -20,21 +21,22 @@ if (!article) {
   return Astro.redirect("/404");
 }
 
-const pageTitle = article.seo?.title || article.title || "News Article";
+const pageTitle = buildCmsTitle(article.seo?.title, article.title);
 const pageDescription =
   article.seo?.description ||
   article.excerpt ||
   "Read the latest news from OLOPSC";
 const ogImage =
   article.seo?.image?.asset?.url || article.featuredImage?.asset?.url;
+const canonicalUrl = article?.seo?.canonicalUrl;
 ---
 
 <Layout
-  title={pageTitle}
+  rawTitle={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
   ogType="article"
->
+ canonicalUrl={canonicalUrl}>
   <article class="bg-[var(--color-neutral)] min-h-screen">
     {/* Hero Image */}
     {

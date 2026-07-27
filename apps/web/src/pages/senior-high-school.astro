@@ -110,12 +110,13 @@ const shsCultureGallery: ShsCultureImage[] = hasValidGallery
 
 
 // SEO metadata
-const pageTitle = department?.seo?.title ?? "Senior High School (Grades 11-12) | OLOPSC Marikina";
+const pageTitle = "Senior High School";
 const pageDescription = department?.seo?.description ?? "CHED-recognized Senior High School offering STEM, Business, Arts & Humanities, and TECHPRO track clusters with DepEd SHS Voucher acceptance at OLOPSC Marikina.";
 const ogImage = department?.seo?.image?.asset?.url;
+const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
 
   <!-- ==================== SECTION 1: The Dual-Hook Hero ==================== -->
   <section class="relative bg-primary text-white py-24 lg:py-32 overflow-hidden">

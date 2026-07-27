@@ -38,12 +38,13 @@ if (homePage?.upcomingEvents) {
 }
 
 // Set page title from SEO or default
-const pageTitle = homePage?.seo?.title || homePage?.title || "Top College & School in Marikina, Metro Manila | OLOPSC";
+const pageTitle = "OLOPSC | OLOPS College | Education in Marikina";
 const pageDescription = homePage?.seo?.description || "Our Lady of Perpetual Succor College (OLOPSC) is a premier private Catholic school and college in Marikina City, Metro Manila offering K-12, Senior High School, and degree programs including Computer Science.";
 const ogImage = homePage?.seo?.image?.asset?.url;
+const canonicalUrl = homePage?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
   <div id="content-below-hero"></div>
 

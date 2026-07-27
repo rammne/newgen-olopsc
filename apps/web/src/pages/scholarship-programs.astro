@@ -7,8 +7,7 @@ import "../styles/global.css";
 
 const pageData = await getScholarshipPage();
 
-const pageTitle =
-  pageData?.seo?.title || pageData?.title || "Scholarship Programs";
+const pageTitle = "Scholarship Programs | OLOPSC | OLOPS College";
 const pageDescription =
   pageData?.seo?.description ||
   "Explore our scholarship programs and financial aid opportunities.";
@@ -124,9 +123,10 @@ const scholarships = pageData?.scholarshipPrograms?.length
         ],
       },
     ];
+const canonicalUrl = pageData?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   <!-- ==================== HERO SECTION ==================== -->
   <section
     class="relative bg-primary pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden"

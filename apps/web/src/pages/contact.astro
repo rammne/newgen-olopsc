@@ -21,7 +21,7 @@ import {
 
 const contactPage = await getContactPage();
 
-const pageTitle = contactPage?.seo?.title || contactPage?.title || "Contact Us";
+const pageTitle = "Contact | OLOPSC | OLOPS College";
 const pageDescription =
     contactPage?.seo?.description || "Get in touch with OLOPSC.";
 const ogImage = contactPage?.seo?.image?.asset?.url;
@@ -44,9 +44,10 @@ const getSocialIcon = (platform: string) => {
             return Link;
     }
 };
+const canonicalUrl = contactPage?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
     {contactPage?.hero && <Hero hero={contactPage.hero} />}
 
     <section

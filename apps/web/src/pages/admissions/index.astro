@@ -7,8 +7,7 @@ import "../../styles/global.css";
 // Fetch admissions page data for the hero
 const admissionsPage = await getAdmissionsPage();
 
-const pageTitle =
-  admissionsPage?.seo?.title || admissionsPage?.title || "Admissions — OLOPSC";
+const pageTitle = "Admissions | OLOPSC | OLOPS College";
 const pageDescription =
   admissionsPage?.seo?.description ||
   "Join OLOPSC. Explore our admissions pathways for College and Basic Education programs.";
@@ -39,9 +38,10 @@ const admissionPaths = [
     icon: "school",
   },
 ];
+const canonicalUrl = admissionsPage?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   {/* Modern Admissions Hero Section */}
   <section class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]">
     {/* Background Layer */}

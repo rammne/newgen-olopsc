@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getEventBySlug, getAllEventSlugs } from "../../lib/sanity/queries";
 import { getSanityImageUrl, formatDate } from "../../lib/utils/sanity";
+import { buildCmsTitle } from "../../lib/utils/seoUtils";
 import "../../styles/global.css";
 
 // Generate static paths for all events
@@ -19,7 +20,7 @@ if (!event) {
   return Astro.redirect("/404");
 }
 
-const pageTitle = event.seo?.title || event.title || "Event";
+const pageTitle = buildCmsTitle(event.seo?.title, event.title);
 const pageDescription =
   event.seo?.description || event.excerpt || "View event details from OLOPSC";
 const ogImage = event.seo?.image?.asset?.url || event.featuredImage?.asset?.url;
@@ -36,9 +37,10 @@ const timeStr = startDate
 const endTimeStr = endDate
   ? endDate.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
   : "";
+const canonicalUrl = event?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   <article class="bg-[var(--color-neutral)] min-h-screen">
     {/* Hero Image */}
     {

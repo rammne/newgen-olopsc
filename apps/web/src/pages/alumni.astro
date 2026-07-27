@@ -21,12 +21,13 @@ const page = await getAlumniPage();
 const news = await getAlumniNews(page?.news?.count || 3);
 const events = await getAlumniEvents(page?.events?.count || 3);
 
-const pageTitle = page?.seo?.title || page?.title || "Alumni";
+const pageTitle = "Alumni | OLOPSC | OLOPS College";
 const pageDescription = page?.seo?.description || "OLOPSC Alumni Association";
 const ogImage = page?.seo?.image?.asset?.url;
+const canonicalUrl = page?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   {page?.hero && <Hero hero={page.hero} />}
 
   {

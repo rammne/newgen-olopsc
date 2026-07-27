@@ -214,7 +214,7 @@ const pathways = sanityData?.pathways && sanityData.pathways.length > 0 ? sanity
         roles: ["Event Organizer / Coordinator", "Convention Manager", "Corporate Travel Manager", "Destination Marketing Executive"]
     }
 ];
-const pageTitle = sanityData?.seo?.title || "BS Tourism Management in Marikina, Metro Manila | OLOPSC";
+const pageTitle = "Tourism Management | OLOPS College";
 const pageDescription = sanityData?.seo?.description || "Build an exciting career as a flight attendant, travel planner, or event manager with a Tourism Management degree at OLOPSC in Marikina.";
 
 const schema = {
@@ -233,9 +233,10 @@ const schema = {
   ]
 };
 const schemaString = JSON.stringify(schema);
+const canonicalUrl = sanityData?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} additionalSchema={schemaString}>
+<Layout rawTitle={pageTitle} description={pageDescription} additionalSchema={schemaString} canonicalUrl={canonicalUrl}>
   <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
     <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
     <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-full lg:w-[75%] h-full object-cover opacity-40 md:opacity-60 z-0" style="mask-image: linear-gradient(to right, transparent, black 40%); -webkit-mask-image: linear-gradient(to right, transparent, black 40%);" loading="eager" />

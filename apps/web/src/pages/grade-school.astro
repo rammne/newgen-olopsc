@@ -74,12 +74,13 @@ const gsPlayCourtImage: SanityImage = {
 };
 
 // SEO metadata
-const pageTitle = department?.seo?.title ?? "Grade School (Grades 1-6) | OLOPSC Marikina";
+const pageTitle = "Grade School";
 const pageDescription = department?.seo?.description ?? "DepEd-accredited primary education building foundational literacy, STEM competence, and Catholic character formation at OLOPSC Marikina.";
 const ogImage = department?.seo?.image?.asset?.url;
+const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
 
   <!-- ==================== SECTION 1: The Academic Foundation Hero ==================== -->
   <section class="relative bg-surface py-20 lg:py-32 border-b border-slate-200 overflow-hidden">

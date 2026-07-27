@@ -110,7 +110,7 @@ const campusLifeGallery: CampusLifeImage[] = hasValidGallery
 
 
 // SEO metadata
-const pageTitle = department?.seo?.title ?? "Junior High School (Grades 7-10) | OLOPSC Marikina";
+const pageTitle = "Junior High School";
 const pageDescription = department?.seo?.description ?? "DepEd-accredited Junior High School blending rigorous academics with Catholic character formation, mentoring teenagers through Grades 7 to 10 at OLOPSC Marikina.";
 const ogImage = department?.seo?.image?.asset?.url;
 
@@ -137,9 +137,10 @@ const gradeTimeline = [
     text: "The culmination of Junior High. Students take on leadership roles in clubs, complete rigorous capstone projects, and are academically hardened to seamlessly enter the specialized Senior High School strands.",
   },
 ];
+const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} ogImage={ogImage}>
+<Layout title={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
 
   <!-- ==================== SECTION 1: The Empathic Hero ==================== -->
   <section class="relative bg-primary py-20 lg:py-32 border-b border-slate-200 overflow-hidden">

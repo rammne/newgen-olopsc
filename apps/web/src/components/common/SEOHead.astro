@@ -1,6 +1,7 @@
 ---
 interface Props {
     title?: string;
+    rawTitle?: string;
     description?: string;
     ogImage?: string;
     ogType?: string;
@@ -19,6 +20,7 @@ const SITE_URL =
 
 const {
     title,
+    rawTitle,
     description = DEFAULT_DESCRIPTION,
     ogImage = DEFAULT_OG_IMAGE,
     ogType = "website",
@@ -27,12 +29,20 @@ const {
     additionalSchema,
 } = Astro.props;
 
-// Build the final title: append " | OLOPSC" to custom titles, or use the default
-const fullTitle = title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE;
+// Build the final title: use rawTitle if provided, otherwise append " | OLOPSC" to custom titles, or use the default
+const fullTitle = rawTitle || (title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE);
 
-// Build the canonical URL from the current page path
-const canonical =
-    canonicalUrl || new URL(Astro.url.pathname, SITE_URL).toString();
+// Clean the current path (remove trailing slash for comparison)
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const currentUrl = new URL(currentPath || "/", SITE_URL).toString();
+
+// If a custom canonical URL is provided, remove trailing slash for comparison
+const customCanonicalUrl = canonicalUrl ? canonicalUrl.replace(/\/$/, "") : null;
+
+// Build the canonical URL: use custom if provided and different from current, else fallback to current
+const canonical = (customCanonicalUrl && customCanonicalUrl !== currentUrl) 
+    ? canonicalUrl 
+    : currentUrl;
 
 // Build absolute OG image URL
 const absoluteOgImage = ogImage.startsWith("http")
