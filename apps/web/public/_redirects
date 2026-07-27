@@ -1,0 +1,29 @@
+# =========================================================================
+
+# OLOPSC Website Redirects - CORRECTED
+
+# =========================================================================
+
+# --- Merged / Renamed Core Pages ---
+
+/enrollment /admissions 301
+/alumni-section /alumni 301
+/jobs-section /contact 301
+
+# --- Merged College Department Pages ---
+
+/college-department /college 301
+/college-programs /college 301
+
+# --- Renamed College Program Pages ---
+
+/computer-studies /college/computing-studies 301
+/hospitality-management /college/hospitality-management 301
+/tourism-management /college/tourism-management 301
+/business-administration-and-entrepreneurship /college/business-administration-and-entrepreneurship 301
+/education-and-liberal-arts /college/education-and-liberal-arts 301
+
+# --- Renamed News & Events ---
+
+/news-category/\* /news 301
+/event /events 301
