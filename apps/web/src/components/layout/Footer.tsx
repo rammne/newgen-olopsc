@@ -142,10 +142,22 @@ export function Footer() {
                     className="flex-shrink-0 text-[var(--color-accent)]"
                   />
                   <a
-                    href="tel:+63"
+                    href="tel:+639985957592"
                     className="text-white/90 transition-colors hover:text-[var(--color-accent)]"
                   >
-                    +63 960 563 0970
+                    Basic Education: +63 998 595 7592
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone
+                    size={18}
+                    className="flex-shrink-0 text-[var(--color-accent)]"
+                  />
+                  <a
+                    href="tel:+639605630970"
+                    className="text-white/90 transition-colors hover:text-[var(--color-accent)]"
+                  >
+                    College: +63 960 563 0970
                   </a>
                 </div>
                 <div className="flex items-center gap-3">

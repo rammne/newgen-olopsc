@@ -18,11 +18,27 @@ import {
   getLatestNews,
   getUpcomingEvents,
   getCollegeProgramThumbnails,
+  getAboutPage,
 } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
+import Accreditations from "../components/homepage/Accreditations.astro";
 
 // Fetch homepage data
 const homePage = await getHomePage();
+const aboutPage = await getAboutPage();
+
+const accreditationsList = aboutPage?.accreditations?.accreditations?.length
+  ? aboutPage.accreditations.accreditations.map((acc: any) => ({
+      name: acc.name,
+      logo: {
+        url: acc.logo?.asset?.url
+          ? getSanityImageUrl(acc.logo, { width: 200, height: 200, fit: "max" })
+          : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Philippine_Accrediting_Association_of_Schools%2C_Colleges_and_Universities_%28PAASCU%29_logo.svg/1200px-Philippine_Accrediting_Association_of_Schools%2C_Colleges_and_Universities_%28PAASCU%29_logo.svg.png",
+        alt: acc.logo?.alt || acc.name,
+      },
+    }))
+  : [];
 const thumbnails = await getCollegeProgramThumbnails();
 
 // Fetch featured news (max 3) for home page
@@ -47,6 +63,14 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
 <Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
   {homePage?.hero && <Hero hero={homePage.hero} />}
   <div id="content-below-hero"></div>
+
+  {
+    accreditationsList.length > 0 && (
+      <ScrollRevealWrapper direction="up" delay={0.1}>
+        <Accreditations accreditationsList={accreditationsList} />
+      </ScrollRevealWrapper>
+    )
+  }
 
   {
     homePage?.intro && (

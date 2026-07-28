@@ -205,7 +205,13 @@ export function Header() {
             transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
             className="overflow-hidden border-t border-white/10 bg-[var(--color-primary)]"
           >
-            <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-[60px] sm:py-16">
+            <div
+              className="mx-auto w-full max-w-7xl overflow-y-auto px-5 py-10 sm:px-[60px] sm:py-16"
+              style={{
+                maxHeight:
+                  "calc(100vh - var(--announcement-bar-height, 0px) - 70px)",
+              }}
+            >
               <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
                 {HEADER_MENU_SECTIONS.map((section, idx) => (
                   <motion.div
