@@ -56,7 +56,11 @@ const videoUrl = getVideoUrl();
   }
 
   <!-- Dark Overlay for WCAG Text Contrast -->
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-xs z-0"></div>
+  <div class="absolute inset-0 bg-primary/60 z-0 dramatic-overlay-out"></div>
+  <div
+    class="absolute inset-0 bg-black/60 backdrop-blur-s z-0 dramatic-overlay-in"
+  >
+  </div>
 
   <!-- Main Content Container -->
   <div
@@ -116,7 +120,7 @@ const videoUrl = getVideoUrl();
               <div class="absolute top-5 left-1/2 origin-top-left rotate-45">
                 <span
                   class="text-[11px] font-bold text-slate-300 whitespace-nowrap block"
-                  >Pre School</span
+                  >Nursery, Pre-Kinder & Kinder</span
                 >
               </div>
             </li>
@@ -242,7 +246,7 @@ const videoUrl = getVideoUrl();
               ></span>
             </div>
             <span class="text-yellow-400 font-black text-2xl tracking-tight"
-              >College Programs</span
+              >College</span
             >
           </li>
 
@@ -286,7 +290,7 @@ const videoUrl = getVideoUrl();
               ></span>
             </div>
             <span class="text-slate-300 font-bold text-lg"
-              >Preschool, Pre-Kinder & Kinder</span
+              >Nursery, Pre-Kinder & Kinder</span
             >
           </li>
         </ul>
@@ -397,8 +401,17 @@ const videoUrl = getVideoUrl();
     }
   }
 
-  /* Cinematic Video Reveal */
+  /* Cinematic Video Reveal and Overlays */
   .dramatic-video {
+    opacity: 0;
+    animation: dramatic-reveal 1.2s ease-in-out 2.2s forwards;
+  }
+
+  .dramatic-overlay-out {
+    animation: dramatic-fade-out 1.2s ease-in-out 2.2s forwards;
+  }
+
+  .dramatic-overlay-in {
     opacity: 0;
     animation: dramatic-reveal 1.2s ease-in-out 2.2s forwards;
   }
@@ -409,6 +422,15 @@ const videoUrl = getVideoUrl();
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes dramatic-fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
   }
 

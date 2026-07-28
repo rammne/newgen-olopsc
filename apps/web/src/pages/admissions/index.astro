@@ -10,14 +10,21 @@ const admissionsPage = await getAdmissionsPage();
 const pageTitle = "Admissions | OLOPSC | OLOPS College";
 const pageDescription =
   admissionsPage?.seo?.description ||
-  "Join OLOPSC. Explore our admissions pathways for College and Basic Education programs.";
+  "Join OLOPSC. Explore our admissions for College and Basic Education programs.";
 const ogImage = admissionsPage?.seo?.image?.asset?.url;
 
 // Use CMS data or smart fallbacks
-const heroHeadline = admissionsPage?.hero?.headline || "Begin Your Journey at OLOPSC";
-const heroSubheadline = admissionsPage?.hero?.subheadline || "Discover a vibrant community dedicated to academic excellence and character formation. Choose your path and apply today.";
-const bgImageUrl = admissionsPage?.hero?.backgroundImage?.asset?.url 
-  ? getSanityImageUrl(admissionsPage.hero.backgroundImage, { width: 1920, height: 1080, fit: "crop" }) 
+const heroHeadline =
+  admissionsPage?.hero?.headline || "Begin Your Journey at OLOPSC";
+const heroSubheadline =
+  admissionsPage?.hero?.subheadline ||
+  "Discover a vibrant community dedicated to academic excellence and character formation. Choose your path and apply today.";
+const bgImageUrl = admissionsPage?.hero?.backgroundImage?.asset?.url
+  ? getSanityImageUrl(admissionsPage.hero.backgroundImage, {
+      width: 1920,
+      height: 1080,
+      fit: "crop",
+    })
   : null;
 
 const admissionPaths = [
@@ -41,62 +48,95 @@ const admissionPaths = [
 const canonicalUrl = admissionsPage?.seo?.canonicalUrl;
 ---
 
-<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
+<Layout
+  rawTitle={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
+>
   {/* Modern Admissions Hero Section */}
-  <section class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]">
+  <section
+    class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]"
+  >
     {/* Background Layer */}
     <div class="absolute inset-0 z-0">
-      {bgImageUrl ? (
-        <>
-          <img 
-            src={bgImageUrl} 
-            alt="Admissions Background" 
-            class="w-full h-full object-cover animate-slow-zoom" 
-          />
-          {/* Dual Overlay: Solid color multiply + Gradient */}
-          <div class="absolute inset-0 bg-[#0a095f]/70 mix-blend-multiply"></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-[#050340]/90 via-[#0a095f]/60 to-transparent"></div>
-        </>
-      ) : (
-        /* Fallback Gradient */
-        <div class="absolute inset-0 bg-gradient-to-br from-[#050340] via-[#0a095f] to-[#12108a]">
-          {/* Subtle decorative circles */}
-          <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-white/5 blur-[100px] animate-pulse"></div>
-          <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-accent)]/10 blur-[100px]"></div>
-        </div>
-      )}
+      {
+        bgImageUrl ? (
+          <>
+            <img
+              src={bgImageUrl}
+              alt="Admissions Background"
+              class="w-full h-full object-cover animate-slow-zoom"
+            />
+            {/* Dual Overlay: Solid color multiply + Gradient */}
+            <div class="absolute inset-0 bg-[#0a095f]/70 mix-blend-multiply" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050340]/90 via-[#0a095f]/60 to-transparent" />
+          </>
+        ) : (
+          /* Fallback Gradient */
+          <div class="absolute inset-0 bg-gradient-to-br from-[#050340] via-[#0a095f] to-[#12108a]">
+            {/* Subtle decorative circles */}
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-white/5 blur-[100px] animate-pulse" />
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-accent)]/10 blur-[100px]" />
+          </div>
+        )
+      }
     </div>
 
     {/* Content Container */}
-    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full mt-10 sm:mt-16">
-      <div class="max-w-3xl animate-fade-in-up" style="animation: fade-in-up 1s ease-out forwards; opacity: 0;">
+    <div
+      class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full mt-10 sm:mt-16"
+    >
+      <div
+        class="max-w-3xl animate-fade-in-up"
+        style="animation: fade-in-up 1s ease-out forwards; opacity: 0;"
+      >
         {/* Eyebrow / Tag */}
-        <div class="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-          <span class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"></span>
-          <span class="text-white text-xs sm:text-sm font-bold uppercase tracking-widest font-['Inter']">
+        <div
+          class="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
+        >
+          <span
+            class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"
+          ></span>
+          <span
+            class="text-white text-xs sm:text-sm font-bold uppercase tracking-widest font-['Inter']"
+          >
             Admissions Now Open
           </span>
         </div>
 
         {/* Headline */}
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8 font-['Montserrat']">
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8 font-['Montserrat']"
+        >
           {heroHeadline}
         </h1>
 
         {/* Subtitle */}
-        <p class="text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl mb-10 font-['Inter'] font-light">
+        <p
+          class="text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl mb-10 font-['Inter'] font-light"
+        >
           {heroSubheadline}
         </p>
 
         {/* Action Buttons */}
         <div class="flex flex-col sm:flex-row gap-4">
-          <a 
-            href="#admission-pathways" 
+          <a
+            href="#admission-pathways"
             class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--color-accent)] text-[var(--color-primary)] font-bold text-lg rounded-full hover:bg-white transition-all duration-300 shadow-[0_4px_20px_rgba(237,192,84,0.4)] hover:shadow-[0_8px_30px_rgba(255,255,255,0.4)] hover:-translate-y-1 group font-['Inter']"
           >
-            Explore Pathways
-            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            View Our Admission Processes!
+            <svg
+              class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
           </a>
         </div>
@@ -132,59 +172,95 @@ const canonicalUrl = admissionsPage?.seo?.canonicalUrl;
   <section id="admission-pathways" class="py-24 md:py-32 bg-slate-50">
     <div class="max-w-5xl mx-auto px-6">
       <div class="text-center mb-16">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block"
+        >
           Choose Your Path
         </span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6"
+        >
           Select Your Enrollment Track.
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          OLOPSC offers dedicated admissions processes for College and Basic Education.
-          Choose the pathway that applies to you.
+          OLOPSC offers dedicated admissions processes for College and Basic
+          Education. Choose the pathway that applies to you.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {admissionPaths.map((path) => (
-          <a
-            href={path.href}
-            class="group relative flex flex-col bg-white rounded-3xl p-10 border border-slate-200 shadow-sm
+        {
+          admissionPaths.map((path) => (
+            <a
+              href={path.href}
+              class="group relative flex flex-col bg-white rounded-3xl p-10 border border-slate-200 shadow-sm
                    transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-accent
                    no-underline cursor-pointer"
-          >
-            {/* Icon */}
-            <div class="w-16 h-16 rounded-2xl bg-slate-100 group-hover:bg-accent/10 flex items-center justify-center mb-8 transition-colors duration-300">
-              {path.icon === "graduation" ? (
-                <svg class="w-8 h-8 text-primary group-hover:text-accent transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-                </svg>
-              ) : (
-                <svg class="w-8 h-8 text-primary group-hover:text-accent transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                </svg>
-              )}
-            </div>
+            >
+              {/* Icon */}
+              <div class="w-16 h-16 rounded-2xl bg-slate-100 group-hover:bg-accent/10 flex items-center justify-center mb-8 transition-colors duration-300">
+                {path.icon === "graduation" ? (
+                  <svg
+                    class="w-8 h-8 text-primary group-hover:text-accent transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    class="w-8 h-8 text-primary group-hover:text-accent transition-colors duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                    />
+                  </svg>
+                )}
+              </div>
 
-            {/* Text Content */}
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-              {path.subtitle}
-            </span>
-            <h3 class="text-2xl font-black text-primary mb-4 group-hover:text-accent transition-colors duration-300">
-              {path.title}
-            </h3>
-            <p class="text-sm text-slate-600 leading-relaxed mb-8 flex-grow">
-              {path.description}
-            </p>
+              {/* Text Content */}
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                {path.subtitle}
+              </span>
+              <h3 class="text-2xl font-black text-primary mb-4 group-hover:text-accent transition-colors duration-300">
+                {path.title}
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed mb-8 flex-grow">
+                {path.description}
+              </p>
 
-            {/* Arrow CTA */}
-            <div class="flex items-center gap-2 text-sm font-bold text-primary group-hover:text-accent transition-colors duration-300">
-              <span>View Details</span>
-              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </div>
-          </a>
-        ))}
+              {/* Arrow CTA */}
+              <div class="flex items-center gap-2 text-sm font-bold text-primary group-hover:text-accent transition-colors duration-300">
+                <span>View Details</span>
+                <svg
+                  class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

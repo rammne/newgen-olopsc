@@ -117,7 +117,7 @@ const displayPrograms = (programsPreview?.programs && programsPreview.programs.l
   : fallbackPrograms;
 
 const ctaText = programsPreview?.cta?.text || "View All College Programs";
-const ctaLink = typeof programsPreview?.cta?.link === 'string' ? programsPreview.cta.link : "/college-programs";
+const ctaLink = typeof programsPreview?.cta?.link === 'string' ? programsPreview.cta.link : "/college";
 ---
 
 <section class="bg-slate-50 py-20">
@@ -173,12 +173,12 @@ const ctaLink = typeof programsPreview?.cta?.link === 'string' ? programsPreview
     <!-- Global CTA -->
     {programsPreview?.cta ? (
       <div class="text-center mt-12">
-        <CtaButton cta={programsPreview.cta} />
+        <CtaButton cta={{ ...programsPreview.cta, link: { type: 'external', external: '/college' } }} />
       </div>
     ) : (
       <div class="text-center mt-12">
         <a 
-          href={ctaLink}
+          href="/college"
           class="inline-block bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-extrabold py-4 px-10 rounded transition-transform active:scale-95"
         >
           {ctaText}

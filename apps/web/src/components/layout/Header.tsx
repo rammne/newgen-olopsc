@@ -1,105 +1,119 @@
-import { useEffect, useState, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState, useRef } from "react";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NAV_ITEMS = [
-  { label: 'About OLOPSC', href: '/about' },
-  { label: 'Admissions', href: '/admissions' },
-  { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
-  { label: 'Sustainability', href: '/sdg' },
-]
+  { label: "About OLOPSC", href: "/about" },
+  { label: "Admissions", href: "/admissions" },
+  { label: "Library", href: "http://opac.olopsc.edu.ph/" },
+  { label: "Sustainability", href: "/sdg" },
+];
 
 // Replicating Footer sections for the expanded menu
 const HEADER_MENU_SECTIONS = [
   {
-    title: 'Academics',
+    title: "Academics",
     links: [
-      { label: 'Preschool', href: '/preschool' },
-      { label: 'Grade School', href: '/grade-school' },
-      { label: 'Junior High School', href: '/junior-high-school' },
-      { label: 'Senior High School', href: '/senior-high-school' },
-      { label: 'College', href: '/college' },
-      { label: 'Scholarship Programs', href: '/scholarship-programs' },
+      { label: "Preschool", href: "/preschool" },
+      { label: "Grade School", href: "/grade-school" },
+      { label: "Junior High School", href: "/junior-high-school" },
+      { label: "Senior High School", href: "/senior-high-school" },
+      { label: "College", href: "/college" },
+      { label: "Scholarship Programs", href: "/scholarship-programs" },
     ],
   },
   {
-    title: 'Quick Links',
+    title: "Quick Links",
     links: [
-      { label: 'Home', href: '/' },
-      { label: 'Library', href: 'http://opac.olopsc.edu.ph/' },
-      { label: 'About OLOPSC', href: '/about' },
-      { label: 'Admissions', href: '/admissions' },
-      { label: 'Alumni Section', href: '/alumni-section' },
-      { label: 'Contact Us', href: '/contact' },
+      { label: "Home", href: "/" },
+      { label: "Library", href: "http://opac.olopsc.edu.ph/" },
+      { label: "About OLOPSC", href: "/about" },
+      { label: "Admissions", href: "/admissions" },
+      { label: "Alumni Section", href: "/alumni" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
   {
-    title: 'Community',
+    title: "Community",
     links: [
-      { label: 'Events', href: '/events' },
-      { label: 'News & Updates', href: '/news' },
-      { label: 'Sustainable Development Goals', href: '/sdg' },
+      { label: "Events", href: "/events" },
+      { label: "News & Updates", href: "/news" },
+      { label: "Sustainable Development Goals", href: "/sdg" },
     ],
   },
   {
-    title: 'College Programs',
+    title: "College Programs",
     links: [
-      { label: 'Computing Studies', href: '/college/computing-studies' },
-      { label: 'Business Administration and Entrepreneurship', href: '/college/business-administration-and-entrepreneurship' },
-      { label: 'Education and Liberal Arts', href: '/college/education-and-liberal-arts' },
-      { label: 'Psychology', href: '/college/psychology' },
-      { label: 'Hospitality Management', href: '/college/hospitality-management' },
-      { label: 'Tourism Management', href: '/college/tourism-management' },
+      { label: "Computing Studies", href: "/college/computing-studies" },
+      {
+        label: "Business Administration and Entrepreneurship",
+        href: "/college/business-administration-and-entrepreneurship",
+      },
+      {
+        label: "Education and Liberal Arts",
+        href: "/college/education-and-liberal-arts",
+      },
+      { label: "Psychology", href: "/college/psychology" },
+      {
+        label: "Hospitality Management",
+        href: "/college/hospitality-management",
+      },
+      { label: "Tourism Management", href: "/college/tourism-management" },
     ],
   },
-]
+];
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const offset =
         window.scrollY ||
         document.documentElement.scrollTop ||
-        document.body.scrollTop
-      setScrolled(offset > 20)
-    }
+        document.body.scrollTop;
+      setScrolled(offset > 20);
+    };
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) {
-        setMenuOpen(false)
+      if (
+        menuOpen &&
+        headerRef.current &&
+        !headerRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [menuOpen])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   const baseClasses =
-    'fixed inset-x-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]'
+    "fixed inset-x-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]";
 
-  const backgroundClasses = scrolled || menuOpen
-    ? 'bg-[var(--color-primary)] shadow-lg backdrop-blur-md'
-    : 'bg-gradient-to-b from-black/60 via-black/30 to-transparent backdrop-blur-[2px]'
+  const backgroundClasses =
+    scrolled || menuOpen
+      ? "bg-[var(--color-primary)] shadow-lg backdrop-blur-md"
+      : "bg-gradient-to-b from-black/60 via-black/30 to-transparent backdrop-blur-[2px]";
 
-  const heightClasses = scrolled ? 'py-3' : 'py-5'
+  const heightClasses = scrolled ? "py-3" : "py-5";
 
   return (
     <header
       ref={headerRef}
       className={`${baseClasses} ${backgroundClasses} ${heightClasses}`}
-      style={{ top: 'var(--announcement-bar-height, 0px)' }}
+      style={{ top: "var(--announcement-bar-height, 0px)" }}
     >
       <div className="mx-auto flex w-full items-center justify-between px-5 sm:px-[60px]">
         {/* Logo + wordmark */}
@@ -152,7 +166,7 @@ export function Header() {
             aria-label="Toggle navigation"
             onClick={() => setMenuOpen((open) => !open)}
             whileTap={{ scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
@@ -161,7 +175,7 @@ export function Header() {
                   initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
                   animate={{ opacity: 1, rotate: 0, scale: 1 }}
                   exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                 >
                   <X size={24} className="text-white" />
                 </motion.span>
@@ -171,7 +185,7 @@ export function Header() {
                   initial={{ opacity: 0, rotate: 90, scale: 0.7 }}
                   animate={{ opacity: 1, rotate: 0, scale: 1 }}
                   exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                 >
                   <Menu size={24} className="text-white" />
                 </motion.span>
@@ -186,7 +200,7 @@ export function Header() {
         {menuOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
             className="overflow-hidden border-t border-white/10 bg-[var(--color-primary)]"
@@ -231,9 +245,7 @@ export function Header() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }
 
-export default Header
-
-
+export default Header;

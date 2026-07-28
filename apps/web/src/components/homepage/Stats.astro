@@ -7,42 +7,47 @@ const stats = [
   {
     number: "45+",
     label: "Years of Legacy",
-    context: "Providing continuous, quality Catholic education to the community since 1978."
+    context:
+      "Providing continuous, quality education to the community since 1978.",
   },
   {
     number: "98%",
     label: "Student Satisfaction",
-    context: ""
+    context: "",
   },
   {
     number: "15",
     label: "Campus Facilities",
-    context: "Modern buildings housing state-of-the-art laboratories, libraries, and collaborative spaces."
+    context:
+      "Modern buildings housing state-of-the-art laboratories, libraries, and collaborative spaces.",
   },
   {
     number: "100%",
     label: "Outcome-Based",
-    context: "Committed to CHED and DepEd standards, ensuring every learner reaches their full potential."
-  }
+    context:
+      "Committed to CHED, ensuring every learner reaches their full potential.",
+  },
 ];
 ---
 
 <section class="bg-primary py-16 md:py-20">
   <div class="container mx-auto px-6 max-w-7xl">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 divide-x-0 lg:divide-x lg:divide-gray-800">
-      {stats.map((stat) => (
-        <div class="text-center flex flex-col items-center px-4">
-          <div class="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter">
-            {stat.number}
+    <div
+      class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 divide-x-0 lg:divide-x lg:divide-gray-800"
+    >
+      {
+        stats.map((stat) => (
+          <div class="text-center flex flex-col items-center px-4">
+            <div class="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter">
+              {stat.number}
+            </div>
+            <div class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-3">
+              {stat.label}
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed">{stat.context}</p>
           </div>
-          <div class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-3">
-            {stat.label}
-          </div>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            {stat.context}
-          </p>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
