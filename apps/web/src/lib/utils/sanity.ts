@@ -46,6 +46,43 @@ export function getSanityImageUrl(
 }
 
 /**
+ * Normalize URLs pointing to the site's own domain into root-relative paths
+ */
+export function normalizeToRelativePath(url?: string): string {
+  if (!url) return '#'
+
+  // Already relative or anchor
+  if (url.startsWith('/') || url.startsWith('#')) return url
+
+  try {
+    const parsed = new URL(url)
+    const hostname = parsed.hostname.toLowerCase()
+
+    // Domains that belong to this website (production, staging, local)
+    const siteDomains = [
+      'newgen-olopsc.netlify.app',
+      'olopsc.edu.ph',
+      'www.olopsc.edu.ph',
+      'localhost',
+      '127.0.0.1',
+    ]
+
+    const isSiteDomain = siteDomains.some(
+      (domain) => hostname === domain || hostname.endsWith('.' + domain)
+    )
+
+    if (isSiteDomain) {
+      const relativePath = parsed.pathname + parsed.search + parsed.hash
+      return relativePath || '/'
+    }
+  } catch (e) {
+    // If not a parseable absolute URL, return original
+  }
+
+  return url
+}
+
+/**
  * Resolve CTA link to actual URL
  */
 export function resolveCtaLink(cta: {
@@ -74,25 +111,35 @@ export function resolveCtaLink(cta: {
 
   switch (link.type) {
     case 'external':
-      return link.external || '#'
+      return normalizeToRelativePath(link.external)
     case 'anchor':
       return `#${link.anchor || ''}`
     case 'file':
       return link.file?.asset?.url || '#'
     case 'internal':
-      if (link.internal?.slug?.current) {
+      if (link.internal) {
         const type = link.internal._type
-        if (type === 'academicDepartment') {
-          // For academic departments, we need to fetch the department to get the departmentType
-          // For now, fallback to the slug-based URL - this will be handled by the component
-          return `/${link.internal.slug.current}`
+        const slug = link.internal.slug?.current
+
+        if (type === 'academicDepartment' && slug) {
+          return `/${slug}`
         }
-        if (type === 'collegeProgram') {
-          return `/${link.internal.slug.current}`
+        if (type === 'collegeProgram' && slug) {
+          return `/${slug}`
         }
-        if (type === 'page') {
-          return `/${link.internal.slug.current}`
+        if (type === 'news' && slug) {
+          return `/news/${slug}`
         }
+        if (type === 'event' && slug) {
+          return `/events/${slug}`
+        }
+        if (type === 'aboutPage') return '/about'
+        if (type === 'admissionsPage') return '/admissions'
+        if (type === 'scholarshipPage') return '/scholarship-programs'
+        if (type === 'contactPage') return '/contact'
+        if (type === 'jobsPage') return '/jobs-section'
+        if (type === 'homePage') return '/'
+        if (slug) return `/${slug}`
       }
       return '#'
     default:
