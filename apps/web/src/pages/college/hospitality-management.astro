@@ -13,62 +13,96 @@ const pageData = await getHospitalityManagementPage();
 
 const heroBackground = {
   url: pageData?.heroBackground?.asset?.url
-    ? getSanityImageUrl(pageData.heroBackground, { width: 1920, height: 1080, fit: "crop" })
+    ? getSanityImageUrl(pageData.heroBackground, {
+        width: 1920,
+        height: 1080,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=1920&auto=format&fit=crop",
-  alt: pageData?.heroBackground?.alt || "Premium Hospitality Kitchen and Hotel Operations"
+  alt:
+    pageData?.heroBackground?.alt ||
+    "Premium Hospitality Kitchen and Hotel Operations",
 };
 
 const quickFacts = {
   duration: pageData?.quickFacts?.duration || "4 Years",
   units: pageData?.quickFacts?.units || "160 Units",
-  format: pageData?.quickFacts?.format || "On Site, Lab & Practicum"
+  format: pageData?.quickFacts?.format || "On Site, Lab & Practicum",
 };
 
 const overviewMainImage = {
   url: pageData?.overviewMainImage?.asset?.url
-    ? getSanityImageUrl(pageData.overviewMainImage, { width: 800, height: 600, fit: "crop" })
+    ? getSanityImageUrl(pageData.overviewMainImage, {
+        width: 800,
+        height: 600,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
-  alt: pageData?.overviewMainImage?.alt || "Premium Hospitality Operations"
+  alt: pageData?.overviewMainImage?.alt || "Premium Hospitality Operations",
 };
 
 const overviewSubImage = {
   url: pageData?.overviewSubImage?.asset?.url
-    ? getSanityImageUrl(pageData.overviewSubImage, { width: 600, height: 600, fit: "crop" })
+    ? getSanityImageUrl(pageData.overviewSubImage, {
+        width: 600,
+        height: 600,
+        fit: "crop",
+      })
     : "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop",
-  alt: pageData?.overviewSubImage?.alt || "Culinary and Enterprise Management"
+  alt: pageData?.overviewSubImage?.alt || "Culinary and Enterprise Management",
 };
 
-const outcomes = pageData?.outcomes && pageData.outcomes.length > 0
-  ? pageData.outcomes
-  : [
-      { title: "Culinary Arts & Food Production", description: "Learn to prepare international cuisines, manage commercial kitchens, and maintain high standards of food safety." },
-      { title: "Hotel & Resort Management", description: "Gain the skills to oversee front desk operations, housekeeping, and overall guest satisfaction in hotels and resorts." },
-      { title: "Restaurant & Business Operations", description: "Understand the financial side of hospitality, from managing costs to running a profitable food and beverage business." },
-      { title: "Exceptional Guest Service", description: "Develop the interpersonal skills needed to provide outstanding service and memorable experiences for local and international guests." }
-    ];
+const outcomes =
+  pageData?.outcomes && pageData.outcomes.length > 0
+    ? pageData.outcomes
+    : [
+        {
+          title: "Culinary Arts & Food Production",
+          description:
+            "Learn to prepare international cuisines, manage commercial kitchens, and maintain high standards of food safety.",
+        },
+        {
+          title: "Hotel & Resort Management",
+          description:
+            "Gain the skills to oversee front desk operations, housekeeping, and overall guest satisfaction in hotels and resorts.",
+        },
+        {
+          title: "Restaurant & Business Operations",
+          description:
+            "Understand the financial side of hospitality, from managing costs to running a profitable food and beverage business.",
+        },
+        {
+          title: "Exceptional Guest Service",
+          description:
+            "Develop the interpersonal skills needed to provide outstanding service and memorable experiences for local and international guests.",
+        },
+      ];
 
-const curriculum = pageData?.curriculum && pageData.curriculum.length > 0
-  ? pageData.curriculum
-  : [
-      {
-        year: "Year 1",
-        title: "Foundations of Culinary & Service Operations",
-        description: "Master the fundamental concepts of food safety, commercial kitchen operations, and the global hospitality ecosystem.",
-        subjects: [
+const curriculum =
+  pageData?.curriculum && pageData.curriculum.length > 0
+    ? pageData.curriculum
+    : [
+        {
+          year: "Year 1",
+          title: "Foundations of Culinary & Service Operations",
+          description:
+            "Master the fundamental concepts of food safety, commercial kitchen operations, and the global hospitality ecosystem.",
+          subjects: [
             "[1st Sem] Macro Perspective of Tourism and Hospitality",
             "[1st Sem] Risk Management as Applied to Safety, Security and Sanitation",
             "[1st Sem] Fundamentals in Lodging Operations (Housekeeping)",
             "[1st Sem] Philippine Culture and Tourism Geography",
             "[2nd Sem] Micro Perspective of Tourism and Hospitality",
             "[2nd Sem] Kitchen Essentials and Basic Food Preparations",
-            "[2nd Sem] Fundamental in Food Service Operations"
-        ]
-      },
-      {
-        year: "Year 2",
-        title: "Food & Beverage Enterprise Management",
-        description: "Dive into the mechanics of commercial culinary arts, high-volume catering, and beverage control.",
-        subjects: [
+            "[2nd Sem] Fundamental in Food Service Operations",
+          ],
+        },
+        {
+          year: "Year 2",
+          title: "Food & Beverage Enterprise Management",
+          description:
+            "Dive into the mechanics of commercial culinary arts, high-volume catering, and beverage control.",
+          subjects: [
             "[1st Sem] Foreign Language 1",
             "[1st Sem] Bakery and Pastry (Professional Elective 2)",
             "[1st Sem] Bar and Beverage Management (Professional Elective 3)",
@@ -77,14 +111,15 @@ const curriculum = pageData?.curriculum && pageData.curriculum.length > 0
             "[2nd Sem] Professional Development and Applied Ethics",
             "[2nd Sem] Foreign Language 2",
             "[2nd Sem] Supply Chain Management in Hospitality",
-            "[2nd Sem] International Cuisine (Professional Elective 4)"
-        ]
-      },
-      {
-        year: "Year 3",
-        title: "Property & Rooms Division Operations",
-        description: "Learn to command the physical infrastructure of a hotel, focusing on front office logistics and hospitality accounting.",
-        subjects: [
+            "[2nd Sem] International Cuisine (Professional Elective 4)",
+          ],
+        },
+        {
+          year: "Year 3",
+          title: "Property & Rooms Division Operations",
+          description:
+            "Learn to command the physical infrastructure of a hotel, focusing on front office logistics and hospitality accounting.",
+          subjects: [
             "[1st Sem] Food and Beverage Cost Control (Professional Elective 5)",
             "[1st Sem] Cruise Tourism (Professional Elective 6)",
             "[1st Sem] Legal Aspects in Tourism and Hospitality",
@@ -95,14 +130,15 @@ const curriculum = pageData?.curriculum && pageData.curriculum.length > 0
             "[2nd Sem] Research in Hospitality Management",
             "[2nd Sem] Intro to Meetings, Incentives, Conference and Events (MICE)",
             "[2nd Sem] Operations Management in Tourism and Hospitality Industry",
-            "[2nd Sem] Catering Management (Professional Elective 8)"
-        ]
-      },
-      {
-        year: "Year 4",
-        title: "Strategic Leadership & Practicum",
-        description: "Apply your operational knowledge in real-world local and international luxury hospitality settings.",
-        subjects: [
+            "[2nd Sem] Catering Management (Professional Elective 8)",
+          ],
+        },
+        {
+          year: "Year 4",
+          title: "Strategic Leadership & Practicum",
+          description:
+            "Apply your operational knowledge in real-world local and international luxury hospitality settings.",
+          subjects: [
             "[1st Sem] Strategic Management in Tourism &Hospitality Industry",
             "[1st Sem] Quality Service Management in Tourism and Hospitality",
             "[1st Sem] Entrepreneurship in Tourism and Hospitality",
@@ -110,253 +146,619 @@ const curriculum = pageData?.curriculum && pageData.curriculum.length > 0
             "[1st Sem] Franchising (Professional Elective 9)",
             "[1st Sem] Recreation and Leisure Management (Professional Elective 10)",
             "[1st Sem] Food and Beverage Operations (Restaurant or Cafe Management) (Professional Elective 11)",
-            "[2nd Sem] Practicum (600 hours)"
-        ]
-      }
-    ];
+            "[2nd Sem] Practicum (600 hours)",
+          ],
+        },
+      ];
 
 const ecosystemImages = {
   facilities: {
-    url: pageData?.ecosystemImages?.facilities?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.facilities, { width: 800, height: 600, fit: "crop" }) : "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
-    alt: pageData?.ecosystemImages?.facilities?.alt || "Commercial Kitchens"
+    url: pageData?.ecosystemImages?.facilities?.asset?.url
+      ? getSanityImageUrl(pageData.ecosystemImages.facilities, {
+          width: 800,
+          height: 600,
+          fit: "crop",
+        })
+      : "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.facilities?.alt || "Commercial Kitchens",
   },
   society: {
-    url: pageData?.ecosystemImages?.society?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.society, { width: 600, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600&auto=format&fit=crop",
-    alt: pageData?.ecosystemImages?.society?.alt || "Hospitality Society"
+    url: pageData?.ecosystemImages?.society?.asset?.url
+      ? getSanityImageUrl(pageData.ecosystemImages.society, {
+          width: 600,
+          height: 800,
+          fit: "crop",
+        })
+      : "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.society?.alt || "Hospitality Society",
   },
   catering: {
-    url: pageData?.ecosystemImages?.catering?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.catering, { width: 600, height: 600, fit: "crop" }) : "https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=600&auto=format&fit=crop",
-    alt: pageData?.ecosystemImages?.catering?.alt || "High-Volume Catering"
+    url: pageData?.ecosystemImages?.catering?.asset?.url
+      ? getSanityImageUrl(pageData.ecosystemImages.catering, {
+          width: 600,
+          height: 600,
+          fit: "crop",
+        })
+      : "https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=600&auto=format&fit=crop",
+    alt: pageData?.ecosystemImages?.catering?.alt || "High-Volume Catering",
   },
   restaurant: {
-    url: pageData?.ecosystemImages?.restaurant?.asset?.url ? getSanityImageUrl(pageData.ecosystemImages.restaurant, { width: 600, height: 600, fit: "crop" }) : "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop",
-    alt: pageData?.ecosystemImages?.restaurant?.alt || "Live Fine Dining Simulation"
-  }
+    url: pageData?.ecosystemImages?.restaurant?.asset?.url
+      ? getSanityImageUrl(pageData.ecosystemImages.restaurant, {
+          width: 600,
+          height: 600,
+          fit: "crop",
+        })
+      : "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop",
+    alt:
+      pageData?.ecosystemImages?.restaurant?.alt ||
+      "Live Fine Dining Simulation",
+  },
 };
 
 const chair = pageData?.chair || {
   name: "Chef Alejandro Santos",
   title: "Program Chair, BS Hospitality Management",
   credentials: "",
-  quote: "Hospitality is about creating memorable experiences. Our mission is to train passionate individuals who can confidently lead kitchens, manage hotels, and build successful careers in the global tourism industry.",
+  quote:
+    "Hospitality is about creating memorable experiences. Our mission is to train passionate individuals who can confidently lead kitchens, manage hotels, and build successful careers in the global tourism industry.",
   image: {
     url: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
-    alt: "Program Chair"
-  }
+    alt: "Program Chair",
+  },
 };
 
 if (pageData?.chair?.image?.asset?.url) {
-  chair.image.url = getSanityImageUrl(pageData.chair.image, { width: 800, height: 1000, fit: "crop" });
+  chair.image.url = getSanityImageUrl(pageData.chair.image, {
+    width: 800,
+    height: 1000,
+    fit: "crop",
+  });
 }
 
-const faculty = pageData?.faculty && pageData.faculty.length > 0
-  ? pageData.faculty.map((f: any) => ({
-      ...f,
-      image: {
-        url: f.image?.asset?.url ? getSanityImageUrl(f.image, { width: 600, height: 800, fit: "crop" }) : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
-        alt: f.image?.alt || f.name
-      }
-    }))
-  : [
-      { name: "Maria Elena Cruz", specialty: "Executive Culinary Arts", credentials: "Former Executive Chef, Peninsula", image: { url: "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
-      { name: "Ricardo Mendoza", specialty: "Luxury Hotel Operations", credentials: "MBA, CHA", image: { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
-      { name: "Sofia Laurente", specialty: "Food & Beverage Enterprise", credentials: "M.S. in F&B Management", image: { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } },
-      { name: "Antonio Villar", specialty: "Hospitality Revenue Management", credentials: "PhD in Hospitality Finance", image: { url: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop", alt: "Faculty" } }
-    ];
+const faculty =
+  pageData?.faculty && pageData.faculty.length > 0
+    ? pageData.faculty.map((f: any) => ({
+        ...f,
+        image: {
+          url: f.image?.asset?.url
+            ? getSanityImageUrl(f.image, {
+                width: 600,
+                height: 800,
+                fit: "crop",
+              })
+            : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+          alt: f.image?.alt || f.name,
+        },
+      }))
+    : [
+        {
+          name: "Maria Elena Cruz",
+          specialty: "Executive Culinary Arts",
+          credentials: "Former Executive Chef, Peninsula",
+          image: {
+            url: "https://images.unsplash.com/photo-1581299894007-aaa50297cf16?q=80&w=600&auto=format&fit=crop",
+            alt: "Faculty",
+          },
+        },
+        {
+          name: "Ricardo Mendoza",
+          specialty: "Luxury Hotel Operations",
+          credentials: "MBA, CHA",
+          image: {
+            url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop",
+            alt: "Faculty",
+          },
+        },
+        {
+          name: "Sofia Laurente",
+          specialty: "Food & Beverage Enterprise",
+          credentials: "M.S. in F&B Management",
+          image: {
+            url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop",
+            alt: "Faculty",
+          },
+        },
+        {
+          name: "Antonio Villar",
+          specialty: "Hospitality Revenue Management",
+          credentials: "PhD in Hospitality Finance",
+          image: {
+            url: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=600&auto=format&fit=crop",
+            alt: "Faculty",
+          },
+        },
+      ];
 
-const pathways = pageData?.pathways && pageData.pathways.length > 0
-  ? pageData.pathways
-  : [
-      {
-        title: "Hotel and Resort Operations",
-        subtitle: "Rooms & Guest Services",
-        description: "Manage the daily operations of hotels and resorts. Ensure guests have a comfortable stay by leading front office teams and overseeing housekeeping standards.",
-        roles: ["Hotel General Manager", "Rooms Division Director", "Front Office Manager", "Resort Operations Executive"]
-      },
-      {
-        title: "Culinary Arts & Catering",
-        subtitle: "Food & Beverage",
-        description: "Turn your passion for food into a career. Lead kitchen teams, manage large catering events, or start your own successful restaurant business.",
-        roles: ["Executive Chef / Culinary Director", "Food & Beverage (F&B) Director", "Corporate Catering Manager", "Restaurateur"]
-      },
-      {
-        title: "Hospitality Management",
-        subtitle: "Events & Corporate Strategy",
-        description: "Take on leadership roles in hospitality brands. Plan major events, manage staff, and ensure the business runs smoothly and profitably.",
-        roles: ["Events and Banquet Manager", "VIP Relations Director", "Hospitality HR Director", "Club & Casino Manager"]
-      }
-    ];
+const pathways =
+  pageData?.pathways && pageData.pathways.length > 0
+    ? pageData.pathways
+    : [
+        {
+          title: "Hotel and Resort Operations",
+          subtitle: "Rooms & Guest Services",
+          description:
+            "Manage the daily operations of hotels and resorts. Ensure guests have a comfortable stay by leading front office teams and overseeing housekeeping standards.",
+          roles: [
+            "Hotel General Manager",
+            "Rooms Division Director",
+            "Front Office Manager",
+            "Resort Operations Executive",
+          ],
+        },
+        {
+          title: "Culinary Arts & Catering",
+          subtitle: "Food & Beverage",
+          description:
+            "Turn your passion for food into a career. Lead kitchen teams, manage large catering events, or start your own successful restaurant business.",
+          roles: [
+            "Executive Chef / Culinary Director",
+            "Food & Beverage (F&B) Director",
+            "Corporate Catering Manager",
+            "Restaurateur",
+          ],
+        },
+        {
+          title: "Hospitality Management",
+          subtitle: "Events & Corporate Strategy",
+          description:
+            "Take on leadership roles in hospitality brands. Plan major events, manage staff, and ensure the business runs smoothly and profitably.",
+          roles: [
+            "Events and Banquet Manager",
+            "VIP Relations Director",
+            "Hospitality HR Director",
+            "Club & Casino Manager",
+          ],
+        },
+      ];
 
 const pageTitle = "Hospitality Management | OLOPS College";
-const pageDescription = pageData?.seo?.description || "Build a successful career in hotels, resorts, and culinary arts with a CHED-recognized Hospitality Management degree at OLOPSC in Marikina.";
+const pageDescription =
+  pageData?.seo?.description ||
+  "Build a successful career in hotels, resorts, and culinary arts with a CHED-recognized Hospitality Management degree at OLOPSC in Marikina.";
 
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Course",
-      "name": "Bachelor of Science in Hospitality Management",
-      "description": "An intensive, operations-focused business degree equipping students with financial, logistical, and managerial frameworks for luxury enterprises in Marikina, Metro Manila.",
-      "provider": {
+      name: "Bachelor of Science in Hospitality Management",
+      description:
+        "An intensive, operations-focused business degree equipping students with financial, logistical, and managerial frameworks for luxury enterprises in Marikina, Metro Manila.",
+      provider: {
         "@type": "CollegeOrUniversity",
-        "name": "OLOPSC College of BMSE",
-        "sameAs": "https://www.olopsc.edu.ph"
-      }
-    }
-  ]
+        name: "OLOPSC - College of BMSE",
+        sameAs: "https://www.olopsc.edu.ph",
+      },
+    },
+  ],
 };
 const schemaString = JSON.stringify(schema);
 const canonicalUrl = pageData?.seo?.canonicalUrl;
 ---
 
-<Layout rawTitle={pageTitle} description={pageDescription} additionalSchema={schemaString} canonicalUrl={canonicalUrl}>
-  <section class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800">
-    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"></div>
-    <img src={heroBackground.url} alt={heroBackground.alt} class="absolute inset-y-0 right-0 w-full lg:w-[75%] h-full object-cover opacity-40 md:opacity-60 z-0" style="mask-image: linear-gradient(to right, transparent, black 40%); -webkit-mask-image: linear-gradient(to right, transparent, black 40%);" loading="eager" />
+<Layout
+  rawTitle={pageTitle}
+  description={pageDescription}
+  additionalSchema={schemaString}
+  canonicalUrl={canonicalUrl}
+>
+  <section
+    class="relative bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden border-b border-slate-800"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-transparent z-0"
+    >
+    </div>
+    <img
+      src={heroBackground.url}
+      alt={heroBackground.alt}
+      class="absolute inset-y-0 right-0 w-full lg:w-[75%] h-full object-cover opacity-40 md:opacity-60 z-0"
+      style="mask-image: linear-gradient(to right, transparent, black 40%); -webkit-mask-image: linear-gradient(to right, transparent, black 40%);"
+      loading="eager"
+    />
 
-    <ScrollRevealWrapper animation="slide-up" class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12">
+    <ScrollRevealWrapper
+      animation="slide-up"
+      class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12"
+    >
       <div class="lg:col-span-7 flex flex-col">
-        <h2 class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm">College of BMSE &bull; Bachelor of Science</h2>
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">Your Future in <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200">Hospitality & Culinary Arts.</span></h1>
-        <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10">Turn your passion for service into a rewarding career. Our B.S. in Hospitality Management program trains you to become a skilled professional ready to take on exciting roles in hotels, restaurants, resorts, and cruise lines around the world.</p>
+        <h2
+          class="inline-block self-start py-1 px-3 rounded-full bg-white/10 border border-accent/50 text-accent font-bold uppercase tracking-widest text-xs mb-6 backdrop-blur-sm"
+        >
+          OLOPSC - College of BMSE &bull; Bachelor of Science
+        </h2>
+        <h1
+          class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white"
+        >
+          Your Future in <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-yellow-200"
+            >Hospitality & Culinary Arts.</span>
+        </h1>
+        <p
+          class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-10"
+        >
+          Turn your passion for service into a rewarding career. Our B.S. in
+          Hospitality Management program trains you to become a skilled
+          professional ready to take on exciting roles in hotels, restaurants,
+          resorts, and cruise lines around the world.
+        </p>
         <div class="flex flex-wrap gap-4 mt-10">
-          <CtaButton cta={{ text: "Explore Curriculum", link: { type: "anchor", anchor: "curriculum" } }} variant="primary" />
-          <CtaButton cta={{ text: "View Enterprise Paths", link: { type: "anchor", anchor: "outcomes" } }} variant="secondary" />
+          <CtaButton
+            cta={{
+              text: "Explore Curriculum",
+              link: { type: "anchor", anchor: "curriculum" },
+            }}
+            variant="primary"
+          />
+          <CtaButton
+            cta={{
+              text: "View Enterprise Paths",
+              link: { type: "anchor", anchor: "outcomes" },
+            }}
+            variant="secondary"
+          />
         </div>
       </div>
     </ScrollRevealWrapper>
   </section>
 
   <div class="bg-surface border-b border-slate-200 relative z-20 shadow-sm">
-    <ScrollRevealWrapper direction="fade" delay={0.2} class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200">
+    <ScrollRevealWrapper
+      direction="fade"
+      delay={0.2}
+      class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x divide-slate-200"
+    >
       <div class="flex flex-col items-center text-center px-4">
-        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/></svg></span>
-        <span class="text-xl font-black text-primary tracking-tight">B.S. Hospitality</span>
-        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Degree Program</span>
+        <span class="text-slate-400 mb-2"
+          ><svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"
+            ></path></svg
+          ></span
+        >
+        <span class="text-xl font-black text-primary tracking-tight"
+          >B.S. Hospitality</span
+        >
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
+          >Degree Program</span
+        >
       </div>
       <div class="flex flex-col items-center text-center px-4">
-        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
-        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.duration || '4 Years'}</span>
-        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Standard Completion</span>
+        <span class="text-slate-400 mb-2"
+          ><svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+          ></span
+        >
+        <span class="text-xl font-black text-primary tracking-tight"
+          >{quickFacts.duration || "4 Years"}</span
+        >
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
+          >Standard Completion</span
+        >
       </div>
       <div class="flex flex-col items-center text-center px-4">
-        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></span>
-        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.units || '160 Units'}</span>
-        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Total Academic Load</span>
+        <span class="text-slate-400 mb-2"
+          ><svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            ></path></svg
+          ></span
+        >
+        <span class="text-xl font-black text-primary tracking-tight"
+          >{quickFacts.units || "160 Units"}</span
+        >
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
+          >Total Academic Load</span
+        >
       </div>
       <div class="flex flex-col items-center text-center px-4">
-        <span class="text-slate-400 mb-2"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></span>
-        <span class="text-xl font-black text-primary tracking-tight">{quickFacts.format || 'Lab & Practicum'}</span>
-        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Learning Format</span>
+        <span class="text-slate-400 mb-2"
+          ><svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            ></path></svg
+          ></span
+        >
+        <span class="text-xl font-black text-primary tracking-tight"
+          >{quickFacts.format || "Lab & Practicum"}</span
+        >
+        <span
+          class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
+          >Learning Format</span
+        >
       </div>
     </ScrollRevealWrapper>
   </div>
 
   <div class="bg-white border-b border-slate-100 relative z-20">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">SDG Commitment</span>
+    <div
+      class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4"
+    >
+      <span
+        class="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0"
+        >SDG Commitment</span
+      >
       <div class="flex items-center gap-3">
-        <img src={sdg4.src} alt="SDG 4: Quality Education" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
-        <img src={sdg8.src} alt="SDG 8: Decent Work and Economic Growth" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
-        <img src={sdg11.src} alt="SDG 11: Sustainable Cities and Communities" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
-        <img src={sdg12.src} alt="SDG 12: Responsible Consumption and Production" class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform" />
+        <img
+          src={sdg4.src}
+          alt="SDG 4: Quality Education"
+          class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform"
+        />
+        <img
+          src={sdg8.src}
+          alt="SDG 8: Decent Work and Economic Growth"
+          class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform"
+        />
+        <img
+          src={sdg11.src}
+          alt="SDG 11: Sustainable Cities and Communities"
+          class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform"
+        />
+        <img
+          src={sdg12.src}
+          alt="SDG 12: Responsible Consumption and Production"
+          class="w-12 h-12 rounded-lg shadow-sm border border-slate-100 hover:scale-110 transition-transform"
+        />
       </div>
     </div>
   </div>
 
   <section class="py-24 md:py-32 bg-white overflow-hidden">
-    <ScrollRevealWrapper animation="slide-left" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <ScrollRevealWrapper
+      animation="slide-left"
+      class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center"
+    >
       <!-- Left Column: Typography & Corporate Payload -->
       <div class="flex flex-col relative z-10">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">Program Overview</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">More Than Just Good Service.</h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-6">The Bachelor of Science in Hospitality Management is a four-year degree program that teaches you everything you need to know about the hospitality and food service industry. It's designed to give you both practical skills in the kitchen and the management knowledge needed to lead a team.</p>
-        <p class="text-lg text-slate-600 leading-relaxed">You will learn how to cook international dishes, run hotel operations, manage events, and start your own food business. With hands-on training in our laboratories and real-world internships, you will graduate ready to work in top hotels, resorts, and restaurants globally.</p>
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4"
+          >Program Overview</span
+        >
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]"
+        >
+          More Than Just Good Service.
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          The Bachelor of Science in Hospitality Management is a four-year
+          degree program that teaches you everything you need to know about the
+          hospitality and food service industry. It's designed to give you both
+          practical skills in the kitchen and the management knowledge needed to
+          lead a team.
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          You will learn how to cook international dishes, run hotel operations,
+          manage events, and start your own food business. With hands-on
+          training in our laboratories and real-world internships, you will
+          graduate ready to work in top hotels, resorts, and restaurants
+          globally.
+        </p>
       </div>
 
       <!-- Right Column: Asymmetric Dual-Image Composition -->
-      <div class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0">
+      <div
+        class="relative w-full aspect-[4/3] lg:aspect-square flex items-center justify-center mt-12 lg:mt-0"
+      >
         <!-- Background Decorative Glow -->
-        <div class="absolute right-12 top-12 w-2/3 h-2/3 bg-surface rounded-full blur-3xl -z-10 opacity-50"></div>
+        <div
+          class="absolute right-12 top-12 w-2/3 h-2/3 bg-surface rounded-full blur-3xl -z-10 opacity-50"
+        >
+        </div>
 
         <!-- Main Image (Back/Bottom-Left) -->
-        <div class="absolute left-0 bottom-0 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl z-10">
-          <img src={overviewMainImage.url} alt={overviewMainImage.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+        <div
+          class="absolute left-0 bottom-0 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl z-10"
+        >
+          <img
+            src={overviewMainImage.url}
+            alt={overviewMainImage.alt}
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            loading="lazy"
+          />
         </div>
 
         <!-- Sub Image (Front/Top-Right) -->
-        <div class="absolute right-0 top-0 w-[55%] aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20">
-          <img src={overviewSubImage.url} alt={overviewSubImage.alt} class="w-full h-full object-cover" loading="lazy" />
+        <div
+          class="absolute right-0 top-0 w-[55%] aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white z-20"
+        >
+          <img
+            src={overviewSubImage.url}
+            alt={overviewSubImage.alt}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </ScrollRevealWrapper>
   </section>
 
   <section class="py-24 md:py-32 bg-white relative border-b border-slate-100">
-    <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative">
+    <ScrollRevealWrapper
+      animation="slide-up"
+      class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative"
+    >
       <!-- Left Column: The Sticky Manifesto (The "Why") -->
       <div class="lg:col-span-5 relative h-full">
         <div class="sticky top-32 flex flex-col">
-          <span class="text-accent font-black tracking-widest uppercase text-xs mb-4">The OLOPSC Advantage</span>
-          <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]">Learn by Doing.</h2>
-          <p class="text-lg text-slate-600 leading-relaxed mb-8">We don't just teach you from books; we make sure you experience the industry first-hand. Our students spend a lot of time in our kitchen laboratories and mock hotel rooms to practice their skills before they even graduate. We focus on giving you the confidence and the know-how to succeed anywhere in the hospitality field, whether you want to be a chef, a hotel manager, or an event planner.</p>
+          <span
+            class="text-accent font-black tracking-widest uppercase text-xs mb-4"
+            >The OLOPSC Advantage</span
+          >
+          <h2
+            class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6 leading-[1.1]"
+          >
+            Learn by Doing.
+          </h2>
+          <p class="text-lg text-slate-600 leading-relaxed mb-8">
+            We don't just teach you from books; we make sure you experience the
+            industry first-hand. Our students spend a lot of time in our kitchen
+            laboratories and mock hotel rooms to practice their skills before
+            they even graduate. We focus on giving you the confidence and the
+            know-how to succeed anywhere in the hospitality field, whether you
+            want to be a chef, a hotel manager, or an event planner.
+          </p>
         </div>
       </div>
 
       <!-- Right Column: Graduate Capabilities (The Outcomes) -->
       <div class="lg:col-span-7 flex flex-col">
-        <h3 class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest">What You Will Learn</h3>
+        <h3
+          class="text-xl font-bold text-slate-300 mb-8 pb-4 border-b border-slate-100 uppercase tracking-widest"
+        >
+          What You Will Learn
+        </h3>
 
-        {outcomes.map((outcome: any) => (
-          <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
-            <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
-              <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        {
+          outcomes.map((outcome: any) => (
+            <div class="group relative py-8 border-b border-slate-100 flex flex-col md:flex-row gap-6 md:gap-8 items-start hover:bg-slate-50 transition-colors duration-300 px-6 -mx-6 rounded-2xl">
+              <div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-accent group-hover:bg-accent/10 transition-colors duration-500">
+                <svg
+                  class="w-5 h-5 text-primary"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div class="flex flex-col">
+                <h4 class="text-xl font-black text-primary mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">
+                  {outcome.title}
+                </h4>
+                <p class="text-slate-600 leading-relaxed text-base">
+                  {outcome.description}
+                </p>
+              </div>
             </div>
-            <div class="flex flex-col">
-              <h4 class="text-xl font-black text-primary mb-3 leading-tight group-hover:translate-x-1 transition-transform duration-300">{outcome.title}</h4>
-              <p class="text-slate-600 leading-relaxed text-base">{outcome.description}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </ScrollRevealWrapper>
   </section>
 
-  <section id="curriculum" class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100">
+  <section
+    id="curriculum"
+    class="py-24 md:py-32 bg-slate-50 relative border-b border-slate-100"
+  >
     <ScrollRevealWrapper animation="fade-in" class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-16">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Academic Roadmap</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">What Will You Study?</h2>
-        <p class="text-lg text-slate-600 leading-relaxed">Our 4-year curriculum is designed to be engaging and practical. We start with the basics of cooking and hotel service, and slowly guide you towards management and real-world internships.</p>
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block"
+          >Academic Roadmap</span
+        >
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6"
+        >
+          What Will You Study?
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Our 4-year curriculum is designed to be engaging and practical. We
+          start with the basics of cooking and hotel service, and slowly guide
+          you towards management and real-world internships.
+        </p>
       </div>
 
       <div class="space-y-4">
-        {curriculum.map((item: any) => (
-          <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-            <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
-              <div class="flex items-center gap-6">
-                <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent transition-colors tracking-tighter">{item.year}</span>
-                <h3 class="text-xl md:text-2xl font-bold text-primary">{item.title}</h3>
-              </div>
-              <span class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary group-open:rotate-180 transition-transform duration-300"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></span>
-            </summary>
+        {
+          curriculum.map((item: any) => (
+            <details class="group bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <summary class="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
+                <div class="flex items-center gap-6">
+                  <span class="text-3xl md:text-4xl font-black text-slate-200 group-open:text-accent transition-colors tracking-tighter">
+                    {item.year}
+                  </span>
+                  <h3 class="text-xl md:text-2xl font-bold text-primary">
+                    {item.title}
+                  </h3>
+                </div>
+                <span class="w-10 h-10 rounded-full bg-surface flex items-center justify-center text-primary group-open:rotate-180 transition-transform duration-300">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </span>
+              </summary>
 
-            <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
-              <p class="text-slate-600 mb-6 leading-relaxed">{item.description}</p>
-              <div class="flex flex-col gap-3">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Core Major Subjects</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {item.subjects?.map((subject: string) => (
-                    <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
-                      <svg class="w-4 h-4 shrink-0 mt-0.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      <span class="leading-tight">{subject}</span>
-                    </div>
-                  ))}
+              <div class="px-6 md:px-8 pb-8 pt-2 border-t border-slate-100 mt-2">
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                  {item.description}
+                </p>
+                <div class="flex flex-col gap-3">
+                  <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">
+                    Core Major Subjects
+                  </h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {item.subjects?.map((subject: string) => (
+                      <div class="bg-surface text-primary border border-slate-100 py-3 px-4 rounded-lg text-sm font-bold shadow-sm flex items-start gap-3">
+                        <svg
+                          class="w-4 h-4 shrink-0 mt-0.5 text-accent"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <span class="leading-tight">{subject}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </details>
-        ))}
+            </details>
+          ))
+        }
       </div>
     </ScrollRevealWrapper>
   </section>
@@ -364,53 +766,147 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
   <section class="py-24 md:py-32 bg-primary relative overflow-hidden">
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Campus Life</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Hands-on Hospitality Training.</h2>
-        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">Experience our fully equipped facilities where students practice their culinary and service skills, preparing them for exciting careers in the hospitality industry.</p>
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block"
+          >Campus Life</span
+        >
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-white mb-6"
+        >
+          Hands-on Hospitality Training.
+        </h2>
+        <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          Experience our fully equipped facilities where students practice their
+          culinary and service skills, preparing them for exciting careers in
+          the hospitality industry.
+        </p>
       </div>
 
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+      <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]"
+      >
         <!-- Block 1: Facilities -->
-        <div class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-          <img src={ecosystemImages.facilities.url} alt={ecosystemImages.facilities.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div
+          class="md:col-span-2 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10"
+        >
+          <img
+            src={ecosystemImages.facilities.url}
+            alt={ecosystemImages.facilities.alt}
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"
+          >
+          </div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Student Community</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">The Culinary Class</h3>
-            <p class="text-slate-300 text-sm max-w-md hidden md:block">Our hospitality management students dressed in their full chef uniforms, ready for their culinary training and kitchen practice.</p>
+            <span
+              class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block"
+              >Student Community</span
+            >
+            <h3
+              class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight"
+            >
+              The Culinary Class
+            </h3>
+            <p class="text-slate-300 text-sm max-w-md hidden md:block">
+              Our hospitality management students dressed in their full chef
+              uniforms, ready for their culinary training and kitchen practice.
+            </p>
           </div>
         </div>
 
         <!-- Block 2: The Society -->
-        <div class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-          <img src={ecosystemImages.society.url} alt={ecosystemImages.society.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div
+          class="md:col-span-1 md:row-span-2 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10"
+        >
+          <img
+            src={ecosystemImages.society.url}
+            alt={ecosystemImages.society.alt}
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"
+          >
+          </div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Hands-On Learning</span>
-            <h3 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">Culinary Arts Training</h3>
-            <p class="text-slate-300 text-sm">Learn directly from experienced instructors as they guide you through cooking techniques and culinary mastery in our fully-equipped kitchens.</p>
+            <span
+              class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block"
+              >Hands-On Learning</span
+            >
+            <h3
+              class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight"
+            >
+              Culinary Arts Training
+            </h3>
+            <p class="text-slate-300 text-sm">
+              Learn directly from experienced instructors as they guide you
+              through cooking techniques and culinary mastery in our
+              fully-equipped kitchens.
+            </p>
           </div>
         </div>
 
         <!-- Block 3: Banquet Execution -->
-        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-          <img src={ecosystemImages.catering.url} alt={ecosystemImages.catering.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div
+          class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10"
+        >
+          <img
+            src={ecosystemImages.catering.url}
+            alt={ecosystemImages.catering.alt}
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"
+          >
+          </div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Culinary Creations</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Gourmet Plating</h3>
-            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Learn the art of preparing and presenting beautiful, restaurant-quality dishes.</p>
+            <span
+              class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block"
+              >Culinary Creations</span
+            >
+            <h3
+              class="text-xl md:text-2xl font-black text-white mb-2 leading-tight"
+            >
+              Gourmet Plating
+            </h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">
+              Learn the art of preparing and presenting beautiful,
+              restaurant-quality dishes.
+            </p>
           </div>
         </div>
 
         <!-- Block 4: Restaurant Simulation -->
-        <div class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10">
-          <img src={ecosystemImages.restaurant.url} alt={ecosystemImages.restaurant.alt} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"></div>
+        <div
+          class="md:col-span-1 md:row-span-1 group relative rounded-3xl overflow-hidden flex flex-col justify-end p-8 border border-white/10"
+        >
+          <img
+            src={ecosystemImages.restaurant.url}
+            alt={ecosystemImages.restaurant.alt}
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 z-0"
+            loading="lazy"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10"
+          >
+          </div>
           <div class="relative z-20">
-            <span class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block">Real-World Practice</span>
-            <h3 class="text-xl md:text-2xl font-black text-white mb-2 leading-tight">Food & Beverage Service</h3>
-            <p class="text-slate-300 text-sm mt-2 hidden sm:block">Practice your serving and dining management skills in our simulated restaurant environment.</p>
+            <span
+              class="text-accent font-bold text-xs uppercase tracking-widest mb-2 block"
+              >Real-World Practice</span
+            >
+            <h3
+              class="text-xl md:text-2xl font-black text-white mb-2 leading-tight"
+            >
+              Food & Beverage Service
+            </h3>
+            <p class="text-slate-300 text-sm mt-2 hidden sm:block">
+              Practice your serving and dining management skills in our
+              simulated restaurant environment.
+            </p>
           </div>
         </div>
       </div>
@@ -420,17 +916,33 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
   <section class="py-24 md:py-32 bg-white relative border-t border-slate-100">
     <ScrollRevealWrapper animation="slide-up" class="max-w-7xl mx-auto px-6">
       <!-- Part 1: The Program Chair (Editorial Split) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32">
-
+      <div
+        class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-32"
+      >
         <!-- Left Column (The Portrait) -->
         <div class="lg:col-span-5 relative">
-          <div class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
-            <img src={chair.image.url} alt={chair.image.alt} class="w-full h-full object-cover" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10"></div>
+          <div
+            class="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
+          >
+            <img
+              src={chair.image.url}
+              alt={chair.image.alt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent z-10"
+            >
+            </div>
             <!-- Floating Nameplate -->
             <div class="absolute bottom-0 left-0 right-0 p-8 z-20">
-              <h3 class="text-2xl font-black text-white leading-tight">{chair.name}</h3>
-              <span class="text-accent font-bold text-sm tracking-widest uppercase">{chair.title}</span>
+              <h3 class="text-2xl font-black text-white leading-tight">
+                {chair.name}
+              </h3>
+              <span
+                class="text-accent font-bold text-sm tracking-widest uppercase"
+                >{chair.title}</span
+              >
               <p class="text-slate-300 text-xs mt-1">{chair.credentials}</p>
             </div>
           </div>
@@ -438,9 +950,23 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
 
         <!-- Right Column (The Manifesto Quote) -->
         <div class="lg:col-span-7 flex flex-col justify-center">
-          <span class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block">Message from the Chair</span>
-          <svg class="w-16 h-16 text-slate-100 mb-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
-          <p class="text-2xl md:text-2xl font-black text-primary leading-snug tracking-tight mb-8">"{chair.quote}"</p>
+          <span
+            class="text-accent font-black tracking-widest uppercase text-xs mb-6 inline-block"
+            >Message from the Chair</span
+          >
+          <svg
+            class="w-16 h-16 text-slate-100 mb-6"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"
+            ></path></svg
+          >
+          <p
+            class="text-2xl md:text-2xl font-black text-primary leading-snug tracking-tight mb-8"
+          >
+            "{chair.quote}"
+          </p>
         </div>
       </div>
 
@@ -468,44 +994,104 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
     </ScrollRevealWrapper>
   </section>
 
-  <section id="outcomes" class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200">
+  <section
+    id="outcomes"
+    class="py-24 md:py-32 bg-slate-50 relative border-t border-b border-slate-200"
+  >
     <ScrollRevealWrapper animation="slide-up">
       <div class="max-w-7xl mx-auto px-6 mb-16 md:mb-24 text-center">
-        <span class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block">Your Career Pathways</span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6">Where Will This Degree Take You?</h2>
-        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">A degree in Hospitality Management opens doors to a wide variety of exciting and high-paying jobs in the Philippines and abroad. Our graduates are well-equipped to work in top-tier hotels, commercial kitchens, and global travel companies.</p>
+        <span
+          class="text-accent font-black tracking-widest uppercase text-xs mb-4 inline-block"
+          >Your Career Pathways</span
+        >
+        <h2
+          class="text-3xl md:text-5xl font-black tracking-tight text-primary mb-6"
+        >
+          Where Will This Degree Take You?
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          A degree in Hospitality Management opens doors to a wide variety of
+          exciting and high-paying jobs in the Philippines and abroad. Our
+          graduates are well-equipped to work in top-tier hotels, commercial
+          kitchens, and global travel companies.
+        </p>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {pathways.map((pathway: any) => (
-          <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
-            <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
+        {
+          pathways.map((pathway: any) => (
+            <div class="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-xl border border-slate-100 flex flex-col h-full group transition-all duration-300 hover:-translate-y-1">
+              <div class="w-14 h-14 rounded-2xl bg-surface flex items-center justify-center text-primary mb-8 group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+                <svg
+                  class="w-7 h-7"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
 
-            <div class="mb-8 border-b border-slate-100 pb-8">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">{pathway.subtitle}</span>
-              <h3 class="text-2xl font-black text-primary leading-tight mb-4">{pathway.title}</h3>
-              <p class="text-sm text-slate-600 leading-relaxed">{pathway.description}</p>
-            </div>
+              <div class="mb-8 border-b border-slate-100 pb-8">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+                  {pathway.subtitle}
+                </span>
+                <h3 class="text-2xl font-black text-primary leading-tight mb-4">
+                  {pathway.title}
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  {pathway.description}
+                </p>
+              </div>
 
-            <div class="flex-grow flex flex-col">
-              <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">Target Roles & Destinations</span>
-              <ul class="space-y-3">
-                {pathway.roles?.map((role: string) => (
-                  <li class="flex items-start gap-3">
-                    <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span class="text-slate-700 font-medium text-sm leading-tight">{role}</span>
-                  </li>
-                ))}
-              </ul>
+              <div class="flex-grow flex flex-col">
+                <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 bg-slate-50 self-start px-3 py-1 rounded-md">
+                  Target Roles & Destinations
+                </span>
+                <ul class="space-y-3">
+                  {pathway.roles?.map((role: string) => (
+                    <li class="flex items-start gap-3">
+                      <svg
+                        class="w-5 h-5 text-accent shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <span class="text-slate-700 font-medium text-sm leading-tight">
+                        {role}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="max-w-4xl mx-auto px-6 mt-20 text-center">
-        <CtaButton cta={{ text: "Begin Your Application Today", link: { type: "external", external: "/admissions/college-admission" }, style: "primary" }} />
+        <CtaButton
+          cta={{
+            text: "Begin Your Application Today",
+            link: {
+              type: "external",
+              external: "/admissions/college-admission",
+            },
+            style: "primary",
+          }}
+        />
       </div>
     </ScrollRevealWrapper>
   </section>

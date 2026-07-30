@@ -222,6 +222,45 @@ export const aboutPage = defineType({
       ],
     }),
     defineField({
+      name: 'boardOfTrustees',
+      title: 'Board of Trustees',
+      type: 'object',
+      group: 'content',
+      icon: Users,
+      fields: [
+        defineField({ name: 'title', type: 'string', initialValue: 'Board of Trustees' }),
+        defineField({
+          name: 'members',
+          title: 'Members',
+          type: 'array',
+          of: [
+            defineField({
+              name: 'member',
+              type: 'object',
+              fields: [
+                defineField({ name: 'name', type: 'string' }),
+                defineField({ name: 'role', type: 'string' }),
+                defineField({ name: 'bio', type: 'text' }),
+                defineField({
+                  name: 'image',
+                  type: 'image',
+                  fields: [defineField({ name: 'alt', type: 'string' })],
+                  options: { hotspot: true },
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'role',
+                  media: 'image',
+                },
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'accreditations',
       title: 'Accreditations & Affiliations',
       type: 'object',

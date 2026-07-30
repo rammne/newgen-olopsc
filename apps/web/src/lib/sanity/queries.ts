@@ -127,6 +127,20 @@ export async function getAboutPage() {
       prefix,
       suffix
     },
+    boardOfTrustees {
+      title,
+      members[] {
+        name,
+        role,
+        bio,
+        image {
+          asset->{
+            url
+          },
+          alt
+        }
+      }
+    },
     accreditations {
       title,
       accreditations[] {

@@ -40,7 +40,7 @@ const videoUrl = getVideoUrl();
   }
 
   <!-- Background Video (Fades in after timeline completes) -->
-  {
+  <!-- {
     videoUrl && (
       <video
         class="absolute inset-0 w-full h-full object-cover z-0 dramatic-video"
@@ -53,14 +53,14 @@ const videoUrl = getVideoUrl();
         <source src={videoUrl} type="video/mp4" />
       </video>
     )
-  }
+  } -->
 
   <!-- Dark Overlay for WCAG Text Contrast -->
-  <div class="absolute inset-0 bg-primary/60 z-0 dramatic-overlay-out"></div>
-  <div
+  <div class="absolute inset-0 bg-primary z-0"></div> <!-- TEMP: Removed 'dramatic-overlay-out' class so it stays primary color until video is ready -->
+  <!-- <div
     class="absolute inset-0 bg-black/60 backdrop-blur-s z-0 dramatic-overlay-in"
   >
-  </div>
+  </div> remove once video is done-->
 
   <!-- Main Content Container -->
   <div
