@@ -321,18 +321,49 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Science in Hospitality Management",
       description:
-        "An intensive, operations-focused business degree equipping students with financial, logistical, and managerial frameworks for luxury enterprises in Marikina, Metro Manila.",
+        "A four-year degree providing industry-standard training in culinary arts, hotel operations, and global hospitality leadership.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded:
+        "Bachelor of Science in Hospitality Management",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Hotel Manager",
+        "Food and Beverage Manager",
+        "Events Coordinator",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Hospitality Management",
+          item: "https://www.olopsc.edu.ph/college/hospitality-management",
+        },
+      ],
     },
   ],
 };
+
 const schemaString = JSON.stringify(schema);
 const canonicalUrl = pageData?.seo?.canonicalUrl;
 ---

@@ -453,37 +453,80 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
-      name: "Bachelor of Science in Business Administration major in Human Resource Management",
+      "@type": "EducationalOccupationalProgram",
+      name: "Bachelor of Science in Business Administration - Human Resource Management",
       description:
-        "Master organizational behavior, talent acquisition, and corporate labor strategy in Marikina, Metro Manila.",
+        "A four-year degree focused on managing people, recruitment, and workplace development, preparing graduates for HR leadership roles.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded:
+        "Bachelor of Science in Business Administration major in Human Resource Management",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Human Resources Manager",
+        "HR Specialist",
+        "Recruitment Officer",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
     },
     {
-      "@type": "Course",
-      name: "Bachelor of Science in Business Administration major in Marketing Management",
+      "@type": "EducationalOccupationalProgram",
+      name: "Bachelor of Science in Business Administration - Marketing Management",
       description:
-        "Command consumer analytics, digital brand architecture, and global market expansion in Marikina, Metro Manila.",
+        "A four-year degree focused on promoting products, understanding consumer behavior, and building brands in the digital age.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded:
+        "Bachelor of Science in Business Administration major in Marketing Management",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Marketing Manager",
+        "Brand Specialist",
+        "Digital Marketing Officer",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
     },
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Science in Entrepreneurship",
       description:
-        "Architect scalable startups, secure venture funding, and execute disruptive business models in Marikina, Metro Manila.",
+        "A four-year degree focused on starting and managing a business, covering finance, operations, and turning innovative ideas into reality.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Science in Entrepreneurship",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Entrepreneur",
+        "Business Owner",
+        "Business Development Manager",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Business Administration and Entrepreneurship",
+          item: "https://www.olopsc.edu.ph/college/business-administration-and-entrepreneurship",
+        },
+      ],
     },
   ],
 };

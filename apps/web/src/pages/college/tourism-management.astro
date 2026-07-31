@@ -361,18 +361,48 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Science in Tourism Management",
       description:
-        "An intensive, business-focused program equipping students with the operational expertise to direct international hospitality brands and travel logistics in Marikina, Metro Manila.",
+        "A four-year degree providing comprehensive preparation for global travel, tour operations, and sustainable destination management.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Science in Tourism Management",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Travel Consultant",
+        "Tour Operations Manager",
+        "Destination Marketing Officer",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Tourism Management",
+          item: "https://www.olopsc.edu.ph/college/tourism-management",
+        },
+      ],
     },
   ],
 };
+
 const schemaString = JSON.stringify(schema);
 const canonicalUrl = sanityData?.seo?.canonicalUrl;
 ---

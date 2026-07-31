@@ -357,29 +357,75 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Science in Computer Science",
       description:
-        "A comprehensive four-year degree centered on advanced software engineering, algorithm design, and system architecture in Marikina, Metro Manila.",
+        "A four-year degree program covering software engineering, algorithm design, and system architecture, preparing graduates for careers in the tech industry.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Science in Computer Science",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Software Developer",
+        "Systems Analyst",
+        "Full Stack Developer",
+        "Data Scientist",
+        "Database Administrator",
+        "Cloud Solutions Architect",
+        "Artificial Intelligence Engineer",
+        "Computer Network Architect",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
     },
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Associate in Computer Technology",
       description:
-        "A streamlined two-year program focused on applied programming and modern web technologies in Marikina, Metro Manila.",
+        "A two-year program focused on applied programming and modern web technologies, designed to prepare graduates for entry-level tech industry roles.",
+      programType: "Associate Degree",
+      educationalCredentialAwarded: "Associate in Computer Technology",
+      timeToComplete: "P2Y",
+      occupationalCategory: [
+        "Web Developer",
+        "Computer Support Specialist",
+        "Junior Web Developer",
+        "IT Helpdesk Technician",
+        "Network Technician",
+        "Quality Assurance Tester",
+        "Computer Programmer",
+        "Database Clerk",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Computing Studies",
+          item: "https://www.olopsc.edu.ph/college/computing-studies",
+        },
+      ],
     },
   ],
 };
+
 const schemaString = JSON.stringify(schema);
 const canonicalUrl = pageData?.seo?.canonicalUrl;
 ---

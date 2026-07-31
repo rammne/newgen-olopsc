@@ -11,6 +11,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
+  trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   integrations: [react(), sitemap()],
   site: 'https://www.olopsc.edu.ph',
 

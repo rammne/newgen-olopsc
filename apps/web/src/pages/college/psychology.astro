@@ -344,15 +344,44 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Science in Psychology",
       description:
-        "A comprehensive scientific study of human behavior and cognitive processes, equipping students with methodologies for clinical and corporate roles in Marikina, Metro Manila.",
+        "A four-year degree covering the scientific study of human behavior, preparing graduates for roles in clinical, industrial, and educational settings.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Science in Psychology",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Psychometrician",
+        "HR Specialist",
+        "Guidance Counselor",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Psychology",
+          item: "https://www.olopsc.edu.ph/college/psychology",
+        },
+      ],
     },
   ],
 };

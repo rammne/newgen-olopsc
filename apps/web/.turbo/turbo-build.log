@@ -2,129 +2,131 @@
 > web@0.0.1 build
 > astro build
 
-(node:11720) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:7500) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-[2m11:06:05[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
-[2m11:06:07[22m [34m[content][39m Syncing content
-[2m11:06:07[22m [34m[content][39m Synced content
-[2m11:06:07[22m [34m[types][39m Generated [2m1.95s[22m
-[2m11:06:07[22m [34m[build][39m output: [34m"static"[39m
-[2m11:06:07[22m [34m[build][39m mode: [34m"static"[39m
-[2m11:06:07[22m [34m[build][39m directory: [34mC:\Users\ACER\newgen-olopsc\apps\web\dist\[39m
-[2m11:06:07[22m [34m[build][39m Collecting build info...
-[2m11:06:07[22m [34m[build][39m [32m✓ Completed in 2.07s.[39m
-[2m11:06:07[22m [34m[build][39m Building static entrypoints...
-[33m[1m11:06:19[22m [WARN] [vite][39m 
+[2m16:12:13[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m16:12:13[22m [34m[content][39m Syncing content
+[2m16:12:13[22m [34m[content][39m Astro config changed
+[2m16:12:13[22m [34m[content][39m Clearing content store
+[2m16:12:13[22m [34m[content][39m Synced content
+[2m16:12:13[22m [34m[types][39m Generated [2m279ms[22m
+[2m16:12:13[22m [34m[build][39m output: [34m"static"[39m
+[2m16:12:13[22m [34m[build][39m mode: [34m"static"[39m
+[2m16:12:13[22m [34m[build][39m directory: [34mC:\Users\ACER\newgen-olopsc\apps\web\dist\[39m
+[2m16:12:13[22m [34m[build][39m Collecting build info...
+[2m16:12:13[22m [34m[build][39m [32m✓ Completed in 330ms.[39m
+[2m16:12:13[22m [34m[build][39m Building static entrypoints...
+[33m[1m16:12:19[22m [WARN] [vite][39m 
 /patterns/grid.svg referenced in /patterns/grid.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m11:06:19[22m [WARN] [vite][39m 
+[33m[1m16:12:19[22m [WARN] [vite][39m 
 ../assets/fonts/PlayfairDisplay-Medium.woff referenced in ../assets/fonts/PlayfairDisplay-Medium.woff didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m11:06:19[22m [WARN] [vite][39m 
+[33m[1m16:12:19[22m [WARN] [vite][39m 
 ../assets/fonts/PlayfairDisplay-Semibold.woff referenced in ../assets/fonts/PlayfairDisplay-Semibold.woff didn't resolve at build time, it will remain unchanged to be resolved at runtime
-[33m[1m11:06:21[22m [WARN] [vite][39m [33m"matchHostname", "matchPathname", "matchPort" and "matchProtocol" are imported from external module "@astrojs/internal-helpers/remote" but never used in "../../node_modules/astro/dist/assets/utils/remotePattern.js".[39m
-[2m11:06:22[22m [34m[vite][39m [32m✓ built in 14.96s[39m
-[2m11:06:22[22m [34m[build][39m [32m✓ Completed in 15.15s.[39m
+[33m[1m16:12:20[22m [WARN] [vite][39m [33m"matchHostname", "matchPathname", "matchPort" and "matchProtocol" are imported from external module "@astrojs/internal-helpers/remote" but never used in "../../node_modules/astro/dist/assets/utils/remotePattern.js".[39m
+[2m16:12:21[22m [34m[vite][39m [32m✓ built in 7.60s[39m
+[2m16:12:21[22m [34m[build][39m [32m✓ Completed in 7.69s.[39m
 
 [42m[30m building client (vite) [39m[49m
-[2m11:06:22[22m [34m[vite][39m transforming...
-[2m11:06:43[22m [34m[vite][39m [32m✓[39m 2054 modules transformed.
-[2m11:06:43[22m [34m[vite][39m rendering chunks...
-[2m11:06:43[22m [34m[vite][39m computing gzip size...
-[2m11:06:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.DBy5LfQW.js   [39m[1m[2m  7.85 kB[22m[1m[22m[2m │ gzip:  3.05 kB[22m
-[2m11:06:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/Footer.BJASURlF.js  [39m[1m[2m  8.99 kB[22m[1m[22m[2m │ gzip:  2.89 kB[22m
-[2m11:06:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/Header.D8Gf2k4D.js  [39m[1m[2m  9.24 kB[22m[1m[22m[2m │ gzip:  3.62 kB[22m
-[2m11:06:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/proxy.oyBWohYO.js   [39m[1m[2m113.98 kB[22m[1m[22m[2m │ gzip: 37.56 kB[22m
-[2m11:06:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.B9gtdIJJ.js  [39m[1m[2m186.62 kB[22m[1m[22m[2m │ gzip: 58.54 kB[22m
-[2m11:06:43[22m [34m[vite][39m [32m✓ built in 20.91s[39m
+[2m16:12:21[22m [34m[vite][39m transforming...
+[2m16:12:24[22m [34m[vite][39m [32m✓[39m 2054 modules transformed.
+[2m16:12:24[22m [34m[vite][39m rendering chunks...
+[2m16:12:24[22m [34m[vite][39m computing gzip size...
+[2m16:12:24[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.DBy5LfQW.js   [39m[1m[2m  7.85 kB[22m[1m[22m[2m │ gzip:  3.05 kB[22m
+[2m16:12:24[22m [34m[vite][39m [2mdist/[22m[36m_astro/Footer.BJASURlF.js  [39m[1m[2m  8.99 kB[22m[1m[22m[2m │ gzip:  2.89 kB[22m
+[2m16:12:24[22m [34m[vite][39m [2mdist/[22m[36m_astro/Header.D8Gf2k4D.js  [39m[1m[2m  9.24 kB[22m[1m[22m[2m │ gzip:  3.62 kB[22m
+[2m16:12:24[22m [34m[vite][39m [2mdist/[22m[36m_astro/proxy.oyBWohYO.js   [39m[1m[2m113.98 kB[22m[1m[22m[2m │ gzip: 37.56 kB[22m
+[2m16:12:24[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.B9gtdIJJ.js  [39m[1m[2m186.62 kB[22m[1m[22m[2m │ gzip: 58.54 kB[22m
+[2m16:12:24[22m [34m[vite][39m [32m✓ built in 3.73s[39m
 
 [42m[30m generating static routes [39m[49m
-[2m11:06:46[22m [32m▶[39m src/pages/about.astro
-[2m11:06:46[22m   [34m└─[39m [2m/about/index.html[22m [31m(+525ms)[39m 
-[2m11:06:46[22m [32m▶[39m src/pages/admissions/basic-education-admission.astro
-[2m11:06:46[22m   [34m└─[39m [2m/admissions/basic-education-admission/index.html[22m [2m(+161ms)[22m 
-[2m11:06:46[22m [32m▶[39m src/pages/admissions/college-admission.astro
-[2m11:06:46[22m   [34m└─[39m [2m/admissions/college-admission/index.html[22m [2m(+88ms)[22m 
-[2m11:06:46[22m [32m▶[39m src/pages/admissions/index.astro
-[2m11:06:46[22m   [34m└─[39m [2m/admissions/index.html[22m [2m(+81ms)[22m 
-[2m11:06:46[22m [32m▶[39m src/pages/alumni.astro
-[2m11:06:46[22m   [34m└─[39m [2m/alumni/index.html[22m [31m(+1.07s)[39m 
-[2m11:06:48[22m [32m▶[39m src/pages/college/business-administration-and-entrepreneurship.astro
-[2m11:06:48[22m   [34m└─[39m [2m/college/business-administration-and-entrepreneurship/index.html[22m [31m(+605ms)[39m 
-[2m11:06:48[22m [32m▶[39m src/pages/college/computing-studies.astro
-[2m11:06:48[22m   [34m└─[39m [2m/college/computing-studies/index.html[22m [2m(+376ms)[22m 
-[2m11:06:49[22m [32m▶[39m src/pages/college/education-and-liberal-arts.astro
-[2m11:06:49[22m   [34m└─[39m [2m/college/education-and-liberal-arts/index.html[22m [2m(+370ms)[22m 
-[2m11:06:49[22m [32m▶[39m src/pages/college/hospitality-management.astro
-[2m11:06:49[22m   [34m└─[39m [2m/college/hospitality-management/index.html[22m [2m(+472ms)[22m 
-[2m11:06:49[22m [32m▶[39m src/pages/college/psychology.astro
-[2m11:06:49[22m   [34m└─[39m [2m/college/psychology/index.html[22m [2m(+454ms)[22m 
-[2m11:06:50[22m [32m▶[39m src/pages/college/tourism-management.astro
-[2m11:06:50[22m   [34m└─[39m [2m/college/tourism-management/index.html[22m [2m(+383ms)[22m 
-[2m11:06:50[22m [32m▶[39m src/pages/college.astro
-[2m11:06:50[22m   [34m└─[39m [2m/college/index.html[22m [31m(+1.04s)[39m 
-[2m11:06:51[22m [32m▶[39m src/pages/contact.astro
-[2m11:06:51[22m   [34m└─[39m [2m/contact/index.html[22m [2m(+75ms)[22m 
-[2m11:06:51[22m [32m▶[39m src/pages/events/[slug].astro
-[2m11:06:52[22m   [34m└─[39m [2m/events/understanding-ai/index.html[22m [31m(+563ms)[39m 
-[2m11:06:52[22m [32m▶[39m src/pages/events/index.astro
-[2m11:06:52[22m   [34m└─[39m [2m/events/index.html[22m [2m(+465ms)[22m 
-[2m11:06:53[22m [32m▶[39m src/pages/grade-school.astro
-[2m11:06:53[22m   [34m└─[39m [2m/grade-school/index.html[22m [31m(+587ms)[39m 
-[2m11:06:54[22m [32m▶[39m src/pages/junior-high-school.astro
-[2m11:06:54[22m   [34m└─[39m [2m/junior-high-school/index.html[22m [2m(+475ms)[22m 
-[2m11:06:54[22m [32m▶[39m src/pages/news/[slug].astro
-[2m11:06:55[22m   [34m└─[39m [2m/news/commencement-of-college-classes/index.html[22m [31m(+585ms)[39m 
-[2m11:06:55[22m [32m▶[39m src/pages/news/index.astro
-[2m11:06:55[22m   [34m└─[39m [2m/news/index.html[22m [31m(+560ms)[39m 
-[2m11:06:56[22m [32m▶[39m src/pages/preschool.astro
-[2m11:06:56[22m   [34m└─[39m [2m/preschool/index.html[22m [2m(+389ms)[22m 
-[2m11:06:56[22m [32m▶[39m src/pages/scholarship-programs.astro
-[2m11:06:56[22m   [34m└─[39m [2m/scholarship-programs/index.html[22m [2m(+466ms)[22m 
-[2m11:06:57[22m [32m▶[39m src/pages/sdg/[slug].astro
-[2m11:06:57[22m   [34m├─[39m [2m/sdg/responsible-consumption-and-production/index.html[22m [31m(+761ms)[39m 
-[2m11:06:58[22m   [34m├─[39m [2m/sdg/industry-innovation-and-infrastructure/index.html[22m [31m(+1.07s)[39m 
-[2m11:06:59[22m   [34m├─[39m [2m/sdg/partnerships-for-the-goals/index.html[22m [31m(+854ms)[39m 
-[2m11:07:00[22m   [34m├─[39m [2m/sdg/quality-education/index.html[22m [31m(+788ms)[39m 
-[2m11:07:01[22m   [34m├─[39m [2m/sdg/affordable-and-clean-energy/index.html[22m [31m(+1.06s)[39m 
-[2m11:07:02[22m   [34m├─[39m [2m/sdg/decent-work-and-economic-growth/index.html[22m [31m(+926ms)[39m 
-[2m11:07:03[22m   [34m├─[39m [2m/sdg/life-on-land/index.html[22m [31m(+958ms)[39m 
-[2m11:07:03[22m   [34m├─[39m [2m/sdg/climate-action/index.html[22m [31m(+1.05s)[39m 
-[2m11:07:05[22m   [34m├─[39m [2m/sdg/reduced-inequalities/index.html[22m [31m(+1.06s)[39m 
-[2m11:07:06[22m   [34m├─[39m [2m/sdg/peace-justice-and-strong-institutions/index.html[22m [31m(+964ms)[39m 
-[2m11:07:07[22m   [34m├─[39m [2m/sdg/zero-hunger/index.html[22m [31m(+727ms)[39m 
-[2m11:07:07[22m   [34m├─[39m [2m/sdg/gender-equality/index.html[22m [31m(+634ms)[39m 
-[2m11:07:08[22m   [34m├─[39m [2m/sdg/no-poverty/index.html[22m [31m(+942ms)[39m 
-[2m11:07:09[22m   [34m├─[39m [2m/sdg/sustainable-cities-and-communities/index.html[22m [31m(+627ms)[39m 
-[2m11:07:09[22m   [34m├─[39m [2m/sdg/life-below-water/index.html[22m [31m(+739ms)[39m 
-[2m11:07:10[22m   [34m├─[39m [2m/sdg/clean-water-and-sanitation/index.html[22m [31m(+758ms)[39m 
-[2m11:07:11[22m   [34m└─[39m [2m/sdg/good-health-and-well-being/index.html[22m [31m(+725ms)[39m 
-[2m11:07:12[22m [32m▶[39m src/pages/senior-high-school.astro
-[2m11:07:12[22m   [34m└─[39m [2m/senior-high-school/index.html[22m [31m(+569ms)[39m 
-[2m11:07:12[22m [32m▶[39m src/pages/index.astro
-[2m11:07:12[22m   [34m└─[39m [2m/index.html[22m [31m(+697ms)[39m 
-[2m11:07:13[22m [32m▶[39m src/pages/sdg/index.astro
-[2m11:07:13[22m   [34m└─[39m [2m/sdg/index.html[22m [31m(+870ms)[39m 
-[2m11:07:14[22m [32m✓ Completed in 30.85s.
+[2m16:12:25[22m [32m▶[39m src/pages/about.astro
+[2m16:12:25[22m   [34m└─[39m [2m/about.html[22m [31m(+1.10s)[39m 
+[2m16:12:27[22m [32m▶[39m src/pages/admissions/basic-education-admission.astro
+[2m16:12:27[22m   [34m└─[39m [2m/admissions/basic-education-admission.html[22m [31m(+1.36s)[39m 
+[2m16:12:28[22m [32m▶[39m src/pages/admissions/college-admission.astro
+[2m16:12:28[22m   [34m└─[39m [2m/admissions/college-admission.html[22m [2m(+138ms)[22m 
+[2m16:12:28[22m [32m▶[39m src/pages/admissions/index.astro
+[2m16:12:28[22m   [34m└─[39m [2m/admissions.html[22m [2m(+95ms)[22m 
+[2m16:12:28[22m [32m▶[39m src/pages/alumni.astro
+[2m16:12:28[22m   [34m└─[39m [2m/alumni.html[22m [31m(+1.47s)[39m 
+[2m16:12:30[22m [32m▶[39m src/pages/college/business-administration-and-entrepreneurship.astro
+[2m16:12:30[22m   [34m└─[39m [2m/college/business-administration-and-entrepreneurship.html[22m [2m(+496ms)[22m 
+[2m16:12:30[22m [32m▶[39m src/pages/college/computing-studies.astro
+[2m16:12:30[22m   [34m└─[39m [2m/college/computing-studies.html[22m [31m(+557ms)[39m 
+[2m16:12:31[22m [32m▶[39m src/pages/college/education-and-liberal-arts.astro
+[2m16:12:31[22m   [34m└─[39m [2m/college/education-and-liberal-arts.html[22m [2m(+468ms)[22m 
+[2m16:12:31[22m [32m▶[39m src/pages/college/hospitality-management.astro
+[2m16:12:31[22m   [34m└─[39m [2m/college/hospitality-management.html[22m [31m(+576ms)[39m 
+[2m16:12:32[22m [32m▶[39m src/pages/college/psychology.astro
+[2m16:12:32[22m   [34m└─[39m [2m/college/psychology.html[22m [31m(+564ms)[39m 
+[2m16:12:32[22m [32m▶[39m src/pages/college/tourism-management.astro
+[2m16:12:32[22m   [34m└─[39m [2m/college/tourism-management.html[22m [31m(+582ms)[39m 
+[2m16:12:33[22m [32m▶[39m src/pages/college.astro
+[2m16:12:33[22m   [34m└─[39m [2m/college.html[22m [31m(+1.02s)[39m 
+[2m16:12:34[22m [32m▶[39m src/pages/contact.astro
+[2m16:12:34[22m   [34m└─[39m [2m/contact.html[22m [2m(+84ms)[22m 
+[2m16:12:34[22m [32m▶[39m src/pages/events/[slug].astro
+[2m16:12:35[22m   [34m└─[39m [2m/events/understanding-ai.html[22m [31m(+598ms)[39m 
+[2m16:12:35[22m [32m▶[39m src/pages/events/index.astro
+[2m16:12:35[22m   [34m└─[39m [2m/events.html[22m [2m(+335ms)[22m 
+[2m16:12:36[22m [32m▶[39m src/pages/grade-school.astro
+[2m16:12:36[22m   [34m└─[39m [2m/grade-school.html[22m [31m(+614ms)[39m 
+[2m16:12:36[22m [32m▶[39m src/pages/junior-high-school.astro
+[2m16:12:36[22m   [34m└─[39m [2m/junior-high-school.html[22m [31m(+607ms)[39m 
+[2m16:12:37[22m [32m▶[39m src/pages/news/[slug].astro
+[2m16:12:37[22m   [34m└─[39m [2m/news/commencement-of-college-classes.html[22m [31m(+588ms)[39m 
+[2m16:12:38[22m [32m▶[39m src/pages/news/index.astro
+[2m16:12:38[22m   [34m└─[39m [2m/news.html[22m [31m(+569ms)[39m 
+[2m16:12:38[22m [32m▶[39m src/pages/preschool.astro
+[2m16:12:38[22m   [34m└─[39m [2m/preschool.html[22m [31m(+638ms)[39m 
+[2m16:12:39[22m [32m▶[39m src/pages/scholarship-programs.astro
+[2m16:12:39[22m   [34m└─[39m [2m/scholarship-programs.html[22m [31m(+564ms)[39m 
+[2m16:12:40[22m [32m▶[39m src/pages/sdg/[slug].astro
+[2m16:12:40[22m   [34m├─[39m [2m/sdg/responsible-consumption-and-production.html[22m [31m(+630ms)[39m 
+[2m16:12:41[22m   [34m├─[39m [2m/sdg/industry-innovation-and-infrastructure.html[22m [31m(+1.05s)[39m 
+[2m16:12:42[22m   [34m├─[39m [2m/sdg/partnerships-for-the-goals.html[22m [31m(+858ms)[39m 
+[2m16:12:42[22m   [34m├─[39m [2m/sdg/quality-education.html[22m [31m(+856ms)[39m 
+[2m16:12:43[22m   [34m├─[39m [2m/sdg/affordable-and-clean-energy.html[22m [31m(+1.07s)[39m 
+[2m16:12:44[22m   [34m├─[39m [2m/sdg/decent-work-and-economic-growth.html[22m [31m(+980ms)[39m 
+[2m16:12:45[22m   [34m├─[39m [2m/sdg/life-on-land.html[22m [31m(+884ms)[39m 
+[2m16:12:46[22m   [34m├─[39m [2m/sdg/climate-action.html[22m [31m(+950ms)[39m 
+[2m16:12:47[22m   [34m├─[39m [2m/sdg/reduced-inequalities.html[22m [31m(+1.07s)[39m 
+[2m16:12:48[22m   [34m├─[39m [2m/sdg/peace-justice-and-strong-institutions.html[22m [31m(+956ms)[39m 
+[2m16:12:49[22m   [34m├─[39m [2m/sdg/zero-hunger.html[22m [31m(+634ms)[39m 
+[2m16:12:50[22m   [34m├─[39m [2m/sdg/gender-equality.html[22m [31m(+977ms)[39m 
+[2m16:12:51[22m   [34m├─[39m [2m/sdg/no-poverty.html[22m [31m(+873ms)[39m 
+[2m16:12:52[22m   [34m├─[39m [2m/sdg/sustainable-cities-and-communities.html[22m [31m(+965ms)[39m 
+[2m16:12:53[22m   [34m├─[39m [2m/sdg/life-below-water.html[22m [31m(+1.10s)[39m 
+[2m16:12:54[22m   [34m├─[39m [2m/sdg/clean-water-and-sanitation.html[22m [31m(+1.10s)[39m 
+[2m16:12:55[22m   [34m└─[39m [2m/sdg/good-health-and-well-being.html[22m [31m(+703ms)[39m 
+[2m16:12:56[22m [32m▶[39m src/pages/senior-high-school.astro
+[2m16:12:56[22m   [34m└─[39m [2m/senior-high-school.html[22m [2m(+393ms)[22m 
+[2m16:12:56[22m [32m▶[39m src/pages/index.astro
+[2m16:12:56[22m   [34m└─[39m [2m/index.html[22m [31m(+1.54s)[39m 
+[2m16:12:58[22m [32m▶[39m src/pages/sdg/index.astro
+[2m16:12:58[22m   [34m└─[39m [2m/sdg.html[22m [31m(+1.02s)[39m 
+[2m16:12:59[22m [32m✓ Completed in 34.09s.
 [39m
 [42m[30m generating optimized images [39m[49m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-3.BSnpHc7M_29DuhX.webp [2m(reused cache entry)[22m [2m(+5ms)[22m [2m(1/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-1.C0RijTN1_Z7bdo8.webp [2m(reused cache entry)[22m [2m(+6ms)[22m [2m(2/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-4.Bkrp9ALT_uoBr.webp [2m(reused cache entry)[22m [2m(+5ms)[22m [2m(3/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-2.nSGPU0ug_1ulw2C.webp [2m(reused cache entry)[22m [2m(+6ms)[22m [2m(4/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-5.DVyql5vN_Z2d4Pm5.webp [2m(reused cache entry)[22m [2m(+6ms)[22m [2m(5/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-6.CKFzpfhu_Z17Hw5w.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(6/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-8.BMegoKND_1ObGsW.webp [2m(reused cache entry)[22m [2m(+8ms)[22m [2m(7/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-7.DyQQJckm_Z3NnEt.webp [2m(reused cache entry)[22m [2m(+8ms)[22m [2m(8/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-9.DR8vjh9g_1asM8z.webp [2m(reused cache entry)[22m [2m(+9ms)[22m [2m(9/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-10.Blku7Iq6_r26EK.webp [2m(reused cache entry)[22m [2m(+9ms)[22m [2m(10/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-11.DCjOSKN9_1q9c8u.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(11/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-12.CfouTCze_2kxLUV.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(12/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-13.DWMOvGNA_1IWVms.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(13/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-14.D4QxvKjK_Z1KEesM.webp [2m(reused cache entry)[22m [2m(+11ms)[22m [2m(14/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-15.Bxr5qmQg_OGsIa.webp [2m(reused cache entry)[22m [2m(+12ms)[22m [2m(15/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-16.DO-lRtkj_1EhSTs.webp [2m(reused cache entry)[22m [2m(+13ms)[22m [2m(16/17)[22m
-[2m11:07:14[22m   [32m▶[39m /_astro/sdg-17.B8X1DCCS_GXfQp.webp [2m(reused cache entry)[22m [2m(+9ms)[22m [2m(17/17)[22m
-[2m11:07:14[22m [32m✓ Completed in 17ms.
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-2.nSGPU0ug_1ulw2C.webp [2m(reused cache entry)[22m [2m(+6ms)[22m [2m(1/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-1.C0RijTN1_Z7bdo8.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(2/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-4.Bkrp9ALT_uoBr.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(3/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-3.BSnpHc7M_29DuhX.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(4/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-5.DVyql5vN_Z2d4Pm5.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(5/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-8.BMegoKND_1ObGsW.webp [2m(reused cache entry)[22m [2m(+8ms)[22m [2m(6/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-6.CKFzpfhu_Z17Hw5w.webp [2m(reused cache entry)[22m [2m(+8ms)[22m [2m(7/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-7.DyQQJckm_Z3NnEt.webp [2m(reused cache entry)[22m [2m(+9ms)[22m [2m(8/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-9.DR8vjh9g_1asM8z.webp [2m(reused cache entry)[22m [2m(+9ms)[22m [2m(9/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-10.Blku7Iq6_r26EK.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(10/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-11.DCjOSKN9_1q9c8u.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(11/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-12.CfouTCze_2kxLUV.webp [2m(reused cache entry)[22m [2m(+10ms)[22m [2m(12/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-13.DWMOvGNA_1IWVms.webp [2m(reused cache entry)[22m [2m(+11ms)[22m [2m(13/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-14.D4QxvKjK_Z1KEesM.webp [2m(reused cache entry)[22m [2m(+11ms)[22m [2m(14/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-16.DO-lRtkj_1EhSTs.webp [2m(reused cache entry)[22m [2m(+12ms)[22m [2m(15/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-15.Bxr5qmQg_OGsIa.webp [2m(reused cache entry)[22m [2m(+12ms)[22m [2m(16/17)[22m
+[2m16:12:59[22m   [32m▶[39m /_astro/sdg-17.B8X1DCCS_GXfQp.webp [2m(reused cache entry)[22m [2m(+7ms)[22m [2m(17/17)[22m
+[2m16:12:59[22m [32m✓ Completed in 16ms.
 [39m
-[2m11:07:14[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
-[2m11:07:14[22m [34m[build][39m 41 page(s) built in [1m69.23s[22m
-[2m11:07:14[22m [34m[build][39m [1mComplete![22m
+[2m16:12:59[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
+[2m16:12:59[22m [34m[build][39m 41 page(s) built in [1m46.01s[22m
+[2m16:12:59[22m [34m[build][39m [1mComplete![22m

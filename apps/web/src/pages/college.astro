@@ -332,27 +332,20 @@ const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
 <Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
-  <script type="application/ld+json" slot="head" set:html={`
+  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "What is the College Department of OLOPSC called?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The College Department of Our Lady of Perpetual Succor College (OLOPSC) in Marikina is officially named the OLOPSC- College of Business, Management, Science, and Education, or OLOPSC-BMSE. It offers accredited bachelor's degrees in Computer Science, Business Administration, Hospitality, Tourism, Psychology, and Education."
-      }
-    }, {
-      "@type": "Question",
-      "name": "Does OLOPSC have a college in Marikina?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, OLOPSC operates a premier higher education institution in Marikina City known as the OLOPSC - College of BMSE, providing specialized degree programs for graduating senior high school students."
-      }
-    }]
+    "@type": "EducationalOrganization",
+    "@id": "https://www.olopsc.edu.ph/college/#organization",
+    "name": "OLOPSC - College of BMSE",
+    "alternateName": ["OLOPSC - College of BMSE", "College of Business, Management, Science and Education", "OLOPS College", "OLOPSC College Department"],
+    "description": "The College of Business, Management, Science and Education (BMSE) offers CHED-recognized bachelor's and associate degree programs in computing, business, hospitality, tourism, psychology, and education, in Marikina City.",
+    "url": "https://www.olopsc.edu.ph/college",
+    "parentOrganization": {
+      "@id": "https://www.olopsc.edu.ph/#organization"
+    }
   }
-  `} />
+</script>
 
   <!-- ==================== SECTION 1: The Ivy-SaaS Hero ==================== -->
   <section class="relative bg-primary py-20 lg:py-32 border-b border-slate-800 overflow-hidden">

@@ -520,51 +520,80 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Elementary Education",
       description:
-        "Master foundational pedagogy and child psychology for early learning environments at OLOPSC - College of BMSE in Marikina, Metro Manila.",
+        "A four-year degree preparing future educators to teach across core subjects at the elementary level, grounded in DepEd-aligned methodologies.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Elementary Education",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Elementary School Teacher",
+        "Education Specialist",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
     },
     {
-      "@type": "Course",
-      name: "Bachelor of Secondary Education major in Mathematics",
+      "@type": "EducationalOccupationalProgram",
+      name: "Bachelor of Secondary Education",
       description:
-        "Command advanced mathematical principles and adolescent development to lead high school quantitative classrooms at OLOPSC - College of BMSE in Marikina, Metro Manila.",
+        "A four-year degree preparing future educators to teach at the secondary level, with specialization tracks aligned to DepEd curriculum standards.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Secondary Education",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "Secondary School Teacher",
+        "Subject Area Specialist",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
     },
     {
-      "@type": "Course",
-      name: "Bachelor of Secondary Education major in English",
-      description:
-        "Master language acquisition, literature, and pedagogical strategies to lead high school English classrooms at OLOPSC - College of BMSE in Marikina, Metro Manila.",
-      provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
-      },
-    },
-    {
-      "@type": "Course",
+      "@type": "EducationalOccupationalProgram",
       name: "Bachelor of Arts in English Language",
       description:
-        "Master advanced linguistics, corporate communication, and structural syntax for global media and publishing at OLOPSC - College of BMSE in Marikina, Metro Manila.",
+        "A four-year liberal arts degree developing expertise in English language, literature, and communication for careers in education, media, and publishing.",
+      programType: "Bachelor Degree",
+      educationalCredentialAwarded: "Bachelor of Arts in English Language",
+      timeToComplete: "P4Y",
+      occupationalCategory: [
+        "English Language Teacher",
+        "Writer",
+        "Communications Specialist",
+      ],
       provider: {
-        "@type": "CollegeOrUniversity",
-        name: "OLOPSC - College of BMSE",
-        sameAs: "https://www.olopsc.edu.ph",
+        "@id": "https://www.olopsc.edu.ph/college/#organization",
       },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.olopsc.edu.ph/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "College",
+          item: "https://www.olopsc.edu.ph/college",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Education and Liberal Arts",
+          item: "https://www.olopsc.edu.ph/college/education-and-liberal-arts",
+        },
+      ],
     },
   ],
 };
+
 const schemaString = JSON.stringify(schema);
 const canonicalUrl = pageData?.seo?.canonicalUrl;
 ---
