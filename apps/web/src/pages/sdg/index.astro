@@ -15,58 +15,56 @@ const sdgMap = new Map(activeSdgs.map((sdg: any) => [sdg.number, sdg]));
 // Array of 1-17 for grid generation
 const sdgGrid = Array.from({ length: 17 }, (_, i) => i + 1);
 
-const pageTitle = "SDG";
+const pageTitle = "SDG | OLOPS College";
 const pageDescription =
-    sdgPage?.seo?.description ||
-    "Explore our commitment to the UN Sustainable Development Goals.";
+  sdgPage?.seo?.description ||
+  "Explore our commitment to the UN Sustainable Development Goals.";
 const canonicalUrl = sdgPage?.seo?.canonicalUrl;
 ---
 
-<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
-
-    <section
-        class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white"
-    >
-        <div class="container mx-auto">
-            {/* Intro Section */}
-            {
-                sdgPage?.intro && (
-                    <div class="text-center max-w-4xl mx-auto mb-16">
-                        {sdgPage.intro.headline && (
-                            <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6">
-                                {sdgPage.intro.headline?.replace(/\.$/, '')}
-                            </h2>
-                        )}
-                        <div class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full mb-8" />
-                        {/* Note: Content rendering would go here if we had a portable text component ready,
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+>
+  <section class="min-h-[60vh] px-5 py-10 sm:px-[60px] sm:py-[100px] bg-white">
+    <div class="container mx-auto">
+      {/* Intro Section */}
+      {
+        sdgPage?.intro && (
+          <div class="text-center max-w-4xl mx-auto mb-16">
+            {sdgPage.intro.headline && (
+              <h2 class="text-section-header-mobile sm:text-section-header-desktop font-serif text-[var(--color-primary)] mb-6">
+                {sdgPage.intro.headline?.replace(/\.$/, "")}
+              </h2>
+            )}
+            <div class="w-20 h-1 bg-[var(--color-accent)] mx-auto rounded-full mb-8" />
+            {/* Note: Content rendering would go here if we had a portable text component ready,
                         assuming standard text for now or just headlines */}
-                    </div>
-                )
-            }
+          </div>
+        )
+      }
 
-            {/* SDG Grid */}
-            <div
-                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
-            >
-                {
-                    sdgGrid.map((num, index) => (
-                        <ScrollRevealWrapper
-                            direction="up"
-                            delay={index * 0.05}
-                        >
-                            <SdgCard number={num} sdg={sdgMap.get(num)} />
-                        </ScrollRevealWrapper>
-                    ))
-                }
-            </div>
+      {/* SDG Grid */}
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
+      >
+        {
+          sdgGrid.map((num, index) => (
+            <ScrollRevealWrapper direction="up" delay={index * 0.05}>
+              <SdgCard number={num} sdg={sdgMap.get(num)} />
+            </ScrollRevealWrapper>
+          ))
+        }
+      </div>
 
-            <!-- <div class="mt-16 text-center">
+      <!-- <div class="mt-16 text-center">
                 <p class="text-gray-500 italic max-w-2xl mx-auto">
                     The colored tiles represent the Sustainable Development
                     Goals that we are actively integrating into our curriculum
                     and community outreach programs.
                 </p>
             </div> -->
-        </div>
-    </section>
+    </div>
+  </section>
 </Layout>
