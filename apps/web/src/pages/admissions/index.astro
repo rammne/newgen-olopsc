@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import CtaButton from "../../components/common/CtaButton.astro";
 import { getAdmissionsPage } from "../../lib/sanity/queries";
 import { getSanityImageUrl } from "../../lib/utils/sanity";
 import "../../styles/global.css";
@@ -7,7 +8,7 @@ import "../../styles/global.css";
 // Fetch admissions page data for the hero
 const admissionsPage = await getAdmissionsPage();
 
-const pageTitle = "Admissions | OLOPSC | OLOPS College";
+const pageTitle = "Admissions | OLOPS College";
 const pageDescription =
   admissionsPage?.seo?.description ||
   "Join OLOPSC. Explore our admissions for College and Basic Education programs.";
@@ -46,6 +47,13 @@ const admissionPaths = [
   },
 ];
 const canonicalUrl = admissionsPage?.seo?.canonicalUrl;
+const heroCta = admissionsPage?.hero?.cta?.text
+  ? admissionsPage.hero.cta
+  : {
+      text: "View Our Admission Processes!",
+      link: { type: "anchor", anchor: "admission-pathways" },
+      style: "primary",
+    };
 ---
 
 <Layout
@@ -121,24 +129,7 @@ const canonicalUrl = admissionsPage?.seo?.canonicalUrl;
 
         {/* Action Buttons */}
         <div class="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#admission-pathways"
-            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--color-accent)] text-[var(--color-primary)] font-bold text-lg rounded-full hover:bg-white transition-all duration-300 shadow-[0_4px_20px_rgba(237,192,84,0.4)] hover:shadow-[0_8px_30px_rgba(255,255,255,0.4)] hover:-translate-y-1 group font-['Inter']"
-          >
-            View Our Admission Processes!
-            <svg
-              class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-          </a>
+          <CtaButton cta={heroCta} />
         </div>
       </div>
     </div>

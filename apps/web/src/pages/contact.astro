@@ -7,291 +7,263 @@ import { getContactPage } from "../lib/sanity/queries";
 import "../styles/global.css";
 import { PortableText } from "astro-portabletext";
 import {
-    MapPin,
-    Phone,
-    Mail,
-    Clock,
-    Facebook,
-    Instagram,
-    Linkedin,
-    Twitter,
-    Youtube,
-    Link,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Link,
 } from "lucide-astro";
 
 const contactPage = await getContactPage();
 
-const pageTitle = "Contact | OLOPSC | OLOPS College";
+const pageTitle = "Contact | OLOPS College";
 const pageDescription =
-    contactPage?.seo?.description || "Get in touch with OLOPSC.";
+  contactPage?.seo?.description || "Get in touch with OLOPSC.";
 const ogImage = contactPage?.seo?.image?.asset?.url;
 
 // Helper to get icon for social
 const getSocialIcon = (platform: string) => {
-    switch (platform?.toLowerCase()) {
-        case "facebook":
-            return Facebook;
-        case "instagram":
-            return Instagram;
-        case "linkedin":
-            return Linkedin;
-        case "twitter":
-        case "x":
-            return Twitter;
-        case "youtube":
-            return Youtube;
-        default:
-            return Link;
-    }
+  switch (platform?.toLowerCase()) {
+    case "facebook":
+      return Facebook;
+    case "instagram":
+      return Instagram;
+    case "linkedin":
+      return Linkedin;
+    case "twitter":
+    case "x":
+      return Twitter;
+    case "youtube":
+      return Youtube;
+    default:
+      return Link;
+  }
 };
 const canonicalUrl = contactPage?.seo?.canonicalUrl;
 ---
 
-<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
-    {contactPage?.hero && <Hero hero={contactPage.hero} />}
+<Layout
+  rawTitle={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
+>
+  {contactPage?.hero && <Hero hero={contactPage.hero} />}
 
-    <section
-        class="min-h-screen px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral-light relative"
-    >
-        <div class="container mx-auto max-w-6xl">
-            {/* Contact Cards Grid */}
-            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mb-20">
-                <ScrollRevealWrapper direction="up" delay={0.1}>
-                    <div
-                        class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
-                    >
-                        <div
-                            class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
-                        >
-                            <MapPin class="w-8 h-8" />
-                        </div>
-                        <h3 class="text-xl font-bold text-primary mb-3">
-                            Visit Us
-                        </h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Gen. Ordoñez St., Concepcion Dos,<br />Marikina
-                            City, Philippines
-                        </p>
-                    </div>
-                </ScrollRevealWrapper>
-
-                <ScrollRevealWrapper direction="up" delay={0.2}>
-                    <div
-                        class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
-                    >
-                        <div
-                            class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
-                        >
-                            <Phone class="w-8 h-8" />
-                        </div>
-                        <h3 class="text-xl font-bold text-primary mb-3">
-                            Call Us
-                        </h3>
-                        <p class="text-gray-600 mb-4">(+632) 8997-7777</p>
-                        <a
-                            href="tel:+63289977777"
-                            class="text-accent font-semibold hover:underline"
-                        >
-                            Call Now
-                        </a>
-                    </div>
-                </ScrollRevealWrapper>
-
-                <ScrollRevealWrapper direction="up" delay={0.3}>
-                    <div
-                        class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
-                    >
-                        <div
-                            class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
-                        >
-                            <Mail class="w-8 h-8" />
-                        </div>
-                        <h3 class="text-xl font-bold text-primary mb-3">
-                            Email Us
-                        </h3>
-                        <p class="text-gray-600 mb-4">
-                            admissions@olopsc.edu.ph
-                        </p>
-                        <a
-                            href="mailto:admissions@olopsc.edu.ph"
-                            class="text-accent font-semibold hover:underline"
-                        >
-                            Send an Email
-                        </a>
-                    </div>
-                </ScrollRevealWrapper>
+  <section
+    class="min-h-screen px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral-light relative"
+  >
+    <div class="container mx-auto max-w-6xl">
+      {/* Contact Cards Grid */}
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mb-20">
+        <ScrollRevealWrapper direction="up" delay={0.1}>
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
+          >
+            <div
+              class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
+            >
+              <MapPin class="w-8 h-8" />
             </div>
+            <h3 class="text-xl font-bold text-primary mb-3">Visit Us</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Gen. Ordoñez St., Concepcion Dos,<br />Marikina City, Philippines
+            </p>
+          </div>
+        </ScrollRevealWrapper>
 
-            {/* Office Hours */}
-            {
-                contactPage?.officeHours && (
-                    <ScrollRevealWrapper direction="up" delay={0.4}>
-                        <div class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-neutral-200 mb-20 text-center">
-                            <div class="flex items-center justify-center gap-3 mb-8">
-                                <Clock class="w-6 h-6 text-accent" />
-                                <h3 class="text-xl font-bold text-primary">
-                                    {contactPage.officeHours.title ||
-                                        "Office Hours"}
-                                </h3>
-                            </div>
-                            <div class="grid sm:grid-cols-2 gap-x-12 gap-y-4 text-left">
-                                {contactPage.officeHours.hours?.map(
-                                    (schedule: any) => (
-                                        <div class="flex justify-between items-center text-sm border-b border-gray-100 last:border-0 pb-3 last:pb-0">
-                                            <span class="font-medium text-gray-900 capitalize">
-                                                {schedule.day}
-                                            </span>
-                                            <span
-                                                class={`font-mono ${schedule.closed ? "text-red-500 font-bold" : "text-gray-600"}`}
-                                            >
-                                                {schedule.closed
-                                                    ? "Closed"
-                                                    : schedule.hours}
-                                            </span>
-                                        </div>
-                                    ),
-                                )}
-                            </div>
+        <ScrollRevealWrapper direction="up" delay={0.2}>
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
+          >
+            <div
+              class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
+            >
+              <Phone class="w-8 h-8" />
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3">Call Us</h3>
+            <p class="text-gray-600 mb-4">(+632) 8997-7777</p>
+            <a
+              href="tel:+63289977777"
+              class="text-accent font-semibold hover:underline"
+            >
+              Call Now
+            </a>
+          </div>
+        </ScrollRevealWrapper>
+
+        <ScrollRevealWrapper direction="up" delay={0.3}>
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg border border-neutral-200 h-full flex flex-col items-center text-center hover:-translate-y-1 transition duration-300"
+          >
+            <div
+              class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6"
+            >
+              <Mail class="w-8 h-8" />
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-3">Email Us</h3>
+            <p class="text-gray-600 mb-4">admissions@olopsc.edu.ph</p>
+            <a
+              href="mailto:admissions@olopsc.edu.ph"
+              class="text-accent font-semibold hover:underline"
+            >
+              Send an Email
+            </a>
+          </div>
+        </ScrollRevealWrapper>
+      </div>
+
+      {/* Office Hours */}
+      {
+        contactPage?.officeHours && (
+          <ScrollRevealWrapper direction="up" delay={0.4}>
+            <div class="max-w-2xl mx-auto bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-neutral-200 mb-20 text-center">
+              <div class="flex items-center justify-center gap-3 mb-8">
+                <Clock class="w-6 h-6 text-accent" />
+                <h3 class="text-xl font-bold text-primary">
+                  {contactPage.officeHours.title || "Office Hours"}
+                </h3>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-x-12 gap-y-4 text-left">
+                {contactPage.officeHours.hours?.map((schedule: any) => (
+                  <div class="flex justify-between items-center text-sm border-b border-gray-100 last:border-0 pb-3 last:pb-0">
+                    <span class="font-medium text-gray-900 capitalize">
+                      {schedule.day}
+                    </span>
+                    <span
+                      class={`font-mono ${schedule.closed ? "text-red-500 font-bold" : "text-gray-600"}`}
+                    >
+                      {schedule.closed ? "Closed" : schedule.hours}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollRevealWrapper>
+        )
+      }
+
+      {/* Department Directory */}
+      {
+        contactPage?.departments && contactPage.departments.length > 0 && (
+          <ScrollRevealWrapper direction="up" delay={0.5}>
+            <div class="mt-20 border-t border-neutral-200 pt-20">
+              <h2 class="text-2xl sm:text-3xl font-serif text-primary mb-4 text-center">
+                Department Directory
+              </h2>
+              <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Direct contact lines for specific departments and offices.
+              </p>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {contactPage.departments.map((dept: any) => (
+                  <div class="bg-white p-6 rounded-xl border border-neutral-200 hover:border-accent/50 hover:shadow-md transition duration-300">
+                    <h4 class="font-bold text-lg text-primary mb-4 border-b pb-2">
+                      {dept.department}
+                    </h4>
+                    <div class="space-y-3 text-sm text-gray-600">
+                      {dept.contact?.email && (
+                        <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
+                            <Mail size={14} />
+                          </div>
+                          <a
+                            href={`mailto:${dept.contact.email}`}
+                            class="hover:text-accent transition truncate"
+                          >
+                            {dept.contact.email}
+                          </a>
                         </div>
-                    </ScrollRevealWrapper>
-                )
-            }
-
-            {/* Department Directory */}
-            {
-                contactPage?.departments &&
-                    contactPage.departments.length > 0 && (
-                        <ScrollRevealWrapper direction="up" delay={0.5}>
-                            <div class="mt-20 border-t border-neutral-200 pt-20">
-                                <h2 class="text-2xl sm:text-3xl font-serif text-primary mb-4 text-center">
-                                    Department Directory
-                                </h2>
-                                <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                                    Direct contact lines for specific
-                                    departments and offices.
-                                </p>
-                                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {contactPage.departments.map(
-                                        (dept: any) => (
-                                            <div class="bg-white p-6 rounded-xl border border-neutral-200 hover:border-accent/50 hover:shadow-md transition duration-300">
-                                                <h4 class="font-bold text-lg text-primary mb-4 border-b pb-2">
-                                                    {dept.department}
-                                                </h4>
-                                                <div class="space-y-3 text-sm text-gray-600">
-                                                    {dept.contact?.email && (
-                                                        <div class="flex items-center gap-3">
-                                                            <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
-                                                                <Mail
-                                                                    size={14}
-                                                                />
-                                                            </div>
-                                                            <a
-                                                                href={`mailto:${dept.contact.email}`}
-                                                                class="hover:text-accent transition truncate"
-                                                            >
-                                                                {
-                                                                    dept.contact
-                                                                        .email
-                                                                }
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                    {dept.contact?.phone && (
-                                                        <div class="flex items-center gap-3">
-                                                            <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
-                                                                <Phone
-                                                                    size={14}
-                                                                />
-                                                            </div>
-                                                            <a
-                                                                href={`tel:${dept.contact.phone}`}
-                                                                class="hover:text-accent transition"
-                                                            >
-                                                                {
-                                                                    dept.contact
-                                                                        .phone
-                                                                }
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        ),
-                                    )}
-                                    {/* Student Support - College CSA */}
-                                    <div class="bg-white p-6 rounded-xl border border-neutral-200 hover:border-accent/50 hover:shadow-md transition duration-300">
-                                        <h4 class="font-bold text-lg text-primary mb-4 border-b pb-2">
-                                            Student Support
-                                        </h4>
-                                        <div class="space-y-3 text-sm text-gray-600">
-                                            <div class="flex items-center gap-3">
-                                                <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
-                                                    <Mail size={14} />
-                                                </div>
-                                                <a
-                                                    href="mailto:college.csa@olopsc.edu.ph"
-                                                    class="hover:text-accent transition truncate"
-                                                >
-                                                    college.csa@olopsc.edu.ph
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ScrollRevealWrapper>
-                    )
-            }
-
-            {/* Social Media Section */}
-            {
-                contactPage?.socialMedia &&
-                    contactPage.socialMedia.links?.length > 0 && (
-                        <ScrollRevealWrapper direction="up" delay={0.55}>
-                            <div class="mt-20 text-center">
-                                <h2 class="text-2xl font-serif text-primary mb-8">
-                                    {contactPage.socialMedia.title ||
-                                        "Follow Us"}
-                                </h2>
-                                <div class="flex justify-center flex-wrap gap-4">
-                                    {contactPage.socialMedia.links.map(
-                                        (link: any) => {
-                                            const Icon = getSocialIcon(
-                                                link.platform,
-                                            );
-                                            return (
-                                                <a
-                                                    href={link.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="w-14 h-14 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-primary hover:text-white hover:bg-primary hover:border-primary transition duration-300 shadow-sm"
-                                                    aria-label={link.platform}
-                                                >
-                                                    <Icon size={24} />
-                                                </a>
-                                            );
-                                        },
-                                    )}
-                                </div>
-                            </div>
-                        </ScrollRevealWrapper>
-                    )
-            }
-
-            {/* Map Section */}
-            <ScrollRevealWrapper direction="up" delay={0.6}>
-                <div
-                    class="mt-20 rounded-2xl overflow-hidden shadow-lg h-[300px] sm:h-[450px] border-4 border-white"
-                >
-                    <iframe
-                        src={contactPage?.map?.embedUrl ||
-                            "https://maps.google.com/maps?q=Our+Lady+of+Perpetual+Succor+College+Concepcion+Dos+Marikina&t=&z=15&ie=UTF8&iwloc=&output=embed"}
-                        class="w-full h-full border-0"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      )}
+                      {dept.contact?.phone && (
+                        <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
+                            <Phone size={14} />
+                          </div>
+                          <a
+                            href={`tel:${dept.contact.phone}`}
+                            class="hover:text-accent transition"
+                          >
+                            {dept.contact.phone}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {/* Student Support - College CSA */}
+                <div class="bg-white p-6 rounded-xl border border-neutral-200 hover:border-accent/50 hover:shadow-md transition duration-300">
+                  <h4 class="font-bold text-lg text-primary mb-4 border-b pb-2">
+                    Student Support
+                  </h4>
+                  <div class="space-y-3 text-sm text-gray-600">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
+                        <Mail size={14} />
+                      </div>
+                      <a
+                        href="mailto:college.csa@olopsc.edu.ph"
+                        class="hover:text-accent transition truncate"
+                      >
+                        college.csa@olopsc.edu.ph
+                      </a>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </ScrollRevealWrapper>
+        )
+      }
+
+      {/* Social Media Section */}
+      {
+        contactPage?.socialMedia &&
+          contactPage.socialMedia.links?.length > 0 && (
+            <ScrollRevealWrapper direction="up" delay={0.55}>
+              <div class="mt-20 text-center">
+                <h2 class="text-2xl font-serif text-primary mb-8">
+                  {contactPage.socialMedia.title || "Follow Us"}
+                </h2>
+                <div class="flex justify-center flex-wrap gap-4">
+                  {contactPage.socialMedia.links.map((link: any) => {
+                    const Icon = getSocialIcon(link.platform);
+                    return (
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-14 h-14 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-primary hover:text-white hover:bg-primary hover:border-primary transition duration-300 shadow-sm"
+                        aria-label={link.platform}
+                      >
+                        <Icon size={24} />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </ScrollRevealWrapper>
+          )
+      }
+
+      {/* Map Section */}
+      <ScrollRevealWrapper direction="up" delay={0.6}>
+        <div
+          class="mt-20 rounded-2xl overflow-hidden shadow-lg h-[300px] sm:h-[450px] border-4 border-white"
+        >
+          <iframe
+            src={contactPage?.map?.embedUrl ||
+              "https://maps.google.com/maps?q=Our+Lady+of+Perpetual+Succor+College+Concepcion+Dos+Marikina&t=&z=15&ie=UTF8&iwloc=&output=embed"}
+            class="w-full h-full border-0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </section>
+      </ScrollRevealWrapper>
+    </div>
+  </section>
 </Layout>

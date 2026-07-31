@@ -54,13 +54,20 @@ if (homePage?.upcomingEvents) {
 }
 
 // Set page title from SEO or default
-const pageTitle = "OLOPSC | OLOPS College | Education in Marikina";
-const pageDescription = homePage?.seo?.description || "Our Lady of Perpetual Succor College (OLOPSC) is a premier private Catholic school and college in Marikina City, Metro Manila offering K-12, Senior High School, and degree programs including Computer Science.";
+const pageTitle = "OLOPS College - Empowering Future-Ready Leaders";
+const pageDescription =
+  homePage?.seo?.description ||
+  "Our Lady of Perpetual Succor College (OLOPSC) is a premier private Catholic school and college in Marikina City, Metro Manila offering K-12, Senior High School, and degree programs including Computer Science.";
 const ogImage = homePage?.seo?.image?.asset?.url;
 const canonicalUrl = homePage?.seo?.canonicalUrl;
 ---
 
-<Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
+<Layout
+  rawTitle={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
+>
   {homePage?.hero && <Hero hero={homePage.hero} />}
   <div id="content-below-hero"></div>
 
@@ -83,7 +90,10 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
   {
     homePage?.programsPreview && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <ProgramsPreview programsPreview={homePage.programsPreview} thumbnails={thumbnails} />
+        <ProgramsPreview
+          programsPreview={homePage.programsPreview}
+          thumbnails={thumbnails}
+        />
       </ScrollRevealWrapper>
     )
   }
@@ -133,12 +143,12 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
   }
 
   {
-    ((homePage?.basicEdFeatures && homePage.basicEdFeatures.length > 0) || 
-     (homePage?.collegeFeatures && homePage.collegeFeatures.length > 0)) && (
+    ((homePage?.basicEdFeatures && homePage.basicEdFeatures.length > 0) ||
+      (homePage?.collegeFeatures && homePage.collegeFeatures.length > 0)) && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
-        <Features 
-          basicEdFeatures={homePage.basicEdFeatures} 
-          collegeFeatures={homePage.collegeFeatures} 
+        <Features
+          basicEdFeatures={homePage.basicEdFeatures}
+          collegeFeatures={homePage.collegeFeatures}
         />
       </ScrollRevealWrapper>
     )

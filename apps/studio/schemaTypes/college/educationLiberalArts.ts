@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity'
-import { GraduationCap, BookOpen, Search, ImageIcon } from 'lucide-react'
+import {defineField, defineType} from 'sanity'
+import {GraduationCap, BookOpen, Search, ImageIcon} from 'lucide-react'
 
 export const educationLiberalArts = defineType({
   name: 'educationLiberalArts',
@@ -7,14 +7,14 @@ export const educationLiberalArts = defineType({
   type: 'document',
   icon: GraduationCap,
   groups: [
-    { name: 'hero', title: 'Hero & Quick Facts', icon: ImageIcon, default: true },
-    { name: 'overview', title: 'Program Overview' },
-    { name: 'outcomes', title: 'Outcomes & Manifesto' },
-    { name: 'curriculum', title: 'Curriculum Engine' },
-    { name: 'ecosystem', title: 'Ecosystem Images' },
-    { name: 'leadership', title: 'Leadership & Faculty' },
-    { name: 'pathways', title: 'Career Pathways' },
-    { name: 'seo', title: 'SEO', icon: Search },
+    {name: 'hero', title: 'Hero & Quick Facts', icon: ImageIcon, default: true},
+    {name: 'overview', title: 'Program Overview'},
+    {name: 'outcomes', title: 'Outcomes & Manifesto'},
+    {name: 'curriculum', title: 'Curriculum Engine'},
+    {name: 'ecosystem', title: 'Ecosystem Images'},
+    {name: 'leadership', title: 'Leadership & Faculty'},
+    {name: 'pathways', title: 'Career Pathways'},
+    {name: 'seo', title: 'SEO', icon: Search},
   ],
   fields: [
     defineField({
@@ -31,17 +31,18 @@ export const educationLiberalArts = defineType({
       title: 'Hero Background Image',
       type: 'image',
       group: 'hero',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+      options: {hotspot: true},
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
     }),
     defineField({
       name: 'cardThumbnail',
       title: 'Card Thumbnail (Hub Page)',
-      description: 'Thumbnail displayed on the College Department hub page card. Recommended: 800×450px (16:9).',
+      description:
+        'Thumbnail displayed on the College Department hub page card. Recommended: 800×450px (16:9).',
       type: 'image',
       group: 'hero',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+      options: {hotspot: true},
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
     }),
     defineField({
       name: 'quickFacts',
@@ -49,9 +50,19 @@ export const educationLiberalArts = defineType({
       type: 'object',
       group: 'hero',
       fields: [
-        defineField({ name: 'duration', title: 'Duration', type: 'string', initialValue: '4 Years' }),
-        defineField({ name: 'units', title: 'Total Units', type: 'string', initialValue: '145+ Units' }),
-        defineField({ name: 'format', title: 'Format', type: 'string', initialValue: 'On-Campus & Teaching Practicum' }),
+        defineField({name: 'duration', title: 'Duration', type: 'string', initialValue: '4 Years'}),
+        defineField({
+          name: 'units',
+          title: 'Total Units',
+          type: 'string',
+          initialValue: '145+ Units',
+        }),
+        defineField({
+          name: 'format',
+          title: 'Format',
+          type: 'string',
+          initialValue: 'On-Campus & Teaching Practicum',
+        }),
       ],
     }),
 
@@ -61,16 +72,16 @@ export const educationLiberalArts = defineType({
       title: 'Overview Main Image (Back/Bottom-Left)',
       type: 'image',
       group: 'overview',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+      options: {hotspot: true},
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
     }),
     defineField({
       name: 'overviewSubImage',
       title: 'Overview Sub Image (Front/Top-Right)',
       type: 'image',
       group: 'overview',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+      options: {hotspot: true},
+      fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
     }),
 
     // --- OUTCOMES ---
@@ -83,8 +94,8 @@ export const educationLiberalArts = defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+            defineField({name: 'title', title: 'Title', type: 'string'}),
+            defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
           ],
         },
       ],
@@ -100,8 +111,12 @@ export const educationLiberalArts = defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'id', title: 'Track ID (e.g. beed, bsed, bael)', type: 'string' }),
-            defineField({ name: 'name', title: 'Track Name', type: 'string' }),
+            defineField({
+              name: 'id',
+              title: 'Track ID (e.g. beed, bsed, ab english)',
+              type: 'string',
+            }),
+            defineField({name: 'name', title: 'Track Name', type: 'string'}),
             defineField({
               name: 'roadmap',
               title: 'Roadmap',
@@ -110,9 +125,14 @@ export const educationLiberalArts = defineType({
                 {
                   type: 'object',
                   fields: [
-                    defineField({ name: 'year', title: 'Year (e.g. Year 1)', type: 'string' }),
-                    defineField({ name: 'title', title: 'Title', type: 'string' }),
-                    defineField({ name: 'subjects', title: 'Subjects', type: 'array', of: [{ type: 'string' }] }),
+                    defineField({name: 'year', title: 'Year (e.g. Year 1)', type: 'string'}),
+                    defineField({name: 'title', title: 'Title', type: 'string'}),
+                    defineField({
+                      name: 'subjects',
+                      title: 'Subjects',
+                      type: 'array',
+                      of: [{type: 'string'}],
+                    }),
                   ],
                 },
               ],
@@ -130,20 +150,32 @@ export const educationLiberalArts = defineType({
       group: 'ecosystem',
       fields: [
         defineField({
-          name: 'modelClassroom', title: 'Interactive Model Classroom', type: 'image', options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+          name: 'modelClassroom',
+          title: 'Interactive Model Classroom',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
         defineField({
-          name: 'speechLab', title: 'Digital Phonetics & Speech Suite', type: 'image', options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+          name: 'speechLab',
+          title: 'Digital Phonetics & Speech Suite',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
         defineField({
-          name: 'literacyHub', title: 'The Literary & Publishing Workstation', type: 'image', options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+          name: 'literacyHub',
+          title: 'The Literary & Publishing Workstation',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
         defineField({
-          name: 'resourceCenter', title: 'Curriculum Design & Media Lab', type: 'image', options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+          name: 'resourceCenter',
+          title: 'Curriculum Design & Media Lab',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
       ],
     }),
@@ -155,13 +187,16 @@ export const educationLiberalArts = defineType({
       type: 'object',
       group: 'leadership',
       fields: [
-        defineField({ name: 'name', title: 'Name', type: 'string' }),
-        defineField({ name: 'title', title: 'Title / Designation', type: 'string' }),
-        defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
-        defineField({ name: 'quote', title: 'Manifesto Quote', type: 'text', rows: 4 }),
+        defineField({name: 'name', title: 'Name', type: 'string'}),
+        defineField({name: 'title', title: 'Title / Designation', type: 'string'}),
+        defineField({name: 'credentials', title: 'Credentials', type: 'string'}),
+        defineField({name: 'quote', title: 'Manifesto Quote', type: 'text', rows: 4}),
         defineField({
-          name: 'image', title: 'Chair Portrait', type: 'image', options: { hotspot: true },
-          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+          name: 'image',
+          title: 'Chair Portrait',
+          type: 'image',
+          options: {hotspot: true},
+          fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
         }),
       ],
     }),
@@ -174,12 +209,15 @@ export const educationLiberalArts = defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'name', title: 'Name', type: 'string' }),
-            defineField({ name: 'specialty', title: 'Specialty Badge', type: 'string' }),
-            defineField({ name: 'credentials', title: 'Credentials', type: 'string' }),
+            defineField({name: 'name', title: 'Name', type: 'string'}),
+            defineField({name: 'specialty', title: 'Specialty Badge', type: 'string'}),
+            defineField({name: 'credentials', title: 'Credentials', type: 'string'}),
             defineField({
-              name: 'image', title: 'Faculty Portrait', type: 'image', options: { hotspot: true },
-              fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+              name: 'image',
+              title: 'Faculty Portrait',
+              type: 'image',
+              options: {hotspot: true},
+              fields: [defineField({name: 'alt', title: 'Alt Text', type: 'string'})],
             }),
           ],
         },
@@ -196,11 +234,16 @@ export const educationLiberalArts = defineType({
         {
           type: 'object',
           fields: [
-            defineField({ name: 'subtitle', title: 'Subtitle (Context)', type: 'string' }),
-            defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-            defineField({ name: 'iconPath', title: 'Icon SVG Path', type: 'string' }),
-            defineField({ name: 'roles', title: 'Target Roles', type: 'array', of: [{ type: 'string' }] }),
+            defineField({name: 'subtitle', title: 'Subtitle (Context)', type: 'string'}),
+            defineField({name: 'title', title: 'Title', type: 'string'}),
+            defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+            defineField({name: 'iconPath', title: 'Icon SVG Path', type: 'string'}),
+            defineField({
+              name: 'roles',
+              title: 'Target Roles',
+              type: 'array',
+              of: [{type: 'string'}],
+            }),
           ],
         },
       ],
@@ -216,7 +259,7 @@ export const educationLiberalArts = defineType({
   ],
   preview: {
     prepare() {
-      return { title: 'Education & Liberal Arts Page' }
+      return {title: 'Education & Liberal Arts Page'}
     },
   },
 })
