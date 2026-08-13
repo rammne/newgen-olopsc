@@ -173,7 +173,19 @@ const dean = {
   name: department?.dean?.name || "Dr. Maria Santos",
   title: department?.dean?.title || "Dean, OLOPSC - College of BMSE",
   credentials: department?.dean?.credentials || "",
-  quote: department?.dean?.quote || "Welcome to our academic community, where excellence and sustainability serve as the foundation of our mission and aspirations. As we prepare our students for a rapidly evolving world, we remain committed to providing quality education that fosters intellectual growth, ethical leadership, innovation, and social responsibility. We believe that true excellence is not measured solely by achievement, but by the positive and lasting impact we create for our communities and future generations. To our students, alumni, and partners,  I invite you to join us in advancing a culture of lifelong learning, meaningful engagement, and sustainable development as we continue to shape leaders and professionals who will make a difference in an increasingly interconnected world.",
+  quote: department?.dean?.quote || `Welcome to the College of Business, Management, Science and Education at Our Lady of Perpetual Succor College.
+
+It is my privilege to welcome you to a college community where learning extends beyond the classroom and every student is valued, supported, and empowered to succeed. Our commitment is not only to academic excellence but also to nurturing individuals of character, compassion, and purpose who are prepared to make meaningful contributions to society.
+
+At CBMSE, we believe that education is more than earning a degree. It is a journey of discovering your potential, developing your talents, and cultivating the knowledge, skills, and values needed to lead with integrity and serve others with excellence.
+
+To our students: I encourage you to embrace every opportunity to learn, grow, and pursue your aspirations with confidence. Your dreams matter, and we are committed to providing an environment where you can thrive both personally and professionally.
+
+To our faculty, staff, alumni, industry partners, and stakeholders: thank you for your unwavering dedication and continued support. Together, we will strengthen a culture of innovation, collaboration, and excellence as we work toward our shared vision of making CBMSE the college of first choice in Marikina and the East Rizal area.
+
+As Dean, I look forward to walking alongside each of you as we build a community where excellence is pursued with humility, leadership is guided by service, and genuine care for people defines who we are.
+
+I invite you to explore our programs and discover how CBMSE can be part of your journey.`,
   image: {
     url: department?.dean?.image?.asset?.url
       ? getSanityImageUrl(department.dean.image, { width: 800, height: 1000, fit: "crop" })
@@ -572,9 +584,14 @@ const canonicalUrl = department?.seo?.canonicalUrl;
       </div>
       <div class="lg:col-span-7">
         <span class="text-accent font-black tracking-widest uppercase text-sm mb-6 inline-block">Message from the Dean</span>
-        <p class="text-2xl md:text-2xl font-black text-primary leading-snug tracking-tight mb-8">
-          "{dean.quote}"
-        </p>
+        <div class="text-base md:text-lg text-slate-700 leading-relaxed mb-8 space-y-5">
+          {String(dean.quote).split('\n\n').map((paragraph, index, array) => (
+            <p>
+              {index === 0 ? `"${paragraph}` : paragraph}
+              {index === array.length - 1 ? '"' : ''}
+            </p>
+          ))}
+        </div>
       </div>
     </ScrollRevealWrapper>
   </section>
