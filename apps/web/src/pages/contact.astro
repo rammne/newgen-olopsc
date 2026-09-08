@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
 
 import { getContactPage } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 import { PortableText } from "astro-portabletext";
 import {
@@ -45,6 +45,19 @@ const getSocialIcon = (platform: string) => {
   }
 };
 const canonicalUrl = contactPage?.seo?.canonicalUrl;
+
+const heroHeadline =
+  contactPage?.hero?.headline || "Get in Touch";
+const heroSubheadline =
+  contactPage?.hero?.subheadline ||
+  "Have questions about admissions, programs, or campus life? We're here to help. Reach out to us and we'll get back to you as soon as possible.";
+const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
+  ? getSanityImageUrl(contactPage.hero.backgroundImage, {
+      width: 1920,
+      height: 1080,
+      fit: "crop",
+    })
+  : null;
 ---
 
 <Layout
@@ -53,7 +66,94 @@ const canonicalUrl = contactPage?.seo?.canonicalUrl;
   ogImage={ogImage}
   canonicalUrl={canonicalUrl}
 >
-  {contactPage?.hero && <Hero hero={contactPage.hero} />}
+  {/* Contact Hero Section — Admissions-style */}
+  <section
+    class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]"
+  >
+    {/* Background Layer */}
+    <div class="absolute inset-0 z-0">
+      {
+        bgImageUrl ? (
+          <>
+            <img
+              src={bgImageUrl}
+              alt="Contact Background"
+              class="w-full h-full object-cover animate-slow-zoom"
+            />
+            <div class="absolute inset-0 bg-[#0a095f]/70 mix-blend-multiply" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050340]/90 via-[#0a095f]/60 to-transparent" />
+          </>
+        ) : (
+          <div class="absolute inset-0 bg-gradient-to-br from-[#050340] via-[#0a095f] to-[#12108a]">
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-white/5 blur-[100px] animate-pulse" />
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-accent)]/10 blur-[100px]" />
+          </div>
+        )
+      }
+    </div>
+
+    {/* Content Container */}
+    <div
+      class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full mt-10 sm:mt-16"
+    >
+      <div
+        class="max-w-3xl animate-fade-in-up"
+        style="animation: fade-in-up 1s ease-out forwards; opacity: 0;"
+      >
+        {/* Eyebrow / Tag */}
+        <div
+          class="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
+        >
+          <span
+            class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"
+          ></span>
+          <span
+            class="text-white text-xs sm:text-sm font-bold uppercase tracking-widest font-['Inter']"
+          >
+            Contact Us
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8 font-['Montserrat']"
+        >
+          {heroHeadline}
+        </h1>
+
+        {/* Subtitle */}
+        <p
+          class="text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl font-['Inter'] font-light"
+        >
+          {heroSubheadline}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slow-zoom {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+    .animate-slow-zoom {
+      animation: slow-zoom 20s ease-in-out infinite alternate;
+    }
+  </style>
 
   <section
     class="min-h-screen px-5 py-10 sm:px-[60px] sm:py-[100px] bg-neutral-light relative"

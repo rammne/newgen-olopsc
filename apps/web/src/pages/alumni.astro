@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/homepage/Hero.astro";
 import IdentitySection from "../components/about/IdentitySection.astro";
 import MissionVisionValues from "../components/about/MissionVisionValues.astro";
 import LeadershipSection from "../components/about/LeadershipSection.astro";
@@ -15,6 +14,7 @@ import {
   getAlumniNews,
   getAlumniEvents,
 } from "../lib/sanity/queries";
+import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
 const page = await getAlumniPage();
@@ -25,10 +25,109 @@ const pageTitle = "Alumni | OLOPSC | OLOPS College";
 const pageDescription = page?.seo?.description || "OLOPSC Alumni Association";
 const ogImage = page?.seo?.image?.asset?.url;
 const canonicalUrl = page?.seo?.canonicalUrl;
+
+const heroHeadline = page?.hero?.headline || "OLOPSC Alumni";
+const heroSubheadline =
+  page?.hero?.subheadline ||
+  "Stay connected with the OLOPSC community. Discover alumni stories, upcoming events, and opportunities to give back.";
+const bgImageUrl = page?.hero?.backgroundImage?.asset?.url
+  ? getSanityImageUrl(page.hero.backgroundImage, {
+      width: 1920,
+      height: 1080,
+      fit: "crop",
+    })
+  : null;
 ---
 
 <Layout rawTitle={pageTitle} description={pageDescription} ogImage={ogImage} canonicalUrl={canonicalUrl}>
-  {page?.hero && <Hero hero={page.hero} />}
+  {/* Alumni Hero Section — Admissions-style */}
+  <section
+    class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center pt-24 pb-20 overflow-hidden bg-[var(--color-primary)]"
+  >
+    {/* Background Layer */}
+    <div class="absolute inset-0 z-0">
+      {
+        bgImageUrl ? (
+          <>
+            <img
+              src={bgImageUrl}
+              alt="Alumni Background"
+              class="w-full h-full object-cover animate-slow-zoom"
+            />
+            <div class="absolute inset-0 bg-[#0a095f]/70 mix-blend-multiply" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050340]/90 via-[#0a095f]/60 to-transparent" />
+          </>
+        ) : (
+          <div class="absolute inset-0 bg-gradient-to-br from-[#050340] via-[#0a095f] to-[#12108a]">
+            <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-white/5 blur-[100px] animate-pulse" />
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--color-accent)]/10 blur-[100px]" />
+          </div>
+        )
+      }
+    </div>
+
+    {/* Content Container */}
+    <div
+      class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full mt-10 sm:mt-16"
+    >
+      <div
+        class="max-w-3xl animate-fade-in-up"
+        style="animation: fade-in-up 1s ease-out forwards; opacity: 0;"
+      >
+        {/* Eyebrow / Tag */}
+        <div
+          class="inline-flex items-center gap-3 mb-6 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"
+        >
+          <span
+            class="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-pulse"
+          ></span>
+          <span
+            class="text-white text-xs sm:text-sm font-bold uppercase tracking-widest font-['Inter']"
+          >
+            Alumni Community
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8 font-['Montserrat']"
+        >
+          {heroHeadline}
+        </h1>
+
+        {/* Subtitle */}
+        <p
+          class="text-lg sm:text-xl text-slate-200 leading-relaxed max-w-2xl font-['Inter'] font-light"
+        >
+          {heroSubheadline}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slow-zoom {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.05);
+      }
+    }
+    .animate-slow-zoom {
+      animation: slow-zoom 20s ease-in-out infinite alternate;
+    }
+  </style>
 
   {
     page?.intro && (
@@ -109,7 +208,8 @@ const canonicalUrl = page?.seo?.canonicalUrl;
               Stay Connected
             </h2>
             <p class="text-white/80 text-main-mobile sm:text-main-desktop mb-8 max-w-2xl mx-auto">
-              Update your contact information, request alumni records, or get involved with the OLOPSC Alumni Association.
+              Update your contact information, request alumni records, or get
+              involved with the OLOPSC Alumni Association.
             </p>
             <CtaButton cta={page.cta} />
           </div>
