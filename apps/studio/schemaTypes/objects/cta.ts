@@ -14,6 +14,15 @@ export const cta = defineType({
       name: 'link',
       title: 'Link',
       type: 'object',
+      validation: (Rule) =>
+        Rule.custom((link: any) => {
+          if (!link?.type) return true
+          const stale = ['internal', 'external', 'anchor', 'file'].filter(
+            (key) => key !== link.type && link[key]
+          )
+          if (!stale.length) return true
+          return `Unused link value still saved: ${stale.join(', ')}. Clear it — a leftover Internal Page reference keeps counting as a link and will block deleting the target document.`
+        }).warning(),
       fields: [
         defineField({
           name: 'type',
@@ -46,26 +55,26 @@ export const cta = defineType({
             {type: 'jobsPage'},
             {type: 'homePage'},
           ],
-          hidden: ({parent}) => parent?.type !== 'internal',
+          hidden: ({parent}) => parent?.type !== 'internal' && !parent?.internal,
         }),
         defineField({
           name: 'external',
           title: 'External URL',
           type: 'url',
-          hidden: ({parent}) => parent?.type !== 'external',
+          hidden: ({parent}) => parent?.type !== 'external' && !parent?.external,
         }),
         defineField({
           name: 'anchor',
           title: 'Anchor ID',
           type: 'string',
           description: 'Section ID to scroll to (e.g., "admissions")',
-          hidden: ({parent}) => parent?.type !== 'anchor',
+          hidden: ({parent}) => parent?.type !== 'anchor' && !parent?.anchor,
         }),
         defineField({
           name: 'file',
           title: 'File',
           type: 'file',
-          hidden: ({parent}) => parent?.type !== 'file',
+          hidden: ({parent}) => parent?.type !== 'file' && !parent?.file,
         }),
       ],
     }),

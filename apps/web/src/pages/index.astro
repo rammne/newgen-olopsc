@@ -42,16 +42,10 @@ const accreditationsList = aboutPage?.accreditations?.accreditations?.length
 const thumbnails = await getCollegeProgramThumbnails();
 
 // Fetch featured news (max 3) for home page
-let newsArticles = [];
-if (homePage?.latestNews) {
-  newsArticles = await getLatestNews(3);
-}
+const newsArticles = await getLatestNews();
 
 // Fetch featured events (max 3) for home page
-let events = [];
-if (homePage?.upcomingEvents) {
-  events = await getUpcomingEvents(3);
-}
+const events = await getUpcomingEvents(homePage?.upcomingEvents?.count ?? 3);
 
 // Set page title from SEO or default
 const pageTitle = "OLOPS College - Empowering Future-Ready Leaders";
@@ -68,7 +62,7 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
   ogImage={ogImage}
   canonicalUrl={canonicalUrl}
 >
-  {homePage?.hero && <Hero hero={homePage.hero} />}
+  <Hero hero={homePage?.hero} />
   <div id="content-below-hero"></div>
 
   {
@@ -79,13 +73,9 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
     )
   }
 
-  {
-    homePage?.intro && (
-      <ScrollRevealWrapper direction="fade" delay={0.1}>
-        <Intro intro={homePage.intro} />
-      </ScrollRevealWrapper>
-    )
-  }
+  <ScrollRevealWrapper direction="fade" delay={0.1}>
+    <Intro intro={homePage?.intro} />
+  </ScrollRevealWrapper>
 
   {
     homePage?.programsPreview && (
@@ -155,10 +145,10 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
   }
 
   {
-    homePage?.upcomingEvents && events.length > 0 && (
+    events.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <UpcomingEvents
-          upcomingEvents={homePage.upcomingEvents}
+          upcomingEvents={homePage?.upcomingEvents}
           events={events}
         />
       </ScrollRevealWrapper>
@@ -166,10 +156,10 @@ const canonicalUrl = homePage?.seo?.canonicalUrl;
   }
 
   {
-    homePage?.latestNews && newsArticles.length > 0 && (
+    newsArticles.length > 0 && (
       <ScrollRevealWrapper direction="up" delay={0.1}>
         <LatestNews
-          latestNews={homePage.latestNews}
+          latestNews={homePage?.latestNews}
           newsArticles={newsArticles}
         />
       </ScrollRevealWrapper>

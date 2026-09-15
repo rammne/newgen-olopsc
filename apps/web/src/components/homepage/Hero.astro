@@ -1,44 +1,33 @@
 ---
-import { normalizeVideoEmbedUrl } from "../../lib/utility";
-import { Image } from "astro:assets";
 import CtaButton from "../common/CtaButton.astro";
 
 interface Props {
-  hero?: any;
+  hero?: {
+    subheadline?: string;
+  };
 }
 
 const { hero } = Astro.props;
-const heroPosterUrl = hero?.heroPoster?.asset?.url || "";
 
-// Resolve video source based on original hero config
-const videoSourceType = hero?.backgroundVideoSource || "file";
-const uploadedVideoUrl = hero?.backgroundVideoFile?.asset?.url;
-const directVideoUrl = hero?.backgroundVideoUrl;
-
-function getVideoUrl() {
-  if (videoSourceType === "file" && uploadedVideoUrl) return uploadedVideoUrl;
-  if (videoSourceType === "url" && directVideoUrl) return directVideoUrl;
-  return directVideoUrl || uploadedVideoUrl || "";
-}
-
-const videoUrl = getVideoUrl();
+const heroCtas = [
+  {
+    text: "Apply Now",
+    style: "primary",
+    link: { type: "external", external: "/admissions" },
+    animation: "animate-from-left",
+  },
+  {
+    text: "View Offers",
+    style: "secondary",
+    link: { type: "anchor", anchor: "academic-departments" },
+    animation: "animate-from-bottom",
+  },
+];
 ---
 
 <header
   class="relative w-full min-h-[90vh] bg-slate-900 overflow-hidden flex items-center"
 >
-  <!-- Static Background Poster (Visible before video fades in) -->
-  {
-    heroPosterUrl && (
-      <img
-        src={heroPosterUrl}
-        alt="Hero Poster"
-        class="absolute inset-0 w-full h-full object-cover z-0"
-        fetchpriority="high"
-      />
-    )
-  }
-
   <!-- Background Video (Fades in after timeline completes) — served locally to avoid Sanity bandwidth limits -->
   <video
     id="hero-bg-video"
@@ -47,7 +36,6 @@ const videoUrl = getVideoUrl();
     muted
     loop
     playsinline
-    poster={heroPosterUrl || undefined}
   >
     <source src="/OLOPSC-OFFICIAL-VIDEO.mp4" type="video/mp4" />
   </video>
@@ -76,14 +64,13 @@ const videoUrl = getVideoUrl();
         >
       </h1>
 
-      <p
-        class="text-lg lg:text-xl text-slate-200 max-w-2xl leading-relaxed animate-from-right"
-      >
-        A premier private, non-sectarian educational institution serving
-        families in Marikina City and its neighboring cities since 1978. It
-        offers DepEd-recognized basic education, CHED-recognized degree
-        programs, and PAASCU-accredited academic offerings.
-      </p>
+      {
+        hero?.subheadline && (
+          <p class="text-lg lg:text-xl text-slate-200 max-w-2xl leading-relaxed animate-from-right">
+            {hero.subheadline}
+          </p>
+        )
+      }
 
       <!-- Mobile Timeline (Horizontal) -->
       <div
@@ -186,27 +173,11 @@ const videoUrl = getVideoUrl();
         class="flex flex-col sm:flex-row gap-4 justify-start items-center sm:items-start mt-2"
       >
         {
-          hero?.cta && (
-            <div class="animate-from-left">
-              <CtaButton cta={hero.cta} />
+          heroCtas.map(({ animation, ...cta }) => (
+            <div class={animation}>
+              <CtaButton cta={cta} />
             </div>
-          )
-        }
-        {
-          hero?.secondaryCta && (
-            <div class="animate-from-bottom">
-              <CtaButton
-                cta={{
-                  text: "View Offers",
-                  style: "secondary",
-                  link: {
-                    type: "anchor",
-                    anchor: "academic-departments",
-                  },
-                }}
-              />
-            </div>
-          )
+          ))
         }
       </div>
     </div>

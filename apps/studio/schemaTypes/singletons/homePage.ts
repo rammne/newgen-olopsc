@@ -24,8 +24,9 @@ export const homePage = defineType({
     defineField({
       name: 'hero',
       title: 'Hero Section',
-      type: 'hero',
-      description: 'Main hero section - first impression (ATTENTION)',
+      type: 'homeHero',
+      description:
+        'Main hero section - first impression (ATTENTION). The headline, background video and buttons are set in code.',
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),
@@ -44,12 +45,10 @@ export const homePage = defineType({
           validation: (Rule) => Rule.max(100),
         }),
         defineField({
-          name: 'subheadline',
-          title: 'Subheadline',
-          type: 'text',
-          rows: 2,
-          description: 'Brief subheadline (1-2 sentences max)',
-          validation: (Rule) => Rule.max(200),
+          name: 'content',
+          title: 'Body Text',
+          type: 'portableText',
+          description: 'Main body copy shown below the headline',
         }),
         defineField({
           name: 'image',
@@ -71,11 +70,6 @@ export const homePage = defineType({
               }
               return true
             }),
-        }),
-        defineField({
-          name: 'cta',
-          title: 'Call-to-Action Button',
-          type: 'cta',
         }),
       ],
     }),
@@ -287,11 +281,7 @@ export const homePage = defineType({
           of: [
             {
               type: 'reference',
-              to: [
-                { type: 'collegeProgram' },
-                { type: 'psychology' },
-                { type: 'tourismManagement' }
-              ],
+              to: [{ type: 'collegeProgram' }],
             },
           ],
           validation: (Rule) => Rule.max(6).error('Please select up to 6 programs'),
@@ -360,13 +350,6 @@ export const homePage = defineType({
           type: 'string',
         }),
         defineField({
-          name: 'count',
-          title: 'Number of Articles',
-          type: 'number',
-          initialValue: 3,
-          validation: (Rule) => Rule.min(1).max(6),
-        }),
-        defineField({
           name: 'cta',
           title: 'View All News CTA',
           type: 'cta',
@@ -383,6 +366,13 @@ export const homePage = defineType({
           name: 'title',
           title: 'Section Title',
           type: 'string',
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'text',
+          rows: 2,
+          description: 'Short blurb shown below the section title',
         }),
         defineField({
           name: 'count',

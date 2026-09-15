@@ -1,6 +1,7 @@
 // Objects
 import { seo } from './objects/seo'
 import { hero } from './objects/hero'
+import { homeHero } from './objects/homeHero'
 import { cta } from './objects/cta'
 import { feature } from './objects/feature'
 import { testimonial } from './objects/testimonial'
@@ -48,6 +49,7 @@ export const schemaTypes = [
   // Objects
   seo,
   hero,
+  homeHero,
   cta,
   feature,
   testimonial,

@@ -95,7 +95,6 @@ export const newsArticleSchema = sanityDocumentSchema.extend({
   }),
   category: z.string().optional(),
   publishedAt: z.string(),
-  featured: z.boolean().optional(),
   featuredImage: z.any(),
   excerpt: z.string().optional(),
   content: z.any(),
@@ -133,11 +132,6 @@ export const collegeProgramSchema = sanityDocumentSchema.extend({
     current: z.string(),
   }),
   shortTitle: z.string().optional(),
-  category: z.string().optional(),
-  hero: heroSchema,
-  overview: z.any(),
-  duration: z.string().optional(),
-  degree: z.string().optional(),
-  seo: seoSchema.optional(),
+  description: z.string().optional(),
 })
 

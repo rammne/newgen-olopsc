@@ -10,6 +10,7 @@ interface Props {
       _id?: string;
       title?: string;
       shortTitle?: string;
+      description?: string;
       slug?: {
         current?: string;
       };
@@ -19,22 +20,6 @@ interface Props {
         };
         alt?: string;
       };
-      hero?: {
-        backgroundImage?: {
-          asset?: {
-            _id?: string;
-            url?: string;
-            metadata?: {
-              dimensions?: {
-                width?: number;
-                height?: number;
-              };
-            };
-          };
-          alt?: string;
-        };
-      };
-      overview?: string;
     }>;
     cta?: {
       text?: string;
@@ -48,76 +33,26 @@ interface Props {
 
 const { programsPreview } = Astro.props;
 
-// Fallback Data
 const fallbackSubtitle = "CHED-recognized bachelor's degree programs designed for global industry standards.";
-const fallbackPrograms = [
-  {
-    title: "Computer Science & Technology",
-    shortTitle: "BSCS & ACT",
-    overview: "Outcome-based curriculum covering software engineering, full-stack development, and data structures.",
-    slug: { current: "computing-studies" },
-    imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    title: "Hospitality Management",
-    shortTitle: "BSHM",
-    overview: "Industry-standard training in culinary arts, hotel operations, and global hospitality leadership.",
-    slug: { current: "hospitality-management" },
-    imageUrl: "https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    title: "Tourism Management",
-    shortTitle: "BSTM",
-    overview: "Comprehensive preparation for global travel, tour operations, and sustainable destination management.",
-    slug: { current: "tourism-management" },
-    imageUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    title: "Business & Entrepreneurship",
-    shortTitle: "BSBA",
-    overview: "Equipping future business leaders with modern marketing, financial management, and corporate strategy skills.",
-    slug: { current: "business-administration-and-entrepreneurship" },
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    title: "Education & Liberal Arts",
-    shortTitle: "BEEd, BSEd",
-    overview: "Shaping future educators with DepEd-aligned methodologies for Elementary and Secondary instruction.",
-    slug: { current: "education-and-liberal-arts" },
-    imageUrl: "https://images.unsplash.com/photo-1427504494785-319ce8372379?q=80&w=800&auto=format&fit=crop"
-  },
-  {
-    title: "Psychology",
-    shortTitle: "BSP",
-    overview: "Scientific study of human behavior, preparing graduates for clinical, industrial, and educational roles.",
-    slug: { current: "psychology" },
-    imageUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop"
-  }
-];
 
-// Determine final data
 const title = programsPreview?.title || "Future-Ready Degrees";
-const subtitle = fallbackSubtitle;
+const subtitle = programsPreview?.subtitle || fallbackSubtitle;
 
-// Map CMS programs or use fallbacks
-const displayPrograms = (programsPreview?.programs && programsPreview.programs.length > 0) 
-  ? programsPreview.programs.map((p, index) => {
-      const slugValue = p.slug?.current || fallbackPrograms[index]?.slug?.current || "#";
-      const singletonThumbData = Astro.props.thumbnails?.[slugValue]?.cardThumbnail;
-      const singletonThumbUrl = singletonThumbData?.asset?.url ? getSanityImageUrl(singletonThumbData, { width: 800, height: 600, fit: "crop" }) : null;
-      
-      return {
-        title: p.title || fallbackPrograms[index]?.title || "Program",
-        shortTitle: p.shortTitle || fallbackPrograms[index]?.shortTitle || "",
-        overview: fallbackPrograms[index]?.overview || p.overview || "",
-        slug: { current: slugValue },
-        imageUrl: singletonThumbUrl || p.cardThumbnail?.asset?.url || (p.hero?.backgroundImage ? getSanityImageUrl(p.hero.backgroundImage, { width: 800, height: 600, fit: "crop" }) : fallbackPrograms[index]?.imageUrl)
-      }
-    })
-  : fallbackPrograms;
+const displayPrograms = (programsPreview?.programs || []).map((p) => {
+  const slugValue = p.slug?.current || "#";
+  const singletonThumbData = Astro.props.thumbnails?.[slugValue]?.cardThumbnail;
+  const singletonThumbUrl = singletonThumbData?.asset?.url ? getSanityImageUrl(singletonThumbData, { width: 800, height: 600, fit: "crop" }) : null;
+
+  return {
+    title: p.title || "Program",
+    shortTitle: p.shortTitle || "",
+    overview: p.description || "",
+    slug: { current: slugValue },
+    imageUrl: singletonThumbUrl || (p.cardThumbnail ? getSanityImageUrl(p.cardThumbnail, { width: 800, height: 600, fit: "crop" }) : "")
+  }
+});
 
 const ctaText = programsPreview?.cta?.text || "View All College Programs";
-const ctaLink = typeof programsPreview?.cta?.link === 'string' ? programsPreview.cta.link : "/college";
 ---
 
 <section class="bg-slate-50 py-20">

@@ -332,88 +332,10 @@ export async function getHomePage() {
     _id,
     title,
     hero {
-      variant,
-      headline,
-      subheadline,
-      backgroundImage {
-        asset->{
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt,
-        hotspot
-      },
-      backgroundVideoSource,
-      backgroundVideoFile {
-        asset->{
-          url
-        }
-      },
-      backgroundVideoUrl,
-      backgroundVideoEmbed,
-      heroPoster {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      overlay {
-        enabled,
-        opacity,
-        color
-      },
-      cta {
-        text,
-        link {
-          type,
-          internal->{
-            _type,
-            slug {
-              current
-            }
-          },
-          external,
-          anchor,
-          file {
-            asset->{
-              url
-            }
-          }
-        },
-        style,
-        openInNewTab
-      },
-      secondaryCta {
-        text,
-        link {
-          type,
-          internal->{
-            _type,
-            slug {
-              current
-            }
-          },
-          external,
-          anchor,
-          file {
-            asset->{
-              url
-            }
-          }
-        },
-        style,
-        openInNewTab
-      }
+      subheadline
     },
     intro {
       headline,
-      subheadline,
       content[],
       image {
         asset->{
@@ -426,32 +348,6 @@ export async function getHomePage() {
         alt,
         hotspot
       },
-      video {
-        url,
-        provider,
-        embedId
-      },
-      cta {
-        text,
-        link {
-          type,
-          internal->{
-            _type,
-            slug {
-              current
-            }
-          },
-          external,
-          anchor,
-          file {
-            asset->{
-              url
-            }
-          }
-        },
-        style,
-        openInNewTab
-      }
     },
     keyStats {
       backgroundImage {
@@ -517,6 +413,9 @@ export async function getHomePage() {
             },
             alt
           }
+        },
+        overview {
+          content
         }
       }
     },
@@ -527,6 +426,7 @@ export async function getHomePage() {
         _id,
         title,
         shortTitle,
+        description,
         slug {
           current
         },
@@ -535,31 +435,6 @@ export async function getHomePage() {
             url
           },
           alt
-        },
-        hero {
-          backgroundImage {
-            asset->{
-              _id,
-              url,
-              metadata {
-                dimensions
-              }
-            },
-            alt
-          }
-        },
-        overview {
-          content,
-          backgroundImage {
-            asset->{
-              _id,
-              url,
-              metadata {
-                dimensions
-              }
-            },
-            alt
-          }
         }
       },
       cta {
@@ -627,7 +502,6 @@ export async function getHomePage() {
     },
     latestNews {
       title,
-      count,
       cta {
         text,
         link {
@@ -647,6 +521,7 @@ export async function getHomePage() {
     },
     upcomingEvents {
       title,
+      subtitle,
       count,
       cta {
         text,
@@ -774,8 +649,8 @@ export async function getHomePage() {
 /**
  * Get featured news articles for home page (max 3)
  */
-export async function getLatestNews(count: number = 3) {
-  const query = `*[_type == "news" && featured == true] | order(publishedAt desc) [0...${count}] {
+export async function getLatestNews(count: number = 4) {
+  const query = `*[_type == "news"] | order(publishedAt desc) [0...${count}] {
     _id,
     title,
     slug {
@@ -804,7 +679,7 @@ export async function getLatestNews(count: number = 3) {
 export async function getUpcomingEvents(count: number = 3) {
   // Show events starting from yesterday (so 'today's' events don't disappear immediately)
   const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-  const query = `*[_type == "event" && featured == true && startDate >= '${oneDayAgo}'] | order(startDate asc) [0...${count}] {
+  const query = `*[_type == "event" && startDate >= '${oneDayAgo}'] | order(startDate asc) [0...${count}] {
     _id,
     title,
     slug {
@@ -846,7 +721,6 @@ export async function getAllNews() {
     },
     excerpt,
     category,
-    featured,
     academicDepartment->{
       title
     }
@@ -890,7 +764,6 @@ export async function getNewsBySlug(slug: string) {
     },
     excerpt,
     category,
-    featured,
     academicDepartment->{
       title,
       slug {
@@ -1649,7 +1522,6 @@ export async function getNewsByDepartmentType(departmentType: string) {
     },
     excerpt,
     category,
-    featured,
     academicDepartment->{
       _id,
       title
@@ -1657,35 +1529,6 @@ export async function getNewsByDepartmentType(departmentType: string) {
   }`
 
   return await client.fetch(query, { departmentType })
-}
-
-/**
- * Get all college programs
- */
-export async function getAllCollegePrograms() {
-  const query = `*[_type == "collegeProgram"] | order(title asc) {
-    _id,
-    title,
-    shortTitle,
-    slug {
-      current
-    },
-    hero {
-      backgroundImage {
-        asset->{
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      }
-    },
-    overview
-  }`
-
-  return await client.fetch(query)
 }
 
 /**

@@ -52,14 +52,6 @@ export const news = defineType({
       group: 'content',
     }),
     defineField({
-      name: 'featured',
-      title: 'Featured Article',
-      type: 'boolean',
-      description: 'Show this article on the home page (max 3 featured articles)',
-      initialValue: false,
-      group: 'content',
-    }),
-    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
@@ -187,13 +179,12 @@ export const news = defineType({
     select: {
       title: 'title',
       publishedAt: 'publishedAt',
-      featured: 'featured',
       departmentTitle: 'academicDepartment.title',
       media: 'featuredImage',
     },
-    prepare({ title, publishedAt, featured, departmentTitle, media }) {
+    prepare({ title, publishedAt, departmentTitle, media }) {
       const date = publishedAt ? new Date(publishedAt).toLocaleDateString() : ''
-      const subtitle = `${date}${departmentTitle ? ` • ${departmentTitle}` : ''}${featured ? ' ⭐ Featured' : ''}`
+      const subtitle = `${date}${departmentTitle ? ` • ${departmentTitle}` : ''}`
       return {
         title: title || 'News Article',
         subtitle: subtitle,

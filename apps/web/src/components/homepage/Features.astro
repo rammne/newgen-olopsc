@@ -1,4 +1,6 @@
 ---
+import { getSanityImageUrl } from "../../lib/utils/sanity";
+
 interface FeatureItem {
   icon?: string;
   image?: {
@@ -20,62 +22,7 @@ interface Props {
   collegeFeatures?: FeatureItem[];
 }
 
-const {
-  basicEdFeatures = [],
-  collegeFeatures = []
-} = Astro.props;
-
-const fallbackBasicEdFeatures = [
-  {
-    title: "The Marikina Campus",
-    desc: "A secure, accessible, and green environment designed to inspire academic excellence and community.",
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: "Library & Study Hubs",
-    desc: "Comprehensive academic resource centers equipped for collaborative research and quiet, focused study.",
-    image: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: "Athletics & Recreation",
-    desc: "Top-tier sports facilities promoting physical wellness and competitive spirit among OLOPSCians.",
-    image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop',
-  }
-];
-
-const fallbackCollegeFeatures = [
-  {
-    title: "Modern Laboratories",
-    desc: "Advanced computer and science laboratories tailored for outcome-based College and K-12 technical learning.",
-    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: "Tech & IT Innovation",
-    desc: "State-of-the-art coding labs, network simulation centers, and innovation hubs tailored for the booming IT industry (BSCS & ACT).",
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: "Vibrant Student Life",
-    desc: "A dynamic campus culture fostering leadership through recognized student organizations and civic action.",
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop',
-  }
-];
-
-const finalBasicEdFeatures = basicEdFeatures.length > 0 
-  ? basicEdFeatures.map(f => ({
-      title: f.title || "Feature",
-      desc: f.description || "",
-      image: f.image?.asset?.url || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop'
-    }))
-  : fallbackBasicEdFeatures;
-
-const finalCollegeFeatures = collegeFeatures.length > 0
-  ? collegeFeatures.map(f => ({
-      title: f.title || "Feature",
-      desc: f.description || "",
-      image: f.image?.asset?.url || 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&auto=format&fit=crop'
-    }))
-  : fallbackCollegeFeatures;
+const { basicEdFeatures = [], collegeFeatures = [] } = Astro.props;
 ---
 
 <section class="bg-surface py-20 px-5 sm:px-[60px] sm:py-[100px] min-h-[60vh]">
@@ -98,16 +45,16 @@ const finalCollegeFeatures = collegeFeatures.length > 0
           <p class="text-primary font-medium">Shaping young minds from Preschool to Senior High.</p>
         </div>
         <div class="grid grid-cols-1 gap-6">
-          {finalBasicEdFeatures.map((feature) => (
+          {basicEdFeatures.map((feature) => (
             <a
-              href="#"
+              href={feature.link?.url || "#"}
               class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 transform-gpu"
-              aria-label={`${feature.title} - ${feature.desc}`}
+              aria-label={`${feature.title} - ${feature.description}`}
             >
               <!-- Image Layer -->
               <img
-                src={feature.image}
-                alt=""
+                src={getSanityImageUrl(feature.image, { width: 1200, fit: "crop" })}
+                alt={feature.image?.alt || ""}
                 loading="lazy"
                 decoding="async"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
@@ -122,7 +69,7 @@ const finalCollegeFeatures = collegeFeatures.length > 0
                   {feature.title}
                 </h3>
                 <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
-                  {feature.desc}
+                  {feature.description}
                 </p>
               </div>
             </a>
@@ -137,16 +84,16 @@ const finalCollegeFeatures = collegeFeatures.length > 0
           <p class="text-primary font-medium">Future-Ready facilities and curriculum for College.</p>
         </div>
         <div class="grid grid-cols-1 gap-6">
-          {finalCollegeFeatures.map((feature) => (
+          {collegeFeatures.map((feature) => (
             <a
-              href="#"
+              href={feature.link?.url || "#"}
               class="relative overflow-hidden rounded-2xl shadow-sm block bg-primary h-[280px] w-full group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent focus-visible:ring-offset-2 transform-gpu"
-              aria-label={`${feature.title} - ${feature.desc}`}
+              aria-label={`${feature.title} - ${feature.description}`}
             >
               <!-- Image Layer -->
               <img
-                src={feature.image}
-                alt=""
+                src={getSanityImageUrl(feature.image, { width: 1200, fit: "crop" })}
+                alt={feature.image?.alt || ""}
                 loading="lazy"
                 decoding="async"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
@@ -161,7 +108,7 @@ const finalCollegeFeatures = collegeFeatures.length > 0
                   {feature.title}
                 </h3>
                 <p class="text-white text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
-                  {feature.desc}
+                  {feature.description}
                 </p>
               </div>
             </a>
