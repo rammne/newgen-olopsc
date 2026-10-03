@@ -1428,8 +1428,6 @@ export async function getComputingStudiesPage() {
     cardThumbnail { alt, asset->{url} },
     quickFacts,
     tracks,
-    overviewMainImage { alt, asset->{url} },
-    overviewSubImage { alt, asset->{url} },
     outcomes,
     curriculumTracks,
     ecosystemImages {

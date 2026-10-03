@@ -8,7 +8,6 @@ export const computingStudies = defineType({
   icon: Monitor,
   groups: [
     { name: 'hero', title: 'Hero & Quick Facts', icon: ImageIcon, default: true },
-    { name: 'overview', title: 'Program Overview' },
     { name: 'outcomes', title: 'Outcomes & Manifesto' },
     { name: 'curriculum', title: 'Curriculum Engine' },
     { name: 'ecosystem', title: 'Ecosystem Images' },
@@ -71,22 +70,6 @@ export const computingStudies = defineType({
     }),
 
     // --- PROGRAM OVERVIEW ---
-    defineField({
-      name: 'overviewMainImage',
-      title: 'Overview Main Image (Back/Bottom-Left)',
-      type: 'image',
-      group: 'overview',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
-    }),
-    defineField({
-      name: 'overviewSubImage',
-      title: 'Overview Sub Image (Front/Top-Right)',
-      type: 'image',
-      group: 'overview',
-      options: { hotspot: true },
-      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
-    }),
 
     // --- OUTCOMES ---
     defineField({
