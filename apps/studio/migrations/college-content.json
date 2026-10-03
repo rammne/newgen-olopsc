@@ -1,0 +1,1122 @@
+{
+  "psychology": {
+    "outcomes": [
+      {
+        "title": "Psychological Testing",
+        "description": "Learn how to use, score, and understand common psychological tests and assessments."
+      },
+      {
+        "title": "Research & Analysis",
+        "description": "Gain the skills needed to design and conduct meaningful research to better understand human behavior."
+      },
+      {
+        "title": "Mental Health Support",
+        "description": "Apply your knowledge to help improve mental wellness in schools, clinics, and workplaces."
+      },
+      {
+        "title": "Compassionate Care",
+        "description": "Develop a strong commitment to ethical practice and helping others, rooted in our school's values."
+      }
+    ],
+    "curriculum": [
+      {
+        "year": "Year 1",
+        "title": "Foundations of Behavior",
+        "description": "Master the fundamental concepts of human behavior, biological sciences, and quantitative logic.",
+        "subjects": [
+          "[1st Sem] Introduction to Psychology",
+          "[2nd Sem] Psychological Statistics"
+        ]
+      },
+      {
+        "year": "Year 2",
+        "title": "Development & Experimentation",
+        "description": "Explore human growth across the lifespan and begin rigorous experimental research design.",
+        "subjects": [
+          "[1st Sem] Experimental Psychology",
+          "[1st Sem] Theories of Personality",
+          "[1st Sem] Biological Psychology",
+          "[1st Sem] Developmental Psychology",
+          "[1st Sem] Fundamentals of Biology (Lecture)",
+          "[1st Sem] Fundamentals of Biology (Laboratory)",
+          "[2nd Sem] Field Methods in Psychology",
+          "[2nd Sem] Social Psychology",
+          "[2nd Sem] Cognitive Psychology",
+          "[2nd Sem] General Zoology Lecture",
+          "[2nd Sem] General Zoology (Laboratory)"
+        ]
+      },
+      {
+        "year": "Year 3",
+        "title": "Assessment & Clinical Analysis",
+        "description": "Dive into psychological testing, diagnostics, and the study of behavioral disorders.",
+        "subjects": [
+          "[1st Sem] Psychological Assessment",
+          "[1st Sem] Abnormal Psychology",
+          "[1st Sem] Culture and Psychology / Sikolohiyang Pilipino",
+          "[1st Sem] Educational Psychology",
+          "[1st Sem] Organic and Inorganic Chemistry Lecture",
+          "[1st Sem] Organic and Inorganic Chemistry Laboratory",
+          "[2nd Sem] Industrial Organizational Psychology",
+          "[2nd Sem] Research in Psychology 1",
+          "[2nd Sem] Introduction to Counseling",
+          "[2nd Sem] Group Dynamics",
+          "[2nd Sem] Anatomy and Physiology Lecture",
+          "[2nd Sem] Anatomy and Physiology Laboratory"
+        ]
+      },
+      {
+        "year": "Intersession",
+        "title": "Clinical Application",
+        "description": "Intensive supervised practicum applied in professional settings.",
+        "subjects": [
+          "Practicum in Psychology 1"
+        ]
+      },
+      {
+        "year": "Year 4",
+        "title": "Practicum & Research Defense",
+        "description": "Apply your knowledge in real-world clinical or corporate settings and defend your thesis.",
+        "subjects": [
+          "[1st Sem] Research in Psychology 2",
+          "[2nd Sem] Special Topics in Psychology"
+        ]
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Corporate & Human Resources",
+        "subtitle": "Workplace Psychology",
+        "description": "Use your understanding of people to improve company culture, hire the best talent, and keep employees happy and productive.",
+        "roles": [
+          "Human Resources Officer",
+          "Recruitment Specialist",
+          "Training Coordinator",
+          "Consumer Insights Analyst"
+        ]
+      },
+      {
+        "title": "Clinical & Educational",
+        "subtitle": "Mental Health Support",
+        "description": "Take the board exam (BLEPP) and work directly in clinics or schools to guide and support individuals' mental well-being.",
+        "roles": [
+          "Registered Psychometrician",
+          "Behavioral Therapist",
+          "Guidance Associate",
+          "Special Education Teacher"
+        ]
+      },
+      {
+        "title": "Further Studies",
+        "subtitle": "Law or Medical School",
+        "description": "Use your Psychology degree as a strong foundation to pursue advanced studies in medicine, law, or clinical psychology.",
+        "roles": [
+          "Medical School",
+          "Law School",
+          "Master's in Psychology",
+          "Master's in Counseling"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "168 Units",
+      "format": "On-Campus"
+    }
+  },
+  "computingStudies": {
+    "outcomes": [
+      {
+        "title": "Year 1: Computing Fundamentals & Programming",
+        "description": "Learn the basics of computer programming and logic. You will start with introductory computing concepts and move on to writing your first programs."
+      },
+      {
+        "title": "Year 2: Data Structures & Systems Analysis",
+        "description": "Focus on how data is stored and organized. You will learn about databases, object-oriented programming, and how to analyze and design computer systems."
+      },
+      {
+        "title": "Year 3: Software Engineering & Advanced Theory",
+        "description": "Move on to advanced software engineering and research. You will study computer networks, complex algorithms, and begin writing your Computer Science thesis."
+      },
+      {
+        "title": "Year 4: Industry Practicum & Enterprise Systems",
+        "description": "Apply what you've learned in the real world. You will complete your industry practicum (OJT) and study advanced topics like operating systems and cybersecurity."
+      }
+    ],
+    "curriculumTracks": [
+      {
+        "id": "bscs",
+        "name": "BSCS (Computer Science)",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Computing Fundamentals & Programming",
+            "subjects": [
+              "[1st Sem] CC101 – Introduction to Computing",
+              "[1st Sem] CC102 – Computer Programming 1 (Fundamentals of Programming)",
+              "[2nd Sem] DS101 – Discrete Structures 1",
+              "[2nd Sem] CC103 – Computer Programming 2 (Intermediate Programming)"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Data Structures & Systems Analysis",
+            "subjects": [
+              "[1st Sem] CC104 – Data Structures and Algorithm",
+              "[1st Sem] IM101 – Fundamentals of Database Systems",
+              "[1st Sem] DS102 – Discrete Structures 2",
+              "[1st Sem] SDF104 – Object-Oriented Programming",
+              "[2nd Sem] CC105 – Information Management",
+              "[2nd Sem] IS101 – Systems Analysis and Design (Note: Listed as 18101 due to OCR artifact)",
+              "[2nd Sem] NC101 – Networks and Communications",
+              "[2nd Sem] PL101 – Programming Languages"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Software Engineering & Advanced Theory",
+            "subjects": [
+              "[1st Sem] CC106 – Applications Development and Emerging Technologies",
+              "[1st Sem] SE101 – Software Engineering 1",
+              "[1st Sem] IAS101 – Information Assurance and Security",
+              "[1st Sem] HCI101 – Human Computer Interaction",
+              "[1st Sem] AL101 – Algorithms and Complexity",
+              "[1st Sem] DM101 – Organization and Management Concepts",
+              "[1st Sem] GV101 – Graphics and Visual Computing",
+              "[2nd Sem] SE102 – Software Engineering 2",
+              "[2nd Sem] AR101 – Architecture and Organization",
+              "[2nd Sem] SA101 – Systems Administration and Maintenance",
+              "[2nd Sem] CN101 – Computational Science"
+            ]
+          },
+          {
+            "year": "Summer",
+            "title": "Practicum",
+            "subjects": [
+              "PRC101 – Practicum (162 hours)"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Industry Practicum & Enterprise Systems",
+            "subjects": [
+              "[1st Sem] THS101 – CS Thesis Writing 1",
+              "[1st Sem] AL102 – Automata Theory and Formal Languages",
+              "[1st Sem] OS101 – Operating Systems",
+              "[1st Sem] CSF101 – System Fundamentals",
+              "[2nd Sem] THS102 – CS Thesis Writing 2",
+              "[2nd Sem] SP101 – Social Issues and Professional Practice",
+              "[2nd Sem] IS102 – Enterprise Architecture",
+              "[2nd Sem] QUAMET – Quantitative Methods"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "act",
+        "name": "ACT (Computer Technology)",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Core Execution",
+            "subjects": [
+              "[1st Sem] CC101 – Introduction to Computing",
+              "[1st Sem] CC102 – Computer Programming 1 (Fundamentals of Programming)",
+              "[2nd Sem] DS101 – Discrete Structures 1",
+              "[2nd Sem] CC103 – Computer Programming 2 (Intermediate Programming)"
+            ]
+          },
+          {
+            "year": "Midyear",
+            "title": "Industry Practicum",
+            "subjects": [
+              "PRC101 – Practicum (300 hours)"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Applied Development",
+            "subjects": [
+              "[1st Sem] CC104 – Data Structures and Algorithms",
+              "[1st Sem] IM101 – Fundamentals of Database Systems",
+              "[1st Sem] DS102 – Discrete Structures 2",
+              "[1st Sem] SDF104 – Object-Oriented Programming",
+              "[2nd Sem] CC105 – Information Management",
+              "[2nd Sem] IS101 – Systems Analysis and Design",
+              "[2nd Sem] NC101 – Networks and Communications",
+              "[2nd Sem] PL101 – Programming Languages"
+            ]
+          }
+        ]
+      }
+    ],
+    "tracks": [
+      {
+        "title": "Computer Science",
+        "subtitle": "BSCS • 4 Years",
+        "description": "A comprehensive four-year degree that teaches you how to create software, design algorithms, and build computer systems. This program will train you to develop applications from scratch and prepare you for in-demand jobs in the IT industry."
+      },
+      {
+        "title": "Computer Technology",
+        "subtitle": "ACT • 2 Years",
+        "description": "A fast-tracked two-year program focused on practical programming and modern web development. This is designed to help you enter the tech industry quickly, giving you the hands-on skills needed to build websites and manage databases."
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Software Development",
+        "subtitle": "BSCS - Software Architecture",
+        "description": "Learn to build and manage large software systems and websites that companies use every day.",
+        "roles": [
+          "Software Developer",
+          "Web Developer",
+          "Backend Programmer",
+          "Systems Analyst"
+        ]
+      },
+      {
+        "title": "Artificial Intelligence & Data",
+        "subtitle": "BSCS - AI Focus",
+        "description": "Learn how to work with Artificial Intelligence and machine learning to build smart applications and analyze data.",
+        "roles": [
+          "AI/ML Developer",
+          "Data Analyst",
+          "Data Scientist",
+          "Research Assistant"
+        ]
+      },
+      {
+        "title": "Game Development & Media",
+        "subtitle": "BSCS/ACT - Interactive Media",
+        "description": "Learn how to create 3D environments, design games, and build interactive media applications.",
+        "roles": [
+          "Game Developer",
+          "3D Modeler",
+          "Multimedia Specialist",
+          "UI/UX Designer"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "150 Units",
+      "format": "On-Site Labs"
+    }
+  },
+  "tourismManagement": {
+    "outcomes": [
+      {
+        "title": "Travel & Flight Operations",
+        "description": "Learn the ins and outs of international travel, including airline operations, ticketing systems, and flight attendant service."
+      },
+      {
+        "title": "Event Planning & Management",
+        "description": "Gain the skills to organize, plan, and successfully run large events like conferences, conventions, and travel expos."
+      },
+      {
+        "title": "Sustainable Tourism",
+        "description": "Understand how to promote and manage tourist spots in a way that protects the environment and supports local communities."
+      },
+      {
+        "title": "Hospitality & Guest Services",
+        "description": "Develop a strong foundation in providing excellent customer service and managing hotel and resort operations."
+      }
+    ],
+    "curriculum": [
+      {
+        "year": "Year 1",
+        "title": "Foundations of Global Tourism",
+        "description": "Master the fundamental concepts of the hospitality industry, global geography, and corporate management.",
+        "subjects": [
+          "[1st Sem] Macro Perspectives of Tourism and Hospitality",
+          "[1st Sem] Risk Management as Applied to Safety, Security and Sanitation",
+          "[2nd Sem] Philippine Culture and Tourism Geography",
+          "[2nd Sem] Micro Perspective of Tourism and Hospitality",
+          "[2nd Sem] Professional Development and Applied Ethics"
+        ]
+      },
+      {
+        "year": "Year 2",
+        "title": "Travel Operations & Logistics",
+        "description": "Dive into the mechanics of moving people globally, focusing on aviation, ticketing, and marketing.",
+        "subjects": [
+          "[1st Sem] Tourism and Hospitality Marketing",
+          "[1st Sem] Foreign Language 1",
+          "[1st Sem] Global Culture and Tourism Geography",
+          "[1st Sem] Tour Guiding (Professional Elective 1)",
+          "[2nd Sem] Applied Business Tools and Technologies in Tourism",
+          "[2nd Sem] Tour and Travel Management",
+          "[2nd Sem] Sustainable Tourism",
+          "[2nd Sem] Foreign Language 2",
+          "[2nd Sem] Cabin Service Operation (Professional Elective 2)"
+        ]
+      },
+      {
+        "year": "Year 3",
+        "title": "Enterprise Management & MICE",
+        "description": "Learn to architect large-scale events and manage sustainable tourism enterprises.",
+        "subjects": [
+          "[1st Sem] Recreation and Leisure Management (Professional Elective 3)",
+          "[1st Sem] Legal Aspects in Tourism and Hospitality",
+          "[1st Sem] Quality Service Management in Tourism and Hospitality",
+          "[1st Sem] Foreign Language 3",
+          "[1st Sem] Research in Tourism 1",
+          "[1st Sem] Domestic and International Tour Planning, Packaging and Pricing (Professional Elective 4)",
+          "[1st Sem] Travel Writing and Photography (Professional Elective 5)",
+          "[2nd Sem] Multi-Cultural Diversity in the Workplace for the Tourism Professional",
+          "[2nd Sem] Foreign Language 4",
+          "[2nd Sem] Introduction to Meetings, Incentives, Conferences and Events Management",
+          "[2nd Sem] Operations Management",
+          "[2nd Sem] Accommodation Operation Management (Professional Elective 6)",
+          "[2nd Sem] Heritage Tourism (Professional Elective 7)",
+          "[2nd Sem] Research in Tourism 2"
+        ]
+      },
+      {
+        "year": "Year 4",
+        "title": "Practicum & Strategic Leadership",
+        "description": "Apply your operational knowledge in real-world local and international practicum settings.",
+        "subjects": [
+          "[1st Sem] Strategic Management",
+          "[1st Sem] Entrepreneurship in Tourism and Hospitality",
+          "[1st Sem] Meal Management for Tourism Professionals (Professional Elective 8)",
+          "[1st Sem] Transportation Management",
+          "[1st Sem] Agritourism (Professional Elective 9)",
+          "[1st Sem] Cruise Tourism (Professional Elective 10)",
+          "[1st Sem] Destination Management and Marketing (Professional Elective 11)",
+          "[2nd Sem] Practicum (600 hours)"
+        ]
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Airlines & Travel Agencies",
+        "subtitle": "Travel Operations",
+        "description": "Help people explore the world. Work as a flight attendant or build a career in travel agencies arranging tours, flights, and dream vacations.",
+        "roles": [
+          "Flight Attendant / Cabin Crew",
+          "Aviation Ground Operations Manager",
+          "Travel Agency Director",
+          "Tour Coordinator"
+        ]
+      },
+      {
+        "title": "Hotels & Resorts",
+        "subtitle": "Hospitality Management",
+        "description": "Be part of the growing hotel industry. Manage daily operations, ensure excellent guest experiences, and lead teams in beautiful resorts.",
+        "roles": [
+          "Hotel General Manager",
+          "Guest Relations Executive",
+          "Resort Operations Director",
+          "Front Office Manager"
+        ]
+      },
+      {
+        "title": "Events & Conventions",
+        "subtitle": "Event Planning",
+        "description": "Plan and organize major events, from corporate conferences to exciting travel expos. Ensure every detail is perfect for the attendees.",
+        "roles": [
+          "Event Organizer / Coordinator",
+          "Convention Manager",
+          "Corporate Travel Manager",
+          "Destination Marketing Executive"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "156 Units",
+      "format": "Hybrid + Practicum"
+    }
+  },
+  "hospitalityManagement": {
+    "outcomes": [
+      {
+        "title": "Culinary Arts & Food Production",
+        "description": "Learn to prepare international cuisines, manage commercial kitchens, and maintain high standards of food safety."
+      },
+      {
+        "title": "Hotel & Resort Management",
+        "description": "Gain the skills to oversee front desk operations, housekeeping, and overall guest satisfaction in hotels and resorts."
+      },
+      {
+        "title": "Restaurant & Business Operations",
+        "description": "Understand the financial side of hospitality, from managing costs to running a profitable food and beverage business."
+      },
+      {
+        "title": "Exceptional Guest Service",
+        "description": "Develop the interpersonal skills needed to provide outstanding service and memorable experiences for local and international guests."
+      }
+    ],
+    "curriculum": [
+      {
+        "year": "Year 1",
+        "title": "Foundations of Culinary & Service Operations",
+        "description": "Master the fundamental concepts of food safety, commercial kitchen operations, and the global hospitality ecosystem.",
+        "subjects": [
+          "[1st Sem] Macro Perspective of Tourism and Hospitality",
+          "[1st Sem] Risk Management as Applied to Safety, Security and Sanitation",
+          "[1st Sem] Fundamentals in Lodging Operations (Housekeeping)",
+          "[1st Sem] Philippine Culture and Tourism Geography",
+          "[2nd Sem] Micro Perspective of Tourism and Hospitality",
+          "[2nd Sem] Kitchen Essentials and Basic Food Preparations",
+          "[2nd Sem] Fundamental in Food Service Operations"
+        ]
+      },
+      {
+        "year": "Year 2",
+        "title": "Food & Beverage Enterprise Management",
+        "description": "Dive into the mechanics of commercial culinary arts, high-volume catering, and beverage control.",
+        "subjects": [
+          "[1st Sem] Foreign Language 1",
+          "[1st Sem] Bakery and Pastry (Professional Elective 2)",
+          "[1st Sem] Bar and Beverage Management (Professional Elective 3)",
+          "[1st Sem] Front Office Operations (Professional Elective 1)",
+          "[2nd Sem] Applied Business Tools and Technologies (with PMS)",
+          "[2nd Sem] Professional Development and Applied Ethics",
+          "[2nd Sem] Foreign Language 2",
+          "[2nd Sem] Supply Chain Management in Hospitality",
+          "[2nd Sem] International Cuisine (Professional Elective 4)"
+        ]
+      },
+      {
+        "year": "Year 3",
+        "title": "Property & Rooms Division Operations",
+        "description": "Learn to command the physical infrastructure of a hotel, focusing on front office logistics and hospitality accounting.",
+        "subjects": [
+          "[1st Sem] Food and Beverage Cost Control (Professional Elective 5)",
+          "[1st Sem] Cruise Tourism (Professional Elective 6)",
+          "[1st Sem] Legal Aspects in Tourism and Hospitality",
+          "[1st Sem] Tourism and Hospitality Marketing",
+          "[1st Sem] Rooms Division and Cost Control (Professional Elective 7)",
+          "[1st Sem] Methods of Research in the Hospitality Industry",
+          "[2nd Sem] Multicultural Diversity in the Workplace for Tourism Professional",
+          "[2nd Sem] Research in Hospitality Management",
+          "[2nd Sem] Intro to Meetings, Incentives, Conference and Events (MICE)",
+          "[2nd Sem] Operations Management in Tourism and Hospitality Industry",
+          "[2nd Sem] Catering Management (Professional Elective 8)"
+        ]
+      },
+      {
+        "year": "Year 4",
+        "title": "Strategic Leadership & Practicum",
+        "description": "Apply your operational knowledge in real-world local and international luxury hospitality settings.",
+        "subjects": [
+          "[1st Sem] Strategic Management in Tourism &Hospitality Industry",
+          "[1st Sem] Quality Service Management in Tourism and Hospitality",
+          "[1st Sem] Entrepreneurship in Tourism and Hospitality",
+          "[1st Sem] Ergonomics and Facilities Planning for the Hospitality Industry",
+          "[1st Sem] Franchising (Professional Elective 9)",
+          "[1st Sem] Recreation and Leisure Management (Professional Elective 10)",
+          "[1st Sem] Food and Beverage Operations (Restaurant or Cafe Management) (Professional Elective 11)",
+          "[2nd Sem] Practicum (600 hours)"
+        ]
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Hotel and Resort Operations",
+        "subtitle": "Rooms & Guest Services",
+        "description": "Manage the daily operations of hotels and resorts. Ensure guests have a comfortable stay by leading front office teams and overseeing housekeeping standards.",
+        "roles": [
+          "Hotel General Manager",
+          "Rooms Division Director",
+          "Front Office Manager",
+          "Resort Operations Executive"
+        ]
+      },
+      {
+        "title": "Culinary Arts & Catering",
+        "subtitle": "Food & Beverage",
+        "description": "Turn your passion for food into a career. Lead kitchen teams, manage large catering events, or start your own successful restaurant business.",
+        "roles": [
+          "Executive Chef / Culinary Director",
+          "Food & Beverage (F&B) Director",
+          "Corporate Catering Manager",
+          "Restaurateur"
+        ]
+      },
+      {
+        "title": "Hospitality Management",
+        "subtitle": "Events & Corporate Strategy",
+        "description": "Take on leadership roles in hospitality brands. Plan major events, manage staff, and ensure the business runs smoothly and profitably.",
+        "roles": [
+          "Events and Banquet Manager",
+          "VIP Relations Director",
+          "Hospitality HR Director",
+          "Club & Casino Manager"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "160 Units",
+      "format": "On Site, Lab & Practicum"
+    }
+  },
+  "businessAdmin": {
+    "outcomes": [
+      {
+        "title": "Managing People and Organizations (HRM)",
+        "description": "Learn the essential skills to handle employee relations, understand labor laws, and create a great team culture."
+      },
+      {
+        "title": "Creative Marketing and Branding (MM)",
+        "description": "Gain the skills to create effective marketing campaigns, understand what customers want, and grow a business."
+      },
+      {
+        "title": "Starting Your Own Business (ENT)",
+        "description": "Get the knowledge and confidence to launch your own startup, manage business operations, and succeed as an entrepreneur."
+      },
+      {
+        "title": "Financial Management and Leadership",
+        "description": "Learn how to handle business finances, make smart financial decisions, and lead a company toward success."
+      }
+    ],
+    "curriculumTracks": [
+      {
+        "id": "hrm",
+        "name": "Human Resource Management",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Enterprise Foundations",
+            "subjects": [
+              "[1st Sem] EC1 – Personal Finance (Elective 1)",
+              "[1st Sem] EC2 – Management (Elective 2)",
+              "[2nd Sem] EC3 – Marketing Management (Elective 3)",
+              "[2nd Sem] BACC1 – Human Resource Management"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Talent Architecture",
+            "subjects": [
+              "[1st Sem] ECON1 – Basic Microeconomics",
+              "[1st Sem] BACC2 – Managerial Accounting (Elective 4)",
+              "[1st Sem] IC1 – Human Behavior in Organization",
+              "[2nd Sem] BACC4 – Taxation (Income Taxation)",
+              "[2nd Sem] BACC5 – Good Governance and Social Responsibility",
+              "[2nd Sem] CBMEC1 – Operations Management (TQM)",
+              "[2nd Sem] HRM1 – Administrative and Office Management",
+              "[2nd Sem] EC5 – Entrepreneurial Management (Elective 5)"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Strategic HR",
+            "subjects": [
+              "[1st Sem] HRM2 – Recruitment and Selection",
+              "[1st Sem] HRM3 – Labor Relations and Negotiations",
+              "[1st Sem] BACC3 – Business Law (Obligations and Contracts)",
+              "[1st Sem] EC6 – Project Management (Elective 6)",
+              "[1st Sem] EC7 – Environment Management System (Elective 7)",
+              "[1st Sem] CBMEC2 – Strategic Management",
+              "[2nd Sem] BACC6 – Business Research",
+              "[2nd Sem] HRM4 – Compensation Administration",
+              "[2nd Sem] HRM5 – Labor Law and Legislation",
+              "[2nd Sem] EC8 – Strategic Human Resource Management (Elective 8)",
+              "[2nd Sem] IC2 – Industrial Psychology"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Executive Leadership",
+            "subjects": [
+              "[1st Sem] BACC7 – Thesis/Feasibility Study",
+              "[1st Sem] BACC8 – International Business and Trade",
+              "[1st Sem] HRM6 – Training Development",
+              "[1st Sem] HRM7 – Organizational Development",
+              "[1st Sem] HRM8 – Special Topics in Human Resource Management",
+              "[2nd Sem] BAPRAC – Practicum Work / Integrated Learning (600 hours)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mm",
+        "name": "Marketing Management",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Enterprise Foundations",
+            "subjects": [
+              "[1st Sem] ECON1 – Basic Micro Economics",
+              "[1st Sem] EC1 – Personal Finance (Elective 1)",
+              "[2nd Sem] EC3 – Marketing Management",
+              "[2nd Sem] BACC1 – Human Resource Management"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Consumer Analytics",
+            "subjects": [
+              "[1st Sem] PMC2 – Advertising",
+              "[1st Sem] EC2 – Managerial Accounting (Elective 2)",
+              "[1st Sem] CBR1 – Consumer Behavior (Elective 3)",
+              "[2nd Sem] BACCA – Taxation (Income Taxation)",
+              "[2nd Sem] CBMEC1 – Operations Management (TQM)",
+              "[2nd Sem] PMC3 – Marketing Research",
+              "[2nd Sem] BACC51 – Good Governance & Social Responsibility",
+              "[2nd Sem] EC5 – New Market Development (Elective 5)"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Brand Architecture",
+            "subjects": [
+              "[1st Sem] PMC3 – Retail Management",
+              "[1st Sem] PMC4 – Pricing Strategy",
+              "[1st Sem] PMC5 – Distribution Management",
+              "[1st Sem] BACC3 – Business Law (Obligation & Contract)",
+              "[1st Sem] EC10 – Special Topics in Marketing Management (Elective 7)",
+              "[1st Sem] EC6 – E-Commerce and Internet Marketing (Elective 8)",
+              "[2nd Sem] BACC6 – Business Research",
+              "[2nd Sem] CBMEC2 – Strategic Management",
+              "[2nd Sem] EC11 – Sales Management (Elective 9)",
+              "[2nd Sem] EC12 – Services Marketing (Elective 10)",
+              "[2nd Sem] EC7 – Entrepreneurial Management (Elective 11)",
+              "[2nd Sem] IC2 – Marketing Strategies and Techniques"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Market Domination",
+            "subjects": [
+              "[1st Sem] BACC7 – Thesis/Feasibility Study",
+              "[1st Sem] BACC8 – International Business and Trade",
+              "[1st Sem] PMC7 – Product Management",
+              "[1st Sem] PMC8 – Professional Salesmanship",
+              "[1st Sem] EC7 – Franchising (Elective 12)",
+              "[2nd Sem] BAPRAC – Practicum Work Integrated Learning (600 hours)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ent",
+        "name": "Entrepreneurship",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Venture Foundations",
+            "subjects": [
+              "[1st Sem] ECC113 – Entrepreneurial Behaviour",
+              "[1st Sem] ECC213 – Programs and Policies on Enterprise Development",
+              "[2nd Sem] ECC121 – Opportunity Seeking",
+              "[2nd Sem] ECC211 – Business Fundamentals"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Business Incubation",
+            "subjects": [
+              "[1st Sem] ECC322 – Innovation Management",
+              "[1st Sem] ECON1 – Micro Economics",
+              "[2nd Sem] ECC225 – Market Research & Consumer Behaviour",
+              "[2nd Sem] EEC100 – Entrepreneurial Marketing Strategies (Elective 1)",
+              "[2nd Sem] ITE308 – Intro to Business Analytics",
+              "[2nd Sem] BACC – Human Resource Management"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Scaling & Innovation",
+            "subjects": [
+              "[1st Sem] ECC224 – Social Entrepreneurship",
+              "[1st Sem] ECC321 – Business Plan Preparation",
+              "[1st Sem] BACC8 – International Business and Trade",
+              "[1st Sem] EEC200 – Managing a Service Enterprise (Elective 2)",
+              "[1st Sem] FL101 – Foreign Language 1",
+              "[1st Sem] ETR1 – TRACK 1 (Basic Footwear Franchise Program)",
+              "[2nd Sem] ECC411 – Business Plan Implementation I (Product Development & Market Analysis)",
+              "[2nd Sem] EEC300 – Events Management (Elective 3)",
+              "[2nd Sem] ECC212 – Pricing & Costing",
+              "[2nd Sem] ECC124 – Financial Management (Financial Analysis for Decision Making)",
+              "[2nd Sem] ISC514 – Data Mining in Business",
+              "[2nd Sem] ETR2 – TRACK 2 (Managing Footwear Franchise Business)"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Venture Execution",
+            "subjects": [
+              "[1st Sem] EC6 – E-Commerce (Elective 4)",
+              "[1st Sem] CBMECE1 – Operations Management (TQM)",
+              "[1st Sem] CBMEC2 – Strategic Management",
+              "[1st Sem] FL102 – Foreign Language 2",
+              "[1st Sem] ETR3 – TRACK 3 (Food Kiosk Business Fundamentals)",
+              "[2nd Sem] ECC421 – Business Plan Implementation II",
+              "[2nd Sem] ETR4 – TRACK 4 (Food Kiosk Management)"
+            ]
+          }
+        ]
+      }
+    ],
+    "tracks": [
+      {
+        "title": "Human Resource Management",
+        "subtitle": "BSBA - HRM",
+        "description": "Learn how to manage people, recruit the right talent, and build a positive workplace environment."
+      },
+      {
+        "title": "Marketing Management",
+        "subtitle": "BSBA - MM",
+        "description": "Discover how to promote products, understand consumer behavior, and build strong brands in the digital age."
+      },
+      {
+        "title": "Entrepreneurship",
+        "subtitle": "BS - ENT",
+        "description": "Learn how to start your own business, manage finances, and turn your innovative ideas into reality."
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Human Resource Management",
+        "subtitle": "BSBA - HRM Career Path",
+        "description": "Manage employee relations and help companies build strong, positive work environments.",
+        "roles": [
+          "Human Resources Manager",
+          "Recruitment Specialist",
+          "Training and Development Officer",
+          "Employee Relations Officer"
+        ]
+      },
+      {
+        "title": "Marketing and Branding",
+        "subtitle": "BSBA - MM Career Path",
+        "description": "Lead marketing efforts, understand what customers need, and help businesses promote their products and services effectively.",
+        "roles": [
+          "Marketing Director",
+          "Social Media Manager",
+          "Market Research Analyst",
+          "Brand Manager"
+        ]
+      },
+      {
+        "title": "Business Ownership and Startup",
+        "subtitle": "BS - ENT Career Path",
+        "description": "Turn your business ideas into reality. Learn how to manage your own business, secure funding, and grow a successful company.",
+        "roles": [
+          "Business Owner / Entrepreneur",
+          "Business Consultant",
+          "Franchise Operator",
+          "Sales Manager"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "150 Units",
+      "format": "On-Campus & Practicum"
+    }
+  },
+  "educationLiberalArts": {
+    "outcomes": [
+      {
+        "title": "Teaching Young Learners (BEED)",
+        "description": "Learn the best ways to teach young children, understand how they learn, and make a positive impact in their early years."
+      },
+      {
+        "title": "High School Teaching (BSED)",
+        "description": "Gain the confidence to manage a classroom and effectively teach specific subjects like Math or English to teenagers."
+      },
+      {
+        "title": "Effective Communication (AB English)",
+        "description": "Develop strong writing, speaking, and analytical skills for careers in journalism, corporate communication, and media."
+      },
+      {
+        "title": "Educational Leadership",
+        "description": "Learn how to design effective lessons, improve student learning, and prepare for leadership roles in schools."
+      }
+    ],
+    "curriculumTracks": [
+      {
+        "id": "beed",
+        "name": "BEED (Elementary)",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Foundations of Pedagogy",
+            "subjects": [
+              "Child & Adolescent Development",
+              "The Teaching Profession",
+              "Foundations of Special Needs Ed."
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Instructional Methodologies",
+            "subjects": [
+              "Teaching Math in Primary Grades",
+              "Early Literacy",
+              "Assessment in Learning 1."
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Curriculum & Technology",
+            "subjects": [
+              "Technology for Teaching",
+              "Curriculum Development",
+              "Educational Research."
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Clinical Practice",
+            "subjects": [
+              "Field Study 1 & 2",
+              "Teaching Internship",
+              "LET Intensive Review."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "bsed-english",
+        "name": "BSED (English)",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Language Foundations",
+            "subjects": [
+              "[1st Sem] The Child Adolescent Learner and Learning Principles",
+              "[1st Sem] Foundations of Special and Inclusive Education",
+              "[1st Sem] Introduction to Linguistics",
+              "[1st Sem] Language, Culture, and Society",
+              "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
+              "[2nd Sem] Facilitating Learner-Centered Teaching",
+              "[2nd Sem] Structures of English",
+              "[2nd Sem] Literary Criticism"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Pedagogical Methodologies",
+            "subjects": [
+              "[1st Sem] Technology for Teaching and Learning 1",
+              "[1st Sem] Principles and Theories of Language Acquisition and Learning",
+              "[1st Sem] Teaching and Assessment of the Macroskills",
+              "[1st Sem] Teaching and Assessment of the Literature Studies",
+              "[2nd Sem] The Teacher and the School Curriculum",
+              "[2nd Sem] Technology for Teaching and Learning 2 (Secondary Language Education)",
+              "[2nd Sem] Technical Writing",
+              "[2nd Sem] Teaching and Assessment of Grammar"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Advanced Literature & Assessment",
+            "subjects": [
+              "[1st Sem] Assessment of Student Learning 1",
+              "[1st Sem] Special Topic/Elective (x2)",
+              "[1st Sem] Children and Adolescent Literature",
+              "[1st Sem] Lang. Programs and Policies in Multilingual Societies",
+              "[1st Sem] Language Learning Materials Development",
+              "[1st Sem] Mythology and Folklore",
+              "[2nd Sem] Assessment of Student Learning 2",
+              "[2nd Sem] The Teaching Profession",
+              "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
+              "[2nd Sem] Language Education Research",
+              "[2nd Sem] Contemporary Popular and Emergent Literature",
+              "[2nd Sem] Speech and Stage Arts",
+              "[2nd Sem] Field Study 1"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Clinical Practice & Internship",
+            "subjects": [
+              "[1st Sem] Survey of Philippine Literature in English",
+              "[1st Sem] Survey of English and American Literature",
+              "[1st Sem] Survey of Afro-Asian Literature",
+              "[1st Sem] Campus Journalism",
+              "[1st Sem] Field Study 2",
+              "[2nd Sem] Teaching Internship"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "bsed-math",
+        "name": "BSED (Mathematics)",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Mathematical Foundations",
+            "subjects": [
+              "[1st Sem] The Child Adolescent Learner and Learning Principles",
+              "[1st Sem] Foundations of Special and Inclusive Education",
+              "[1st Sem] History of Mathematics",
+              "[1st Sem] College and Advance Algebra",
+              "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
+              "[2nd Sem] Facilitating Learner-Centered Teaching",
+              "[2nd Sem] Plane and Solid Geometry",
+              "[2nd Sem] Logic and Set Theory"
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Advanced Calculus & Geometry",
+            "subjects": [
+              "[1st Sem] Technology for Teaching and Learning 1",
+              "[1st Sem] Trigonometry",
+              "[1st Sem] Abstract Algebra",
+              "[1st Sem] Linear Algebra",
+              "[2nd Sem] The Teacher and the School Curriculum",
+              "[2nd Sem] Technology for Teaching and Learning 2 (Instrumentation & Technology in Mathematics)",
+              "[2nd Sem] Modern Geometry",
+              "[2nd Sem] Calculus I with Analytic Geometry"
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Statistical Modeling & Assessment",
+            "subjects": [
+              "[1st Sem] Assessment of Student Learning 1",
+              "[1st Sem] Special Topic/Elective (x2)",
+              "[1st Sem] Number Theory",
+              "[1st Sem] Elementary Statistics and Probability",
+              "[1st Sem] Calculus II",
+              "[1st Sem] Problem Solving, Math Investigation and Modelling",
+              "[2nd Sem] Assessment of Student Learning 2",
+              "[2nd Sem] The Teaching Profession",
+              "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
+              "[2nd Sem] Advance Statistics",
+              "[2nd Sem] Research in Mathematics",
+              "[2nd Sem] Field Study 1"
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Clinical Practice & Internship",
+            "subjects": [
+              "[1st Sem] Calculus III",
+              "[1st Sem] Mathematics of Investment",
+              "[1st Sem] Principles & Strategies in Teaching Mathematics",
+              "[1st Sem] Assessment and Evaluation in Mathematics",
+              "[1st Sem] Field Study 2",
+              "[2nd Sem] Teaching Internship"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "AB English",
+        "name": "AB English",
+        "roadmap": [
+          {
+            "year": "Year 1",
+            "title": "Linguistic Foundations",
+            "subjects": [
+              "Intro to Linguistics",
+              "Structure of English",
+              "History of the English Language."
+            ]
+          },
+          {
+            "year": "Year 2",
+            "title": "Advanced Syntax & Semantics",
+            "subjects": [
+              "Phonetics & Phonology",
+              "Semantics & Pragmatics",
+              "Language & Society."
+            ]
+          },
+          {
+            "year": "Year 3",
+            "title": "Corporate & Media Communication",
+            "subjects": [
+              "Technical Writing",
+              "Discourse Analysis",
+              "English for Specific Purposes."
+            ]
+          },
+          {
+            "year": "Year 4",
+            "title": "Research & Practicum",
+            "subjects": [
+              "Linguistic Research",
+              "Corporate Practicum (OJT)",
+              "Translation & Editing."
+            ]
+          }
+        ]
+      }
+    ],
+    "tracks": [
+      {
+        "title": "Elementary Education",
+        "subtitle": "BEED",
+        "description": "Learn how to teach young children, understand child psychology, and create a fun, effective learning environment."
+      },
+      {
+        "title": "Secondary Education (Mathematics)",
+        "subtitle": "BSED Mathematics",
+        "description": "Gain the skills to teach math effectively to high school students and help them succeed in their academics."
+      },
+      {
+        "title": "Secondary Education (English)",
+        "subtitle": "BSED English",
+        "description": "Discover how to teach English, literature, and communication skills to high school students."
+      },
+      {
+        "title": "English Language",
+        "subtitle": "AB English",
+        "description": "Develop excellent communication and writing skills perfect for careers in media, writing, and public relations."
+      }
+    ],
+    "pathways": [
+      {
+        "title": "Elementary Teaching",
+        "subtitle": "BEED Career Path",
+        "description": "Help children develop a love for learning in their early years. Create fun, engaging, and supportive classrooms for young students.",
+        "roles": [
+          "Elementary School Teacher",
+          "Early Childhood Educator",
+          "School Administrator",
+          "Private Tutor"
+        ]
+      },
+      {
+        "title": "High School Teaching (Mathematics)",
+        "subtitle": "BSED Math Career Path",
+        "description": "Make math easy to understand for high school students. Help teenagers develop problem-solving skills they can use in life.",
+        "roles": [
+          "High School Math Teacher",
+          "Curriculum Developer",
+          "School Administrator",
+          "Math Tutor"
+        ]
+      },
+      {
+        "title": "High School Teaching (English)",
+        "subtitle": "BSED English Career Path",
+        "description": "Inspire high school students to read, write, and express themselves effectively. Guide them to become better communicators.",
+        "roles": [
+          "High School English Teacher",
+          "Curriculum Developer",
+          "School Administrator",
+          "Language Instructor"
+        ]
+      },
+      {
+        "title": "Professional Communication",
+        "subtitle": "AB English Career Path",
+        "description": "Use your advanced English skills for careers outside the classroom. Work in media, writing, public relations, or corporate communications.",
+        "roles": [
+          "Public Relations Officer",
+          "Writer / Editor",
+          "Corporate Communications Specialist",
+          "ESL Teacher"
+        ]
+      }
+    ],
+    "quickFacts": {
+      "duration": "4 Years",
+      "units": "145+ Units",
+      "format": "On-Campus & Teaching Practicum"
+    }
+  }
+}

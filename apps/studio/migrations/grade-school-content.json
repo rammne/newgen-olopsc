@@ -1,0 +1,39 @@
+{
+  "keyFeatures": [
+    {
+      "_key": "6097528cdc6f",
+      "title": "Enhanced Mathematics and Science Programs",
+      "description": "Building strong analytical skills and critical thinking through structured math instruction and hands-on scientific exploration."
+    },
+    {
+      "_key": "dc9e5cf2874c",
+      "title": "Enriched Reading and Language Development Program",
+      "description": "Fostering confident communication, reading comprehension, and articulate expression to ensure success across all academic subjects."
+    },
+    {
+      "_key": "ef3825572f49",
+      "title": "Integrated Information and Communication Technology (ICT)",
+      "description": "Equipping students with foundational digital literacy and practical tech skills to confidently navigate a modern, connected world."
+    },
+    {
+      "_key": "07747eceeed3",
+      "title": "Dynamic Extracurricular and Talent Development Programs",
+      "description": "Encouraging students to discover their passions and develop personal strengths through diverse opportunities in sports, arts, and clubs."
+    }
+  ],
+  "learningObjectives": {
+    "generalObjective": "The Grade School aims to empower learners by building on the foundational knowledge and skills acquired in Preschool, fostering their holistic development, and preparing them for Junior High School and lifelong success.",
+    "specificObjectives": [
+      "demonstrate effective communication skills through listening, reading, speaking, writing, viewing and visual representation;",
+      "apply computational, analytical, critical thinking and problem-solving skills effectively;",
+      "demonstrate and apply functional understanding of science concepts, principles, skills and processes;",
+      "engage actively in and promote sustainable practices and environmental stewardship;",
+      "develop deep understanding and appreciation of Philippine history, culture and heritage;",
+      "cultivate critical thinking, creativity and accountability through self-awareness and community engagement;",
+      "explore and engage in different hands-on activities to develop basic work skills, desirable work habits and positive attitudes;",
+      "enhance socio-physical, mental, emotional well-being and creative abilities;",
+      "strengthen spiritual, moral and socio-ecological values; and",
+      "adapt and apply new technologies and digital literacy in learning."
+    ]
+  }
+}

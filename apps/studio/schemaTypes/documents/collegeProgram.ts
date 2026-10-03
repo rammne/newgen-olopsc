@@ -38,6 +38,21 @@ export const collegeProgram = defineType({
       validation: (Rule) => Rule.max(300),
     }),
     defineField({
+      name: 'tags',
+      title: 'Degree Tags',
+      type: 'array',
+      of: [{type: 'string'}],
+      description: 'Degree codes shown as pills on the College hub page, e.g. "BSCS", "ACT"',
+      options: {layout: 'tags'},
+    }),
+    defineField({
+      name: 'displayOrder',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Controls the position of this program on the College hub page. Lower numbers appear first.',
+      validation: (Rule) => Rule.integer().min(0),
+    }),
+    defineField({
       name: 'cardThumbnail',
       title: 'Card Thumbnail',
       type: 'image',

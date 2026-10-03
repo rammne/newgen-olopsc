@@ -2,13 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import CtaButton from "../components/common/CtaButton.astro";
 import ScrollRevealWrapper from "../components/common/ScrollRevealWrapper.astro";
-import { getAcademicDepartmentByType, getCollegeProgramThumbnails } from "../lib/sanity/queries";
+import { getAcademicDepartmentByType, getCollegeProgramThumbnails, getCollegeProgramCards } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
 // Fetch CMS data
 const department = await getAcademicDepartmentByType("college");
 const thumbnails = await getCollegeProgramThumbnails();
+const programCards = await getCollegeProgramCards();
 
 // --- Image Object Mapping ---
 interface SanityImage {
@@ -100,60 +101,20 @@ const pageTitle = "College Department | OLOPSC | OLOPS College";
 const pageDescription = "Looking for a top-tier college in Marikina City? The OLOPSC College of Business, Management, Science, and Education (BMSE) offers CHED-recognized bachelor degrees in IT, Business, Tourism, and Psychology.";
 const ogImage = department?.seo?.image?.asset?.url;
 
-// Degree Matrix data — thumbnails come from each program's singleton schema
-const degreeMatrix = [
-  {
-    department: "Computing Studies",
-    tags: ["BSCS", "ACT"],
-    text: "Master software engineering, algorithms, and full-stack development for the booming global tech industry.",
-    href: "/college/computing-studies",
-    thumbnailKey: "computing-studies",
-  },
-  {
-    department: "Business Administration & Entrepreneurship",
-    tags: ["BSBA-HRM", "BSBA-MM", "BSE"],
-    text: "Corporate leadership and startup incubation focused on marketing, human resources, and business creation.",
-    href: "/college/business-administration-and-entrepreneurship",
-    thumbnailKey: "business-administration-and-entrepreneurship",
-  },
-  {
-    department: "Education & Liberal Arts",
-    tags: ["BEED", "BSED", "AB English"],
-    text: "Shaping the next generation of educators and communicators with modern pedagogical strategies and linguistic mastery.",
-    href: "/college/education-and-liberal-arts",
-    thumbnailKey: "education-and-liberal-arts",
-  },
-  {
-    department: "Hospitality Management",
-    tags: ["BSHM"],
-    text: "World-class training for global hotel, restaurant, and resort operations, emphasizing premium customer experience.",
-    href: "/college/hospitality-management",
-    thumbnailKey: "hospitality-management",
-  },
-  {
-    department: "Tourism Management",
-    tags: ["BSTM"],
-    text: "Navigating the international travel economy with expertise in destination marketing, aviation, and tour operations.",
-    href: "/college/tourism-management",
-    thumbnailKey: "tourism-management",
-  },
-  {
-    department: "Psychology",
-    tags: ["BSP"],
-    text: "Analyzing human behavior and cognitive processes for careers in clinical assessment, corporate HR, and mental health.",
-    href: "/college/psychology",
-    thumbnailKey: "psychology",
-  },
-].map(item => {
-  const thumbData = thumbnails?.[item.thumbnailKey]?.cardThumbnail;
+const degreeMatrix = (programCards || []).map((program: any) => {
+  const slug = program?.slug?.current || "";
+  const thumbData = thumbnails?.[slug]?.cardThumbnail;
   const imageUrl = thumbData?.asset?.url
     ? getSanityImageUrl(thumbData, { width: 800, height: 450, fit: "crop" })
     : null;
 
   return {
-    ...item,
+    department: program?.title || "",
+    tags: program?.tags || [],
+    text: program?.description || "",
+    href: `/college/${slug}`,
     image: imageUrl,
-    alt: thumbData?.alt || `${item.department} thumbnail`
+    alt: thumbData?.alt || `${program?.title || "Program"} thumbnail`
   };
 });
 
@@ -170,22 +131,10 @@ interface FacultyMember {
 }
 
 const dean = {
-  name: department?.dean?.name || "Dr. Maria Santos",
-  title: department?.dean?.title || "Dean, OLOPSC - College of BMSE",
+  name: department?.dean?.name || "",
+  title: department?.dean?.title || "",
   credentials: department?.dean?.credentials || "",
-  quote: department?.dean?.quote || `Welcome to the College of Business, Management, Science and Education at Our Lady of Perpetual Succor College.
-
-It is my privilege to welcome you to a college community where learning extends beyond the classroom and every student is valued, supported, and empowered to succeed. Our commitment is not only to academic excellence but also to nurturing individuals of character, compassion, and purpose who are prepared to make meaningful contributions to society.
-
-At CBMSE, we believe that education is more than earning a degree. It is a journey of discovering your potential, developing your talents, and cultivating the knowledge, skills, and values needed to lead with integrity and serve others with excellence.
-
-To our students: I encourage you to embrace every opportunity to learn, grow, and pursue your aspirations with confidence. Your dreams matter, and we are committed to providing an environment where you can thrive both personally and professionally.
-
-To our faculty, staff, alumni, industry partners, and stakeholders: thank you for your unwavering dedication and continued support. Together, we will strengthen a culture of innovation, collaboration, and excellence as we work toward our shared vision of making CBMSE the college of first choice in Marikina and the East Rizal area.
-
-As Dean, I look forward to walking alongside each of you as we build a community where excellence is pursued with humility, leadership is guided by service, and genuine care for people defines who we are.
-
-I invite you to explore our programs and discover how CBMSE can be part of your journey.`,
+  quote: department?.dean?.quote || "",
   image: {
     url: department?.dean?.image?.asset?.url
       ? getSanityImageUrl(department.dean.image, { width: 800, height: 1000, fit: "crop" })

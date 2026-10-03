@@ -51,41 +51,29 @@ export const academicDepartment = defineType({
     defineField({
       name: 'hero',
       title: 'Hero Section',
-      type: 'hero',
-      validation: (Rule) => Rule.required(),
-      group: 'content',
-    }),
-    defineField({
-      name: 'intro',
-      title: 'Introduction Section',
       type: 'object',
-      description: 'Keep it visual and concise!',
       group: 'content',
       fields: [
+        defineField({
+          name: 'backgroundImage',
+          title: 'Background Image',
+          type: 'image',
+          description: 'Used as the department card image on the home page',
+          options: { hotspot: true },
+          fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+        }),
         defineField({
           name: 'headline',
           title: 'Headline',
           type: 'string',
-          description: 'Short, impactful headline',
-          validation: (Rule) => Rule.max(100),
+          hidden: ({ document }) => document?.departmentType !== 'gradeSchool',
         }),
         defineField({
-          name: 'content',
-          title: 'Content (Brief)',
+          name: 'subheadline',
+          title: 'Subheadline',
           type: 'text',
           rows: 3,
-          description: 'Short introduction - 2-3 sentences max',
-          validation: (Rule) => Rule.max(300),
-        }),
-        defineField({
-          name: 'image',
-          title: 'Featured Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
-          description: 'Primary visual element',
+          hidden: ({ document }) => document?.departmentType !== 'gradeSchool',
         }),
       ],
     }),
@@ -93,7 +81,7 @@ export const academicDepartment = defineType({
       name: 'overview',
       title: 'Overview Section',
       type: 'object',
-      description: 'Overview content with optional background image',
+      description: 'Shown as the description on the department card on the home page',
       group: 'content',
       fields: [
         defineField({
@@ -101,34 +89,44 @@ export const academicDepartment = defineType({
           title: 'Content (Brief)',
           type: 'text',
           rows: 3,
-          description: 'Short overview - 2-3 sentences max. Use Story Blocks below for visual storytelling.',
+          description: 'Short overview - 2-3 sentences max',
           validation: (Rule) => Rule.max(300),
-        }),
-        defineField({
-          name: 'backgroundImage',
-          title: 'Background Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
-          description: 'Optional background image for the overview section',
         }),
       ],
     }),
     defineField({
       name: 'keyFeatures',
       title: 'Key Features/Highlights',
-      type: 'array',
-      of: [{ type: 'feature' }],
-      description: 'What makes this department special',
+      type: 'object',
       group: 'content',
+      description: 'Section heading and the feature cards beneath it',
+      hidden: ({ document }) => !['gradeSchool'].includes(document?.departmentType as string),
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Section Description',
+          type: 'text',
+          rows: 3,
+        }),
+        defineField({
+          name: 'items',
+          title: 'Feature Cards',
+          type: 'array',
+          of: [{ type: 'feature' }],
+        }),
+      ],
     }),
     defineField({
       name: 'learningObjectives',
       title: 'Learning Objectives',
       type: 'object',
       group: 'content',
+      hidden: ({document}) => !['gradeSchool'].includes(document?.departmentType as string),
       description: 'Used primarily for Grade School to list specific learning goals.',
       fields: [
         defineField({
@@ -145,108 +143,13 @@ export const academicDepartment = defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'curriculum',
-      title: 'Curriculum Section',
-      type: 'object',
-      group: 'content',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'description',
-          title: 'Description (Brief)',
-          type: 'text',
-          rows: 2,
-          description: 'Short description - 1-2 sentences',
-          validation: (Rule) => Rule.max(200),
-        }),
-        defineField({
-          name: 'image',
-          title: 'Curriculum Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
-          description: 'Visual representation of the curriculum',
-        }),
-        defineField({
-          name: 'highlights',
-          title: 'Curriculum Highlights',
-          type: 'array',
-          of: [{ type: 'string' }],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'trackClusters',
-      title: 'Track Clusters (Senior High School)',
-      type: 'object',
-      group: 'content',
-      description: 'Use this specifically for Senior High School to display the Track Clusters UI.',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'clusters',
-          title: 'Clusters',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({ name: 'name', title: 'Cluster Name', type: 'string', validation: (Rule) => Rule.required() }),
-                defineField({ name: 'description', title: 'Description (Optional)', type: 'text', rows: 2 }),
-                defineField({ name: 'tracks', title: 'Tracks', type: 'array', of: [{ type: 'string' }] }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'programs',
-      title: 'Programs/Offerings',
-      type: 'array',
-      group: 'content',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Program Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'text',
-              rows: 3,
-            }),
-            defineField({
-              name: 'link',
-              title: 'Link to Program Page',
-              type: 'reference',
-              to: [{ type: 'collegeProgram' }],
-            }),
-          ],
-        },
-      ],
-    }),
+
     defineField({
       name: 'academicProgression',
       title: 'Academic Progression / Stepping Stones',
       type: 'array',
       group: 'content',
+      hidden: ({document}) => !['gradeSchool'].includes(document?.departmentType as string),
       description: 'Used to outline the progression through different grade levels (e.g., Lower Primary, Upper Primary).',
       of: [
         {
@@ -265,6 +168,7 @@ export const academicDepartment = defineType({
       title: 'Dean / Academic Leadership',
       type: 'object',
       group: 'content',
+      hidden: ({document}) => !['college'].includes(document?.departmentType as string),
       description: 'Used primarily for College Department to showcase the Dean.',
       fields: [
         defineField({
@@ -304,6 +208,7 @@ export const academicDepartment = defineType({
       title: 'Holistic Growth & Extracurriculars',
       type: 'object',
       group: 'content',
+      hidden: ({document}) => !['gradeSchool'].includes(document?.departmentType as string),
       description: 'Used primarily for Grade School to showcase extracurricular activities.',
       fields: [
         defineField({
@@ -335,116 +240,27 @@ export const academicDepartment = defineType({
       type: 'array',
       of: [{ type: 'facultyMember' }],
       group: 'content',
+      hidden: ({document}) => !['college'].includes(document?.departmentType as string),
     }),
     defineField({
-      name: 'admissionInfo',
-      title: 'Admission Information',
+      name: 'finalCta',
+      title: 'Closing Section',
       type: 'object',
       group: 'content',
+      description: 'Heading and copy for the call-to-action at the bottom of the page. The button itself is set in code.',
+      hidden: ({ document }) => !['gradeSchool'].includes(document?.departmentType as string),
       fields: [
         defineField({
           name: 'title',
-          title: 'Section Title',
+          title: 'Title',
           type: 'string',
         }),
         defineField({
           name: 'content',
-          title: 'Content (Brief)',
+          title: 'Content',
           type: 'text',
-          rows: 2,
-          description: 'Keep it concise - 1-2 sentences',
-          validation: (Rule) => Rule.max(200),
+          rows: 3,
         }),
-        defineField({
-          name: 'requirements',
-          title: 'Requirements',
-          type: 'array',
-          of: [{ type: 'string' }],
-        }),
-        defineField({
-          name: 'image',
-          title: 'Featured Image',
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })],
-        }),
-        defineField({
-          name: 'cta',
-          title: 'Call-to-Action',
-          type: 'cta',
-        }),
-      ],
-    }),
-    defineField({
-      name: 'highlights',
-      title: 'Highlights Photo Collage',
-      type: 'object',
-      description: 'Bento-style photo collage showcasing department highlights (exactly 6 images)',
-      group: 'media',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string',
-        }),
-        defineField({
-          name: 'images',
-          title: 'Images',
-          type: 'array',
-          of: [
-            {
-              type: 'image',
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                defineField({
-                  name: 'alt',
-                  title: 'Alt Text',
-                  type: 'string',
-                }),
-              ],
-            },
-          ],
-          validation: (Rule) => Rule.length(6).error('Please add exactly 6 images for the highlights collage'),
-        }),
-      ],
-    }),
-    defineField({
-      name: 'sectionImages',
-      title: 'Section-Specific Images',
-      type: 'array',
-      group: 'media',
-      description: 'Upload images for specific page sections (e.g., "4-Year Journey", "Mentorship", "Extracurriculars"). Each image has a label so you know which section it belongs to. These are separate from the Campus Life / Facility Tour gallery.',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'sectionLabel',
-              title: 'Section Label',
-              type: 'string',
-              description: 'Which section this image is for, e.g., "4-Year Journey Image", "Mentorship Section Image", "Extracurricular Image"',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-              options: { hotspot: true },
-              fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'sectionLabel',
-              media: 'image',
-            },
-          },
-        },
       ],
     }),
     defineField({
@@ -452,6 +268,7 @@ export const academicDepartment = defineType({
       title: 'Facilities Header',
       type: 'object',
       group: 'media',
+      hidden: ({ document }) => !['gradeSchool'].includes(document?.departmentType as string),
       description: 'Header text for the Facilities Tour / Campus Life section.',
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string' }),
@@ -464,6 +281,7 @@ export const academicDepartment = defineType({
       type: 'array',
       description: 'Upload images showcasing campus life, facilities (classrooms, labs, student orgs, etc.). Used in the Campus Life / Guided Facilities Tour section. College Dept requires 6 images for the full layout.',
       group: 'media',
+      hidden: ({ document }) => !['gradeSchool', 'college'].includes(document?.departmentType as string),
       of: [
         {
           type: 'image',
@@ -494,35 +312,14 @@ export const academicDepartment = defineType({
         },
       ],
     }),
-    defineField({
-      name: 'testimonials',
-      title: 'Testimonials (Parents/Students)',
-      description: 'Add testimonials from parents, students, or alumni here.',
-      type: 'array',
-      of: [{ type: 'testimonial' }],
-      group: 'media',
-    }),
-    defineField({
-      name: 'stats',
-      title: 'Statistics',
-      type: 'array',
-      of: [{ type: 'stats' }],
-      description: 'Key statistics about this department',
-      group: 'media',
-    }),
-    defineField({
-      name: 'sections',
-      title: 'Additional Content Sections (Legacy)',
-      type: 'array',
-      of: [{ type: 'section' }],
-      description: 'Legacy text-heavy sections - Consider using Story Blocks instead for visual storytelling',
-      group: 'media',
-    }),
+
+
     defineField({
       name: 'industryPartners',
       title: 'Industry Partners',
       type: 'array',
       group: 'content',
+      hidden: ({document}) => !['college'].includes(document?.departmentType as string),
       of: [
         {
           type: 'object',
@@ -542,6 +339,7 @@ export const academicDepartment = defineType({
       title: 'Outcome Statistics',
       type: 'array',
       group: 'content',
+      hidden: ({document}) => !['college'].includes(document?.departmentType as string),
       of: [
         {
           type: 'object',
@@ -558,6 +356,7 @@ export const academicDepartment = defineType({
       title: 'Alumni Stories',
       type: 'array',
       group: 'content',
+      hidden: ({document}) => !['college'].includes(document?.departmentType as string),
       of: [
         {
           type: 'object',
@@ -578,6 +377,7 @@ export const academicDepartment = defineType({
       title: 'SEO',
       type: 'seo',
       group: 'seo',
+      hidden: ({ document }) => !['gradeSchool', 'college'].includes(document?.departmentType as string),
     }),
   ],
   preview: {

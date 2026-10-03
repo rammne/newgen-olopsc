@@ -24,41 +24,9 @@ const heroBackground = {
     "Education and Liberal Arts Interactive Classroom",
 };
 
-const quickFacts = {
-  duration: pageData?.quickFacts?.duration || "4 Years",
-  units: pageData?.quickFacts?.units || "145+ Units",
-  format: pageData?.quickFacts?.format || "On-Campus & Teaching Practicum",
-};
+const quickFacts = pageData?.quickFacts || {};
 
-const tracks =
-  pageData?.tracks && pageData.tracks.length > 0
-    ? pageData.tracks
-    : [
-        {
-          title: "Elementary Education",
-          subtitle: "BEED",
-          description:
-            "Learn how to teach young children, understand child psychology, and create a fun, effective learning environment.",
-        },
-        {
-          title: "Secondary Education (Mathematics)",
-          subtitle: "BSED Mathematics",
-          description:
-            "Gain the skills to teach math effectively to high school students and help them succeed in their academics.",
-        },
-        {
-          title: "Secondary Education (English)",
-          subtitle: "BSED English",
-          description:
-            "Discover how to teach English, literature, and communication skills to high school students.",
-        },
-        {
-          title: "English Language",
-          subtitle: "AB English",
-          description:
-            "Develop excellent communication and writing skills perfect for careers in media, writing, and public relations.",
-        },
-      ];
+const tracks = pageData?.tracks || [];
 
 const overviewMainImage = {
   url: pageData?.overviewMainImage?.asset?.url
@@ -84,250 +52,9 @@ const overviewSubImage = {
     pageData?.overviewSubImage?.alt || "Advanced Linguistics and Communication",
 };
 
-const outcomes =
-  pageData?.outcomes && pageData.outcomes.length > 0
-    ? pageData.outcomes
-    : [
-        {
-          title: "Teaching Young Learners (BEED)",
-          description:
-            "Learn the best ways to teach young children, understand how they learn, and make a positive impact in their early years.",
-        },
-        {
-          title: "High School Teaching (BSED)",
-          description:
-            "Gain the confidence to manage a classroom and effectively teach specific subjects like Math or English to teenagers.",
-        },
-        {
-          title: "Effective Communication (AB English)",
-          description:
-            "Develop strong writing, speaking, and analytical skills for careers in journalism, corporate communication, and media.",
-        },
-        {
-          title: "Educational Leadership",
-          description:
-            "Learn how to design effective lessons, improve student learning, and prepare for leadership roles in schools.",
-        },
-      ];
+const outcomes = pageData?.outcomes || [];
 
-const curriculumTracks =
-  pageData?.curriculumTracks && pageData.curriculumTracks.length > 0
-    ? pageData.curriculumTracks
-    : [
-        {
-          id: "beed",
-          name: "BEED (Elementary)",
-          roadmap: [
-            {
-              year: "Year 1",
-              title: "Foundations of Pedagogy",
-              subjects: [
-                "Child & Adolescent Development",
-                "The Teaching Profession",
-                "Foundations of Special Needs Ed.",
-              ],
-            },
-            {
-              year: "Year 2",
-              title: "Instructional Methodologies",
-              subjects: [
-                "Teaching Math in Primary Grades",
-                "Early Literacy",
-                "Assessment in Learning 1.",
-              ],
-            },
-            {
-              year: "Year 3",
-              title: "Curriculum & Technology",
-              subjects: [
-                "Technology for Teaching",
-                "Curriculum Development",
-                "Educational Research.",
-              ],
-            },
-            {
-              year: "Year 4",
-              title: "Clinical Practice",
-              subjects: [
-                "Field Study 1 & 2",
-                "Teaching Internship",
-                "LET Intensive Review.",
-              ],
-            },
-          ],
-        },
-        {
-          id: "bsed-english",
-          name: "BSED (English)",
-          roadmap: [
-            {
-              year: "Year 1",
-              title: "Language Foundations",
-              subjects: [
-                "[1st Sem] The Child Adolescent Learner and Learning Principles",
-                "[1st Sem] Foundations of Special and Inclusive Education",
-                "[1st Sem] Introduction to Linguistics",
-                "[1st Sem] Language, Culture, and Society",
-                "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
-                "[2nd Sem] Facilitating Learner-Centered Teaching",
-                "[2nd Sem] Structures of English",
-                "[2nd Sem] Literary Criticism",
-              ],
-            },
-            {
-              year: "Year 2",
-              title: "Pedagogical Methodologies",
-              subjects: [
-                "[1st Sem] Technology for Teaching and Learning 1",
-                "[1st Sem] Principles and Theories of Language Acquisition and Learning",
-                "[1st Sem] Teaching and Assessment of the Macroskills",
-                "[1st Sem] Teaching and Assessment of the Literature Studies",
-                "[2nd Sem] The Teacher and the School Curriculum",
-                "[2nd Sem] Technology for Teaching and Learning 2 (Secondary Language Education)",
-                "[2nd Sem] Technical Writing",
-                "[2nd Sem] Teaching and Assessment of Grammar",
-              ],
-            },
-            {
-              year: "Year 3",
-              title: "Advanced Literature & Assessment",
-              subjects: [
-                "[1st Sem] Assessment of Student Learning 1",
-                "[1st Sem] Special Topic/Elective (x2)",
-                "[1st Sem] Children and Adolescent Literature",
-                "[1st Sem] Lang. Programs and Policies in Multilingual Societies",
-                "[1st Sem] Language Learning Materials Development",
-                "[1st Sem] Mythology and Folklore",
-                "[2nd Sem] Assessment of Student Learning 2",
-                "[2nd Sem] The Teaching Profession",
-                "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
-                "[2nd Sem] Language Education Research",
-                "[2nd Sem] Contemporary Popular and Emergent Literature",
-                "[2nd Sem] Speech and Stage Arts",
-                "[2nd Sem] Field Study 1",
-              ],
-            },
-            {
-              year: "Year 4",
-              title: "Clinical Practice & Internship",
-              subjects: [
-                "[1st Sem] Survey of Philippine Literature in English",
-                "[1st Sem] Survey of English and American Literature",
-                "[1st Sem] Survey of Afro-Asian Literature",
-                "[1st Sem] Campus Journalism",
-                "[1st Sem] Field Study 2",
-                "[2nd Sem] Teaching Internship",
-              ],
-            },
-          ],
-        },
-        {
-          id: "bsed-math",
-          name: "BSED (Mathematics)",
-          roadmap: [
-            {
-              year: "Year 1",
-              title: "Mathematical Foundations",
-              subjects: [
-                "[1st Sem] The Child Adolescent Learner and Learning Principles",
-                "[1st Sem] Foundations of Special and Inclusive Education",
-                "[1st Sem] History of Mathematics",
-                "[1st Sem] College and Advance Algebra",
-                "[2nd Sem] Building and Enhancing New Literacies Across the Curriculum",
-                "[2nd Sem] Facilitating Learner-Centered Teaching",
-                "[2nd Sem] Plane and Solid Geometry",
-                "[2nd Sem] Logic and Set Theory",
-              ],
-            },
-            {
-              year: "Year 2",
-              title: "Advanced Calculus & Geometry",
-              subjects: [
-                "[1st Sem] Technology for Teaching and Learning 1",
-                "[1st Sem] Trigonometry",
-                "[1st Sem] Abstract Algebra",
-                "[1st Sem] Linear Algebra",
-                "[2nd Sem] The Teacher and the School Curriculum",
-                "[2nd Sem] Technology for Teaching and Learning 2 (Instrumentation & Technology in Mathematics)",
-                "[2nd Sem] Modern Geometry",
-                "[2nd Sem] Calculus I with Analytic Geometry",
-              ],
-            },
-            {
-              year: "Year 3",
-              title: "Statistical Modeling & Assessment",
-              subjects: [
-                "[1st Sem] Assessment of Student Learning 1",
-                "[1st Sem] Special Topic/Elective (x2)",
-                "[1st Sem] Number Theory",
-                "[1st Sem] Elementary Statistics and Probability",
-                "[1st Sem] Calculus II",
-                "[1st Sem] Problem Solving, Math Investigation and Modelling",
-                "[2nd Sem] Assessment of Student Learning 2",
-                "[2nd Sem] The Teaching Profession",
-                "[2nd Sem] The Teacher and the Community, School Culture and Organizational Leadership",
-                "[2nd Sem] Advance Statistics",
-                "[2nd Sem] Research in Mathematics",
-                "[2nd Sem] Field Study 1",
-              ],
-            },
-            {
-              year: "Year 4",
-              title: "Clinical Practice & Internship",
-              subjects: [
-                "[1st Sem] Calculus III",
-                "[1st Sem] Mathematics of Investment",
-                "[1st Sem] Principles & Strategies in Teaching Mathematics",
-                "[1st Sem] Assessment and Evaluation in Mathematics",
-                "[1st Sem] Field Study 2",
-                "[2nd Sem] Teaching Internship",
-              ],
-            },
-          ],
-        },
-        {
-          id: "AB English",
-          name: "AB English",
-          roadmap: [
-            {
-              year: "Year 1",
-              title: "Linguistic Foundations",
-              subjects: [
-                "Intro to Linguistics",
-                "Structure of English",
-                "History of the English Language.",
-              ],
-            },
-            {
-              year: "Year 2",
-              title: "Advanced Syntax & Semantics",
-              subjects: [
-                "Phonetics & Phonology",
-                "Semantics & Pragmatics",
-                "Language & Society.",
-              ],
-            },
-            {
-              year: "Year 3",
-              title: "Corporate & Media Communication",
-              subjects: [
-                "Technical Writing",
-                "Discourse Analysis",
-                "English for Specific Purposes.",
-              ],
-            },
-            {
-              year: "Year 4",
-              title: "Research & Practicum",
-              subjects: [
-                "Linguistic Research",
-                "Corporate Practicum (OJT)",
-                "Translation & Editing.",
-              ],
-            },
-          ],
-        },
-      ];
+const curriculumTracks = pageData?.curriculumTracks || [];
 
 const ecosystemImages = {
   modelClassroom: {
@@ -403,113 +130,9 @@ if (pageData?.chair?.image?.asset?.url) {
   };
 }
 
-const faculty =
-  pageData?.faculty && pageData.faculty.length > 0
-    ? pageData.faculty.map((f: any) => ({
-        ...f,
-        image: {
-          url: f.image?.asset?.url
-            ? getSanityImageUrl(f.image, {
-                width: 600,
-                height: 800,
-                fit: "crop",
-              })
-            : "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
-          alt: f.image?.alt || f.name,
-        },
-      }))
-    : [
-        {
-          name: "Eleanor Rigby",
-          specialty: "Early Childhood Pedagogy",
-          credentials: "MA in Early Childhood Education",
-          image: {
-            url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "John Keating",
-          specialty: "Secondary Curriculum Strategy",
-          credentials: "PhD in Education",
-          image: {
-            url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Henry Higgins",
-          specialty: "Applied Linguistics & Syntax",
-          credentials: "PhD in Linguistics",
-          image: {
-            url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Anne Sullivan",
-          specialty: "Special Needs Education",
-          credentials: "MA in Special Education",
-          image: {
-            url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-      ];
+const faculty = pageData?.faculty || [];
 
-const pathways =
-  pageData?.pathways && pageData.pathways.length > 0
-    ? pageData.pathways
-    : [
-        {
-          title: "Elementary Teaching",
-          subtitle: "BEED Career Path",
-          description:
-            "Help children develop a love for learning in their early years. Create fun, engaging, and supportive classrooms for young students.",
-          roles: [
-            "Elementary School Teacher",
-            "Early Childhood Educator",
-            "School Administrator",
-            "Private Tutor",
-          ],
-        },
-        {
-          title: "High School Teaching (Mathematics)",
-          subtitle: "BSED Math Career Path",
-          description:
-            "Make math easy to understand for high school students. Help teenagers develop problem-solving skills they can use in life.",
-          roles: [
-            "High School Math Teacher",
-            "Curriculum Developer",
-            "School Administrator",
-            "Math Tutor",
-          ],
-        },
-        {
-          title: "High School Teaching (English)",
-          subtitle: "BSED English Career Path",
-          description:
-            "Inspire high school students to read, write, and express themselves effectively. Guide them to become better communicators.",
-          roles: [
-            "High School English Teacher",
-            "Curriculum Developer",
-            "School Administrator",
-            "Language Instructor",
-          ],
-        },
-        {
-          title: "Professional Communication",
-          subtitle: "AB English Career Path",
-          description:
-            "Use your advanced English skills for careers outside the classroom. Work in media, writing, public relations, or corporate communications.",
-          roles: [
-            "Public Relations Officer",
-            "Writer / Editor",
-            "Corporate Communications Specialist",
-            "ESL Teacher",
-          ],
-        },
-      ];
+const pathways = pageData?.pathways || [];
 
 const pageTitle = "Education & Liberal Arts | OLOPS College";
 const pageDescription =
@@ -724,7 +347,7 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.duration || "4 Years"}</span
+          >{quickFacts.duration}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -749,7 +372,7 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.units || "145+ Units"}</span
+          >{quickFacts.units}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -774,7 +397,7 @@ const canonicalUrl = pageData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.format || "On-Campus & Teaching Practicum"}</span
+          >{quickFacts.format}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"

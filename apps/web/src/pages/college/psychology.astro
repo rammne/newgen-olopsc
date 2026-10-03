@@ -24,11 +24,7 @@ const heroBackground = sanityData?.heroBackground?.asset?.url
       alt: "Psychology students conducting clinical research",
     };
 
-const quickFacts = sanityData?.quickFacts || {
-  duration: "4 Years",
-  units: "168 Units",
-  format: "On-Campus",
-};
+const quickFacts = sanityData?.quickFacts || {};
 
 const overviewMainImage = sanityData?.overviewMainImage?.asset?.url
   ? {
@@ -50,103 +46,9 @@ const overviewSubImage = sanityData?.overviewSubImage?.asset?.url
       alt: "Clinical Lab Collaboration",
     };
 
-const outcomes =
-  sanityData?.outcomes && sanityData.outcomes.length > 0
-    ? sanityData.outcomes
-    : [
-        {
-          title: "Psychological Testing",
-          description:
-            "Learn how to use, score, and understand common psychological tests and assessments.",
-        },
-        {
-          title: "Research & Analysis",
-          description:
-            "Gain the skills needed to design and conduct meaningful research to better understand human behavior.",
-        },
-        {
-          title: "Mental Health Support",
-          description:
-            "Apply your knowledge to help improve mental wellness in schools, clinics, and workplaces.",
-        },
-        {
-          title: "Compassionate Care",
-          description:
-            "Develop a strong commitment to ethical practice and helping others, rooted in our school's values.",
-        },
-      ];
+const outcomes = sanityData?.outcomes || [];
 
-const curriculum =
-  sanityData?.curriculum && sanityData.curriculum.length > 0
-    ? sanityData.curriculum
-    : [
-        {
-          year: "Year 1",
-          title: "Foundations of Behavior",
-          description:
-            "Master the fundamental concepts of human behavior, biological sciences, and quantitative logic.",
-          subjects: [
-            "[1st Sem] Introduction to Psychology",
-            "[2nd Sem] Psychological Statistics",
-          ],
-        },
-        {
-          year: "Year 2",
-          title: "Development & Experimentation",
-          description:
-            "Explore human growth across the lifespan and begin rigorous experimental research design.",
-          subjects: [
-            "[1st Sem] Experimental Psychology",
-            "[1st Sem] Theories of Personality",
-            "[1st Sem] Biological Psychology",
-            "[1st Sem] Developmental Psychology",
-            "[1st Sem] Fundamentals of Biology (Lecture)",
-            "[1st Sem] Fundamentals of Biology (Laboratory)",
-            "[2nd Sem] Field Methods in Psychology",
-            "[2nd Sem] Social Psychology",
-            "[2nd Sem] Cognitive Psychology",
-            "[2nd Sem] General Zoology Lecture",
-            "[2nd Sem] General Zoology (Laboratory)",
-          ],
-        },
-        {
-          year: "Year 3",
-          title: "Assessment & Clinical Analysis",
-          description:
-            "Dive into psychological testing, diagnostics, and the study of behavioral disorders.",
-          subjects: [
-            "[1st Sem] Psychological Assessment",
-            "[1st Sem] Abnormal Psychology",
-            "[1st Sem] Culture and Psychology / Sikolohiyang Pilipino",
-            "[1st Sem] Educational Psychology",
-            "[1st Sem] Organic and Inorganic Chemistry Lecture",
-            "[1st Sem] Organic and Inorganic Chemistry Laboratory",
-            "[2nd Sem] Industrial Organizational Psychology",
-            "[2nd Sem] Research in Psychology 1",
-            "[2nd Sem] Introduction to Counseling",
-            "[2nd Sem] Group Dynamics",
-            "[2nd Sem] Anatomy and Physiology Lecture",
-            "[2nd Sem] Anatomy and Physiology Laboratory",
-          ],
-        },
-        {
-          year: "Intersession",
-          title: "Clinical Application",
-          description:
-            "Intensive supervised practicum applied in professional settings.",
-          subjects: ["Practicum in Psychology 1"],
-        },
-        {
-          year: "Year 4",
-          title: "Practicum & Research Defense",
-          description:
-            "Apply your knowledge in real-world clinical or corporate settings and defend your thesis.",
-          subjects: [
-            "[1st Sem] Research in Psychology 2",
-            "[2nd Sem] Special Topics in Psychology",
-          ],
-        },
-      ];
+const curriculum = sanityData?.curriculum || [];
 
 const ecosystemImages = sanityData?.ecosystemImages
   ? {
@@ -242,99 +144,9 @@ const chair = sanityData?.chair
       },
     };
 
-const faculty =
-  sanityData?.faculty && sanityData.faculty.length > 0
-    ? sanityData.faculty.map((f: any) => ({
-        name: f.name || "Faculty Name",
-        specialty: f.specialty || "Specialty",
-        credentials: f.credentials || "Credentials",
-        image: f.image?.asset?.url
-          ? { url: f.image.asset.url, alt: f.image.alt || "Faculty" }
-          : {
-              url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-              alt: "Faculty",
-            },
-      }))
-    : [
-        {
-          name: "Dr. Roberto Reyes",
-          specialty: "Clinical Psychology",
-          credentials: "Ph.D., RPsy",
-          image: {
-            url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Prof. Elena Cruz",
-          specialty: "Industrial/Organizational",
-          credentials: "M.A., RPm",
-          image: {
-            url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Dr. Miguel Torres",
-          specialty: "Experimental Psychology",
-          credentials: "Ph.D., RPm",
-          image: {
-            url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Prof. Sarah Villanueva",
-          specialty: "Development Psychology",
-          credentials: "M.A., RPm",
-          image: {
-            url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-      ];
+const faculty = sanityData?.faculty || [];
 
-const pathways =
-  sanityData?.pathways && sanityData.pathways.length > 0
-    ? sanityData.pathways
-    : [
-        {
-          title: "Corporate & Human Resources",
-          subtitle: "Workplace Psychology",
-          description:
-            "Use your understanding of people to improve company culture, hire the best talent, and keep employees happy and productive.",
-          roles: [
-            "Human Resources Officer",
-            "Recruitment Specialist",
-            "Training Coordinator",
-            "Consumer Insights Analyst",
-          ],
-        },
-        {
-          title: "Clinical & Educational",
-          subtitle: "Mental Health Support",
-          description:
-            "Take the board exam (BLEPP) and work directly in clinics or schools to guide and support individuals' mental well-being.",
-          roles: [
-            "Registered Psychometrician",
-            "Behavioral Therapist",
-            "Guidance Associate",
-            "Special Education Teacher",
-          ],
-        },
-        {
-          title: "Further Studies",
-          subtitle: "Law or Medical School",
-          description:
-            "Use your Psychology degree as a strong foundation to pursue advanced studies in medicine, law, or clinical psychology.",
-          roles: [
-            "Medical School",
-            "Law School",
-            "Master's in Psychology",
-            "Master's in Counseling",
-          ],
-        },
-      ];
+const pathways = sanityData?.pathways || [];
 const pageTitle = "Psychology | OLOPS College";
 const pageDescription =
   sanityData?.seo?.description ||
@@ -503,7 +315,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           </svg>
         </span>
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.duration || "4 Years"}</span
+          >{quickFacts.duration}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -528,7 +340,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           </svg>
         </span>
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.units || "168 Units"}</span
+          >{quickFacts.units}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -553,7 +365,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           </svg>
         </span>
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.format || "On-Campus"}</span
+          >{quickFacts.format}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"

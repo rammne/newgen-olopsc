@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import { getAcademicDepartmentByType } from "../lib/sanity/queries";
+import { getJuniorHighPage } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
 // Fetch CMS data
-const department = await getAcademicDepartmentByType("juniorHigh");
+const department = await getJuniorHighPage();
 
 // --- Image Object Mapping ---
 interface SanityImage {
@@ -114,29 +114,13 @@ const pageTitle = "Junior High School";
 const pageDescription = department?.seo?.description ?? "DepEd-accredited Junior High School blending rigorous academics with Catholic character formation, mentoring teenagers through Grades 7 to 10 at OLOPSC Marikina.";
 const ogImage = department?.seo?.image?.asset?.url;
 
-// Timeline data
-const gradeTimeline = [
-  {
-    grade: "Grade 7",
-    title: "Adjustment & Discovery",
-    text: "Transitioning from Grade School requires patience. We focus on teaching organizational skills, study habits, and digital citizenship, easing them into multiple-subject structures.",
-  },
-  {
-    grade: "Grade 8",
-    title: "Exploration & Analysis",
-    text: "The intellectual gears shift. Students dive deeper into specialized Sciences and Algebra, moving from memorizing facts to questioning systems and conducting active research.",
-  },
-  {
-    grade: "Grade 9",
-    title: "Focus & Identity",
-    text: "As peer dynamics intensify, we double down on the S-RICE values. Academically, students face advanced Chemistry and tech-voc fundamentals, requiring higher discipline and focus.",
-  },
-  {
-    grade: "Grade 10",
-    title: "Leadership & Readiness",
-    text: "The culmination of Junior High. Students take on leadership roles in clubs, complete rigorous capstone projects, and are academically hardened to seamlessly enter the specialized Senior High School strands.",
-  },
-];
+const hero = department?.hero || {};
+const objectives = hero.objectives || [];
+const journey = department?.journey || {};
+const gradeTimeline = journey.timeline || [];
+const journeyBody = journey.body || [];
+const mentorship = department?.mentorship || {};
+const finalCta = department?.finalCta || {};
 const canonicalUrl = department?.seo?.canonicalUrl;
 ---
 
@@ -156,45 +140,33 @@ const canonicalUrl = department?.seo?.canonicalUrl;
           Junior High School (Grades 7-10)
         </span>
         <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-6">
-          Guiding the Teenage Years with Purpose and Passion
+          {hero.headline}
         </h1>
         <div class="text-lg text-white leading-relaxed mb-8">
           <p class="mb-6">
-            OLOPSC Junior High School is a DepEd-recognized and PAASCU Level III Accredited institution. We deliver a rigorous academic curriculum integrated with strong Christian values, designed to guide students through their formative adolescent years and prepare them for the demands of Senior High School.
+            {hero.intro}
           </p>
-          
-          <div class="space-y-4">
-            <p class="font-bold text-accent uppercase tracking-wider text-sm mb-2">Core Objectives</p>
-            <ul class="space-y-3">
-              <li class="flex items-start gap-3">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <div>
-                  <span class="font-bold text-white">Academic Excellence:</span> 
-                  <span class="text-slate-200">Developing critical thinkers through structured, evidence-based learning experiences.</span>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <div>
-                  <span class="font-bold text-white">Character Formation:</span> 
-                  <span class="text-slate-200">Mentoring students to become responsible leaders and compassionate individuals grounded in faith.</span>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span class="text-accent text-sm font-bold">✓</span>
-                </div>
-                <div>
-                  <span class="font-bold text-white">Holistic Development:</span> 
-                  <span class="text-slate-200">Fostering personal growth, social responsibility, and a lifelong commitment to community service.</span>
-                </div>
-              </li>
-            </ul>
-          </div>
+
+          {
+            objectives.length > 0 && (
+              <div class="space-y-4">
+                <p class="font-bold text-accent uppercase tracking-wider text-sm mb-2">Core Objectives</p>
+                <ul class="space-y-3">
+                  {objectives.map((objective: any) => (
+                    <li class="flex items-start gap-3">
+                      <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span class="text-accent text-sm font-bold">✓</span>
+                      </div>
+                      <div>
+                        <span class="font-bold text-white">{objective.title}:</span>{" "}
+                        <span class="text-slate-200">{objective.description}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
         </div>
         <CtaButton cta={{ text: "Enroll Now!", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "white" }} />
       </div>
@@ -221,18 +193,11 @@ const canonicalUrl = department?.seo?.canonicalUrl;
       <!-- Left Sidebar: Sticky Context -->
       <div class="lg:col-span-5 lg:sticky lg:top-24 self-start">
         <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight leading-tight">
-          A Four-Year Journey of Growth, Character, and Excellence
+          {journey.title}
         </h2>
         <div class="text-lg text-muted leading-relaxed mb-8 space-y-4">
-          <p class="font-medium text-accent">
-            Purposefully designed to prepare students for Senior High School, College, and a lifetime of success.
-          </p>
-          <p>
-            Success in Senior High School, College, and beyond is not achieved by chance—it is intentionally built over time. At OLOPSC Junior High School, Grades 7 to 10 are carefully designed as a four-year journey of intellectual growth, character formation, and personal development.
-          </p>
-          <p>
-            Witness your child’s transformation—from a curious learner into a mature, capable, and responsible young adult prepared for the opportunities and challenges of the future.
-          </p>
+          {journey.lead && <p class="font-medium text-accent">{journey.lead}</p>}
+          {journeyBody.map((paragraph: string) => <p>{paragraph}</p>)}
         </div>
         <div class="rounded-2xl shadow-lg overflow-hidden aspect-video">
           <img
@@ -292,10 +257,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
           More Than Educators
         </span>
         <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight">
-          A Shield Against Peer Pressure
+          {mentorship.title}
         </h2>
         <p class="text-lg text-slate-300 leading-relaxed">
-          Teenagers need boundaries they can trust. Our faculty act as active mentors, utilizing our S-RICE framework (Spirituality, Responsibility, Integrity, Caring Culture, Excellence) to create a culture of absolute accountability. We proactively address digital etiquette, emotional intelligence, and respect, ensuring the Marikina community receives citizens of profound character.
+          {mentorship.content}
         </p>
       </div>
 
@@ -307,10 +272,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
     <!-- Header Container -->
     <div class="max-w-4xl mx-auto px-6 text-center mb-16">
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
-        Facilities Built for Discovery & Growth
+        {department?.facilitiesHeader?.title}
       </h2>
       <p class="text-lg text-muted leading-relaxed">
-        Independence requires the right environment. From adult-style science laboratories to vibrant athletic courts, our campus provides the spaces necessary for teenagers to safely experiment, collaborate, and lead.
+        {department?.facilitiesHeader?.description}
       </p>
     </div>
 
@@ -342,10 +307,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
   <section class="bg-primary py-24">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
-        The Right School for the Hardest Years
+        {finalCta.title}
       </h2>
       <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-        Your teenager deserves an institution that understands their world. Visit our campus, meet our mentors, and see why families across Marikina trust OLOPSC for Junior High School.
+        {finalCta.content}
       </p>
       <CtaButton cta={{ text: "Book a Campus Tour", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
     </div>

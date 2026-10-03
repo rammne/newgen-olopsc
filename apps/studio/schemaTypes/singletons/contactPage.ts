@@ -28,6 +28,34 @@ export const contactPage = defineType({
       group: 'content',
     }),
     defineField({
+      name: 'mainContact',
+      title: 'Main Contact Details',
+      type: 'object',
+      description: 'Shown in the three cards near the top of the Contact page',
+      group: 'content',
+      fields: [
+        defineField({
+          name: 'address',
+          title: 'Address',
+          type: 'text',
+          rows: 2,
+          description: 'Shown in the "Visit Us" card. Line breaks are preserved.',
+        }),
+        defineField({
+          name: 'phone',
+          title: 'Phone Number',
+          type: 'string',
+          description: 'Shown in the "Call Us" card, e.g. "(+632) 8997-7777"',
+        }),
+        defineField({
+          name: 'email',
+          title: 'Email Address',
+          type: 'email',
+          description: 'Shown in the "Email Us" card',
+        }),
+      ],
+    }),
+    defineField({
       name: 'departments',
       title: 'Department Contacts',
       type: 'array',

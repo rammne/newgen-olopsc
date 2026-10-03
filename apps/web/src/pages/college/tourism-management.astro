@@ -26,11 +26,7 @@ const heroBackground = sanityData?.heroBackground?.asset?.url
       alt: "Premium hotel lobby or airport terminal",
     };
 
-const quickFacts = sanityData?.quickFacts || {
-  duration: "4 Years",
-  units: "156 Units",
-  format: "Hybrid + Practicum",
-};
+const quickFacts = sanityData?.quickFacts || {};
 
 const overviewMainImage = sanityData?.overviewMainImage?.asset?.url
   ? {
@@ -53,105 +49,9 @@ const overviewSubImage = sanityData?.overviewSubImage?.asset?.url
       alt: "Hospitality Logistics Management",
     };
 
-const outcomes =
-  sanityData?.outcomes && sanityData.outcomes.length > 0
-    ? sanityData.outcomes
-    : [
-        {
-          title: "Travel & Flight Operations",
-          description:
-            "Learn the ins and outs of international travel, including airline operations, ticketing systems, and flight attendant service.",
-        },
-        {
-          title: "Event Planning & Management",
-          description:
-            "Gain the skills to organize, plan, and successfully run large events like conferences, conventions, and travel expos.",
-        },
-        {
-          title: "Sustainable Tourism",
-          description:
-            "Understand how to promote and manage tourist spots in a way that protects the environment and supports local communities.",
-        },
-        {
-          title: "Hospitality & Guest Services",
-          description:
-            "Develop a strong foundation in providing excellent customer service and managing hotel and resort operations.",
-        },
-      ];
+const outcomes = sanityData?.outcomes || [];
 
-const curriculum =
-  sanityData?.curriculum && sanityData.curriculum.length > 0
-    ? sanityData.curriculum
-    : [
-        {
-          year: "Year 1",
-          title: "Foundations of Global Tourism",
-          description:
-            "Master the fundamental concepts of the hospitality industry, global geography, and corporate management.",
-          subjects: [
-            "[1st Sem] Macro Perspectives of Tourism and Hospitality",
-            "[1st Sem] Risk Management as Applied to Safety, Security and Sanitation",
-            "[2nd Sem] Philippine Culture and Tourism Geography",
-            "[2nd Sem] Micro Perspective of Tourism and Hospitality",
-            "[2nd Sem] Professional Development and Applied Ethics",
-          ],
-        },
-        {
-          year: "Year 2",
-          title: "Travel Operations & Logistics",
-          description:
-            "Dive into the mechanics of moving people globally, focusing on aviation, ticketing, and marketing.",
-          subjects: [
-            "[1st Sem] Tourism and Hospitality Marketing",
-            "[1st Sem] Foreign Language 1",
-            "[1st Sem] Global Culture and Tourism Geography",
-            "[1st Sem] Tour Guiding (Professional Elective 1)",
-            "[2nd Sem] Applied Business Tools and Technologies in Tourism",
-            "[2nd Sem] Tour and Travel Management",
-            "[2nd Sem] Sustainable Tourism",
-            "[2nd Sem] Foreign Language 2",
-            "[2nd Sem] Cabin Service Operation (Professional Elective 2)",
-          ],
-        },
-        {
-          year: "Year 3",
-          title: "Enterprise Management & MICE",
-          description:
-            "Learn to architect large-scale events and manage sustainable tourism enterprises.",
-          subjects: [
-            "[1st Sem] Recreation and Leisure Management (Professional Elective 3)",
-            "[1st Sem] Legal Aspects in Tourism and Hospitality",
-            "[1st Sem] Quality Service Management in Tourism and Hospitality",
-            "[1st Sem] Foreign Language 3",
-            "[1st Sem] Research in Tourism 1",
-            "[1st Sem] Domestic and International Tour Planning, Packaging and Pricing (Professional Elective 4)",
-            "[1st Sem] Travel Writing and Photography (Professional Elective 5)",
-            "[2nd Sem] Multi-Cultural Diversity in the Workplace for the Tourism Professional",
-            "[2nd Sem] Foreign Language 4",
-            "[2nd Sem] Introduction to Meetings, Incentives, Conferences and Events Management",
-            "[2nd Sem] Operations Management",
-            "[2nd Sem] Accommodation Operation Management (Professional Elective 6)",
-            "[2nd Sem] Heritage Tourism (Professional Elective 7)",
-            "[2nd Sem] Research in Tourism 2",
-          ],
-        },
-        {
-          year: "Year 4",
-          title: "Practicum & Strategic Leadership",
-          description:
-            "Apply your operational knowledge in real-world local and international practicum settings.",
-          subjects: [
-            "[1st Sem] Strategic Management",
-            "[1st Sem] Entrepreneurship in Tourism and Hospitality",
-            "[1st Sem] Meal Management for Tourism Professionals (Professional Elective 8)",
-            "[1st Sem] Transportation Management",
-            "[1st Sem] Agritourism (Professional Elective 9)",
-            "[1st Sem] Cruise Tourism (Professional Elective 10)",
-            "[1st Sem] Destination Management and Marketing (Professional Elective 11)",
-            "[2nd Sem] Practicum (600 hours)",
-          ],
-        },
-      ];
+const curriculum = sanityData?.curriculum || [];
 
 const ecosystemImages = sanityData?.ecosystemImages
   ? {
@@ -250,108 +150,9 @@ const chair = sanityData?.chair
       },
     };
 
-const faculty =
-  sanityData?.faculty && sanityData.faculty.length > 0
-    ? sanityData.faculty.map((f: any) => ({
-        name: f.name || "Faculty Name",
-        specialty: f.specialty || "Specialty",
-        credentials: f.credentials || "Credentials",
-        image: f.image?.asset?.url
-          ? { url: f.image.asset.url, alt: f.image.alt || "Faculty" }
-          : {
-              url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-              alt: "Faculty",
-            },
-      }))
-    : [
-        {
-          name: "Capt. Roberto Reyes",
-          specialty: "Aviation Management",
-          credentials: "M.S., Commercial Pilot",
-          image: {
-            url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Elena Cruz",
-          specialty: "Luxury Hotel Operations",
-          credentials: "M.A., Former GM",
-          image: {
-            url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Dr. Miguel Torres",
-          specialty: "MICE & Corporate Events",
-          credentials: "Ph.D., Event Architect",
-          image: {
-            url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Sarah Villanueva",
-          specialty: "Sustainable Tourism",
-          credentials: "M.S., Eco-Tourism Consultant",
-          image: {
-            url: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-        {
-          name: "Sarah Villanueva",
-          specialty: "Sustainable Tourism",
-          credentials: "M.S., Eco-Tourism Consultant",
-          image: {
-            url: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
-            alt: "Faculty",
-          },
-        },
-      ];
+const faculty = sanityData?.faculty || [];
 
-const pathways =
-  sanityData?.pathways && sanityData.pathways.length > 0
-    ? sanityData.pathways
-    : [
-        {
-          title: "Airlines & Travel Agencies",
-          subtitle: "Travel Operations",
-          description:
-            "Help people explore the world. Work as a flight attendant or build a career in travel agencies arranging tours, flights, and dream vacations.",
-          roles: [
-            "Flight Attendant / Cabin Crew",
-            "Aviation Ground Operations Manager",
-            "Travel Agency Director",
-            "Tour Coordinator",
-          ],
-        },
-        {
-          title: "Hotels & Resorts",
-          subtitle: "Hospitality Management",
-          description:
-            "Be part of the growing hotel industry. Manage daily operations, ensure excellent guest experiences, and lead teams in beautiful resorts.",
-          roles: [
-            "Hotel General Manager",
-            "Guest Relations Executive",
-            "Resort Operations Director",
-            "Front Office Manager",
-          ],
-        },
-        {
-          title: "Events & Conventions",
-          subtitle: "Event Planning",
-          description:
-            "Plan and organize major events, from corporate conferences to exciting travel expos. Ensure every detail is perfect for the attendees.",
-          roles: [
-            "Event Organizer / Coordinator",
-            "Convention Manager",
-            "Corporate Travel Manager",
-            "Destination Marketing Executive",
-          ],
-        },
-      ];
+const pathways = sanityData?.pathways || [];
 const pageTitle = "Tourism Management | OLOPS College";
 const pageDescription =
   sanityData?.seo?.description ||
@@ -519,7 +320,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.duration || "4 Years"}</span
+          >{quickFacts.duration}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -543,7 +344,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.units || "156 Units"}</span
+          >{quickFacts.units}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"
@@ -567,7 +368,7 @@ const canonicalUrl = sanityData?.seo?.canonicalUrl;
           ></span
         >
         <span class="text-xl font-black text-primary tracking-tight"
-          >{quickFacts.format || "Hybrid + Practicum"}</span
+          >{quickFacts.format}</span
         >
         <span
           class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1"

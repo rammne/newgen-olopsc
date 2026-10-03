@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaButton from "../components/common/CtaButton.astro";
-import { getAcademicDepartmentByType } from "../lib/sanity/queries";
+import { getSeniorHighPage } from "../lib/sanity/queries";
 import { getSanityImageUrl } from "../lib/utils/sanity";
 import "../styles/global.css";
 
 // Fetch CMS data
-const department = await getAcademicDepartmentByType("seniorHigh");
+const department = await getSeniorHighPage();
 
 // --- Image Object Mapping ---
 interface SanityImage {
@@ -109,6 +109,9 @@ const shsCultureGallery: ShsCultureImage[] = hasValidGallery
     ];
 
 
+const trackClusters = department?.trackClusters || {};
+const clusters = trackClusters.clusters || [];
+
 // SEO metadata
 const pageTitle = "Senior High School";
 const pageDescription = department?.seo?.description ?? "CHED-recognized Senior High School offering STEM, Business, Arts & Humanities, and TECHPRO track clusters with DepEd SHS Voucher acceptance at OLOPSC Marikina.";
@@ -132,10 +135,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
           Senior High School (Grades 11-12)
         </span>
         <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none mb-6">
-          {department?.hero?.headline || "Command Your Future. We Provide the Blueprint."}
+          {department?.hero?.headline}
         </h1>
         <p class="text-lg text-slate-300 leading-relaxed mb-8">
-          {department?.hero?.subheadline || "Senior High School is the definitive step toward your career. At OLOPSC, we treat our SHS students as responsible young adults, providing the academic freedom to pursue specific passions, while giving parents the peace of mind of a secure, credible, and values-driven Catholic institution."}
+          {department?.hero?.subheadline}
         </p>
         <div class="flex flex-wrap gap-4">
           <CtaButton cta={{ text: "Contact Admissions", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
@@ -173,10 +176,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
           Fully Implemented for School Year 2026–2027
         </span>
         <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight leading-tight">
-          {department?.curriculum?.title || "Specialized SHS Track Clusters"}
+          {trackClusters.title}
         </h2>
         <p class="text-lg text-muted leading-relaxed">
-          We offer Academic and TechPro Track Clusters designed to help students prepare for college and their future careers.
+          {trackClusters.intro}
         </p>
       </div>
 
@@ -186,56 +189,36 @@ const canonicalUrl = department?.seo?.canonicalUrl;
           Students can choose from the following Track Clusters:
         </p>
 
-        <div class="mb-6">
-          <h4 class="font-bold text-primary text-lg mb-3">Academic Track Clusters:</h4>
-          <ul class="space-y-4 pl-2">
-            <li class="flex items-start gap-4">
-              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span class="text-accent text-sm font-bold">✓</span>
-              </div>
-              <span class="text-primary font-medium leading-relaxed">Arts, Social Sciences and Humanities (ASSH)</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span class="text-accent text-sm font-bold">✓</span>
-              </div>
-              <span class="text-primary font-medium leading-relaxed">Business and Entrepreneurship (BAE)</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span class="text-accent text-sm font-bold">✓</span>
-              </div>
-              <span class="text-primary font-medium leading-relaxed">Science, Technology, Engineering and Mathematics (STEM)</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-8">
-          <h4 class="font-bold text-primary text-lg mb-3">TECHPRO Track Clusters:</h4>
-          <ul class="space-y-4 pl-2">
-            <li class="flex items-start gap-4">
-              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span class="text-accent text-sm font-bold">✓</span>
-              </div>
-              <span class="text-primary font-medium leading-relaxed">Hospitality and Tourism (HT)</span>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span class="text-accent text-sm font-bold">✓</span>
-              </div>
-              <span class="text-primary font-medium leading-relaxed">Information and Communications Technology (ICT)</span>
-            </li>
-          </ul>
-        </div>
+        {
+          clusters.map((cluster: any, i: number) => (
+            <div class={i === clusters.length - 1 ? "mb-8" : "mb-6"}>
+              <h4 class="font-bold text-primary text-lg mb-3">{cluster.name}:</h4>
+              <ul class="space-y-4 pl-2">
+                {(cluster.tracks || []).map((track: any) => (
+                  <li class="flex items-start gap-4">
+                    <div class="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span class="text-accent text-sm font-bold">✓</span>
+                    </div>
+                    <span class="text-primary font-medium leading-relaxed">{track.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
 
         <p class="text-muted mb-6 leading-relaxed">
-          Our program combines classroom learning with hands-on skills and character building. This ensures that OLOPSC graduates are ready for college, work, or starting their own business.
+          {trackClusters.note}
         </p>
-        <div class="bg-primary/5 p-6 rounded-2xl border-l-4 border-accent">
-          <p class="text-primary font-medium italic">
-            "At OLOPSC Senior High School, we help every student find their passion and become ready for the future."
-          </p>
-        </div>
+        {
+          trackClusters.quote && (
+            <div class="bg-primary/5 p-6 rounded-2xl border-l-4 border-accent">
+              <p class="text-primary font-medium italic">
+                "{trackClusters.quote}"
+              </p>
+            </div>
+          )
+        }
       </div>
     </div>
   </section>
@@ -244,144 +227,65 @@ const canonicalUrl = department?.seo?.canonicalUrl;
   <section id="track-clusters" class="bg-surface py-24">
     <div class="max-w-5xl mx-auto px-6 text-center mb-16">
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
-        {department?.trackClusters?.title || "Tailored Pathways for Every Ambition"}
+        {trackClusters.detailTitle}
       </h2>
       <p class="text-muted">
-        Choose the exact curriculum that aligns with your dream university course or immediate career goals.
+        {trackClusters.subtitle}
       </p>
     </div>
 
-    <!-- Block A: Academic Track Clusters (Text Left, Image Right) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20 max-w-7xl mx-auto px-6">
-      <div>
-        <h3 class="text-3xl font-bold text-primary mb-6">
-          Academic Track Clusters
-        </h3>
-        <div class="flex flex-col gap-8">
-          <!-- ASSH -->
-          <div>
-            <p class="font-bold text-lg text-primary mb-2">
-              Arts, Social Sciences and Humanities (ASSH)
-            </p>
-            <p class="text-muted mb-4">
-              Nurtures critical thinking, effective communication, and a deeper understanding of society and human behavior. Learners engage in the study of literature, social sciences, philosophy, culture, media, and the arts.
-            </p>
-            <div class="space-y-2 text-sm">
-              <p>
-                <span class="font-semibold text-primary">Skills Developed:</span> <span class="text-muted">Research, analysis, leadership, and advocacy.</span>
-              </p>
-              <p>
-                <span class="font-semibold text-primary">Target Careers:</span> <span class="text-muted">Education, law, public service, psychology, communication, journalism, creative industries, and other humanities-related fields.</span>
-              </p>
+    {
+      clusters.map((cluster: any, i: number) => {
+        const image = i % 2 === 0 ? academicTrackImage : techproTrackImage;
+        const textFirst = i % 2 === 0;
+        const isLast = i === clusters.length - 1;
+        return (
+          <div class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto px-6 ${isLast ? "" : "mb-20"}`}>
+            <div class={textFirst ? "" : "order-1 lg:order-2"}>
+              <h3 class="text-3xl font-bold text-primary mb-6">{cluster.name}</h3>
+              {cluster.description && (
+                <p class="text-muted mb-6">{cluster.description}</p>
+              )}
+              <div class="flex flex-col gap-8">
+                {(cluster.tracks || []).map((track: any) => (
+                  <div>
+                    <p class="font-bold text-lg text-primary mb-2">{track.name}</p>
+                    {track.description && (
+                      <p class="text-muted mb-4">{track.description}</p>
+                    )}
+                    <div class="space-y-2 text-sm">
+                      {track.skills && (
+                        <p>
+                          <span class="font-semibold text-primary">Skills Developed:</span>{" "}
+                          <span class="text-muted">{track.skills}</span>
+                        </p>
+                      )}
+                      {track.outcomes && (
+                        <p>
+                          <span class="font-semibold text-primary">Target Outcomes:</span>{" "}
+                          <span class="text-muted">{track.outcomes}</span>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class={`aspect-square rounded-3xl overflow-hidden shadow-lg ${textFirst ? "" : "order-2 lg:order-1"}`}>
+              <img
+                src={image.url}
+                alt={image.alt}
+                width="1200"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover"
+              />
             </div>
           </div>
-          <!-- BAE -->
-          <div>
-            <p class="font-bold text-lg text-primary mb-2">
-              Business and Entrepreneurship (BAE)
-            </p>
-            <p class="text-muted mb-4">
-              Prepares students to become innovative thinkers, future business leaders, and entrepreneurial problem-solvers in an increasingly dynamic economy.
-            </p>
-            <div class="space-y-2 text-sm">
-              <p>
-                <span class="font-semibold text-primary">Skills Developed:</span> <span class="text-muted">Business management, marketing, finance, entrepreneurship, organizational leadership, creativity, strategic thinking, and decision-making.</span>
-              </p>
-              <p>
-                <span class="font-semibold text-primary">Target Outcomes:</span> <span class="text-muted">Success in business and enterprise through practical and experiential learning.</span>
-              </p>
-            </div>
-          </div>
-          <!-- STEM -->
-          <div>
-            <p class="font-bold text-lg text-primary mb-2">
-              Science, Technology, Engineering and Mathematics (STEM)
-            </p>
-            <p class="text-muted mb-4">
-              Provides a strong foundation in science, mathematics, technology, and innovation. Students engage in advanced learning experiences that strengthen their understanding of real-world scientific applications.
-            </p>
-            <div class="space-y-2 text-sm">
-              <p>
-                <span class="font-semibold text-primary">Skills Developed:</span> <span class="text-muted">Analytical thinking, problem-solving, scientific inquiry, research capabilities, and technical competencies.</span>
-              </p>
-              <p>
-                <span class="font-semibold text-primary">Target Outcomes:</span> <span class="text-muted">Rigorous university programs and careers that drive innovation and technological advancement.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="aspect-square rounded-3xl overflow-hidden shadow-lg">
-        <img
-          src={academicTrackImage.url}
-          alt={academicTrackImage.alt}
-          width="1200"
-          height="1200"
-          loading="lazy"
-          decoding="async"
-          class="w-full h-full object-cover"
-        />
-      </div>
-    </div>
-
-    <!-- Block B: TECHPRO Track Clusters (Image Left, Text Right) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto px-6">
-      <div class="aspect-square rounded-3xl overflow-hidden shadow-lg order-2 lg:order-1">
-        <img
-          src={techproTrackImage.url}
-          alt={techproTrackImage.alt}
-          width="1200"
-          height="1200"
-          loading="lazy"
-          decoding="async"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      <div class="order-1 lg:order-2">
-        <h3 class="text-3xl font-bold text-primary mb-6">
-          TECHPRO Track Clusters
-        </h3>
-        <p class="text-muted mb-6">
-          An aggressive, hands-on pipeline designed for highly specialized technical skills, NC II certifications, and direct entry into tech or hospitality sectors.
-        </p>
-        <div class="flex flex-col gap-8">
-          <!-- HT -->
-          <div>
-            <p class="font-bold text-lg text-primary mb-2">
-              Hospitality and Tourism (HT)
-            </p>
-            <p class="text-muted mb-4">
-              Equips students with the professionalism and customer service excellence required in one of the world's fastest-growing industries.
-            </p>
-            <div class="space-y-2 text-sm">
-              <p>
-                <span class="font-semibold text-primary">Skills Developed:</span> <span class="text-muted">Hospitality operations, tourism management, event coordination, travel services, guest relations, adaptability, and service-oriented competencies.</span>
-              </p>
-              <p>
-                <span class="font-semibold text-primary">Target Outcomes:</span> <span class="text-muted">Confidence and practical knowledge valued in both local and international settings through industry-aligned training and experiential activities.</span>
-              </p>
-            </div>
-          </div>
-          <!-- ICT -->
-          <div>
-            <p class="font-bold text-lg text-primary mb-2">
-              Information and Communications Technology (ICT)
-            </p>
-            <p class="text-muted mb-4">
-              Empowers students to thrive in the digital age by developing technical skills in computing, programming, digital systems, and emerging technologies.
-            </p>
-            <div class="space-y-2 text-sm">
-              <p>
-                <span class="font-semibold text-primary">Skills Developed:</span> <span class="text-muted">Problem-solving, innovation, and digital literacy skills.</span>
-              </p>
-              <p>
-                <span class="font-semibold text-primary">Target Outcomes:</span> <span class="text-muted">Technology-driven careers and further studies in computing and related disciplines.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        );
+      })
+    }
   </section>
 
   <!-- ==================== SECTION 3: Culture & Autonomy ==================== -->
@@ -391,10 +295,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
         Campus Life & Facilities
       </span>
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tight">
-        {department?.facilitiesHeader?.title || "Independence, Respected."}
+        {department?.facilitiesHeader?.title}
       </h2>
       <p class="text-lg text-muted leading-relaxed">
-        {department?.facilitiesHeader?.description || "We know you aren't kids anymore. Our Senior High environment is built on mutual respect. You will have access to modern science labs, collegiate-level library hubs, and a vibrant campus culture full of specialized clubs where your ideas are taken seriously. You have the autonomy to lead; we provide the platform."}
+        {department?.facilitiesHeader?.description}
       </p>
     </div>
 
@@ -485,10 +389,10 @@ const canonicalUrl = department?.seo?.canonicalUrl;
   <section class="bg-surface py-20 text-center">
     <div class="max-w-3xl mx-auto px-6">
       <h2 class="text-3xl md:text-5xl font-black text-primary mb-6">
-        {department?.admissionInfo?.title || "Ready to Start Your Journey?"}
+        {department?.admissionInfo?.title}
       </h2>
       <p class="text-lg text-primary/80 font-medium mb-10">
-        {department?.admissionInfo?.content || "The enrollment process is straightforward. Secure your slot for the upcoming academic year today."}
+        {department?.admissionInfo?.content}
       </p>
       <CtaButton cta={{ text: "Start Enrollment Process", link: { type: "external", external: "/admissions/basic-education-admission" }, style: "primary" }} />
     </div>

@@ -46,8 +46,7 @@ const getSocialIcon = (platform: string) => {
 };
 const canonicalUrl = contactPage?.seo?.canonicalUrl;
 
-const heroHeadline =
-  contactPage?.hero?.headline || "Get in Touch";
+const heroHeadline = contactPage?.hero?.headline || "Get in Touch";
 const heroSubheadline =
   contactPage?.hero?.subheadline ||
   "Have questions about admissions, programs, or campus life? We're here to help. Reach out to us and we'll get back to you as soon as possible.";
@@ -58,6 +57,14 @@ const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
       fit: "crop",
     })
   : null;
+
+const address =
+  contactPage?.mainContact?.address ||
+  "Gen. Ordoñez St., Concepcion Uno,\nMarikina City, Philippines";
+const phone = contactPage?.mainContact?.phone || "(+632) 8997-7777";
+const email = contactPage?.mainContact?.email || "admissions@olopsc.edu.ph";
+const phoneHref = `tel:+${phone.replace(/[^0-9]/g, "")}`;
+const emailHref = `mailto:${email}`;
 ---
 
 <Layout
@@ -171,8 +178,8 @@ const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
               <MapPin class="w-8 h-8" />
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">Visit Us</h3>
-            <p class="text-gray-600 leading-relaxed">
-              Gen. Ordoñez St., Concepcion Dos,<br />Marikina City, Philippines
+            <p class="text-gray-600 leading-relaxed whitespace-pre-line">
+              {address}
             </p>
           </div>
         </ScrollRevealWrapper>
@@ -187,9 +194,9 @@ const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
               <Phone class="w-8 h-8" />
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">Call Us</h3>
-            <p class="text-gray-600 mb-4">(+632) 8997-7777</p>
+            <p class="text-gray-600 mb-4">{phone}</p>
             <a
-              href="tel:+63289977777"
+              href={phoneHref}
               class="text-accent font-semibold hover:underline"
             >
               Call Now
@@ -207,9 +214,9 @@ const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
               <Mail class="w-8 h-8" />
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">Email Us</h3>
-            <p class="text-gray-600 mb-4">admissions@olopsc.edu.ph</p>
+            <p class="text-gray-600 mb-4">{email}</p>
             <a
-              href="mailto:admissions@olopsc.edu.ph"
+              href={emailHref}
               class="text-accent font-semibold hover:underline"
             >
               Send an Email
@@ -295,25 +302,6 @@ const bgImageUrl = contactPage?.hero?.backgroundImage?.asset?.url
                     </div>
                   </div>
                 ))}
-                {/* Student Support - College CSA */}
-                <div class="bg-white p-6 rounded-xl border border-neutral-200 hover:border-accent/50 hover:shadow-md transition duration-300">
-                  <h4 class="font-bold text-lg text-primary mb-4 border-b pb-2">
-                    Student Support
-                  </h4>
-                  <div class="space-y-3 text-sm text-gray-600">
-                    <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-accent shrink-0">
-                        <Mail size={14} />
-                      </div>
-                      <a
-                        href="mailto:college.csa@olopsc.edu.ph"
-                        class="hover:text-accent transition truncate"
-                      >
-                        college.csa@olopsc.edu.ph
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </ScrollRevealWrapper>

@@ -65,6 +65,22 @@ export const educationLiberalArts = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'tracks',
+      title: 'Degree Tracks Matrix',
+      type: 'array',
+      group: 'hero',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({name: 'title', title: 'Title', type: 'string'}),
+            defineField({name: 'subtitle', title: 'Subtitle', type: 'string'}),
+            defineField({name: 'description', title: 'Description', type: 'text', rows: 3}),
+          ],
+        },
+      ],
+    }),
 
     // --- PROGRAM OVERVIEW ---
     defineField({

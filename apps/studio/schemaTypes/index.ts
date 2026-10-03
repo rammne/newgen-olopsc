@@ -36,6 +36,9 @@ import { settings } from './singletons/settings'
 import { aboutPage } from './singletons/aboutPage'
 import { sdgPage } from './singletons/sdgPage'
 import { alumniPage } from './singletons/alumniPage'
+import { seniorHighPage } from './singletons/seniorHighPage'
+import { juniorHighPage } from './singletons/juniorHighPage'
+import { preschoolPage } from './singletons/preschoolPage'
 
 // College Programs (Fixed Singletons)
 import { tourismManagement } from './college/tourismManagement'
@@ -82,6 +85,9 @@ export const schemaTypes = [
   settings,
   sdgPage,
   alumniPage,
+  seniorHighPage,
+  juniorHighPage,
+  preschoolPage,
   // College Programs
   tourismManagement,
   hospitalityManagement,

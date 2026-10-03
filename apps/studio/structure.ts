@@ -79,14 +79,26 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             .title('Academic')
             .items([
               S.listItem()
-                .title('Academic Departments')
+                .title('Department Cards (Home Page)')
                 .icon(School)
                 .child(
                   S.documentTypeList('academicDepartment')
-                    .title('Academic Departments')
+                    .title('Department Cards (Home Page)')
                     .filter('_type == "academicDepartment"')
                     .defaultOrdering([{ field: 'title', direction: 'asc' }])
                 ),
+              S.listItem()
+                .title('Senior High School Page')
+                .icon(GraduationCap)
+                .child(S.document().schemaType('seniorHighPage').documentId('seniorHighPage')),
+              S.listItem()
+                .title('Junior High School Page')
+                .icon(BookOpen)
+                .child(S.document().schemaType('juniorHighPage').documentId('juniorHighPage')),
+              S.listItem()
+                .title('Preschool Page')
+                .icon(School)
+                .child(S.document().schemaType('preschoolPage').documentId('preschoolPage')),
               S.listItem()
                 .title('College Programs')
                 .icon(BookOpen)
@@ -204,6 +216,9 @@ export const structure = (S: StructureBuilder, context: StructureResolverContext
             'computingStudies',
             'psychology',
             'admissionAnnouncement',
+            'seniorHighPage',
+            'juniorHighPage',
+            'preschoolPage',
           ].includes(listItem.getId() || '')
       ),
     ])
